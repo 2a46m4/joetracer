@@ -8,18 +8,16 @@ namespace utils
     class Point
     {
     public:
-        int x;
-        int y;
-        int z;
+        float x, y, z;
 
         Point();
 
-        Point(int x, int y, int z);
+        Point(float x, float y, float z);
 
         // Returns distance between two points
         double dist(Point p);
 
-        void addVector(Vec v);
+        Vec direction();
     };
 }
 

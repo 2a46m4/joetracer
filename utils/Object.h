@@ -8,6 +8,7 @@ namespace utils
     class Object
     {
     public:
+        Point location;
         int x;
         int y;
         int z;

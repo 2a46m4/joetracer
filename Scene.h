@@ -4,7 +4,7 @@
 #include "utils/Point.h"
 #include "utils/Vec.h"
 #include "utils/Object.h"
-#include "utils/Camera.h"
+#include "PinholeCamera.h"
 
 #include <math.h>
 #include <vector>
@@ -19,14 +19,16 @@ private:
     int height;
     int width;
 
-    camera c;
+    std::vector<Point> lights;
+    std::vector<Object> objects;
+    PinholeCamera camera;
 
 public:
     Scene();
 
     Scene(int w, int h);
 
-    void render();
+    void render() const;
 
     void addObject(Object o);
 
@@ -42,6 +44,8 @@ public:
 
     void deleteScene();
 
+    std::vector<Point> getLights() const;
+
     Point *trace(Vec ray, int depth);
 
     std::pair<double, Object> *intersectScene(Vec ray);
@@ -50,8 +54,6 @@ public:
 
     Vec *surface();
     
-    std::vector<Point> lights;
-    std::vector<Object> objects;
 };
 
 #endif

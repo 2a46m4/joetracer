@@ -1,11 +1,27 @@
 #include <SDL2/SDL.h>
+#include <stdio.h>
 #include "Scene.h"
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 400;
 
+bool init();
+
+bool loadMedia();
+
+void close();
+
 int main(int argc, char *args[])
 {
+
+    SDL_Window *gWindow = NULL;
+
+    SDL_Surface *gScreenSurface = NULL;
+
+    SDL_Surface *gHelloWorld = NULL;
+
+    bool init();
+
     // The window we'll be rendering to
     SDL_Window *window = NULL;
 
@@ -33,14 +49,33 @@ int main(int argc, char *args[])
     // Scene* s = new Scene(SCREEN_WIDTH, SCREEN_HEIGHT);
     // s->render();
 
+    int channels = 3;
+    char* pixels = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
+
+    for(int i = 0; i < SCREEN_HEIGHT * SCREEN_WIDTH * channels; i++) {
+        pixels[i] = 128;
+    }
+
+    SDL_Surface *surface = SDL_CreateRGBSurfaceFrom((void*)pixels,
+                    SCREEN_WIDTH,
+                    SCREEN_HEIGHT,
+                    channels * 8,
+                    SCREEN_WIDTH * channels,
+                    0x0000FF,
+                    0x00FF00,
+                    0xFF0000,
+                    0);
+
     // Fill the surface white
-    SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
+    // SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
+
+    SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 0xFF, 0xFF, 0xFF));
 
     // Update the surface
     SDL_UpdateWindowSurface(window);
 
     // Wait two seconds
-    SDL_Delay(2000);
+    SDL_Delay(5000);
 
     // Destroy window
     SDL_DestroyWindow(window);
@@ -49,4 +84,17 @@ int main(int argc, char *args[])
     SDL_Quit();
 
     return 0;
+}
+
+bool init()
+{
+
+}
+
+bool loadMedia()
+{
+}
+
+void close()
+{
 }

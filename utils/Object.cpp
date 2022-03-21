@@ -26,6 +26,6 @@ namespace utils {
         }
 
         Object::Object(int w, int h, int l, int x, int y, int z, int r, int g, int b) {
-            // Implement
+            // Implement rectangle
         }
 }

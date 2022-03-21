@@ -1,4 +1,5 @@
 #include "Point.h"
+#include "Vec.h"
 #include <cmath>
 
 namespace utils
@@ -10,7 +11,7 @@ namespace utils
         z = 0;
     }
 
-    Point::Point(int x, int y, int z)
+    Point::Point(float x, float y, float z)
     {
         this->x = x;
         this->y = y;
@@ -26,11 +27,8 @@ namespace utils
 
         return sqrt(a + b + c);
     }
-
-    void Point::addVector(Vec v) {
-        x += v.dx;
-        y += v.dy;
-        z += v.dz;
+    
+    Vec Point::direction() {
+        return Vec(x, y, z);
     }
-
 }
