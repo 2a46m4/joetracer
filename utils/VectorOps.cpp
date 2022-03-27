@@ -1,7 +1,7 @@
 #include "VectorOps.h"
-#include "Vec.h"
-#include "Point.h"
-#include <math.h>
+#include <cmath>
+
+using namespace utils;
 
 namespace math
 {
@@ -75,4 +75,4 @@ namespace math
         return b;
     }
 
-} // namespace utils
+} 

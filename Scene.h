@@ -6,7 +6,7 @@
 #include "utils/Sphere.h"
 #include "PinholeCamera.h"
 #include "utils/Surfel.h"
-#include "math/VectorOps.h"
+#include "utils/VectorOps.h"
 
 #include <math.h>
 #include <vector>

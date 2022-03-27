@@ -4,8 +4,9 @@
 #include "utils/Sphere.h"
 #include "PinholeCamera.h"
 #include "utils/Surfel.h"
-#include "utils/math/VectorOps.h"
+#include "utils/VectorOps.h"
 
+#include <iostream>
 #include <math.h>
 #include <vector>
 #include <utility>
@@ -27,8 +28,8 @@ Scene::Scene(int w, int h)
 
 char *Scene::render() const
 {
-    PinholeCamera camera;
-    char* pixels = new char[width * height * 3];
+    PinholeCamera *camera = new PinholeCamera(1.0f, 45.0f, Point(0, 0, 0));
+    char *pixels = new char[width * height * 3];
 
     int loc = 0;
     for (int y = 0; y < height; ++y)
@@ -38,7 +39,7 @@ char *Scene::render() const
             Point P;
             Vec w;
 
-            camera.getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, P, w);
+            camera->getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, P, w);
 
             Point col = debugColour(P, w);
 
@@ -67,13 +68,16 @@ Point Scene::debugColour(Point P, Vec w) const
 
 bool Scene::debugIntersection(Point P, Vec w) const
 {
-    for(auto sphere : spheres) {
-        
+    for (auto sphere : spheres)
+    {
+
         Vec v = math::sub(P.direction(), sphere.location.direction());
         int a = math::dotProduct(w, v) * math::dotProduct(w, v);
         int b = math::dotProduct(w, w) * (math::dotProduct(v, v) - (sphere.rad * sphere.rad));
-        if(a - b < 0) return false;
-        else return true;
+        if (a - b > 0)
+        {
+            return true;
+        }
     }
     return false;
 }
@@ -88,7 +92,8 @@ void Scene::addSphere(Sphere o)
     spheres.push_back(o);
 }
 
-void Scene::debugAddSphere(int r, int x, int y, int z) {
+void Scene::debugAddSphere(int r, int x, int y, int z)
+{
     spheres.push_back(Sphere(r, Point(100, 100, 100), Point(x, y, z)));
 }
 

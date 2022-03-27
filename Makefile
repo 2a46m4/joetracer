@@ -6,10 +6,10 @@ CC := clang++
 # set the compiler flags
 CFLAGS := `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm
 # add header files here
-HDRS := utils/
+HDRS := Scene.h utils/Point.h utils/Ray.h utils/Sphere.h utils/Vec.h utils/VectorOps.h PinholeCamera.h
 
 # add source files here
-SRCS := main.cpp utils/
+SRCS := main.cpp Scene.cpp utils/Point.cpp utils/Ray.cpp utils/Sphere.cpp utils/Vec.cpp utils/VectorOps.cpp PinholeCamera.cpp
 
 # generate names of object files
 OBJS := $(SRCS:.c=.o)

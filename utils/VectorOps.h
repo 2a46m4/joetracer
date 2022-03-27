@@ -1,8 +1,11 @@
 #ifndef _VEC_OPS_H
 #define _VEC_OPS_H
 
-#include "utils/Vec.h"
-#include "utils/Point.h"
+#include "Vec.h"
+#include "Point.h"
+#include <cmath>
+
+using namespace utils;
 
 namespace math
 {

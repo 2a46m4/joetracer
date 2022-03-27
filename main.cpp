@@ -12,12 +12,6 @@ int main(int argc, char *args[])
     // Event handler
     SDL_Event e;
 
-    SDL_Window *gWindow = NULL;
-
-    SDL_Surface *gScreenSurface = NULL;
-
-    SDL_Surface *gHelloWorld = NULL;
-
     // The window we'll be rendering to
     SDL_Window *window = NULL;
 
@@ -43,7 +37,8 @@ int main(int argc, char *args[])
     screenSurface = SDL_GetWindowSurface(window);
 
     Scene *s = new Scene(SCREEN_WIDTH, SCREEN_HEIGHT);
-    s->debugAddSphere(2, 0, 0, -5);
+    s->debugAddSphere(1, 0, 0, -5);
+    s->debugAddSphere(2, 10, 10, -20);
     int channels = 3;
     char *pixels = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
     pixels = s->render();
