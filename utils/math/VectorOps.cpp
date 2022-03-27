@@ -1,55 +1,55 @@
 #include "VectorOps.h"
 #include "Vec.h"
 #include "Point.h"
-#include "math.h"
+#include <math.h>
 
-namespace utils
+namespace math
 {
 
-    Vec VectorOps::sub(Vec &a, Vec &b)
+    Vec sub(const Vec &a, const Vec &b)
     {
         return Vec(a.x - b.x,
                    a.y - b.y,
                    a.z - b.z);
     }
 
-    Vec VectorOps::add(Vec &a, Vec &b)
+    Vec add(Vec &a, Vec &b)
     {
         return Vec(a.x + b.x,
                    a.y + b.y,
                    a.z + b.z);
     }
 
-    Vec VectorOps::add3(Vec &a, Vec &b, Vec &c)
+    Vec add3(Vec &a, Vec &b, Vec &c)
     {
         return Vec(a.x + b.x + c.z,
                    a.y + b.y + c.z,
                    a.z + b.z + c.z);
     }
 
-    Vec VectorOps::scale(double m, Vec &a)
+    Vec scale(double m, Vec &a)
     {
         return Vec(a.x * m,
                    a.y * m,
                    a.z * m);
     }
 
-    Vec VectorOps::getUnitVec(Vec &a)
+    Vec getUnitVec(Vec &a)
     {
         return scale((1 / length(a)), a);
     }
 
-    double VectorOps::length(Vec &a)
+    double length(Vec &a)
     {
         return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
     }
 
-    double VectorOps::dotProduct(Vec &a, Vec &b)
+    double dotProduct(const Vec &a, const Vec &b)
     {
         return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
     }
 
-    Vec VectorOps::crossProduct(Vec &a, Vec &b)
+    Vec crossProduct(Vec &a, Vec &b)
     {
 
         return Vec((a.y * b.z) - (a.z * b.y),
@@ -57,12 +57,22 @@ namespace utils
                    (a.x * b.y) - (a.y * b.x));
     }
 
-    Vec VectorOps::reflection(double normal, Vec &a) {
+    Vec reflection(double normal, Vec &a) {
 
     }
 
-    Point VectorOps::vecToPoint(Vec& a) {
+    Point vecToPoint(Vec& a) {
         return Point(a.x, a.y, a.z);
+    }
+
+    Vec power(const Vec&a, int power) {
+        Vec b = a;
+        while(--power) {
+            b.x *= a.x;
+            b.y *= a.y;
+            b.z *= a.z;
+        }
+        return b;
     }
 
 } // namespace utils

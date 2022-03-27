@@ -18,11 +18,10 @@ namespace utils
         this->z = dz;
     }
 
-    Vec &Vec::operator=(const Vec &a)
-    {
-        x = a.x;
-        y = a.y;
-        z = a.z;
-    }
+    // Vec &Vec::operator=(const Vec &a)
+    // {
+    //     Vec b = Vec(a.x, a.y, a.z);
+    //     return b;
+    // }
 
 }

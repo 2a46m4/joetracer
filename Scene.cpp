@@ -1,12 +1,15 @@
 #include "Scene.h"
 #include "utils/Point.h"
 #include "utils/Vec.h"
-#include "utils/Object.h"
+#include "utils/Sphere.h"
 #include "PinholeCamera.h"
+#include "utils/Surfel.h"
+#include "utils/math/VectorOps.h"
 
 #include <math.h>
 #include <vector>
 #include <utility>
+#include <memory>
 
 #define PI 3.14159265358979323846264338327950288419716939937510582097
 
@@ -22,134 +25,109 @@ Scene::Scene(int w, int h)
     height = h;
 }
 
-void Scene::render() const
+char *Scene::render() const
 {
-    // Vec *uv = c.v.getUnitVec();
-    // Vec *vpRight = uv->crossProduct(0, 1, 0);
-    // Vec *vpUp = uv->crossProduct(*vpRight);
+    PinholeCamera camera;
+    char* pixels = new char[width * height * 3];
 
-    // double fov_rads = (PI * (c.fov / 2)) / 180;
-    // double whratio = height / width;
+    int loc = 0;
+    for (int y = 0; y < height; ++y)
+    {
+        for (int x = 0; x < width; ++x)
+        {
+            Point P;
+            Vec w;
 
-    // // Rectangle expanding outwards of the camera - our fov
-    // // half* is the length from the border to the middle
-    // // cam* is the total length (inf when fov = 180)
-    // // pix* is the size of the "pixel" per real pixel
-    // double halfWidth = tan(fov_rads);
-    // double halfHeight = whratio * halfWidth;
-    // double camWidth = halfWidth * 2;
-    // double camHeight = halfHeight * 2;
-    // double pixWidth = camWidth / (width - 1);
-    // double pixHeight = camHeight / (height - 1);
+            camera.getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, P, w);
 
-    // int idx;
-    // Point *col;
-    // std::vector<int> data;
+            Point col = debugColour(P, w);
 
-    // for (int x = 0; x < width; x++)
-    // {
-    //     for (int y = 0; y < height; y++)
-    //     {
-    //         Vec xvec = *vpRight;
-    //         Vec yvec = *vpUp;
-    //         xvec.scale(x * pixWidth - halfWidth);
-    //         yvec.scale(y * pixHeight - halfHeight);
-
-    //         // the direction of the pixel vector (cam vec skewed to x and y)
-    //         Vec a = *uv;
-    //         a.add(xvec, yvec);
-
-    //         // Traces this particular ray with depth starting at 0
-    //         col = trace(a, 0);
-    //         data.push_back(col->x); // temp, stores colour into this array
-    //     }
-    // }
-
-    // Object *o = new Object();
-    // addObject(*o);
+            // R channel
+            pixels[loc++] = col.x;
+            // G channel
+            pixels[loc++] = col.y;
+            // B channel
+            pixels[loc++] = col.z;
+        }
+    }
+    return pixels;
 }
 
-void Scene::addObject(Object o)
+Point Scene::debugColour(Point P, Vec w) const
 {
+    // const std::shared_ptr<Surfel> &s = findFirstIntersection(P, w);
+
+    bool intersect = debugIntersection(P, w);
+
+    if (intersect)
+        return Point::char_max();
+    else
+        return Point::zero();
 }
 
-void Scene::newCamera(Point p, Vec v, int fov)
+bool Scene::debugIntersection(Point P, Vec w) const
 {
+    for(auto sphere : spheres) {
+        
+        Vec v = math::sub(P.direction(), sphere.location.direction());
+        int a = math::dotProduct(w, v) * math::dotProduct(w, v);
+        int b = math::dotProduct(w, w) * (math::dotProduct(v, v) - (sphere.rad * sphere.rad));
+        if(a - b < 0) return false;
+        else return true;
+    }
+    return false;
+}
+
+std::shared_ptr<Surfel> Scene::findFirstIntersection(Point P, Vec w) const
+{
+    return NULL;
+}
+
+void Scene::addSphere(Sphere o)
+{
+    spheres.push_back(o);
+}
+
+void Scene::debugAddSphere(int r, int x, int y, int z) {
+    spheres.push_back(Sphere(r, Point(100, 100, 100), Point(x, y, z)));
+}
+
+void Scene::newCamera(PinholeCamera p)
+{
+    camera = p;
 }
 
 void Scene::addLight(Point p)
 {
+    lights.push_back(p);
 }
 
 bool Scene::removeObject(int i)
 {
+    if (i > spheres.size())
+        return false;
+    else
+        spheres.erase(spheres.begin() + i);
 }
 
 bool Scene::removeLight(int i)
 {
+    if (i > lights.size())
+        return false;
+    else
+        lights.erase(lights.begin() + i);
 }
 
 void Scene::deleteScene()
 {
 }
 
-std::vector<Point> getLights() {
-
-}
-
-// Traces the ray, stops when it hits depth
-Point* Scene::trace(Vec ray, int depth)
+std::vector<Point> Scene::getLights() const
 {
-    // Point *col = new Point();
-
-    // // Too deep, just return white
-    // if (depth > 3)
-    //     return col;
-
-    // // find closest intersection, returns the first object found and the distance to it 
-    // std::pair<double, Object>* distObj = intersectScene(ray);
-
-    // // Did not find anything, return white
-    // if (distObj->first == __DBL_MAX__) // Distance of the object is infinite
-    // {
-    //     return col;
-    // }
-
-    // double dist = distObj->first;
-    // Object object = distObj->second;
-
-    // // Scales the ray to the length of the intersection
-    // ray.scale(dist);
-    // // direction of the camera
-    // Point camPosition = c.p;
-    // camPosition.addVector(ray);
-    // Point intersectionPoint = camPosition;
-
-    // return col;
+    return lights;
 }
 
-// Return distance and object that a ray intersected, else return inf
-std::pair<double, Object>* Scene::intersectScene(Vec ray)
+std::vector<Sphere> Scene::getSpheres() const
 {
-    // std::pair<double, Object>* closest = new std::pair<double, Object>();
-
-    // for (int i = 0; i < objects.size(); i++) {
-    //     double dist = sphereIntersection(objects[i], ray);
-    //     if (dist != -1 && dist < closest->first) {
-    //         closest->first = dist;
-    //         closest->second = objects[i];
-    //     }
-    // }
-
-    // return closest; 
-}
-
-Vec* Scene::surface()
-{
-
-}
-
-double Scene::sphereIntersection(Object obj, Vec ray) {
-    // Vec eyeToCentre = obj->loc
-    // return 1;
+    return spheres;
 }

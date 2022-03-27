@@ -3,12 +3,15 @@
 
 #include "utils/Point.h"
 #include "utils/Vec.h"
-#include "utils/Object.h"
+#include "utils/Sphere.h"
 #include "PinholeCamera.h"
+#include "utils/Surfel.h"
+#include "math/VectorOps.h"
 
 #include <math.h>
 #include <vector>
 #include <utility>
+#include <memory>
 
 using namespace utils;
 
@@ -20,7 +23,7 @@ private:
     int width;
 
     std::vector<Point> lights;
-    std::vector<Object> objects;
+    std::vector<Sphere> spheres;
     PinholeCamera camera;
 
 public:
@@ -28,11 +31,19 @@ public:
 
     Scene(int w, int h);
 
-    void render() const;
+    char* render() const;
 
-    void addObject(Object o);
+    Point debugColour(Point P, Vec w) const;
 
-    void newCamera(Point p, Vec v, int fov);
+    bool debugIntersection(Point P, Vec w) const;
+
+    std::shared_ptr<Surfel> findFirstIntersection(Point P, Vec w) const;
+
+    void addSphere(Sphere o);
+
+    void debugAddSphere(int r, int x, int y, int z);
+
+    void newCamera(PinholeCamera p);
 
     void addLight(Point p);
 
@@ -46,13 +57,7 @@ public:
 
     std::vector<Point> getLights() const;
 
-    Point *trace(Vec ray, int depth);
-
-    std::pair<double, Object> *intersectScene(Vec ray);
-
-    double sphereIntersection(Object obj, Vec ray);
-
-    Vec *surface();
+    std::vector<Sphere> getSpheres() const;
     
 };
 

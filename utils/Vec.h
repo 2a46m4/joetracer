@@ -12,7 +12,7 @@ namespace utils
 
         Vec(const float dx, const float dy, const float dz);
 
-        Vec &operator=(const Vec &a);
+        // Vec &operator=(const Vec &a);
     };
 }
 

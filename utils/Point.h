@@ -17,6 +17,12 @@ namespace utils
         // Returns distance between two points
         double dist(Point p);
 
+        static Point one();
+
+        static Point zero();
+
+        static Point char_max();
+
         Vec direction();
     };
 }
