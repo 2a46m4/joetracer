@@ -12,7 +12,7 @@ HDRS := Scene.h utils/Point.h utils/Ray.h utils/Sphere.h utils/Vec.h utils/Vecto
 SRCS := main.cpp Scene.cpp utils/Point.cpp utils/Ray.cpp utils/Sphere.cpp utils/Vec.cpp utils/VectorOps.cpp utils/Triangle.cpp utils/TriangleList.cpp PinholeCamera.cpp utils/Surfel.cpp utils/Light.cpp
 
 # generate names of object files
-OBJS := $(SRCS:.c=.o)
+OBJS := $(SRCS:.cpp=.o)
 
 # name of executable
 EXEC := Joetracer
@@ -21,10 +21,10 @@ EXEC := Joetracer
 all: $(EXEC)
  
 showfont: showfont.c Makefile
-	$(CC) -o $@ $@.c $(CFLAGS) $(LIBS)
+	$(CC) -o $@ $@.cpp $(CFLAGS) $(LIBS)
 
 glfont: glfont.c Makefile
-	$(CC) -o $@ $@.c $(CFLAGS) $(LIBS)
+	$(CC) -o $@ $@.cpp $(CFLAGS) $(LIBS)
 
 # recipe for building the final executable
 $(EXEC): $(OBJS) $(HDRS) Makefile

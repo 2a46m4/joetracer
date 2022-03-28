@@ -62,4 +62,8 @@ namespace utils
     {
         return Point(x * a.x, y * a.y, z * a.z);
     }
+
+    const Point Point::operator*(const Point& a) const {
+        return Point(x * a.x, y * a.y, z * a.z);
+    }
 }
