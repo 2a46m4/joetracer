@@ -5,6 +5,7 @@
 #include "PinholeCamera.h"
 #include "utils/Surfel.h"
 #include "utils/VectorOps.h"
+#include "utils/Light.h"
 
 #include <iostream>
 #include <math.h>
@@ -13,6 +14,8 @@
 #include <memory>
 
 #define PI 3.14159265358979323846264338327950288419716939937510582097
+
+using namespace utils;
 
 Scene::Scene()
 {
@@ -56,7 +59,6 @@ char *Scene::render() const
 
 Point Scene::debugColour(Point P, Vec w) const
 {
-    // const std::shared_ptr<Surfel> &s = findFirstIntersection(P, w);
 
     bool intersect = debugIntersection(P, w);
 
@@ -64,6 +66,43 @@ Point Scene::debugColour(Point P, Vec w) const
         return Point::char_max();
     else
         return Point::zero();
+}
+
+Point Scene::lightIn(const Point P, const Vec wi)
+{
+
+    const std::shared_ptr<Surfel> &s = findFirstIntersection(P, wi);
+
+    if (s != nullptr)
+    {
+        return lightOut(s, -wi);
+    }
+}
+
+Point Scene::lightOut(const std::shared_ptr<Surfel> &sx, const Vec &wo) {
+    // Local radiance
+    Point L = sx->emittedRadiance(wo); 
+    const Point& X = sx->position;
+    const Vec& n = sx->shadingNormal;
+
+    bool visible = true; // Just set true for now
+
+    for(prims::Light& light : lights) {
+        Point& Y = light.position;
+
+        if(visible) {
+            const Vec& wi = (Y - X).direction();
+            const Point& bi = light.biradiance(X);
+            const Point& f = sx->finiteScatteringDensity(wi, wo);
+            L = L + bi * f; 
+        }
+    }
+
+    return L;
+}
+
+Point Scene::lightScatteredDirect(const std::shared_ptr<Surfel> &sx, const Vec &wo) {
+
 }
 
 bool Scene::debugIntersection(Point P, Vec w) const
@@ -87,14 +126,14 @@ std::shared_ptr<Surfel> Scene::findFirstIntersection(Point P, Vec w) const
     return NULL;
 }
 
-void Scene::addSphere(Sphere o)
+void Scene::addSphere(prims::Sphere o)
 {
     spheres.push_back(o);
 }
 
 void Scene::debugAddSphere(int r, int x, int y, int z)
 {
-    spheres.push_back(Sphere(r, Point(100, 100, 100), Point(x, y, z)));
+    spheres.push_back(prims::Sphere(r, Point(100, 100, 100), Point(x, y, z)));
 }
 
 void Scene::newCamera(PinholeCamera p)
@@ -102,7 +141,7 @@ void Scene::newCamera(PinholeCamera p)
     camera = p;
 }
 
-void Scene::addLight(Point p)
+void Scene::addLight(prims::Light p)
 {
     lights.push_back(p);
 }
@@ -127,12 +166,12 @@ void Scene::deleteScene()
 {
 }
 
-std::vector<Point> Scene::getLights() const
+const std::vector<prims::Light> Scene::getLights() const
 {
     return lights;
 }
 
-std::vector<Sphere> Scene::getSpheres() const
+std::vector<prims::Sphere> Scene::getSpheres() const
 {
     return spheres;
 }

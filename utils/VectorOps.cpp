@@ -58,7 +58,7 @@ namespace math
     }
 
     Vec reflection(double normal, Vec &a) {
-
+        return Vec(0, 0, 0);
     }
 
     Point vecToPoint(Vec& a) {

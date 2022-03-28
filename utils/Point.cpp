@@ -28,19 +28,38 @@ namespace utils
         return sqrt(a + b + c);
     }
 
-    Point Point::one() {
+    Point Point::one()
+    {
         return Point(1, 1, 1);
     }
 
-    Point Point::zero() {
+    Point Point::zero()
+    {
         return Point(0, 0, 0);
     }
 
-    Point Point::char_max() {
+    Point Point::char_max()
+    {
         return Point(255, 255, 255);
     }
-    
-    Vec Point::direction() {
+
+    Vec Point::direction()
+    {
         return Vec(x, y, z);
+    }
+
+    Point Point::operator+(Point a)
+    {
+        return Point(x + a.x, y + a.y, z + a.z);
+    }
+
+    Point Point::operator-(Point a)
+    {
+        return Point(x - a.x, y - a.y, z - a.z);
+    }
+
+    Point Point::operator*(Point a)
+    {
+        return Point(x * a.x, y * a.y, z * a.z);
     }
 }

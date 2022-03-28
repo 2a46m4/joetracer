@@ -9,6 +9,7 @@ using namespace utils;
 
 namespace math
 {
+
     Vec sub(const Vec &a, const Vec &b);
 
     Vec add3(Vec &a, Vec &b, Vec &c);

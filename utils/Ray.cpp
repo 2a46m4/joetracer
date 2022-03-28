@@ -10,9 +10,4 @@ namespace utils
         this->origin = origin;
         this->direction = direction;
     }
-
-    Ray &Ray::operator=(const Ray &a) {
-        origin = a.origin;
-        direction = a.direction;
-    }
 }

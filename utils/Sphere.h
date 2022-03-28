@@ -3,7 +3,9 @@
 
 #include "Point.h"
 
-namespace utils
+using namespace utils;
+
+namespace prims
 {
     class Sphere
     {

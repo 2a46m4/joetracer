@@ -16,8 +16,6 @@ namespace utils
         Ray();
 
         Ray(Point& origin, Vec& direction);
-
-        Ray &operator=(const Ray &a);
     };
 }
 

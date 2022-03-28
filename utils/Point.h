@@ -24,6 +24,14 @@ namespace utils
         static Point char_max();
 
         Vec direction();
+
+        Point operator+(Point a);
+
+        Point operator-(Point a);
+
+        Point operator*(Point a);
+
+        const Point operator*(const Point& a) const;
     };
 }
 
