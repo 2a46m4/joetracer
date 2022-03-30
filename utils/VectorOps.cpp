@@ -5,12 +5,19 @@ using namespace utils;
 
 namespace math
 {
+    template <class T>
+    T sub(const T &a, const T &b)
+    {
+        return T(a.x - b.x,
+                 a.y - b.y,
+                 a.z - b.z);
+    }
 
     Vec sub(const Vec &a, const Vec &b)
     {
-        return Vec(a.x - b.x,
-                   a.y - b.y,
-                   a.z - b.z);
+        return Vec(a.x + b.x,
+                   a.y + b.y,
+                   a.z + b.z);
     }
 
     Vec add(Vec &a, Vec &b)
@@ -57,17 +64,21 @@ namespace math
                    (a.x * b.y) - (a.y * b.x));
     }
 
-    Vec reflection(double normal, Vec &a) {
+    Vec reflection(double normal, Vec &a)
+    {
         return Vec(0, 0, 0);
     }
 
-    Point vecToPoint(Vec& a) {
+    Point vecToPoint(Vec &a)
+    {
         return Point(a.x, a.y, a.z);
     }
 
-    Vec power(const Vec&a, int power) {
+    Vec power(const Vec &a, int power)
+    {
         Vec b = a;
-        while(--power) {
+        while (--power)
+        {
             b.x *= a.x;
             b.y *= a.y;
             b.z *= a.z;
@@ -75,4 +86,4 @@ namespace math
         return b;
     }
 
-} 
+}

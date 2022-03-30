@@ -57,6 +57,12 @@ char *Scene::render() const
     return pixels;
 }
 
+bool rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t) {
+    const float precision = 1e-6;
+
+    const Vec& edge1 = math::sub(V[1].direction(), V[0].direction());
+}
+
 Point Scene::debugColour(Point P, Vec w) const
 {
 

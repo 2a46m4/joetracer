@@ -48,6 +48,10 @@ namespace utils
         return Vec(x, y, z);
     }
 
+    const Vec Point::direction() const {
+        return Vec(x, y, z);
+    }
+
     Point Point::operator+(Point a)
     {
         return Point(x + a.x, y + a.y, z + a.z);
@@ -63,7 +67,8 @@ namespace utils
         return Point(x * a.x, y * a.y, z * a.z);
     }
 
-    const Point Point::operator*(const Point& a) const {
+    const Point Point::operator*(const Point &a) const
+    {
         return Point(x * a.x, y * a.y, z * a.z);
     }
 }

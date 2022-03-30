@@ -25,6 +25,8 @@ namespace utils
 
         Vec direction();
 
+        const Vec direction() const;
+
         Point operator+(Point a);
 
         Point operator-(Point a);

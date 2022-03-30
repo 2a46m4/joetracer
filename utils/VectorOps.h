@@ -10,6 +10,9 @@ using namespace utils;
 namespace math
 {
 
+    template <class T>
+    T sub(const T &a, const T &b);
+
     Vec sub(const Vec &a, const Vec &b);
 
     Vec add3(Vec &a, Vec &b, Vec &c);
