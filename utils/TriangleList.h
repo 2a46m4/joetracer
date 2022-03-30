@@ -20,6 +20,8 @@ namespace utils
         std::vector<Point> vertexArray;
         std::vector<int> indexArray;
 
+        void addTriangle(prims::Triangle tri); 
+
     private:
         // int vertexIterator = 0;
         // int indexIterator = 0;

@@ -49,13 +49,15 @@ public:
 
     std::shared_ptr<Surfel> findFirstIntersection(Point P, Vec w) const;
 
-    bool rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t);
+    bool rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t) const;
 
-    bool testAllTriangles(const Point P, const Vec w, prims::Triangle& tri);
+    bool testAllTriangles(const Point P, const Vec w, prims::Triangle& tri) const;
 
     void addSphere(prims::Sphere o);
 
     void debugAddSphere(int r, int x, int y, int z);
+
+    void debugAddCube();
 
     void newCamera(PinholeCamera p);
 

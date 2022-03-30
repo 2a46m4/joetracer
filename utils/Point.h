@@ -34,6 +34,8 @@ namespace utils
         Point operator*(Point a);
 
         const Point operator*(const Point& a) const;
+
+        bool operator==(const Point& a) const;
     };
 }
 

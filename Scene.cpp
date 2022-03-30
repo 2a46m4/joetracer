@@ -61,7 +61,7 @@ char *Scene::render() const
 // checks for intersection between triangle and ray.
 // P + tw is ray, and V[3] is triangle. Stores barycentric coordinates in b[],
 // and stores the intersection distance in t. Otherwise returns false.
-bool Scene::rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t) {
+bool Scene::rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t) const {
     const float precision = 1e-6;
 
     // Edge vectors
@@ -92,7 +92,7 @@ bool Scene::rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], 
 }
 
 // Returns if the ray has intersected a triangle or not and stores the closest triangle
-bool Scene::testAllTriangles(const Point P, const Vec w, prims::Triangle& tri) {
+bool Scene::testAllTriangles(const Point P, const Vec w, prims::Triangle& tri) const {
     float min = std::numeric_limits<float>::max();
     for(int i = 0; i < tlist.size(); i++) {
         const prims::Triangle temp = tlist.triangle(i);
@@ -111,7 +111,8 @@ Point Scene::debugColour(Point P, Vec w) const
 {
 
     bool intersect_sphere = debugIntersection(P, w);
-    bool intersect_triangle;
+    prims::Triangle tri;
+    bool intersect_triangle = testAllTriangles(P, w, tri);
 
     if (intersect_sphere || intersect_triangle)
         return Point::char_max();
@@ -185,6 +186,12 @@ void Scene::addSphere(prims::Sphere o)
 void Scene::debugAddSphere(int r, int x, int y, int z)
 {
     spheres.push_back(prims::Sphere(r, Point(100, 100, 100), Point(x, y, z)));
+}
+
+void Scene::debugAddCube() {
+    tlist.addTriangle(prims::Triangle(Point(-1, 0, -5),
+                                      Point(2, 0, 5),
+                                      Point(-1, 3, -5)));
 }
 
 void Scene::newCamera(PinholeCamera p)

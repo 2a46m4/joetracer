@@ -71,4 +71,8 @@ namespace utils
     {
         return Point(x * a.x, y * a.y, z * a.z);
     }
+
+    bool Point::operator==(const Point& a) const {
+        return ((x == a.x) && (y == a.y) && (z == a.z));
+    }
 }
