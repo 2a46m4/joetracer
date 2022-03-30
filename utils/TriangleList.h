@@ -11,6 +11,7 @@ namespace utils
     class TriangleList
     {
     public:
+
         prims::Triangle triangle(int i) const;
 
         // Number of triangles

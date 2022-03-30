@@ -12,6 +12,7 @@
 #include <vector>
 #include <utility>
 #include <memory>
+#include <limits>
 
 #define PI 3.14159265358979323846264338327950288419716939937510582097
 
@@ -57,18 +58,62 @@ char *Scene::render() const
     return pixels;
 }
 
-bool rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t) {
+// checks for intersection between triangle and ray.
+// P + tw is ray, and V[3] is triangle. Stores barycentric coordinates in b[],
+// and stores the intersection distance in t. Otherwise returns false.
+bool Scene::rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t) {
     const float precision = 1e-6;
 
+    // Edge vectors
     const Vec& edge1 = math::sub(V[1].direction(), V[0].direction());
+    const Vec& edge2 = math::sub(V[2].direction(), V[0].direction());
+
+    // Normal
+    const Vec& n = math::crossProduct(edge1, edge2);
+
+    const Vec& q = math::crossProduct(w, edge2);
+    const float a = math::dotProduct(edge1, q); // this is prob the m 
+
+    // Return false if nearly parallel or backfacing, or close to precision limit
+    if ((math::dotProduct(n, w) >= 0) || (abs(a) <= precision)) return false;
+
+    const Vec& s = math::scale(1/a, math::sub(P, V[0]).direction());
+    const Vec& r = math::crossProduct(s, edge1);
+
+    b[0] = math::dotProduct(s, q); // Barycentric coordinates of V0
+    b[1] = math::dotProduct(r, w); // Barycentric coordinates of V1
+    b[2] = 1.0f - b[0] - b[1];     // Barycentric coordinates of V2
+
+    // Intersection outside triangle
+    if ((b[0] < 0.0f || b[1] < 0.0f || b[2] < 0.0f)) return false;
+
+    t = math::dotProduct(edge2, r);
+    return (t >= 0.0f);
+}
+
+// Returns if the ray has intersected a triangle or not and stores the closest triangle
+bool Scene::testAllTriangles(const Point P, const Vec w, prims::Triangle& tri) {
+    float min = std::numeric_limits<float>::max();
+    for(int i = 0; i < tlist.size(); i++) {
+        const prims::Triangle temp = tlist.triangle(i);
+        float b[3];
+        float t = min;
+        rayTriangleIntersect(P, w, temp.m_vertex, b, t);
+        if(t < min) {
+            min = t;
+            tri = temp;
+        }
+        return (min != std::numeric_limits<float>::max());
+    }
 }
 
 Point Scene::debugColour(Point P, Vec w) const
 {
 
-    bool intersect = debugIntersection(P, w);
+    bool intersect_sphere = debugIntersection(P, w);
+    bool intersect_triangle;
 
-    if (intersect)
+    if (intersect_sphere || intersect_triangle)
         return Point::char_max();
     else
         return Point::zero();

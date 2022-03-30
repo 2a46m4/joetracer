@@ -8,6 +8,8 @@
 #include "utils/Surfel.h"
 #include "utils/VectorOps.h"
 #include "utils/Light.h"
+#include "utils/TriangleList.h"
+#include "utils/Triangle.h"
 
 #include <math.h>
 #include <vector>
@@ -25,6 +27,7 @@ private:
 
     std::vector<prims::Light> lights;
     std::vector<prims::Sphere> spheres;
+    TriangleList tlist;
     PinholeCamera camera;
 
 public:
@@ -45,6 +48,10 @@ public:
     Point lightScatteredDirect(const std::shared_ptr<Surfel> &sx, const Vec &wo);
 
     std::shared_ptr<Surfel> findFirstIntersection(Point P, Vec w) const;
+
+    bool rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t);
+
+    bool testAllTriangles(const Point P, const Vec w, prims::Triangle& tri);
 
     void addSphere(prims::Sphere o);
 

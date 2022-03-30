@@ -5,20 +5,13 @@ using namespace utils;
 
 namespace math
 {
-    template <class T>
-    T sub(const T &a, const T &b)
-    {
-        return T(a.x - b.x,
-                 a.y - b.y,
-                 a.z - b.z);
-    }
 
-    Vec sub(const Vec &a, const Vec &b)
-    {
-        return Vec(a.x + b.x,
-                   a.y + b.y,
-                   a.z + b.z);
-    }
+    // Vec sub(const Vec &a, const Vec &b)
+    // {
+    //     return Vec(a.x + b.x,
+    //                a.y + b.y,
+    //                a.z + b.z);
+    // }
 
     Vec add(Vec &a, Vec &b)
     {
@@ -34,13 +27,6 @@ namespace math
                    a.z + b.z + c.z);
     }
 
-    Vec scale(double m, Vec &a)
-    {
-        return Vec(a.x * m,
-                   a.y * m,
-                   a.z * m);
-    }
-
     Vec getUnitVec(Vec &a)
     {
         return scale((1 / length(a)), a);
@@ -54,14 +40,6 @@ namespace math
     double dotProduct(const Vec &a, const Vec &b)
     {
         return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
-    }
-
-    Vec crossProduct(Vec &a, Vec &b)
-    {
-
-        return Vec((a.y * b.z) - (a.z * b.y),
-                   (a.z * b.x) - (a.x * b.z),
-                   (a.x * b.y) - (a.y * b.x));
     }
 
     Vec reflection(double normal, Vec &a)
