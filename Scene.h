@@ -43,11 +43,11 @@ public:
 
     Point lightIn(const Point P, const Vec wi) const;
 
-    Point lightOut(const std::shared_ptr<Surfel>& sx, const Vec& wo) const;
+    Point lightOut(Surfel& sx, const Vec& wo) const;
 
-    Point lightScatteredDirect(const std::shared_ptr<Surfel> &sx, const Vec &wo);
+    Point lightScatteredDirect(Surfel &sx, const Vec &wo);
 
-    std::shared_ptr<Surfel> findFirstIntersection(Point P, Vec w) const;
+    bool findFirstIntersection(const Point& P, const Vec& w, Surfel& s) const;
 
     bool rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t) const;
 

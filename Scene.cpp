@@ -148,20 +148,20 @@ Point Scene::debugColour(Point P, Vec w) const
 Point Scene::lightIn(const Point P, const Vec wi) const 
 {
 
-    const std::shared_ptr<Surfel> &s = findFirstIntersection(P, wi);
-
-    if (s != nullptr)
+    Surfel s;
+    if (findFirstIntersection(P, wi, s))
     {
         return lightOut(s, -wi);
     }
+    return Point(0, 0, 0); // No intersection has been found
 }
 
-Point Scene::lightOut(const std::shared_ptr<Surfel> &sx, const Vec &wo) const
+Point Scene::lightOut(Surfel &sx, const Vec &wo) const
 {
     // Local radiance
-    Point L = sx->emittedRadiance(wo);
-    const Point &X = sx->position;
-    const Vec &n = sx->shadingNormal;
+    Point L = sx.emittedRadiance(wo);
+    const Point &X = sx.position;
+    const Vec &n = sx.shadingNormal;
 
     for (const prims::Light &light : lights)
     {
@@ -171,7 +171,7 @@ Point Scene::lightOut(const std::shared_ptr<Surfel> &sx, const Vec &wo) const
         {
             const Vec &wi = math::sub(Y, X).direction();
             const Point &bi = light.biradiance(X);
-            const Point &f = sx->finiteScatteringDensity(wi, wo);
+            const Point &f = sx.finiteScatteringDensity(wi, wo);
             L = L + bi * f;
             // L = L + Point(50, 50, 50);
         }
@@ -180,7 +180,7 @@ Point Scene::lightOut(const std::shared_ptr<Surfel> &sx, const Vec &wo) const
     return L;
 }
 
-Point Scene::lightScatteredDirect(const std::shared_ptr<Surfel> &sx, const Vec &wo)
+Point Scene::lightScatteredDirect(Surfel &sx, const Vec &wo)
 {
 }
 
@@ -201,12 +201,14 @@ bool Scene::debugIntersection(Point P, Vec w) const
     return false;
 }
 
-std::shared_ptr<Surfel> Scene::findFirstIntersection(Point P, Vec w) const
+// Finds the first intersection of a triangle and stores its surfel in s, and returns true. Returns false if nothing is intersected by the ray.
+bool Scene::findFirstIntersection(const Point& P, const Vec& w, Surfel& s) const
 {
     prims::Triangle tri;
     if(testAllTriangles(P, w, tri)){
-        return tri.surfel;
-    } else return nullptr;
+        s = tri.surfel;
+        return true;
+    } else return false;
 }
 
 void Scene::addSphere(prims::Sphere o)
@@ -222,6 +224,9 @@ void Scene::debugAddSphere(int r, int x, int y, int z)
 void Scene::debugAddCube() {
     tlist.addTriangle(prims::Triangle(Point(2, 0, -20),
                                       Point(-1, 0, -20),
+                                      Point(-1, 3, -20)));
+    tlist.addTriangle(prims::Triangle(Point(2, 0, -20),
+                                      Point(2, 3, -20),
                                       Point(-1, 3, -20)));
 }
 

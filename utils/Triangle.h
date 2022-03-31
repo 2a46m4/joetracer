@@ -23,7 +23,7 @@ namespace prims
 
         Point m_vertex[3];
 
-        std::shared_ptr<Surfel> surfel;
+        Surfel surfel;
 
     private:
         

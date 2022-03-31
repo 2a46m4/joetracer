@@ -31,8 +31,8 @@ $(EXEC): $(OBJS) $(HDRS) Makefile
 	$(CC) -o $@ $(OBJS) $(CFLAGS)
 
 # recipe for building object files
-#$(OBJS): $(@:.o=.c) $(HDRS) Makefile
-#    $(CC) -o $@ $(@:.o=.c) -c $(CFLAGS)
+$(OBJS): $(@:.o=.cpp) $(HDRS) Makefile
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
 
 # recipe to clean the workspace
 clean:
