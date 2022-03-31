@@ -19,7 +19,11 @@ namespace utils
 
         Point emittedRadiance(const Vec& wo);
 
+        // Returns colour
         Point finiteScatteringDensity(const Vec& wi, const Vec& wo);
+
+        // Approximate reflectivity of surface, returns colour
+        Point reflectivity();
     };
 }
 

@@ -41,9 +41,9 @@ public:
 
     bool debugIntersection(Point P, Vec w) const;
 
-    Point lightIn(const Point P, const Vec wi);
+    Point lightIn(const Point P, const Vec wi) const;
 
-    Point lightOut(const std::shared_ptr<Surfel>& sx, const Vec& wo);
+    Point lightOut(const std::shared_ptr<Surfel>& sx, const Vec& wo) const;
 
     Point lightScatteredDirect(const std::shared_ptr<Surfel> &sx, const Vec &wo);
 
@@ -52,6 +52,8 @@ public:
     bool rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t) const;
 
     bool testAllTriangles(const Point P, const Vec w, prims::Triangle& tri) const;
+
+    bool visible(const Point X, const Point Y) const;
 
     void addSphere(prims::Sphere o);
 

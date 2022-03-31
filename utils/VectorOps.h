@@ -21,14 +21,28 @@ namespace math
     template <class T>
     T sub(T &a, T &b)
     {
-        return const_cast<T>(sub(const_cast<T>(a), const_cast<T>(b)));
+        return T(a.x - b.x,
+                 a.y - b.y,
+                 a.z - b.z);
     }
-
-    // Vec sub(const Vec &a, const Vec &b);
 
     Vec add3(Vec &a, Vec &b, Vec &c);
 
-    Vec add(Vec &a, Vec &b);
+    template <class T>
+    T add(const T &a, const T &b)
+    {
+        return T(a.x + b.x,
+                 a.y + b.y,
+                 a.z + b.z);
+    }
+
+    template <class T>
+    T add(T &a, T &b)
+    {
+        return T(a.x + b.x,
+                 a.y + b.y,
+                 a.z + b.z);
+    }
 
     template <class T>
     const T scale(double m, T &a)
@@ -40,6 +54,7 @@ namespace math
 
     Vec getUnitVec(Vec &a);
 
+    // Returns the magnitude of the vector
     double length(Vec &a);
 
     double dotProduct(const Vec &a, const Vec &b);
