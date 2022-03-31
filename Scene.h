@@ -35,7 +35,7 @@ public:
 
     Scene(int w, int h);
 
-    char* render() const;
+    char* render(PinholeCamera camera) const;
 
     Point debugColour(Point P, Vec w) const;
 

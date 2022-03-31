@@ -1,6 +1,9 @@
 #include <SDL2/SDL.h>
 #include <stdio.h>
 #include "Scene.h"
+#include "utils/Point.h"
+
+#include <iostream>
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 400;
@@ -37,21 +40,12 @@ int main(int argc, char *args[])
     screenSurface = SDL_GetWindowSurface(window);
 
     Scene *s = new Scene(SCREEN_WIDTH, SCREEN_HEIGHT);
-    s->debugAddSphere(1, 0, 0, -5);
-    s->debugAddSphere(2, 10, 10, -20);
+    // s->debugAddSphere(1, 0, 0, -5);
+    // s->debugAddSphere(2, 10, 10, -20);
+    s->debugAddCube();
     int channels = 3;
     char *pixels = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
-    pixels = s->render();
-
-    SDL_Surface *surface = SDL_CreateRGBSurfaceFrom((void *)pixels,
-                                                    SCREEN_WIDTH,
-                                                    SCREEN_HEIGHT,
-                                                    channels * 8,
-                                                    SCREEN_WIDTH * channels,
-                                                    0x0000ff,
-                                                    0x00ff00,
-                                                    0xff0000,
-                                                    0);
+    float i = 0;
 
     while (!quit)
     {
@@ -63,12 +57,29 @@ int main(int argc, char *args[])
             }
         }
 
+        PinholeCamera camera(1.0f, 45.0f, Point(0, 0, i));
+        pixels = s->render(camera);
+
+
+        SDL_Surface *surface = SDL_CreateRGBSurfaceFrom((void *)pixels,
+                                                        SCREEN_WIDTH,
+                                                        SCREEN_HEIGHT,
+                                                        channels * 8,
+                                                        SCREEN_WIDTH * channels,
+                                                        0x0000ff,
+                                                        0x00ff00,
+                                                        0xff0000,
+                                                        0);
+
         SDL_BlitSurface(surface, NULL, screenSurface, NULL);
 
         // Update the surface
         SDL_UpdateWindowSurface(window);
+        i = i + 0.5f;
+        // std::cout << i << std::endl;
+        SDL_Delay(500);
     }
-    
+
     // Destroy window
     SDL_DestroyWindow(window);
 

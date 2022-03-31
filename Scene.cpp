@@ -30,9 +30,9 @@ Scene::Scene(int w, int h)
     height = h;
 }
 
-char *Scene::render() const
+char *Scene::render(PinholeCamera camera) const
 {
-    PinholeCamera *camera = new PinholeCamera(1.0f, 45.0f, Point(0, 0, 0));
+    // PinholeCamera *camera = new PinholeCamera(1.0f, 45.0f, Point(0, 0, 0));
     char *pixels = new char[width * height * 3];
 
     int loc = 0;
@@ -43,7 +43,7 @@ char *Scene::render() const
             Point P;
             Vec w;
 
-            camera->getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, P, w);
+            camera.getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, P, w);
 
             Point col = debugColour(P, w);
 
@@ -189,9 +189,9 @@ void Scene::debugAddSphere(int r, int x, int y, int z)
 }
 
 void Scene::debugAddCube() {
-    tlist.addTriangle(prims::Triangle(Point(-1, 0, -5),
-                                      Point(2, 0, 5),
-                                      Point(-1, 3, -5)));
+    tlist.addTriangle(prims::Triangle(Point(2, 0, -20),
+                                      Point(-1, 0, -20),
+                                      Point(-1, 3, -20)));
 }
 
 void Scene::newCamera(PinholeCamera p)

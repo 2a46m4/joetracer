@@ -18,9 +18,14 @@ void PinholeCamera::getPrimaryRay(float x, float y, int width, int height, Point
     const float side = -2.0f * tan(verticalFOV / 2.0f);
 
     // distance from the centre of projection * distance from the centre of the virtual plane * projection scaling
-    P = Point(z_near * (x / width - 0.5f) * side * width / height,
-              z_near * -(y / height - 0.5f) * side,
-              z_near);
+    P = Point((z_near * (x / width - 0.5f) * side * width / height) + location.x,
+              (z_near * -(y / height - 0.5f) * side) + location.y,
+              z_near + location.z);
     
+    // TODO: implement camera rotation
     w = P.direction();
+}
+
+void PinholeCamera::changeLocation(Point p){
+    location = p;
 }

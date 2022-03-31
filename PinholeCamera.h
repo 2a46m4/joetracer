@@ -15,6 +15,8 @@ protected:
 
     Point location;
 
+    float rotation;
+
 public:
     PinholeCamera();
 
@@ -27,6 +29,8 @@ public:
     w is the direction of the ray
      */
     void getPrimaryRay(float x, float y, int width, int height, Point &P, Vec &w) const;
+
+    void changeLocation(Point p);
 };
 
 #endif
