@@ -13,13 +13,6 @@ namespace math
     //                a.z + b.z);
     // }
 
-    Vec add(Vec &a, Vec &b)
-    {
-        return Vec(a.x + b.x,
-                   a.y + b.y,
-                   a.z + b.z);
-    }
-
     Vec add3(Vec &a, Vec &b, Vec &c)
     {
         return Vec(a.x + b.x + c.z,

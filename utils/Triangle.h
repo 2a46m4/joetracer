@@ -2,6 +2,10 @@
 #define _TRIANGLE_H
 
 #include "Point.h"
+#include "Surfel.h"
+
+#include <memory>
+#include <utility>
 
 using namespace utils;
 
@@ -19,7 +23,11 @@ namespace prims
 
         Point m_vertex[3];
 
+        std::shared_ptr<Surfel> surfel;
+
     private:
+        
+
     };
 }
 
