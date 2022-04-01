@@ -35,29 +35,23 @@ public:
 
     Scene(int w, int h);
 
-    char* render(PinholeCamera camera) const;
-
-    Point debugColour(Point P, Vec w) const;
-
-    bool debugIntersection(Point P, Vec w) const;
+    char *render(PinholeCamera camera) const;
 
     Point lightIn(const Point P, const Vec wi) const;
 
-    Point lightOut(Surfel& sx, const Vec& wo) const;
+    Point lightOut(Surfel &sx, const Vec &wo) const;
 
-    Point lightScatteredDirect(Surfel &sx, const Vec &wo);
+    // Point lightScatteredDirect(Surfel &sx, const Vec &wo);
 
-    bool findFirstIntersection(const Point& P, const Vec& w, Surfel& s) const;
+    bool findFirstIntersection(const Point &P, const Vec &w, Surfel &s) const;
 
-    bool rayTriangleIntersect(const Point& P, const Vec w, const Point V[3], float b[3], float& t) const;
+    bool rayTriangleIntersect(const Point &P, const Vec w, const Point V[3], float b[3], float &t) const;
 
-    bool testAllTriangles(const Point P, const Vec w, prims::Triangle& tri) const;
+    bool testAllTriangles(const Point P, const Vec w, prims::Triangle &tri) const;
 
     bool visible(const Point X, const Point Y) const;
 
     void addSphere(prims::Sphere o);
-
-    void debugAddSphere(int r, int x, int y, int z);
 
     void debugAddCube();
 
@@ -75,8 +69,13 @@ public:
 
     const std::vector<prims::Light> getLights() const;
 
-    std::vector<prims::Sphere> getSpheres() const;
-    
+    // Sphere stuff
+
+    // Point debugColour(Point P, Vec w) const;
+    // bool debugIntersection(Point P, Vec w) const;
+    // void debugAddSphere(int r, int x, int y, int z);
+
+    // std::vector<prims::Sphere> getSpheres() const;
 };
 
 #endif

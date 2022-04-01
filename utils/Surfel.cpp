@@ -6,8 +6,11 @@
 
 namespace utils
 {
+    // Local surface geometry + BSDF + emission function
+    // Should be used in conjunction with a surface map as that will give the shading normal (the angle of the surface) via a map
     Surfel::Surfel() {}
 
+    // Temp function, does not have any radiance
     Point Surfel::emittedRadiance(const Vec &wo) {
         return Point(0, 0, 0);
     }

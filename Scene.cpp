@@ -48,7 +48,6 @@ char *Scene::render(PinholeCamera camera) const
             // Point col = debugColour(P, w);
             const Point col = lightIn(P, w);
 
-
             // R channel
             pixels[loc++] = col.x;
             // G channel
@@ -132,35 +131,27 @@ bool Scene::visible(const Point Y, const Point X) const
     return false;
 }
 
-Point Scene::debugColour(Point P, Vec w) const
-{
-
-    bool intersect_sphere = debugIntersection(P, w);
-    prims::Triangle tri;
-    bool intersect_triangle = testAllTriangles(P, w, tri);
-
-    if (intersect_sphere || intersect_triangle)
-        return Point::char_max();
-    else
-        return Point::zero();
-}
-
-Point Scene::lightIn(const Point P, const Vec wi) const 
+// Returns the amount of light received if the ray intersects wtih a triangle. Otherwise returns 0.
+Point Scene::lightIn(const Point P, const Vec wi) const
 {
 
     Surfel s;
     if (findFirstIntersection(P, wi, s))
     {
-        return lightOut(s, -wi);
+        Point L = lightOut(s, -wi);
+        return L;
     }
     return Point(0, 0, 0); // No intersection has been found
 }
 
+// Returns the amount of light that bounces from a surface (debug version since surfel has not been implemented yet)
 Point Scene::lightOut(Surfel &sx, const Vec &wo) const
 {
     // Local radiance
     Point L = sx.emittedRadiance(wo);
+    // Position of the intersection point
     const Point &X = sx.position;
+    // The dot product(?) between the light source and the normal of the material (in world coordinates)
     const Vec &n = sx.shadingNormal;
 
     for (const prims::Light &light : lights)
@@ -173,61 +164,94 @@ Point Scene::lightOut(Surfel &sx, const Vec &wo) const
             const Point &bi = light.biradiance(X);
             const Point &f = sx.finiteScatteringDensity(wi, wo);
             L = L + bi * f;
-            // L = L + Point(50, 50, 50);
         }
     }
 
     return L;
 }
 
-Point Scene::lightScatteredDirect(Surfel &sx, const Vec &wo)
+// Returns the amount of light that bounces from a surface (using a surfel)
+Point Scene::lightOut(Surfel &sx, const Vec &wo) const
 {
-}
+    // Local radiance
+    Point L = sx.emittedRadiance(wo);
+    // Position of the intersection point
+    const Point &X = sx.position;
+    // The dot product(?) between the light source and the normal of the material (in world coordinates)
+    const Vec &n = sx.shadingNormal;
 
-// Circle intersection
-bool Scene::debugIntersection(Point P, Vec w) const
-{
-    for (auto sphere : spheres)
+    for (const prims::Light &light : lights)
     {
+        const Point &Y = light.getPosition();
 
-        Vec v = math::sub(P.direction(), sphere.location.direction());
-        int a = math::dotProduct(w, v) * math::dotProduct(w, v);
-        int b = math::dotProduct(w, w) * (math::dotProduct(v, v) - (sphere.rad * sphere.rad));
-        if (a - b > 0)
+        if (visible(Y, X))
         {
-            return true;
+            const Vec &wi = math::sub(Y, X).direction();
+            const Point &bi = light.biradiance(X);
+            const Point &f = sx.finiteScatteringDensity(wi, wo);
+            L = L + bi * f;
         }
     }
-    return false;
+
+    return L;
 }
+
+// Point Scene::lightScatteredDirect(Surfel &sx, const Vec &wo)
+// {
+// }
 
 // Finds the first intersection of a triangle and stores its surfel in s, and returns true. Returns false if nothing is intersected by the ray.
-bool Scene::findFirstIntersection(const Point& P, const Vec& w, Surfel& s) const
+bool Scene::findFirstIntersection(const Point &P, const Vec &w, Surfel &s) const
 {
     prims::Triangle tri;
-    if(testAllTriangles(P, w, tri)){
+    if (testAllTriangles(P, w, tri))
+    {
         s = tri.surfel;
         return true;
-    } else return false;
+    }
+    else
+        return false;
 }
 
-void Scene::addSphere(prims::Sphere o)
+// This takes too long to add. Need a better way to add primitive shapes / organize triangles. Also things are clockwise for some reason
+void Scene::debugAddCube()
 {
-    spheres.push_back(o);
-}
-
-void Scene::debugAddSphere(int r, int x, int y, int z)
-{
-    spheres.push_back(prims::Sphere(r, Point(100, 100, 100), Point(x, y, z)));
-}
-
-void Scene::debugAddCube() {
     tlist.addTriangle(prims::Triangle(Point(2, 0, -20),
                                       Point(-1, 0, -20),
                                       Point(-1, 3, -20)));
     tlist.addTriangle(prims::Triangle(Point(2, 0, -20),
                                       Point(2, 3, -20),
                                       Point(-1, 3, -20)));
+    tlist.addTriangle(prims::Triangle(Point(2, 0, -23),
+                                      Point(2, 0, -20),
+                                      Point(2, 3, -20)));
+    tlist.addTriangle(prims::Triangle(Point(2, 0, -23),
+                                      Point(2, 0, -20),
+                                      Point(2, 3, -20)));
+    // tlist.addTriangle(prims::Triangle(Point(),
+    //                                   Point(),
+    //                                   Point()));
+    // tlist.addTriangle(prims::Triangle(Point(),
+    //                                   Point(),
+    //                                   Point()));
+    // tlist.addTriangle(prims::Triangle(Point(),
+    //                                   Point(),
+    //                                   Point()));
+    // tlist.addTriangle(prims::Triangle(Point(),
+    //                                   Point(),
+    //                                   Point()));
+    // tlist.addTriangle(prims::Triangle(Point(),
+    //                                   Point(),
+    //                                   Point()));
+    // tlist.addTriangle(prims::Triangle(Point(),
+    //                                   Point(),
+    //                                   Point()));
+    // tlist.addTriangle(prims::Triangle(Point(),
+    //                                   Point(),
+    //                                   Point()));
+    // tlist.addTriangle(prims::Triangle(Point(),
+    //                                   Point(),
+    //                                   Point()));
 }
 
 void Scene::newCamera(PinholeCamera p)
@@ -265,7 +289,49 @@ const std::vector<prims::Light> Scene::getLights() const
     return lights;
 }
 
-std::vector<prims::Sphere> Scene::getSpheres() const
-{
-    return spheres;
-}
+/*--------------- Sphere stuff ---------------*/
+
+// std::vector<prims::Sphere> Scene::getSpheres() const
+// {
+//     return spheres;
+// }
+
+// Point Scene::debugColour(Point P, Vec w) const
+// {
+
+//     bool intersect_sphere = debugIntersection(P, w);
+//     prims::Triangle tri;
+//     bool intersect_triangle = testAllTriangles(P, w, tri);
+
+//     if (intersect_sphere || intersect_triangle)
+//         return Point::char_max();
+//     else
+//         return Point::zero();
+// }
+
+// void Scene::addSphere(prims::Sphere o)
+// {
+//     spheres.push_back(o);
+// }
+
+// void Scene::debugAddSphere(int r, int x, int y, int z)
+// {
+//     spheres.push_back(prims::Sphere(r, Point(100, 100, 100), Point(x, y, z)));
+// }
+
+// // Sphere intersection
+// bool Scene::debugIntersection(Point P, Vec w) const
+// {
+//     for (auto sphere : spheres)
+//     {
+
+//         Vec v = math::sub(P.direction(), sphere.location.direction());
+//         int a = math::dotProduct(w, v) * math::dotProduct(w, v);
+//         int b = math::dotProduct(w, w) * (math::dotProduct(v, v) - (sphere.rad * sphere.rad));
+//         if (a - b > 0)
+//         {
+//             return true;
+//         }
+//     }
+//     return false;
+// }

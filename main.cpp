@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "Scene.h"
 #include "utils/Point.h"
+#include "utils/Light.h"
 
 #include <iostream>
 
@@ -43,6 +44,7 @@ int main(int argc, char *args[])
     // s->debugAddSphere(1, 0, 0, -5);
     // s->debugAddSphere(2, 10, 10, -20);
     s->debugAddCube();
+    s->addLight(prims::Light(Point(0, 2, -5), 100.0, Point(100, 100, 100)));
     int channels = 3;
     char *pixels = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
     float i = 0;
