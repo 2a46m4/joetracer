@@ -44,8 +44,8 @@ int main(int argc, char *args[])
     // s->debugAddSphere(1, 0, 0, -5);
     // s->debugAddSphere(2, 10, 10, -20);
     s->debugAddCube();
-    // s->addLight(prims::Light(Point(0, 2, -5), 1000.0, Point(255, 255, 255)));
-    // s->addLight(prims::Light(Point(0, 0, 0), 1000.0, Point(255, 255, 255)));
+    s->addLight(prims::Light(Point(0, 2, -5), 1000.0, Point(255, 255, 255)));
+    s->addLight(prims::Light(Point(0, 0, 0), 1000.0, Point(255, 255, 255)));
     s->addLight(prims::Light(Point(0, 2, -10), 1000.0, Point(255, 255, 255)));
     int channels = 3;
     char *pixels = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
