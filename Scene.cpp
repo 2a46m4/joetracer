@@ -3,7 +3,6 @@
 #include "utils/Vec.h"
 #include "utils/Sphere.h"
 #include "PinholeCamera.h"
-#include "utils/Surfel.h"
 #include "utils/VectorOps.h"
 #include "utils/Light.h"
 
@@ -96,14 +95,13 @@ bool Scene::rayTriangleIntersect(const Point &P, const Vec w, const Point V[3], 
 }
 
 // Returns if the ray has intersected a triangle or not and stores the closest triangle
-bool Scene::testAllTriangles(const Point P, const Vec w, prims::Triangle &tri) const
+bool Scene::testAllTriangles(const Point P, const Vec w, prims::Triangle &tri, float &t) const
 {
-    float min = std::numeric_limits<float>::max();
+    float min = t = std::numeric_limits<float>::max();
     for (int i = 0; i < tlist.size(); i++)
     {
         const prims::Triangle temp = tlist.triangle(i);
         float b[3];
-        float t = min;
         rayTriangleIntersect(P, w, temp.m_vertex, b, t);
         if (t < min)
         {
@@ -117,16 +115,15 @@ bool Scene::testAllTriangles(const Point P, const Vec w, prims::Triangle &tri) c
 // Takes in a light point Y and a test point X and checks if there are any triangles intersecting it
 bool Scene::visible(const Point Y, const Point X) const
 {
-    const Vec a = math::sub(Y, X).direction();
+    Vec b = math::sub(Y, X).direction();
+    Vec a = math::getUnitVec(b);
     // const Vec b = Vec(0.02, 0.02, 0.02);
     // const Vec w = math::add(a, b); // Add bump
     prims::Triangle tri;
-    if (testAllTriangles(Y, a, tri))
+    float t;
+    if (findFirstIntersection(Y, a, tri, t))
     {
-        float b[3];
-        float t;
-        if (rayTriangleIntersect(Y, a, tri.m_vertex, b, t))
-            return true;
+        return true;
     }
     return false;
 }
@@ -134,25 +131,31 @@ bool Scene::visible(const Point Y, const Point X) const
 // Returns the amount of light received if the ray intersects wtih a triangle. Otherwise returns 0.
 Point Scene::lightIn(const Point P, const Vec wi) const
 {
-
-    Surfel s;
-    if (findFirstIntersection(P, wi, s))
+    // Intersection triangle
+    prims::Triangle s;
+    // Intersection distance
+    float t;
+    if (findFirstIntersection(P, wi, s, t))
     {
-        Point L = lightOut(s, -wi);
+        Point intsec = math::add(P, math::point((math::scale(t, wi))));
+        // std::cout << "found intersection at: " << intsec.x << intsec.y << intsec.z << std::endl;
+        Point L;
+        L = lightOut(s, -wi, intsec);
         return L;
     }
     return Point(0, 0, 0); // No intersection has been found
 }
 
-// Returns the amount of light that bounces from a surface (debug version since surfel has not been implemented yet)
-Point Scene::lightOut(Surfel &sx, const Vec &wo) const
+// Returns the amount of light that bounces from a surface (not using a surfel)
+Point Scene::lightOut(prims::Triangle &sx, const Vec &wo, const Point &X) const
 {
-    // Local radiance
-    Point L = sx.emittedRadiance(wo);
+    // Local radiance, we'll implement that later
+    Point L = sx.material.emittedRadiance(wo);
     // Position of the intersection point
-    const Point &X = sx.position;
     // The dot product(?) between the light source and the normal of the material (in world coordinates)
-    const Vec &n = sx.shadingNormal;
+    const Vec &edge1 = math::sub(sx.m_vertex[1].direction(), sx.m_vertex[0].direction());
+    const Vec &edge2 = math::sub(sx.m_vertex[2].direction(), sx.m_vertex[0].direction());
+    const Vec &n = math::crossProduct(edge1, edge2);
 
     for (const prims::Light &light : lights)
     {
@@ -162,51 +165,21 @@ Point Scene::lightOut(Surfel &sx, const Vec &wo) const
         {
             const Vec &wi = math::sub(Y, X).direction();
             const Point &bi = light.biradiance(X);
-            const Point &f = sx.finiteScatteringDensity(wi, wo);
-            L = L + bi * f;
+            const Point &f = sx.material.finiteScatteringDensity(wi, wo);
+            L = L + math::scale(abs(math::dotProduct(n, wi)), bi * f);
         }
     }
 
     return L;
 }
 
-// Returns the amount of light that bounces from a surface (using a surfel)
-Point Scene::lightOut(Surfel &sx, const Vec &wo) const
-{
-    // Local radiance
-    Point L = sx.emittedRadiance(wo);
-    // Position of the intersection point
-    const Point &X = sx.position;
-    // The dot product(?) between the light source and the normal of the material (in world coordinates)
-    const Vec &n = sx.shadingNormal;
-
-    for (const prims::Light &light : lights)
-    {
-        const Point &Y = light.getPosition();
-
-        if (visible(Y, X))
-        {
-            const Vec &wi = math::sub(Y, X).direction();
-            const Point &bi = light.biradiance(X);
-            const Point &f = sx.finiteScatteringDensity(wi, wo);
-            L = L + bi * f;
-        }
-    }
-
-    return L;
-}
-
-// Point Scene::lightScatteredDirect(Surfel &sx, const Vec &wo)
-// {
-// }
-
-// Finds the first intersection of a triangle and stores its surfel in s, and returns true. Returns false if nothing is intersected by the ray.
-bool Scene::findFirstIntersection(const Point &P, const Vec &w, Surfel &s) const
+// Finds the first intersection of a triangle and stores the triangle in s, and returns true. Returns false if nothing is intersected by the ray.
+bool Scene::findFirstIntersection(const Point &P, const Vec &w, prims::Triangle &s, float &t) const
 {
     prims::Triangle tri;
-    if (testAllTriangles(P, w, tri))
+    if (testAllTriangles(P, w, tri, t))
     {
-        s = tri.surfel;
+        s = tri;
         return true;
     }
     else
@@ -220,14 +193,14 @@ void Scene::debugAddCube()
                                       Point(-1, 0, -20),
                                       Point(-1, 3, -20)));
     tlist.addTriangle(prims::Triangle(Point(2, 0, -20),
-                                      Point(2, 3, -20),
-                                      Point(-1, 3, -20)));
-    tlist.addTriangle(prims::Triangle(Point(2, 0, -23),
-                                      Point(2, 0, -20),
+                                      Point(-1, 3, -20),
                                       Point(2, 3, -20)));
     tlist.addTriangle(prims::Triangle(Point(2, 0, -23),
                                       Point(2, 0, -20),
                                       Point(2, 3, -20)));
+    tlist.addTriangle(prims::Triangle(Point(2, 0, -23),
+                                      Point(2, 0, -20),
+                                      Point(2, 3, -20)));
     // tlist.addTriangle(prims::Triangle(Point(),
     //                                   Point(),
     //                                   Point()));
@@ -252,6 +225,8 @@ void Scene::debugAddCube()
     // tlist.addTriangle(prims::Triangle(Point(),
     //                                   Point(),
     //                                   Point()));
+
+    std::cout << tlist.size() << std::endl;;
 }
 
 void Scene::newCamera(PinholeCamera p)

@@ -18,7 +18,8 @@ namespace utils
         this->z = dz;
     }
 
-    Vec Vec::operator-() const {
+    Vec Vec::operator-() const
+    {
         Vec v;
         v.x = -x;
         v.y = -y;

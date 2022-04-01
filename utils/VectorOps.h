@@ -54,8 +54,12 @@ namespace math
 
     Vec getUnitVec(Vec &a);
 
+    const Vec getUnitVec(const Vec &a);
+
     // Returns the magnitude of the vector
     double length(Vec &a);
+
+    const double length(const Vec &a);
 
     double dotProduct(const Vec &a, const Vec &b);
 
@@ -72,6 +76,8 @@ namespace math
     Point vecToPoint(Vec &a);
 
     Vec power(const Vec &a, int power);
+
+    Point point(const Vec &a);
 }
 
 #endif

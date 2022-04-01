@@ -3,9 +3,7 @@
 
 #include "Point.h"
 #include "Surfel.h"
-
-#include <memory>
-#include <utility>
+#include "Materials.h"
 
 using namespace utils;
 
@@ -23,7 +21,8 @@ namespace prims
 
         Point m_vertex[3];
 
-        Surfel surfel;
+        // For now, we'll just assign a material to every triangle. Soon after we should assign it to every object instead
+        Materials material;
 
     private:
         

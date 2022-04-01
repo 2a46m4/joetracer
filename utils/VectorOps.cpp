@@ -25,6 +25,16 @@ namespace math
         return scale((1 / length(a)), a);
     }
 
+    const Vec getUnitVec(const Vec &a)
+    {
+        return scale((1 / length(a)), a);
+    }
+
+    const double length(const Vec &a)
+    {
+        return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+    }
+
     double length(Vec &a)
     {
         return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
@@ -57,4 +67,8 @@ namespace math
         return b;
     }
 
+    Point point(const Vec &a)
+    {
+        return Point(a.x, a.y, a.z);
+    }
 }

@@ -16,6 +16,8 @@ namespace utils
         Ray();
 
         Ray(Point& origin, Vec& direction);
+
+        Vec pointAtTime(float t) const;
     };
 }
 

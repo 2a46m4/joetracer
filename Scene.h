@@ -5,7 +5,6 @@
 #include "utils/Vec.h"
 #include "utils/Sphere.h"
 #include "PinholeCamera.h"
-#include "utils/Surfel.h"
 #include "utils/VectorOps.h"
 #include "utils/Light.h"
 #include "utils/TriangleList.h"
@@ -39,15 +38,15 @@ public:
 
     Point lightIn(const Point P, const Vec wi) const;
 
-    Point lightOut(Surfel &sx, const Vec &wo) const;
+    Point lightOut(prims::Triangle &sx, const Vec &wo, const Point &X) const;
 
     // Point lightScatteredDirect(Surfel &sx, const Vec &wo);
 
-    bool findFirstIntersection(const Point &P, const Vec &w, Surfel &s) const;
+    bool findFirstIntersection(const Point &P, const Vec &w, prims::Triangle &s, float &t) const;
 
     bool rayTriangleIntersect(const Point &P, const Vec w, const Point V[3], float b[3], float &t) const;
 
-    bool testAllTriangles(const Point P, const Vec w, prims::Triangle &tri) const;
+    bool testAllTriangles(const Point P, const Vec w, prims::Triangle &tri, float& t) const;
 
     bool visible(const Point X, const Point Y) const;
 
