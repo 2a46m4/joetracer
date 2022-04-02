@@ -92,6 +92,9 @@ namespace math
     Vec power(const Vec &a, int power);
 
     Point point(const Vec &a);
+
+    // Approximation of reflection by Christophe Schlick
+    float schlick(const float cosine, const float refractIdx);
 }
 
 #endif

@@ -36,7 +36,7 @@ namespace prims
         if (discriminant > 0)
         {
             rec.t = ((-sqrt(discriminant)) - b) / a;
-            if (dist > rec.t && rec.t > 0.001)
+            if (dist > rec.t && rec.t > 0.0001)
             {
                 intercept = true;
                 dist = rec.t;
@@ -45,7 +45,7 @@ namespace prims
                 rec.matPtr = material;
             }
             rec.t = (sqrt(discriminant) - b) / a;
-            if (dist > rec.t && rec.t > 0.001)
+            if (dist > rec.t && rec.t > 0.0001)
             {
                 intercept = true;
                 dist = rec.t;

@@ -14,8 +14,6 @@
 #include <limits>
 #include <random>
 
-#define PI 3.14159265358979323846264338327950288419716939937510582097
-
 using namespace utils;
 
 Scene::Scene()
@@ -53,18 +51,14 @@ char *Scene::render(PinholeCamera camera) const
                 col = math::add(col, Colour(r, limit));
             }
 
-            // const Point col = lightIn(P, w);
-
-            // std::cout << col.x << " " << col.y << " " << col.z << std::endl;
-
             // R channel
-            pixels[loc] = col.x / aa_limit;
+            pixels[loc] = (sqrt(col.x / aa_limit / 255)) * 255 ;
             loc++;
             // G channel
-            pixels[loc] = col.y / aa_limit;
+            pixels[loc] = (sqrt(col.y / aa_limit / 255)) * 255 ;
             loc++;
             // B channel
-            pixels[loc] = col.z / aa_limit;
+            pixels[loc] = (sqrt(col.z / aa_limit / 255)) * 255 ;
             loc++;
         }
     }

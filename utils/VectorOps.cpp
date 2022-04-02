@@ -63,4 +63,10 @@ namespace math
     {
         return Point(a.x, a.y, a.z);
     }
+
+    float schlick(const float cosine, const float refractIdx) {
+        float r0 = (1 - refractIdx) / (1 + refractIdx);
+        r0 *= r0;
+        return r0 + (1 - r0) * pow((1 - cosine), 5);
+    }
 }

@@ -15,12 +15,11 @@ protected:
 
     Point location;
 
-    float rotation;
-
+    Vec direction;
 public:
     PinholeCamera();
 
-    PinholeCamera(float z_near, float verticalFOV, Point location);
+    PinholeCamera(float z_near, float verticalFOV, Point location, Vec direction);
 
     /*
     x, y are the virtual coordinates on the virtual plane camera (our "sensor")

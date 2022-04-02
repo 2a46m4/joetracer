@@ -10,6 +10,8 @@
 namespace utils
 {
     Vec randomRayInSphere();
+
+    bool refract(const Vec& v, const Vec& n, float refractind, Vec& refracted);
 }
 
 #endif
