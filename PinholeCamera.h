@@ -28,7 +28,7 @@ public:
     P is the actual point of the ray
     w is the direction of the ray
      */
-    void getPrimaryRay(float x, float y, int width, int height, Ray r) const;
+    void getPrimaryRay(float x, float y, int width, int height, Ray& r) const;
 
     void changeLocation(Point p);
 };

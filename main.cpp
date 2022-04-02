@@ -46,14 +46,17 @@ int main(int argc, char *args[])
 
     Scene *s = new Scene(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    Metal *m = new Metal(Point(100, 100, 100));
+    Metal *m = new Metal(Point(0.9, 0.9, 0.9));
     Lambertian *l = new Lambertian(Point(0.7, 0.9, 0.3));
+    Metal *ma = new Metal(Point(0.9, 0.8, 0.9));
+    Lambertian *la = new Lambertian(Point(0.2, 0.5, 0.3));
 
     s->addSphere(prims::Sphere(1, Point(255, 255, 255), Point(0, 0, -10), m));
     // s->addSphere(1, -1, -0, -5);
     // s->addSphere(2, 10, 10, -20);
-    // s->addSphere(3, 8, 8, -30);
-    // s->addSphere(1, 2, 2, -16);
+    s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(8, 8, -30), la));
+    s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(8, 8, -30), la));
+    s->addSphere(prims::Sphere(1, Point(255, 255, 255), Point(2, 2, -12), ma));
     s->addSphere(prims::Sphere(1000, Point(255, 255, 255), Point(0, -1100.5, -1), l));
     // s->debugAddCube();
     s->addLight(prims::Light(Point(0, 2, -5), 1000.0, Point(255, 255, 255)));

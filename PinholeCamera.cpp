@@ -12,7 +12,7 @@ PinholeCamera::PinholeCamera(float z_near, float verticalFOV, Point location)
     this->location = location;
 }
 
-void PinholeCamera::getPrimaryRay(float x, float y, int width, int height, Ray r) const
+void PinholeCamera::getPrimaryRay(float x, float y, int width, int height, Ray& r) const
 {
     // the scaling that depends on the fov of the camera; greater values means that the rays are projected farther away from the centre of the screen
     const float side = -2.0f * tan(verticalFOV / 2.0f);

@@ -43,13 +43,13 @@ char *Scene::render(PinholeCamera camera) const
             Ray r;
             Point col;
 
-            // std::random_device aa;  // Will be used to obtain a seed for the random number engine
-            // std::mt19937 gen(aa()); // Standard mersenne_twister_engine seeded with rd()
-            // std::uniform_real_distribution<> asd(0, 1);
+            std::random_device aa;  // Will be used to obtain a seed for the random number engine
+            std::mt19937 gen(aa()); // Standard mersenne_twister_engine seeded with rd()
+            std::uniform_real_distribution<> asd(0, 1);
 
             for (int i = 0; i < aa_limit; i++)
             {
-                camera.getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, r);
+                camera.getPrimaryRay(float(x) + asd(aa), float(y) + asd(aa), width, height, r);
                 col = math::add(col, Colour(r, limit));
             }
 
@@ -116,6 +116,7 @@ std::vector<prims::Sphere> Scene::getSpheres() const
 Point Scene::Colour(Ray r, int limit) const
 {
     prims::hitRecord rec;
+    rec.t = std::numeric_limits<float>::max();
 
     // prims::Triangle tri;
     // bool intersect_triangle = testAllTriangles(P, w, tri);
@@ -128,7 +129,7 @@ Point Scene::Colour(Ray r, int limit) const
         return attenuation * Colour(scattered, limit - 1);
     }
     else
-        return Point(128, 150, 200); // Background colour
+        return Point(150, 170, 240); // Background colour
 }
 
 void Scene::addSphere(prims::Sphere o)
@@ -142,7 +143,14 @@ bool Scene::sphereIntersect(Ray &rIn, prims::hitRecord &rec) const
     bool hit = false;
     for (auto sphere : spheres)
     {
-        hit = hit || sphere.hit(rIn, rec);
+        prims::hitRecord temp;
+        temp.t = std::numeric_limits<float>::max();
+        bool hitsphere = sphere.hit(rIn, temp);
+        if (hitsphere && temp.t < rec.t)
+        {
+            rec = temp;
+        }
+        hit = hit || hitsphere;
     }
     return hit;
 }
