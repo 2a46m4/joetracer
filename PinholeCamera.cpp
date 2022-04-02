@@ -1,53 +1,31 @@
 #include "PinholeCamera.h"
 #include "utils/Ray.h"
-#include "utils/VectorOps.h"
 
 using namespace utils;
 
 #define PI 3.14159265358979323846264338327950288419716939937510582097
 
-PinholeCamera::PinholeCamera()
-{
-}
+PinholeCamera::PinholeCamera() {}
 
-PinholeCamera::PinholeCamera(float z_near, float verticalFOV, Point location, Point lookat)
+PinholeCamera::PinholeCamera(float z_near, float verticalFOV, Point location)
 {
     this->z_near = z_near;
     this->verticalFOV = verticalFOV;
     this->location = location;
-    this->lookat = lookat;
 }
 
 void PinholeCamera::getPrimaryRay(float x, float y, int width, int height, Ray &r) const
 {
     // the scaling that depends on the fov of the camera; greater values means that the rays are projected farther away from the centre of the screen
-    const float halfHeight = tan(verticalFOV * PI / 360.0f);
-    const float halfWidth = halfHeight * width / height;
+    const float side = -2 * tan(verticalFOV * PI / 360.0f);
 
-    Vec u, v, w;
+    // distance from the centre of projection * distance from the centre of the virtual plane * projection scaling
+    r.origin = Point((z_near * (x / width - 0.5f) * side * width / height) + location.x,
+                     (z_near * -(y / height - 0.5f) * side) + location.y,
+                      z_near + location.z);
 
-    Vec vUp = Vec(0, 1, 0);
-
-    w = math::getUnitVec(math::sub(location, lookat).direction());
-    u = math::getUnitVec(math::crossProduct(vUp, w));
-    v = math::crossProduct(w, u);
-
-    Point origin = location;
-
-    Point lowerLeft = origin;
-    lowerLeft = math::sub(lowerLeft, math::point(math::scale(halfWidth, u)));
-    lowerLeft = math::sub(lowerLeft, math::point(math::scale(halfHeight, v)));
-    lowerLeft = math::sub(lowerLeft, math::point(w));
-
-    Vec horizontal = math::scale(2 * halfWidth, u);
-    Vec vertical = math::scale(2 * halfHeight, v);
-
-    r.origin = origin;
-
-    Point xloc = math::point(math::scale(x, horizontal));
-    Point yloc = math::point(math::scale(y, vertical));
-    Point loc = math::add(xloc, yloc);
-    r.direction = math::sub(math::add(lowerLeft, loc), origin).direction();
+    // TODO: implement camera rotation
+    r.direction = r.origin.direction;
 }
 
 void PinholeCamera::changeLocation(Point p)
