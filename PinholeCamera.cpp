@@ -10,38 +10,44 @@ PinholeCamera::PinholeCamera()
 {
 }
 
-PinholeCamera::PinholeCamera(float z_near, float verticalFOV, Point location, Vec direction)
+PinholeCamera::PinholeCamera(float z_near, float verticalFOV, Point location, Point lookat)
 {
     this->z_near = z_near;
     this->verticalFOV = verticalFOV;
     this->location = location;
-    this->direction = math::getUnitVec(direction);
+    this->lookat = lookat;
 }
 
 void PinholeCamera::getPrimaryRay(float x, float y, int width, int height, Ray &r) const
 {
     // the scaling that depends on the fov of the camera; greater values means that the rays are projected farther away from the centre of the screen
-    const float side = -2 * tan(verticalFOV * PI / 360.0f);
+    const float halfHeight = tan(verticalFOV * PI / 360.0f);
+    const float halfWidth = halfHeight * width / height;
 
     Vec u, v, w;
 
-    Vec vUp = Vec(0, -1, 0);
+    Vec vUp = Vec(0, 1, 0);
 
-    w = direction;
+    w = math::getUnitVec(math::sub(location, lookat).direction());
     u = math::getUnitVec(math::crossProduct(vUp, w));
-    v = math::crossProduct(u, w);
+    v = math::crossProduct(w, u);
 
-    // distance from the centre of projection * distance from the centre of the virtual plane * projection scaling
-    r.origin = Point((z_near * (x / width - 0.5f) * side * width / height),
-                     (z_near * -(y / height - 0.5f) * side),
-                     (z_near));
+    Point origin = location;
 
-    r.origin = math::sub(r.origin, math::point(math::scale(side, u)));
-    r.origin = math::sub(r.origin, math::point(math::scale(side, v)));
-    r.origin = math::sub(r.origin, math::point(-w));
+    Point lowerLeft = origin;
+    lowerLeft = math::sub(lowerLeft, math::point(math::scale(halfWidth, u)));
+    lowerLeft = math::sub(lowerLeft, math::point(math::scale(halfHeight, v)));
+    lowerLeft = math::sub(lowerLeft, math::point(w));
 
-    // TODO: implement camera rotation
-    r.direction = math::sub(r.origin.direction(), location.direction());
+    Vec horizontal = math::scale(2 * halfWidth, u);
+    Vec vertical = math::scale(2 * halfHeight, v);
+
+    r.origin = origin;
+
+    Point xloc = math::point(math::scale(x, horizontal));
+    Point yloc = math::point(math::scale(y, vertical));
+    Point loc = math::add(xloc, yloc);
+    r.direction = math::sub(math::add(lowerLeft, loc), origin).direction();
 }
 
 void PinholeCamera::changeLocation(Point p)
