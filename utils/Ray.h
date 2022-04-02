@@ -8,16 +8,18 @@ namespace utils
 {
     class Ray
     {
-    public:
-        Point origin;
+        public:
+            Point origin;
 
-        Vec direction;
+            Vec direction;
 
-        Ray();
+            Ray();
 
-        Ray(Point& origin, Vec& direction);
+            Ray(Point &origin, Vec &direction);
 
-        Point pointAtTime(float t) const;
+            Ray(const Point &origin, const Vec &direction);
+
+            Point pointAtTime(float t) const;
     };
 }
 

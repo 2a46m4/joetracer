@@ -3,6 +3,7 @@
 
 #include "Point.h"
 #include "Hittable.h"
+#include "Materials.h"
 
 using namespace utils;
 
@@ -12,11 +13,10 @@ namespace prims
     {
     public:
         Point location;
-        double specular = 0.2;
-        double lambert = 0.7;
-        double ambient = 0.1;
         Point color;
         int rad;
+
+        utils::Materials* material;
 
         Sphere();
 

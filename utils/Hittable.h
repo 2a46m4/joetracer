@@ -7,22 +7,25 @@
 
 using namespace utils;
 
+class Materials;
 namespace prims
 {
-    struct hitRecord {
+    struct hitRecord
+    {
         float t;
-        Vec p;
+        Point p;
         Vec normal;
+        utils::Materials *matPtr;
     };
 
     class Hittable
     {
     public:
-        virtual bool hit(const Ray& r, float minTime, float maxTime, hitRecord& rec) const = 0;
+        virtual bool hit(const Ray &r, float minTime, float maxTime, hitRecord &rec) const = 0;
 
     private:
-
     };
+
 }
 
 #endif

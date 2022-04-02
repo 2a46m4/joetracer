@@ -22,7 +22,7 @@ namespace prims
         Point m_vertex[3];
 
         // For now, we'll just assign a material to every triangle. Soon after we should assign it to every object instead
-        Materials material;
+        // Materials material;
 
     private:
         

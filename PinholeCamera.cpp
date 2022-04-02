@@ -1,5 +1,5 @@
 #include "PinholeCamera.h"
-#include "utils/Point.h"
+#include "utils/Ray.h"
 
 using namespace utils;
 
@@ -12,18 +12,18 @@ PinholeCamera::PinholeCamera(float z_near, float verticalFOV, Point location)
     this->location = location;
 }
 
-void PinholeCamera::getPrimaryRay(float x, float y, int width, int height, Point &P, Vec &w) const
+void PinholeCamera::getPrimaryRay(float x, float y, int width, int height, Ray r) const
 {
     // the scaling that depends on the fov of the camera; greater values means that the rays are projected farther away from the centre of the screen
     const float side = -2.0f * tan(verticalFOV / 2.0f);
 
     // distance from the centre of projection * distance from the centre of the virtual plane * projection scaling
-    P = Point((z_near * (x / width - 0.5f) * side * width / height) + location.x,
+    r.origin = Point((z_near * (x / width - 0.5f) * side * width / height) + location.x,
               (z_near * -(y / height - 0.5f) * side) + location.y,
               z_near + location.z);
     
     // TODO: implement camera rotation
-    w = P.direction();
+    r.direction = r.origin.direction();
 }
 
 void PinholeCamera::changeLocation(Point p){

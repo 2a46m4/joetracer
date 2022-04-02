@@ -5,14 +5,6 @@ using namespace utils;
 
 namespace math
 {
-
-    // Vec sub(const Vec &a, const Vec &b)
-    // {
-    //     return Vec(a.x + b.x,
-    //                a.y + b.y,
-    //                a.z + b.z);
-    // }
-
     Vec add3(Vec &a, Vec &b, Vec &c)
     {
         return Vec(a.x + b.x + c.z,
@@ -35,6 +27,11 @@ namespace math
         return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
     }
 
+    const double sqrlen(const Vec &a)
+    {
+        return a.x * a.x + a.y * a.y + a.z * a.z;
+    }
+
     double length(Vec &a)
     {
         return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
@@ -43,11 +40,6 @@ namespace math
     double dotProduct(const Vec &a, const Vec &b)
     {
         return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
-    }
-
-    Vec reflection(double normal, Vec &a)
-    {
-        return Vec(0, 0, 0);
     }
 
     Point vecToPoint(Vec &a)

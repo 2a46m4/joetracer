@@ -54,8 +54,8 @@ int main(int argc, char *args[])
     int channels = 3;
     char *pixels = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
     char *result = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
-    float i = 0;
-    int j = 1;
+    // float i = 0;
+    // int j = 1;
 
     while (!quit)
     {

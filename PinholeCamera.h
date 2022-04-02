@@ -1,6 +1,6 @@
 #ifndef _PINHOLE_CAMERA_H
 #define _PINHOLE_CAMERA_H
-#include "utils/Point.h"
+#include "utils/Ray.h"
 #include <cmath>
 
 using namespace utils;
@@ -28,7 +28,7 @@ public:
     P is the actual point of the ray
     w is the direction of the ray
      */
-    void getPrimaryRay(float x, float y, int width, int height, Point &P, Vec &w) const;
+    void getPrimaryRay(float x, float y, int width, int height, Ray r) const;
 
     void changeLocation(Point p);
 };

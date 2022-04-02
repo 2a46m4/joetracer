@@ -67,6 +67,8 @@ namespace math
     // Returns the magnitude of the vector
     double length(Vec &a);
 
+    const double sqrlen(const Vec &a);
+
     const double length(const Vec &a);
 
     double dotProduct(const Vec &a, const Vec &b);
@@ -79,7 +81,11 @@ namespace math
                    (a.x * b.y) - (a.y * b.x));
     }
 
-    Vec reflection(double normal, Vec &a);
+    template <class T>
+    T reflection(T &normal, T &a)
+    {
+        return sub(a, scale(2, scale(dotProduct(a, normal), normal)));
+    }
 
     Point vecToPoint(Vec &a);
 

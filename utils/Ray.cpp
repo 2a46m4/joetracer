@@ -6,17 +6,26 @@
 
 namespace utils
 {
-    Ray::Ray() {
+    Ray::Ray()
+    {
         origin = Point();
         direction = Vec();
     }
 
-    Ray::Ray(Point &origin, Vec &direction) {
+    Ray::Ray(Point &origin, Vec &direction)
+    {
         this->origin = origin;
         this->direction = direction;
     }
 
-    Point Ray::pointAtTime(float t) const {
+    Ray::Ray(const Point &origin, const Vec &direction)
+    {
+        this->origin = origin;
+        this->direction = direction;
+    }
+
+    Point Ray::pointAtTime(float t) const
+    {
         return math::add(math::point(math::scale(t, direction)), origin);
     }
 }

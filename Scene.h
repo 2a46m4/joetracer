@@ -37,20 +37,6 @@ public:
 
     char *render(PinholeCamera camera) const;
 
-    Point lightIn(const Point P, const Vec wi) const;
-
-    Point lightOut(prims::Triangle &sx, const Vec &wo, const Point &X) const;
-
-    // Point lightScatteredDirect(Surfel &sx, const Vec &wo);
-
-    bool findFirstIntersection(const Point &P, const Vec &w, prims::Triangle &s, float &t) const;
-
-    bool rayTriangleIntersect(const Point &P, const Vec w, const Point V[3], float b[3], float &t) const;
-
-    bool testAllTriangles(const Point P, const Vec w, prims::Triangle &tri, float &t) const;
-
-    bool visible(const Point X, const Point Y) const;
-
     void addSphere(prims::Sphere o);
 
     void debugAddCube();
@@ -74,7 +60,7 @@ public:
     Point Colour(Ray r, int limit) const;
 
     // returns the t that the intersection happened, as well as the normal
-    bool sphereIntersect(Point P, Vec w, float& t, Vec& n) const;
+    bool sphereIntersect(Ray& rIn, prims::hitRecord& rec) const;
 
     void addSphere(int r, int x, int y, int z);
 
