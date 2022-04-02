@@ -2,12 +2,13 @@
 #define _SPHERE_H
 
 #include "Point.h"
+#include "Hittable.h"
 
 using namespace utils;
 
 namespace prims
 {
-    class Sphere
+    class Sphere: public Hittable 
     {
     public:
         Point location;
@@ -21,10 +22,10 @@ namespace prims
 
         Sphere(int rad, Point col, Point loc);
 
+        bool hit(const Ray& r, float minTime, float maxTime, hitRecord& rec) const;
+
     private:
-        // type of Object.
-        //  s : sphere
-        char type;
+
     };
 }
 

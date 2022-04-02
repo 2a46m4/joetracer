@@ -7,7 +7,7 @@
 #include <iostream>
 
 const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 400;
+const int SCREEN_HEIGHT = 480;
 
 int main(int argc, char *args[])
 {
@@ -41,15 +41,21 @@ int main(int argc, char *args[])
     screenSurface = SDL_GetWindowSurface(window);
 
     Scene *s = new Scene(SCREEN_WIDTH, SCREEN_HEIGHT);
-    // s->debugAddSphere(1, 0, 0, -5);
-    // s->debugAddSphere(2, 10, 10, -20);
-    s->debugAddCube();
+    s->addSphere(1, 1, -1, -5);
+    s->addSphere(1, -1, -0, -5);
+    // s->addSphere(2, 10, 10, -20);
+    // s->addSphere(3, 8, 8, -30);
+    // s->addSphere(1, 2, 2, -16);
+    s->addSphere(1000, 0, -1100.5, -1);
+    // s->debugAddCube();
     s->addLight(prims::Light(Point(0, 2, -5), 1000.0, Point(255, 255, 255)));
     s->addLight(prims::Light(Point(0, 0, 0), 1000.0, Point(255, 255, 255)));
     s->addLight(prims::Light(Point(0, 2, -10), 1000.0, Point(255, 255, 255)));
     int channels = 3;
     char *pixels = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
+    char *result = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
     float i = 0;
+    int j = 1;
 
     while (!quit)
     {
@@ -61,9 +67,13 @@ int main(int argc, char *args[])
             }
         }
 
-        PinholeCamera camera(1.0f, 45.0f, Point(0, 0, i));
+        PinholeCamera camera(-1.0f, 45.0f, Point(0, 0, 0));
         pixels = s->render(camera);
-
+        // for (int i = 0; i < (SCREEN_HEIGHT * SCREEN_WIDTH * channels); i++)
+        // {
+        //     result[i] = ((result[i] * (j - 1)) / j) + (pixels[i] / j);
+        // }
+        // j++;
 
         SDL_Surface *surface = SDL_CreateRGBSurfaceFrom((void *)pixels,
                                                         SCREEN_WIDTH,
@@ -79,9 +89,8 @@ int main(int argc, char *args[])
 
         // Update the surface
         SDL_UpdateWindowSurface(window);
-        i = i + 0.5f;
+        // i = i + 0.01f;
         // std::cout << i << std::endl;
-        SDL_Delay(500);
     }
 
     // Destroy window

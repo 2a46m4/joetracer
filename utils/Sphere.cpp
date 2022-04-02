@@ -9,7 +9,6 @@ namespace prims
 
     Sphere::Sphere()
     {
-        type = 's';
         rad = 5;
         location = Point(0, 0, -5);
     }
@@ -17,8 +16,11 @@ namespace prims
     Sphere::Sphere(int rad, Point col, Point loc)
     {
         this->rad = rad;
-        type = 's';
         location = loc;
         color = col;
+    }
+
+    bool Sphere::hit(const Ray &r, float minTime, float maxTime, hitRecord &rec) const {
+        
     }
 }

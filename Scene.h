@@ -9,6 +9,7 @@
 #include "utils/Light.h"
 #include "utils/TriangleList.h"
 #include "utils/Triangle.h"
+#include "utils/Ray.h"
 
 #include <math.h>
 #include <vector>
@@ -46,7 +47,7 @@ public:
 
     bool rayTriangleIntersect(const Point &P, const Vec w, const Point V[3], float b[3], float &t) const;
 
-    bool testAllTriangles(const Point P, const Vec w, prims::Triangle &tri, float& t) const;
+    bool testAllTriangles(const Point P, const Vec w, prims::Triangle &tri, float &t) const;
 
     bool visible(const Point X, const Point Y) const;
 
@@ -70,11 +71,14 @@ public:
 
     // Sphere stuff
 
-    // Point debugColour(Point P, Vec w) const;
-    // bool debugIntersection(Point P, Vec w) const;
-    // void debugAddSphere(int r, int x, int y, int z);
+    Point Colour(Ray r, int limit) const;
 
-    // std::vector<prims::Sphere> getSpheres() const;
+    // returns the t that the intersection happened, as well as the normal
+    bool sphereIntersect(Point P, Vec w, float& t, Vec& n) const;
+
+    void addSphere(int r, int x, int y, int z);
+
+    std::vector<prims::Sphere> getSpheres() const;
 };
 
 #endif

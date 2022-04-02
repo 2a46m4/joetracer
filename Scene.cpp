@@ -5,13 +5,13 @@
 #include "PinholeCamera.h"
 #include "utils/VectorOps.h"
 #include "utils/Light.h"
+#include "utils/Ray.h"
 
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <utility>
-#include <memory>
 #include <limits>
+#include <random>
 
 #define PI 3.14159265358979323846264338327950288419716939937510582097
 
@@ -33,26 +33,44 @@ char *Scene::render(PinholeCamera camera) const
 {
     // PinholeCamera *camera = new PinholeCamera(1.0f, 45.0f, Point(0, 0, 0));
     char *pixels = new char[width * height * 3];
-
+    int limit = 4;
     int loc = 0;
+    int aa_limit = 32;
     for (int y = 0; y < height; ++y)
     {
         for (int x = 0; x < width; ++x)
         {
+            // std::cout << x << " " << y << std::endl;
             Point P;
             Vec w;
+            // Depricate point/vec soon
+            Ray r;
+            Point col;
 
-            camera.getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, P, w);
+            std::random_device rd;  // Will be used to obtain a seed for the random number engine
+            std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
+            std::uniform_real_distribution<> dis(0, 1);
 
-            // Point col = debugColour(P, w);
-            const Point col = lightIn(P, w);
+            for (int i = 0; i < aa_limit; i++)
+            {
+                camera.getPrimaryRay(float(x) + dis(gen), float(y) + dis(gen), width, height, P, w);
+                r = Ray(P, w);
+                col = math::add(col, Colour(r, limit));
+            }
+
+            // const Point col = lightIn(P, w);
+
+            // std::cout << col.x << " " << col.y << " " << col.z << std::endl;
 
             // R channel
-            pixels[loc++] = col.x;
+            pixels[loc] = col.x / aa_limit;
+            loc++;
             // G channel
-            pixels[loc++] = col.y;
+            pixels[loc] = col.y / aa_limit;
+            loc++;
             // B channel
-            pixels[loc++] = col.z;
+            pixels[loc] = col.z / aa_limit;
+            loc++;
         }
     }
     return pixels;
@@ -226,7 +244,8 @@ void Scene::debugAddCube()
     //                                   Point(),
     //                                   Point()));
 
-    std::cout << tlist.size() << std::endl;;
+    std::cout << tlist.size() << std::endl;
+    ;
 }
 
 void Scene::newCamera(PinholeCamera p)
@@ -266,47 +285,82 @@ const std::vector<prims::Light> Scene::getLights() const
 
 /*--------------- Sphere stuff ---------------*/
 
-// std::vector<prims::Sphere> Scene::getSpheres() const
-// {
-//     return spheres;
-// }
+std::vector<prims::Sphere> Scene::getSpheres() const
+{
+    return spheres;
+}
 
-// Point Scene::debugColour(Point P, Vec w) const
-// {
+Point Scene::Colour(Ray r, int limit) const
+{
+    float t;
+    Vec n;
+    bool intersect_sphere = sphereIntersect(r.origin, r.direction, t, n);
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(-1, 1);
+    // prims::Triangle tri;
+    // bool intersect_triangle = testAllTriangles(P, w, tri);
 
-//     bool intersect_sphere = debugIntersection(P, w);
-//     prims::Triangle tri;
-//     bool intersect_triangle = testAllTriangles(P, w, tri);
+    if (intersect_sphere && limit > 0)
+    {
+        Point P = math::add(r.pointAtTime(t), math::point(math::scale(0.01, n)));
+        Vec w;
+        do
+        {
+            w = Vec(dis(gen), dis(gen), dis(gen));
+        } while (math::length(w) >= 1.0);
+        w = math::add(w, n);
+        Point col = math::scale(0.5, Colour(Ray(P, w), limit - 1));
+        return col;
 
-//     if (intersect_sphere || intersect_triangle)
-//         return Point::char_max();
-//     else
-//         return Point::zero();
-// }
+        // Point x = Point(n.x + 1, n.y + 1, n.z + 1);
+        // Point y = math::scale(128, x);
+        // return y;
+    }
+    else
+        return Point(128, 150, 200);
+}
 
-// void Scene::addSphere(prims::Sphere o)
-// {
-//     spheres.push_back(o);
-// }
+void Scene::addSphere(prims::Sphere o)
+{
+    spheres.push_back(o);
+}
 
-// void Scene::debugAddSphere(int r, int x, int y, int z)
-// {
-//     spheres.push_back(prims::Sphere(r, Point(100, 100, 100), Point(x, y, z)));
-// }
+void Scene::addSphere(int r, int x, int y, int z)
+{
+    spheres.push_back(prims::Sphere(r, Point(100, 100, 100), Point(x, y, z)));
+}
 
-// // Sphere intersection
-// bool Scene::debugIntersection(Point P, Vec w) const
-// {
-//     for (auto sphere : spheres)
-//     {
+// Sphere intersection
+bool Scene::sphereIntersect(Point P, Vec w, float &t, Vec &n) const
+{
+    bool hit = false;
+    for (auto sphere : spheres)
+    {
 
-//         Vec v = math::sub(P.direction(), sphere.location.direction());
-//         int a = math::dotProduct(w, v) * math::dotProduct(w, v);
-//         int b = math::dotProduct(w, w) * (math::dotProduct(v, v) - (sphere.rad * sphere.rad));
-//         if (a - b > 0)
-//         {
-//             return true;
-//         }
-//     }
-//     return false;
-// }
+        float dist = std::numeric_limits<float>::max();
+        Vec v = math::sub(P.direction(), sphere.location.direction());
+        float a = math::dotProduct(w, w);
+        float b = math::dotProduct(w, v);
+        float c = (math::dotProduct(v, v) - (sphere.rad * sphere.rad));
+        float discriminant = (b * b) - (a * c);
+        if (discriminant > 0)
+        {
+            t = ((-sqrt(discriminant)) - b) / a;
+            if (dist > t && t > 0.01)
+            {
+                hit = true;
+                dist = (float)std::abs(math::dotProduct(v, v));
+                n = math::getUnitVec(math::sub(math::add(P.direction(), (math::scale(t, w))), sphere.location.direction()));
+            }
+            t = (sqrt(discriminant) - b) / a;
+            if (dist > t && t > 0.01)
+            {
+                hit = true;
+                dist = (float)std::abs(math::dotProduct(v, v));
+                n = math::getUnitVec(math::sub(math::add(P.direction(), (math::scale(t, w))), sphere.location.direction()));
+            }
+        }
+    }
+    return hit;
+}

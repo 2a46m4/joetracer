@@ -45,7 +45,15 @@ namespace math
     }
 
     template <class T>
-    const T scale(double m, T &a)
+    const T scale(const double m, const T &a)
+    {
+        return T(a.x * m,
+                 a.y * m,
+                 a.z * m);
+    }
+
+    template <class T>
+    T scale(double m, T &a)
     {
         return T(a.x * m,
                  a.y * m,
