@@ -7,25 +7,39 @@
 
 using namespace utils;
 
-class Materials;
 namespace prims
 {
+    class Materials;
+
     struct hitRecord
     {
         float t;
         Point p;
         Vec normal;
-        utils::Materials *matPtr;
+        Materials *matPtr;
     };
 
     class Hittable
     {
     public:
-        virtual bool hit(const Ray &r, float minTime, float maxTime, hitRecord &rec) const = 0;
+        virtual bool hit(const Ray &r, hitRecord &rec) const = 0;
 
     private:
     };
 
+    class Materials
+    {
+    public:
+        virtual bool scatter(const Ray &ray, const prims::hitRecord &rec, Point& attenuation, Ray &scattered) const = 0;
+
+        Point emittedRadiance(const Vec &wo);
+
+        // Returns the scattering density, for now just assumes that all materials are matte
+        Point finiteScatteringDensity(const Vec &wi, const Vec &wo);
+
+        // Approximate reflectivity of surface, returns colour
+        Point reflectivity();
+    };
 }
 
 #endif

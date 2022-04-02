@@ -35,7 +35,7 @@ char *Scene::render(PinholeCamera camera) const
     char *pixels = new char[width * height * 3];
     int limit = 4;
     int loc = 0;
-    int aa_limit = 32;
+    int aa_limit = 1;
     for (int y = 0; y < height; ++y)
     {
         for (int x = 0; x < width; ++x)
@@ -43,13 +43,13 @@ char *Scene::render(PinholeCamera camera) const
             Ray r;
             Point col;
 
-            std::random_device rd;  // Will be used to obtain a seed for the random number engine
-            std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
-            std::uniform_real_distribution<> dis(0, 1);
+            // std::random_device aa;  // Will be used to obtain a seed for the random number engine
+            // std::mt19937 gen(aa()); // Standard mersenne_twister_engine seeded with rd()
+            // std::uniform_real_distribution<> asd(0, 1);
 
             for (int i = 0; i < aa_limit; i++)
             {
-                camera.getPrimaryRay(float(x) + dis(gen), float(y) + dis(gen), width, height, r);
+                camera.getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, r);
                 col = math::add(col, Colour(r, limit));
             }
 
@@ -136,42 +136,13 @@ void Scene::addSphere(prims::Sphere o)
     spheres.push_back(o);
 }
 
-void Scene::addSphere(int r, int x, int y, int z)
-{
-    spheres.push_back(prims::Sphere(r, Point(100, 100, 100), Point(x, y, z)));
-}
-
 // Sphere intersection
 bool Scene::sphereIntersect(Ray &rIn, prims::hitRecord &rec) const
 {
     bool hit = false;
     for (auto sphere : spheres)
     {
-        float dist = std::numeric_limits<float>::max();
-        Vec v = math::sub(rIn.origin.direction(), sphere.location.direction());
-        float a = math::dotProduct(rIn.direction, rIn.direction);
-        float b = math::dotProduct(rIn.direction, v);
-        float c = math::dotProduct(v, v) - (sphere.rad * sphere.rad);
-        float discriminant = (b * b) - (a * c);
-        if (discriminant > 0)
-        {
-            rec.t = ((-sqrt(discriminant)) - b) / a;
-            if (dist > rec.t && rec.t > 0.001)
-            {
-                hit = true;
-                dist = rec.t;
-                rec.normal = math::getUnitVec(math::sub(math::add(rIn.origin.direction(), (math::scale(rec.t, rIn.direction))), sphere.location.direction()));
-                rec.p = math::add(rIn.origin, math::point(math::scale(rec.t, rIn.direction)));
-            }
-            rec.t = (sqrt(discriminant) - b) / a;
-            if (dist > rec.t && rec.t > 0.001)
-            {
-                hit = true;
-                dist = rec.t;
-                rec.normal = math::getUnitVec(math::sub(math::add(rIn.origin.direction(), (math::scale(rec.t, rIn.direction))), sphere.location.direction()));
-                rec.p = math::add(rIn.origin, math::point(math::scale(rec.t, rIn.direction)));
-            }
-        }
+        hit = hit || sphere.hit(rIn, rec);
     }
     return hit;
 }

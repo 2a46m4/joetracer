@@ -1,12 +1,12 @@
 #ifndef _METAL_H
 #define _METAL_H
 
-#include "Materials.h"
-#include "Vec.h"
-#include "Ray.h"
-#include "VectorOps.h"
+#include "../Hittable.h"
+#include "../Vec.h"
+#include "../Ray.h"
+#include "../VectorOps.h"
 
-class Metal : public utils::Materials {
+class Metal : public prims::Materials {
     public:
         Metal(const Point& a) : albedo(a) {}
         virtual bool scatter(const Ray& ray, const prims::hitRecord& rec, Point& attenuation, Ray& scattered) const {

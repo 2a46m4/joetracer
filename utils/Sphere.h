@@ -3,12 +3,9 @@
 
 #include "Point.h"
 #include "Hittable.h"
-#include "Materials.h"
 
 using namespace utils;
-
-namespace prims
-{
+namespace prims {
     class Sphere: public Hittable 
     {
     public:
@@ -16,17 +13,16 @@ namespace prims
         Point color;
         int rad;
 
-        utils::Materials* material;
+        prims::Materials* material;
 
         Sphere();
 
-        Sphere(int rad, Point col, Point loc);
+        Sphere(float rad, Point col, Point loc, Materials* material);
 
-        bool hit(const Ray& r, float minTime, float maxTime, hitRecord& rec) const;
+        bool hit(const Ray& r, hitRecord& rec) const;
 
     private:
 
     };
 }
-
 #endif

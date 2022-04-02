@@ -7,8 +7,6 @@
 #include "PinholeCamera.h"
 #include "utils/VectorOps.h"
 #include "utils/Light.h"
-#include "utils/TriangleList.h"
-#include "utils/Triangle.h"
 #include "utils/Ray.h"
 
 #include <math.h>
@@ -27,7 +25,6 @@ private:
 
     std::vector<prims::Light> lights;
     std::vector<prims::Sphere> spheres;
-    TriangleList tlist;
     PinholeCamera camera;
 
 public:
@@ -61,8 +58,6 @@ public:
 
     // returns the t that the intersection happened, as well as the normal
     bool sphereIntersect(Ray& rIn, prims::hitRecord& rec) const;
-
-    void addSphere(int r, int x, int y, int z);
 
     std::vector<prims::Sphere> getSpheres() const;
 };

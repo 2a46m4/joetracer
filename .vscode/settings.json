@@ -93,6 +93,8 @@
         "stack": "cpp",
         "filesystem": "cpp",
         "source_location": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "forward_list": "cpp",
+        "typeindex": "cpp"
     }
 }
