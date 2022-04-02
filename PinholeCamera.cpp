@@ -38,7 +38,7 @@ void PinholeCamera::getPrimaryRay(float x, float y, int width, int height, Ray &
 
     r.origin = math::sub(r.origin, math::point(math::scale(side, u)));
     r.origin = math::sub(r.origin, math::point(math::scale(side, v)));
-    r.origin = math::sub(r.origin, math::point(w));
+    r.origin = math::sub(r.origin, math::point(-w));
 
     // TODO: implement camera rotation
     r.direction = math::sub(r.origin.direction(), location.direction());
