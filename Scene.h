@@ -5,7 +5,7 @@
 #include "utils/Vec.h"
 #include "utils/Sphere.h"
 #include "PinholeCamera.h"
-#include "utils/VectorOps.h"
+#include "utils/Functions.h"
 #include "utils/Light.h"
 #include "utils/Ray.h"
 

@@ -4,8 +4,9 @@
 #include "../Hittable.h"
 #include "../Vec.h"
 #include "../Ray.h"
-#include "../VectorOps.h"
 #include "../Functions.h"
+
+using namespace math;
 
 class Metal : public prims::Materials {
     public:
@@ -15,7 +16,7 @@ class Metal : public prims::Materials {
         }
         virtual bool scatter(const Ray& ray, const prims::hitRecord& rec, Point& attenuation, Ray& scattered) const {
             const Vec reflected = math::reflection(rec.normal, ray.direction);
-            scattered = Ray(rec.p, math::add(reflected, math::scale(fuzz, randomRayInSphere())));
+            scattered = Ray(rec.p, math::add(reflected, math::scale(fuzz, randomRayInSphere(rec.normal))));
             attenuation = albedo;
             return (math::dotProduct(scattered.direction, rec.normal) > 0);
         }

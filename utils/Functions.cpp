@@ -73,7 +73,7 @@ namespace math
     }
 
     // Returns a random ray for a perfect lambertian surface
-    Vec randomRayInSphere()
+    Vec randomRayInSphere(const Vec& n)
     {
         std::random_device rd;
         std::mt19937 gen(rd());
@@ -83,19 +83,14 @@ namespace math
         {
             w = Vec(dis(gen), dis(gen), dis(gen));
         } while (math::length(w) >= 1.0);
+        if(dotProduct(w, n) > 0.0) // in the same hemisphere as the normal
         return w;
+        else return -w;
     }
 
     // Returns true if there is refraction (and not reflection), and finds the direction of the ray.
     Vec refract(const Vec &v, const Vec &n, float etaRatio)
     {
-        // Vec uv = math::getUnitVec(v);
-        // float angle = math::dotProduct(uv, n);
-        // float discriminant = 1.0 - coeff * coeff * (1 - angle * angle);
-        // if(discriminant > 0) {
-        //     refracted = math::sub(math::scale(coeff, math::sub(uv, math::scale(angle, n))), math::scale(sqrt(discriminant), n));
-        //     return true;
-        // } else return false;
         double cosTheta = fmin(dotProduct(-v, n), 1.0);
         Vec r_perpen = scale(etaRatio, (add(v, scale(cosTheta, n))));
         Vec r_parall = -(scale(sqrt(fabs(1.0 - (length(r_perpen) * length(r_perpen)))), n));

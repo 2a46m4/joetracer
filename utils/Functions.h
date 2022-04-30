@@ -97,13 +97,10 @@ namespace math
 
     float schlick(const float cosine, const float refractIdx);
 
-    Vec randomRayInSphere();
+    Vec randomRayInSphere(const Vec& n);
 
     Vec refract(const Vec &v, const Vec &n, float etaRatio) {
-        double cosTheta = fmin(dotProduct(-v, n), 1.0);
-        Vec r_perpen = scale(etaRatio, (add(v, scale(cosTheta, n))));
-        Vec r_parall = -(scale(sqrt(fabs(1.0 - (length(r_perpen) * length(r_perpen)))), n));
-        return add(r_parall, r_perpen);
+
     }
 }
 
