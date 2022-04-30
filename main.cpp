@@ -10,9 +10,12 @@
 #include "utils/Materials/Dielectrics.h"
 
 #include <iostream>
+#include <chrono>
 
-const int SCREEN_WIDTH = 600;
-const int SCREEN_HEIGHT = 400;
+const int SCREEN_WIDTH = 1000;
+const int SCREEN_HEIGHT = 800;
+
+using namespace std::chrono;
 
 int main(int argc, char *args[])
 {
@@ -47,21 +50,21 @@ int main(int argc, char *args[])
 
     Scene *s = new Scene(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    Metal *m = new Metal(Point(0.9, 0.9, 0.9), 0);
+    Metal *m = new Metal(Point(0.9, 0.9, 0.9), 0.5);
     Lambertian *l = new Lambertian(Point(0.9, 0.9, 0.9));
-    Metal *ma = new Metal(Point(0.9, 0.9, 0.6), 0.5);
+    Metal *ma = new Metal(Point(0.9, 0.9, 0.6), 0.8);
     Lambertian *la = new Lambertian(Point(0.5, 0.5, 0.5));
     Lambertian *lred = new Lambertian(Point(0.9, 0.0, 0.0));
     Lambertian *lblue = new Lambertian(Point(0.0, 0.0, 0.9));
-    Dielectrics *d = new Dielectrics(1.3);
+    Dielectrics *d = new Dielectrics(1.8);
 
     s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(-8, 5, -30), m));
     s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(8, 5, -30), d));
     // s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-7, -3, -15), d));
     s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-3, 5, -30), lred));
     s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(3, 5, -30), lblue));
-    s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(2, 2, -12), ma));
-    s->addSphere(prims::Sphere(110, Point(255, 255, 255), Point(0, -110.5, -30), l));
+    s->addSphere(prims::Sphere(0.3, Point(255, 255, 255), Point(2, 2, -12), ma));
+    s->addSphere(prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, -30), l));
     // s->debugAddCube();
     s->addLight(prims::Light(Point(0, 2, -5), 1000.0, Point(255, 255, 255)));
     s->addLight(prims::Light(Point(0, 0, 0), 1000.0, Point(255, 255, 255)));
@@ -71,7 +74,12 @@ int main(int argc, char *args[])
     float i = 45.0f;
 
     PinholeCamera camera(-1.0f, 45.0f, Point(0, 0, 0));
+    auto start = high_resolution_clock::now();
     pixels = s->render(camera);
+    auto stop = high_resolution_clock::now();
+
+    auto duration = duration_cast<milliseconds>(stop - start);
+    std::cout << duration.count() << std::endl;
 
     SDL_Surface *surface = SDL_CreateRGBSurfaceFrom((void *)pixels,
                                                     SCREEN_WIDTH,

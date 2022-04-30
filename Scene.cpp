@@ -13,13 +13,14 @@
 #include <vector>
 #include <limits>
 #include <random>
+#include <thread>
 
 using namespace utils;
 
 Scene::Scene()
 {
-    width = 640;
-    height = 480;
+    width = 1000;
+    height = 800;
 }
 
 Scene::Scene(int w, int h)
@@ -33,35 +34,45 @@ char *Scene::render(PinholeCamera camera) const
     char *pixels = new char[width * height * 3];
     int limit = 4;
     int loc = 0;
-    int aa_limit = 1;
-    for (int y = 0; y < height; ++y)
+    int aa_limit = 20;
+
+    int threads = std::thread::hardware_concurrency();
+
+#pragma omp parallel
     {
-        for (int x = 0; x < width; ++x)
+#pragma omp for
         {
-            Ray r;
-            Point col;
-
-            std::random_device aa;  // Will be used to obtain a seed for the random number engine
-            std::mt19937 gen(aa()); // Standard mersenne_twister_engine seeded with rd()
-            std::uniform_real_distribution<> asd(0, 1);
-
-            for (int i = 0; i < aa_limit; i++)
+            for (int y = 0; y < height; y++)
             {
-                camera.getPrimaryRay(float(x) + asd(aa), float(y) + asd(aa), width, height, r);
-                col = math::add(col, Colour(r, limit));
-            }
 
-            // R channel
-            pixels[loc] = (sqrt(col.x / aa_limit / 255)) * 255 ;
-            loc++;
-            // G channel
-            pixels[loc] = (sqrt(col.y / aa_limit / 255)) * 255 ;
-            loc++;
-            // B channel
-            pixels[loc] = (sqrt(col.z / aa_limit / 255)) * 255 ;
-            loc++;
+                for (int x = 0; x < width * 3; x += 3)
+                {
+                    Ray r;
+                    Point col;
+
+                    std::random_device aa; 
+                    std::mt19937 gen(aa()); 
+                    std::uniform_real_distribution<> asd(0, 1);
+
+                    for (int i = 0; i < aa_limit; i++)
+                    {
+                        camera.getPrimaryRay(float(x/3) + asd(aa), float(y) + asd(aa), width, height, r);
+                        col = math::add(col, Colour(r, limit));
+                    }
+
+                    // R channel
+                    pixels[y * (width * 3) + (x % (width * 3 - 1))] = (sqrt(col.x / aa_limit / 255)) * 255;
+                    // G channel
+                    pixels[y * (width * 3) + (x % (width * 3 - 1)) + 1] = (sqrt(col.y / aa_limit / 255)) * 255;
+                    // loc++;
+                    // B channel
+                    pixels[y * (width * 3) + (x % (width * 3 - 1)) + 2] = (sqrt(col.z / aa_limit / 255)) * 255;
+                    // loc++;
+                }
+            }
         }
     }
+
     return pixels;
 }
 

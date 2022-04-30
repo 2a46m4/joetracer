@@ -4,7 +4,7 @@
 CC := clang++
 
 # set the compiler flags
-CFLAGS := `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm
+CFLAGS := `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
 # add header files here
 HDRS := Scene.h utils/Point.h utils/Ray.h utils/Sphere.h utils/Vec.h utils/VectorOps.h PinholeCamera.h utils/Light.h utils/Hittable.h utils/Materials/Lambertian.h utils/Materials/Metal.h utils/Functions.h
 

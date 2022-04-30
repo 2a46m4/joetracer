@@ -25,7 +25,7 @@ void PinholeCamera::getPrimaryRay(float x, float y, int width, int height, Ray &
                       z_near + location.z);
 
     // TODO: implement camera rotation
-    r.direction = r.origin.direction;
+    r.direction = r.origin.direction();
 }
 
 void PinholeCamera::changeLocation(Point p)
