@@ -14,7 +14,7 @@ public:
     {
         Vec reflected = math::reflection(rec.normal, ray.direction);
         float coeff;
-        float cosine = math::dotProduct(math::getUnitVec(ray.direction), rec.normal);
+        float cosine = math::dotProduct(math::unitVec(ray.direction), rec.normal);
         float sine = sqrt(1.0 - cosine * cosine);
         attenuation = Point(1, 1, 1);
         // If the ray is going into a dielectric
@@ -29,15 +29,12 @@ public:
         {
             // The ray is going out of a dielectric
             coeff = 1.0f / refractIdx;
-            // cosine = -cosine;
+            // If there is total internal reflection || fresnel takes over
             if ((coeff * sine > 1.0) || drand48() < math::schlick(cosine, coeff))
                 scattered = Ray(rec.p, math::refract(ray.direction, rec.normal, coeff));
             else
                 scattered = Ray(rec.p, math::reflection(rec.normal, ray.direction));
         }
-        double reflectProb;
-        // Checks for reflection or refraction at large angles
-
         return true;
     }
 

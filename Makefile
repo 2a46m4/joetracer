@@ -32,6 +32,7 @@ $(EXEC): $(OBJS) $(HDRS) Makefile
 
 # recipe for building object files
 $(OBJS): $(@:.o=.cpp) $(HDRS) Makefile
+	rm -f $(EXEC) $(OBJS)
 	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
 
 # recipe to clean the workspace

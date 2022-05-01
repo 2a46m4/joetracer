@@ -1,7 +1,7 @@
 #include "Ray.h"
 #include "Point.h"
 #include "Vec.h"
-#include "VectorOps.h"
+#include "Functions.h"
 #include <cmath>
 
 namespace utils

@@ -1,6 +1,6 @@
 #include "Light.h"
 #include "Point.h"
-#include "VectorOps.h"
+#include "Functions.h"
 
 #define PI 3.1415926535
 

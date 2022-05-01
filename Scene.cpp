@@ -34,7 +34,7 @@ char *Scene::render(PinholeCamera camera) const
     char *pixels = new char[width * height * 3];
     int limit = 4;
     int loc = 0;
-    int aa_limit = 20;
+    int aa_limit = 1;
 
     int threads = std::thread::hardware_concurrency();
 
@@ -56,7 +56,7 @@ char *Scene::render(PinholeCamera camera) const
 
                     for (int i = 0; i < aa_limit; i++)
                     {
-                        camera.getPrimaryRay(float(x/3) + asd(aa), float(y) + asd(aa), width, height, r);
+                        camera.getPrimaryRay(float(x/3) + asd(aa), float(y) + asd(aa), r);
                         col = math::add(col, Colour(r, limit));
                     }
 

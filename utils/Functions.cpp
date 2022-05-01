@@ -12,12 +12,12 @@ namespace math
                    a.z + b.z + c.z);
     }
 
-    Vec getUnitVec(Vec &a)
+    Vec unitVec(Vec &a)
     {
         return scale((1 / length(a)), a);
     }
 
-    const Vec getUnitVec(const Vec &a)
+    const Vec unitVec(const Vec &a)
     {
         return scale((1 / length(a)), a);
     }

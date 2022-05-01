@@ -61,9 +61,9 @@ namespace math
                  a.z * m);
     }
 
-    Vec getUnitVec(Vec &a);
+    Vec unitVec(Vec &a);
 
-    const Vec getUnitVec(const Vec &a);
+    const Vec unitVec(const Vec &a);
 
     // Returns the magnitude of the vector
     double length(Vec &a);
@@ -99,9 +99,7 @@ namespace math
 
     Vec randomRayInSphere(const Vec& n);
 
-    Vec refract(const Vec &v, const Vec &n, float etaRatio) {
-
-    }
+    Vec refract(const Vec &v, const Vec &n, float etaRatio);
 }
 
 #endif

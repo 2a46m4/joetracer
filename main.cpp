@@ -1,5 +1,7 @@
 #include <SDL2/SDL.h>
-#include <stdio.h>
+#include <iostream>
+#include <chrono>
+
 #include "Scene.h"
 #include "utils/Point.h"
 #include "utils/Light.h"
@@ -9,8 +11,10 @@
 #include "utils/Materials/Metal.h"
 #include "utils/Materials/Dielectrics.h"
 
-#include <iostream>
-#include <chrono>
+#define NK_IMPLEMENTATION
+#define NK_INCLUDE_DEFAULT_FONT
+#define MAX_MEMORY 100000
+#include "gui/nuklear/nuklear.h"
 
 const int SCREEN_WIDTH = 1000;
 const int SCREEN_HEIGHT = 800;
@@ -19,6 +23,7 @@ using namespace std::chrono;
 
 int main(int argc, char *args[])
 {
+
     bool quit = false;
 
     // Event handler
@@ -30,73 +35,94 @@ int main(int argc, char *args[])
     // The surface contained by the window
     SDL_Surface *screenSurface = NULL;
 
-    // Initialize SDL
-    if (SDL_Init(SDL_INIT_VIDEO) < 0)
-    {
-        printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
-        exit(1);
-    }
+    SDL_GLContext glContext;
 
-    // Create window
-    window = SDL_CreateWindow("Joe Tracer", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-    if (window == NULL)
-    {
-        printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
-        exit(1);
-    }
+    // initialize nuklear
+    struct nk_color background;
+    struct nk_context *ctx;
 
-    // Get window surface
-    screenSurface = SDL_GetWindowSurface(window);
+    SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+    SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+    SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+    window = SDL_CreateWindow("Demo",
+                           SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+                           SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI);
+    glContext = SDL_GL_CreateContext(window);
+    // SDL_GetWindowSize(window, NULL, NULL);
 
-    Scene *s = new Scene(SCREEN_WIDTH, SCREEN_HEIGHT);
+    // // nk_init_fixed(&ctx, calloc(1, MAX_MEMORY));
 
-    Metal *m = new Metal(Point(0.9, 0.9, 0.9), 0.5);
-    Lambertian *l = new Lambertian(Point(0.9, 0.9, 0.9));
-    Metal *ma = new Metal(Point(0.9, 0.9, 0.6), 0.8);
-    Lambertian *la = new Lambertian(Point(0.5, 0.5, 0.5));
-    Lambertian *lred = new Lambertian(Point(0.9, 0.0, 0.0));
-    Lambertian *lblue = new Lambertian(Point(0.0, 0.0, 0.9));
-    Dielectrics *d = new Dielectrics(1.8);
+    // // Initialize SDL
+    // if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    // {
+    //     printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+    //     exit(1);
+    // }
 
-    s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(-8, 5, -30), m));
-    s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(8, 5, -30), d));
-    // s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-7, -3, -15), d));
-    s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-3, 5, -30), lred));
-    s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(3, 5, -30), lblue));
-    s->addSphere(prims::Sphere(0.3, Point(255, 255, 255), Point(2, 2, -12), ma));
-    s->addSphere(prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, -30), l));
-    // s->debugAddCube();
-    s->addLight(prims::Light(Point(0, 2, -5), 1000.0, Point(255, 255, 255)));
-    s->addLight(prims::Light(Point(0, 0, 0), 1000.0, Point(255, 255, 255)));
-    s->addLight(prims::Light(Point(0, 2, -10), 1000.0, Point(255, 255, 255)));
-    int channels = 3;
-    char *pixels = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
-    float i = 45.0f;
+    // // Create window
+    // window = SDL_CreateWindow("Joe Tracer", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    // if (window == NULL)
+    // {
+    //     printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+    //     exit(1);
+    // }
+    // // Get window surface
+    // screenSurface = SDL_GetWindowSurface(window);
 
-    PinholeCamera camera(-1.0f, 45.0f, Point(0, 0, 0));
-    auto start = high_resolution_clock::now();
-    pixels = s->render(camera);
-    auto stop = high_resolution_clock::now();
+    // Scene *s = new Scene(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    auto duration = duration_cast<milliseconds>(stop - start);
-    std::cout << duration.count() << std::endl;
+    // Metal *m = new Metal(Point(0.9, 0.9, 0.9), 0.5);
+    // Lambertian *l = new Lambertian(Point(0.9, 0.9, 0.9));
+    // Metal *ma = new Metal(Point(0.9, 0.9, 0.6), 0.8);
+    // Lambertian *la = new Lambertian(Point(0.5, 0.5, 0.5));
+    // Lambertian *lred = new Lambertian(Point(0.9, 0.0, 0.0));
+    // Lambertian *lblue = new Lambertian(Point(0.0, 0.0, 0.9));
+    // Dielectrics *d = new Dielectrics(1.3);
 
-    SDL_Surface *surface = SDL_CreateRGBSurfaceFrom((void *)pixels,
-                                                    SCREEN_WIDTH,
-                                                    SCREEN_HEIGHT,
-                                                    channels * 8,
-                                                    SCREEN_WIDTH * channels,
-                                                    0x0000ff,
-                                                    0x00ff00,
-                                                    0xff0000,
-                                                    0);
+    // s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(-8, 2, -30), m));
+    // s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(8, 2, -30), d));
+    // // s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-7, -3, -15), d));
+    // s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-3, 3, -30), lred));
+    // s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(3, 3, -30), lblue));
+    // s->addSphere(prims::Sphere(0.3, Point(255, 255, 255), Point(2, 2, -12), ma));
+    // s->addSphere(prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, -30), l));
+    // // s->debugAddCube();
+    // s->addLight(prims::Light(Point(0, 2, -5), 1000.0, Point(255, 255, 255)));
+    // s->addLight(prims::Light(Point(0, 0, 0), 1000.0, Point(255, 255, 255)));
+    // s->addLight(prims::Light(Point(0, 2, -10), 1000.0, Point(255, 255, 255)));
+    // int channels = 3;
+    // char *pixels = new char[SCREEN_WIDTH * SCREEN_HEIGHT * channels];
+    // float i = 90.0f;
 
-    SDL_BlitSurface(surface, NULL, screenSurface, NULL);
+    // PinholeCamera camera(SCREEN_WIDTH, SCREEN_HEIGHT, i, Point(5, 10, 0), Point(10, 12, 30));
+    // auto start = high_resolution_clock::now();
+    // pixels = s->render(camera);
+    // auto stop = high_resolution_clock::now();
 
-    // Update the surface
-    SDL_UpdateWindowSurface(window);
+    // auto duration = duration_cast<milliseconds>(stop - start);
+    // std::cout << duration.count() << std::endl;
+
+    // SDL_Surface *surface = SDL_CreateRGBSurfaceFrom((void *)pixels,
+    //                                                 SCREEN_WIDTH,
+    //                                                 SCREEN_HEIGHT,
+    //                                                 channels * 8,
+    //                                                 SCREEN_WIDTH * channels,
+    //                                                 0x0000ff,
+    //                                                 0x00ff00,
+    //                                                 0xff0000,
+    //                                                 0);
+
+    // SDL_BlitSurface(surface, NULL, screenSurface, NULL);
+
+    // // Update the surface
+    // SDL_UpdateWindowSurface(window);
     while (!quit)
     {
+
         while (SDL_PollEvent(&e) != 0)
         {
             if (e.type == SDL_QUIT)
@@ -104,8 +130,6 @@ int main(int argc, char *args[])
                 quit = true;
             }
         }
-        // i = i - 0.01f;
-        // std::cout << i << std::endl;
     }
 
     // Destroy window
@@ -115,4 +139,5 @@ int main(int argc, char *args[])
     SDL_Quit();
 
     return 0;
+    
 }

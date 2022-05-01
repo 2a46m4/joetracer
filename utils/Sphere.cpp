@@ -1,7 +1,7 @@
 #include "Sphere.h"
 #include "Point.h"
 #include <cmath>
-#include "VectorOps.h"
+#include "Functions.h"
 
 #include <limits>
 
@@ -40,7 +40,7 @@ namespace prims
             {
                 intercept = true;
                 dist = rec.t;
-                rec.normal = getUnitVec(sub(add(r.origin.direction(), scale(rec.t, r.direction)), location.direction()));
+                rec.normal = unitVec(sub(add(r.origin.direction(), scale(rec.t, r.direction)), location.direction()));
                 rec.p = add(r.origin, point(scale(rec.t, r.direction)));
                 rec.matPtr = material;
             }
@@ -49,7 +49,7 @@ namespace prims
             {
                 intercept = true;
                 dist = rec.t;
-                rec.normal = getUnitVec(sub(add(r.origin.direction(), scale(rec.t, r.direction)), location.direction()));
+                rec.normal = unitVec(sub(add(r.origin.direction(), scale(rec.t, r.direction)), location.direction()));
                 rec.p = add(r.origin, point(scale(rec.t, r.direction)));
                 rec.matPtr = material;
             }
