@@ -23,19 +23,16 @@ Scene::Scene()
     height = 800;
 }
 
-Scene::Scene(int w, int h)
+Scene::Scene(int w, int h, PinholeCamera camera, Point background)
 {
     width = w;
     height = h;
+    this->camera = camera;
+    this->background = background;
 }
 
-char *Scene::render(PinholeCamera camera) const
+char *Scene::render() const
 {
-    char *pixels = new char[width * height * 3];
-    int limit = 4;
-    int loc = 0;
-    int aa_limit = 1;
-
     int threads = std::thread::hardware_concurrency();
 
 #pragma omp parallel
@@ -50,24 +47,22 @@ char *Scene::render(PinholeCamera camera) const
                     Ray r;
                     Point col;
 
-                    std::random_device aa; 
-                    std::mt19937 gen(aa()); 
-                    std::uniform_real_distribution<> asd(0, 1);
+                    std::random_device device;
+                    std::mt19937 gen(device());
+                    std::uniform_real_distribution<> realrand(0, 1);
 
-                    for (int i = 0; i < aa_limit; i++)
+                    for (int i = 0; i < samples; i++)
                     {
-                        camera.getPrimaryRay(float(x/3) + asd(aa), float(y) + asd(aa), r);
-                        col = math::add(col, Colour(r, limit));
+                        camera.getPrimaryRay(float(x / 3) + realrand(device), float(y) + realrand(device), r);
+                        col = math::add(col, Colour(r, bounces));
                     }
 
                     // R channel
-                    pixels[y * (width * 3) + (x % (width * 3 - 1))] = (sqrt(col.x / aa_limit / 255)) * 255;
+                    pixels[y * (width * 3) + (x % (width * 3 - 1))] = (sqrt(col.x / samples / 255)) * 255;
                     // G channel
-                    pixels[y * (width * 3) + (x % (width * 3 - 1)) + 1] = (sqrt(col.y / aa_limit / 255)) * 255;
-                    // loc++;
+                    pixels[y * (width * 3) + (x % (width * 3 - 1)) + 1] = (sqrt(col.y / samples / 255)) * 255;
                     // B channel
-                    pixels[y * (width * 3) + (x % (width * 3 - 1)) + 2] = (sqrt(col.z / aa_limit / 255)) * 255;
-                    // loc++;
+                    pixels[y * (width * 3) + (x % (width * 3 - 1)) + 2] = (sqrt(col.z / samples / 255)) * 255;
                 }
             }
         }
@@ -111,6 +106,15 @@ const std::vector<prims::Light> Scene::getLights() const
     return lights;
 }
 
+void Scene::changeBackground(Point background)
+{
+    this->background = background;
+}
+
+void changeSamples(int a);
+
+void changeBounces(int a);
+
 /*--------------- Sphere stuff ---------------*/
 
 std::vector<prims::Sphere> Scene::getSpheres() const
@@ -134,7 +138,7 @@ Point Scene::Colour(Ray r, int limit) const
         return attenuation * Colour(scattered, limit - 1);
     }
     else
-        return Point(150, 170, 240); // Background colour
+        return background; // Background colour
 }
 
 void Scene::addSphere(prims::Sphere o)

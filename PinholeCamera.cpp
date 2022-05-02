@@ -34,11 +34,11 @@ PinholeCamera::PinholeCamera(int width, int height, float verticalFOV, Point loc
     v = crossProduct(w, u);
 
     theta = verticalFOV * PI / 360.0f;
-    h = tan(theta / 2);                              // dist from out vector to top of virtual plane
-    viewportHeight = 2.0 * h;                        // magnitude of the height
-    viewportWidth = viewportHeight * width / height; // magnitude of the width
-    horizontal = scale(viewportWidth, u);            // width scaled to the direction of the u vector
-    vertical = scale(viewportHeight, v);             // height scaled to the direction of the v vector
+    h = tan(theta / 2);                                                                                     // dist from out vector to top of virtual plane
+    viewportHeight = 2.0 * h;                                                                               // magnitude of the height
+    viewportWidth = viewportHeight * width / height;                                                        // magnitude of the width
+    horizontal = scale(viewportWidth, u);                                                                   // width scaled to the direction of the u vector
+    vertical = scale(viewportHeight, v);                                                                    // height scaled to the direction of the v vector
     lowerLeftCorner = sub(location.direction(), add(w, add(scale(0.5, horizontal), scale(0.5, vertical)))); // add focal distance (currently w = 1 so focal distance is 1)
 }
 
@@ -53,7 +53,7 @@ void PinholeCamera::getPrimaryRay(float x, float y, Ray &r) const
     // std::cout << x << " " << width << std::endl;
 
     r.origin = location;
-    r.direction = sub(location.direction(), add(lowerLeftCorner, add(scale(x / width, horizontal), scale(y / height, vertical)))); // 
+    r.direction = sub(location.direction(), add(lowerLeftCorner, add(scale(x / width, horizontal), scale(y / height, vertical)))); //
 }
 
 void PinholeCamera::changeLocation(Point p)

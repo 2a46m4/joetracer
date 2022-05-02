@@ -25,14 +25,23 @@ private:
 
     std::vector<prims::Light> lights;
     std::vector<prims::Sphere> spheres;
-    PinholeCamera camera;
+
+    Point background;
+
+    int samples = 10;
+    int bounces = 4;
+
+    char *pixels = new char[height * width * 3];
 
 public:
+
+    PinholeCamera camera;
+
     Scene();
 
-    Scene(int w, int h);
+    Scene(int w, int h, PinholeCamera camera, Point background);
 
-    char *render(PinholeCamera camera) const;
+    char *render() const;
 
     void addSphere(prims::Sphere o);
 
@@ -52,6 +61,8 @@ public:
 
     const std::vector<prims::Light> getLights() const;
 
+    void changeBackground(Point background);
+
     // Sphere stuff
 
     Point Colour(Ray r, int limit) const;
@@ -60,6 +71,11 @@ public:
     bool sphereIntersect(Ray& rIn, prims::hitRecord& rec) const;
 
     std::vector<prims::Sphere> getSpheres() const;
+
+    void changeSamples(int a);
+
+    void changeBounces(int a);
+
 };
 
 #endif

@@ -6,7 +6,7 @@ CC := clang++
 # set the compiler flags
 CFLAGS := `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
 # add header files here
-HDRS := Scene.h utils/Point.h utils/Ray.h utils/Sphere.h utils/Vec.h PinholeCamera.h utils/Light.h utils/Hittable.h utils/Materials/Lambertian.h utils/Materials/Metal.h utils/Functions.h
+HDRS := Scene.h utils/Point.h utils/Ray.h utils/Sphere.h utils/Vec.h PinholeCamera.h utils/Light.h utils/Hittable.h utils/Materials/Lambertian.h utils/Materials/Metal.h utils/Functions.h gui/nuklear/nuklear.h
 
 # add source files here
 SRCS := main.cpp Scene.cpp utils/Point.cpp utils/Ray.cpp utils/Sphere.cpp utils/Vec.cpp PinholeCamera.cpp utils/Light.cpp utils/Functions.cpp
@@ -32,7 +32,6 @@ $(EXEC): $(OBJS) $(HDRS) Makefile
 
 # recipe for building object files
 $(OBJS): $(@:.o=.cpp) $(HDRS) Makefile
-	rm -f $(EXEC) $(OBJS)
 	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
 
 # recipe to clean the workspace

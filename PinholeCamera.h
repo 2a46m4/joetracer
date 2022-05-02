@@ -40,6 +40,8 @@ public:
     void getPrimaryRay(float x, float y, Ray& r) const;
 
     void changeLocation(Point p);
+
+    void changeView(Point p);
 };
 
 #endif
