@@ -1,30 +1,26 @@
-/* nuklear - 1.32.0 - public domain */
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdarg.h>
-#include <string.h>
-#include <math.h>
-#include <assert.h>
-#include <limits.h>
-#include <time.h>
+#include <SDL.h>
+#include <SDL_mouse.h>
+#include <SDL_keyboard.h>
 
-#include <SDL2/SDL.h>
+#ifndef MIN
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
+#endif
+#ifndef MAX
+#define MAX(a,b) ((a) < (b) ? (b) : (a))
+#endif
+
 
 #define NK_INCLUDE_FIXED_TYPES
 #define NK_INCLUDE_STANDARD_IO
 #define NK_INCLUDE_STANDARD_VARARGS
 #define NK_INCLUDE_DEFAULT_ALLOCATOR
-#define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
+#define NK_IMPLEMENTATION
 #define NK_INCLUDE_FONT_BAKING
 #define NK_INCLUDE_DEFAULT_FONT
-#define NK_IMPLEMENTATION
-#define NK_SDL_RENDERER_IMPLEMENTATION
-#include "nuklear.h"
-#include "nuklear_sdl_renderer.h"
-
-#define WINDOW_WIDTH 1200
-#define WINDOW_HEIGHT 800
+#define NK_INCLUDE_SOFTWARE_FONT
+#include "./nuklear.h"
+#define NK_SDLSURFACE_IMPLEMENTATION
+#include "sdl2surface_rawfb.h"
 
 /* ===============================================================
  *
@@ -33,11 +29,12 @@
  * ===============================================================*/
 /* This are some code examples to provide a small overview of what can be
  * done with this library. To try out an example uncomment the defines */
-#define INCLUDE_ALL
-/*#define INCLUDE_STYLE */
-/*#define INCLUDE_CALCULATOR */
+/* #define INCLUDE_ALL */
+#define INCLUDE_STYLE 
+#define INCLUDE_CALCULATOR 
+/*#define INCLUDE_CANVAS */
 /*#define INCLUDE_OVERVIEW */
-/*#define INCLUDE_NODE_EDITOR */
+/* #define INCLUDE_NODE_EDITOR */
 
 #ifdef INCLUDE_ALL
   #define INCLUDE_STYLE
@@ -47,169 +44,219 @@
   #define INCLUDE_NODE_EDITOR
 #endif
 
-// #ifdef INCLUDE_STYLE
-//   #include "../style.c"
-// #endif
-// #ifdef INCLUDE_CALCULATOR
-//   #include "../calculator.c"
-// #endif
-// #ifdef INCLUDE_CANVAS
-//   #include "../canvas.c"
-// #endif
-// #ifdef INCLUDE_OVERVIEW
-//   #include "../overview.c"
-// #endif
-// #ifdef INCLUDE_NODE_EDITOR
-//   #include "../node_editor.c"
-// #endif
-
-/* ===============================================================
- *
- *                          DEMO
- *
- * ===============================================================*/
-int
-main(int argc, char *argv[])
-{
-    /* Platform */
-    SDL_Window *win;
-    SDL_Renderer *renderer;
-    int running = 1;
-    int flags = 0;
-
-    /* GUI */
-    struct nk_context *ctx;
-    struct nk_colorf bg;
-
-    /* SDL setup */
-    SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
-    SDL_Init(SDL_INIT_VIDEO);
-
-    win = SDL_CreateWindow("Demo",
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN|SDL_WINDOW_ALLOW_HIGHDPI);
-
-    if (win == NULL) {
-        SDL_Log("Error SDL_CreateWindow %s", SDL_GetError());
-        exit(-1);
-    }
-
-    flags |= SDL_RENDERER_ACCELERATED;
-    flags |= SDL_RENDERER_PRESENTVSYNC;
-
-#if 0
-    SDL_SetHint(SDL_HINT_RENDER_BATCHING, "1");
-    SDL_SetHint(SDL_HINT_RENDER_DRIVER, "software");
-    SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengl");
-    SDL_SetHint(SDL_HINT_RENDER_DRIVER, "software");
-    SDL_SetHint(SDL_HINT_RENDER_DRIVER, "opengles2");
+#ifdef INCLUDE_STYLE
+  #include "./demo2/style.c"
+#endif
+#ifdef INCLUDE_CALCULATOR
+  #include "./demo2/calculator.c"
+#endif
+#ifdef INCLUDE_CANVAS
+  #include "./demo2/canvas.c"
+#endif
+#ifdef INCLUDE_OVERVIEW
+  #include "./demo2/overview.c"
+#endif
+#ifdef INCLUDE_NODE_EDITOR
+  #include "./demo2/node_editor.c"
 #endif
 
-    renderer = SDL_CreateRenderer(win, -1, flags);
+static int translate_sdl_key(struct SDL_Keysym const *k)
+{
+    /*keyboard handling left as an exercise for the reader */
+    NK_UNUSED(k);
 
-    if (renderer == NULL) {
-        SDL_Log("Error SDL_CreateRenderer %s", SDL_GetError());
-        exit(-1);
+    return NK_KEY_NONE;
+}
+
+
+static int sdl_button_to_nk(int button)
+{
+    switch(button)
+    {
+        default:
+        /* ft */
+        case SDL_BUTTON_LEFT:
+            return NK_BUTTON_LEFT;
+            break;
+        case SDL_BUTTON_MIDDLE:
+            return NK_BUTTON_MIDDLE;
+            break;
+        case SDL_BUTTON_RIGHT:
+            return NK_BUTTON_RIGHT;
+            break;
+
+    }
+}
+
+#if 0
+static void
+grid_demo(struct nk_context *ctx)
+{
+    static char text[3][64];
+    static int text_len[3];
+    static const char *items[] = {"Item 0","item 1","item 2"};
+    static int selected_item = 0;
+    static int check = 1;
+
+    int i;
+    if (nk_begin(ctx, "Grid Demo", nk_rect(600, 350, 275, 250),
+        NK_WINDOW_TITLE|NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|
+        NK_WINDOW_NO_SCROLLBAR))
+    {
+        nk_layout_row_dynamic(ctx, 30, 2);
+        nk_label(ctx, "Floating point:", NK_TEXT_RIGHT);
+        nk_edit_string(ctx, NK_EDIT_FIELD, text[0], &text_len[0], 64, nk_filter_float);
+        nk_label(ctx, "Hexadecimal:", NK_TEXT_RIGHT);
+        nk_edit_string(ctx, NK_EDIT_FIELD, text[1], &text_len[1], 64, nk_filter_hex);
+        nk_label(ctx, "Binary:", NK_TEXT_RIGHT);
+        nk_edit_string(ctx, NK_EDIT_FIELD, text[2], &text_len[2], 64, nk_filter_binary);
+        nk_label(ctx, "Checkbox:", NK_TEXT_RIGHT);
+        nk_checkbox_label(ctx, "Check me", &check);
+        nk_label(ctx, "Combobox:", NK_TEXT_RIGHT);
+        if (nk_combo_begin_label(ctx, items[selected_item], nk_vec2(nk_widget_width(ctx), 200))) {
+            nk_layout_row_dynamic(ctx, 25, 1);
+            for (i = 0; i < 3; ++i)
+                if (nk_combo_item_label(ctx, items[i], NK_TEXT_LEFT))
+                    selected_item = i;
+            nk_combo_end(ctx);
+        }
+    }
+    nk_end(ctx);
+}
+#endif
+
+
+int main(int argc, char **argv)
+{
+    struct nk_color clear = {0,100,0,255};
+    struct nk_vec2 vec;
+    struct nk_rect bounds = {40,40,0,0};
+    struct sdlsurface_context *context;
+
+    SDL_DisplayMode dm;
+    SDL_Window *window;
+    SDL_Renderer *renderer;
+    SDL_Texture *tex;
+    SDL_Surface *surface;
+
+    NK_UNUSED(argc);
+    NK_UNUSED(argv);
+
+    SDL_Init(SDL_INIT_VIDEO);
+    printf("sdl init called...\n");
+
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");
+
+    SDL_GetDesktopDisplayMode(0, &dm);
+
+    printf("desktop display mode %d %d\n", dm.w, dm.h);
+
+
+    window = SDL_CreateWindow("Puzzle", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, dm.w-200,dm.h-200, SDL_WINDOW_OPENGL);
+    if (!window)
+    {
+        printf("can't open window!\n");
+        exit(1);
     }
 
 
-    /* GUI */
-    ctx = nk_sdl_init(win, renderer);
-    /* Load Fonts: if none of these are loaded a default font will be used  */
-    /* Load Cursor: if you uncomment cursor loading please hide the cursor */
-    {struct nk_font_atlas *atlas;
-    nk_sdl_font_stash_begin(&atlas);
-    /*struct nk_font *droid = nk_font_atlas_add_from_file(atlas, "../../../extra_font/DroidSans.ttf", 14, 0);*/
-    /*struct nk_font *roboto = nk_font_atlas_add_from_file(atlas, "../../../extra_font/Roboto-Regular.ttf", 16, 0);*/
-    /*struct nk_font *future = nk_font_atlas_add_from_file(atlas, "../../../extra_font/kenvector_future_thin.ttf", 13, 0);*/
-    /*struct nk_font *clean = nk_font_atlas_add_from_file(atlas, "../../../extra_font/ProggyClean.ttf", 12, 0);*/
-    /*struct nk_font *tiny = nk_font_atlas_add_from_file(atlas, "../../../extra_font/ProggyTiny.ttf", 10, 0);*/
-    /*struct nk_font *cousine = nk_font_atlas_add_from_file(atlas, "../../../extra_font/Cousine-Regular.ttf", 13, 0);*/
-    nk_sdl_font_stash_end();
-    /*nk_style_load_all_cursors(ctx, atlas->cursors);*/
-    /*nk_style_set_font(ctx, &roboto->handle)*/;}
+    renderer = SDL_CreateRenderer(window, -1, 0);
 
-    #ifdef INCLUDE_STYLE
-    /*set_style(ctx, THEME_WHITE);*/
-    /*set_style(ctx, THEME_RED);*/
-    /*set_style(ctx, THEME_BLUE);*/
-    /*set_style(ctx, THEME_DARK);*/
-    #endif
+    surface = SDL_CreateRGBSurfaceWithFormat(0, dm.w-200, dm.h-200, 32, SDL_PIXELFORMAT_ARGB8888);
 
-    bg.r = 0.10f, bg.g = 0.18f, bg.b = 0.24f, bg.a = 1.0f;
-    while (running)
+
+    context = nk_sdlsurface_init(surface, 13.0f);
+
+
+    while(1)
     {
-        /* Input */
-        SDL_Event evt;
-        nk_input_begin(ctx);
-        while (SDL_PollEvent(&evt)) {
-            if (evt.type == SDL_QUIT) goto cleanup;
-            nk_sdl_handle_event(&evt);
-        }
-        nk_input_end(ctx);
+        SDL_Event event;
+        nk_input_begin(&(context->ctx));
+        while (SDL_PollEvent(&event))
+        {
+            switch(event.type)
+            {
+                case SDL_QUIT:
+                    exit(0);
+                break;
+                case SDL_KEYDOWN:
+                    nk_input_key(&(context->ctx), translate_sdl_key(&event.key.keysym), 1);
+                break;
+                case SDL_KEYUP:
+                    nk_input_key(&(context->ctx), translate_sdl_key(&event.key.keysym), 0);
+                break;
+                case SDL_MOUSEMOTION:
+                    nk_input_motion(&(context->ctx), event.motion.x, event.motion.y);
+                break;
+                case SDL_MOUSEBUTTONDOWN:
+                    nk_input_button(&(context->ctx), sdl_button_to_nk(event.button.button), event.button.x, event.button.y,1);
+                break;
+                case SDL_MOUSEBUTTONUP:
+                    nk_input_button(&(context->ctx), sdl_button_to_nk(event.button.button), event.button.x, event.button.y,0);
+                break;
+                case SDL_MOUSEWHEEL:
+                    vec.x = event.wheel.x;
+                    vec.y = event.wheel.y;
+                    nk_input_scroll(&(context->ctx), vec );
 
-        /* GUI */
-        if (nk_begin(ctx, "Demo", nk_rect(50, 50, 230, 250),
-            NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
-            NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
+                break;
+            }
+        }
+        nk_input_end(&(context->ctx));
+
+        bounds.w = 400;
+        bounds.h = 400;
+        if (nk_begin(&(context->ctx), "Test", bounds, NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE | NK_WINDOW_TITLE))
         {
             enum {EASY, HARD};
             static int op = EASY;
             static int property = 20;
-
-            nk_layout_row_static(ctx, 30, 80, 1);
-            if (nk_button_label(ctx, "button"))
-                fprintf(stdout, "button pressed\n");
-            nk_layout_row_dynamic(ctx, 30, 2);
-            if (nk_option_label(ctx, "easy", op == EASY)) op = EASY;
-            if (nk_option_label(ctx, "hard", op == HARD)) op = HARD;
-            nk_layout_row_dynamic(ctx, 25, 1);
-            nk_property_int(ctx, "Compression:", 0, &property, 100, 10, 1);
-
-            nk_layout_row_dynamic(ctx, 20, 1);
-            nk_label(ctx, "background:", NK_TEXT_LEFT);
-            nk_layout_row_dynamic(ctx, 25, 1);
-            if (nk_combo_begin_color(ctx, nk_rgb_cf(bg), nk_vec2(nk_widget_width(ctx),400))) {
-                nk_layout_row_dynamic(ctx, 120, 1);
-                bg = nk_color_picker(ctx, bg, NK_RGBA);
-                nk_layout_row_dynamic(ctx, 25, 1);
-                bg.r = nk_propertyf(ctx, "#R:", 0, bg.r, 1.0f, 0.01f,0.005f);
-                bg.g = nk_propertyf(ctx, "#G:", 0, bg.g, 1.0f, 0.01f,0.005f);
-                bg.b = nk_propertyf(ctx, "#B:", 0, bg.b, 1.0f, 0.01f,0.005f);
-                bg.a = nk_propertyf(ctx, "#A:", 0, bg.a, 1.0f, 0.01f,0.005f);
-                nk_combo_end(ctx);
+            nk_layout_row_static(&(context->ctx), 30, 80, 1);
+            if (nk_button_label(&(context->ctx), "button")){
+                printf("button pressed\n");
             }
+            nk_layout_row_dynamic(&(context->ctx), 40, 2);
+            if (nk_option_label(&(context->ctx), "easy", op == EASY)) op = EASY;
+            if (nk_option_label(&(context->ctx), "hard", op == HARD)) op = HARD;
+            nk_layout_row_dynamic(&(context->ctx), 45, 1);
+            nk_property_int(&(context->ctx), "Compression:", 0, &property, 100, 10, 1);
         }
-        nk_end(ctx);
+        nk_end(&(context->ctx));
+
+        /* grid_demo(&(context->ctx)); */
 
         /* -------------- EXAMPLES ---------------- */
         #ifdef INCLUDE_CALCULATOR
-          calculator(ctx);
+          calculator(&(context->ctx));
         #endif
         #ifdef INCLUDE_CANVAS
-        canvas(ctx);
+          canvas(&(context->ctx));
         #endif
         #ifdef INCLUDE_OVERVIEW
-          overview(ctx);
+          overview(&(context->ctx));
         #endif
         #ifdef INCLUDE_NODE_EDITOR
-          node_editor(ctx);
+          node_editor(&(context->ctx));
         #endif
         /* ----------------------------------------- */
 
-        SDL_SetRenderDrawColor(renderer, bg.r * 255, bg.g * 255, bg.b * 255, bg.a * 255);
-        SDL_RenderClear(renderer);
+        nk_sdlsurface_render(context, clear, 1);
 
-        nk_sdl_render(NK_ANTI_ALIASING_ON);
 
+
+
+        tex = SDL_CreateTextureFromSurface(renderer, surface);
+        SDL_RenderCopy(renderer, tex, NULL, NULL);
         SDL_RenderPresent(renderer);
+        SDL_DestroyTexture(tex);
+
     }
 
-cleanup:
-    nk_sdl_shutdown();
+    nk_sdlsurface_shutdown(context);
+
+    SDL_FreeSurface(surface);
     SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(win);
-    SDL_Quit();
-    return 0;
+    SDL_DestroyWindow(window);
 }
+
 

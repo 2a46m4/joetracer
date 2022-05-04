@@ -1,27 +1,9 @@
-# Install
-BIN = demo
+CFLAGS=`sdl2-config --cflags --libs`   -std=c89 -Wall -Wextra -pedantic -Wno-unused-function -O0 -g -fvisibility=hidden `pkg-config SDL2_ttf --cflags --libs`
 
-# Flags
-CFLAGS += -std=c89 -pedantic -O0
-CFLAGS += `sdl2-config --cflags`
+.PHONY: clean
 
-SRC = main.c
-OBJ = $(SRC:.c=.o)
+demo: main.c sdl2surface_rawfb.h
+	$(CC) -o demoabc *.c $(CFLAGS) -lrt -lm
 
-ifeq ($(OS),Windows_NT)
-#TODO
-#BIN := $(BIN).exe
-#LIBS = -lmingw32 -lSDL2main -lSDL2 -lopengl32 -lm -lGLU32
-else
-	UNAME_S := $(shell uname -s)
-	ifeq ($(UNAME_S),Darwin)
-#TODO		LIBS = -lSDL2 -framework OpenGL -lm
-	else
-		LIBS += -lm -ldl `sdl2-config --libs`
-	endif
-endif
-
-$(BIN):
-	@mkdir -p bin
-	rm -f bin/$(BIN) $(OBJS)
-	$(CC) $(SRC) $(CFLAGS) -o bin/$(BIN) $(LIBS)
+clean:
+	$(RM) demo

@@ -13,27 +13,26 @@ public:
     virtual bool scatter(const Ray &ray, const prims::hitRecord &rec, Point &attenuation, Ray &scattered) const
     {
         Vec reflected = math::reflection(rec.normal, ray.direction);
-        float coeff;
-        float cosine = math::dotProduct(math::unitVec(ray.direction), rec.normal);
-        float sine = sqrt(1.0 - cosine * cosine);
         attenuation = Point(1, 1, 1);
-        // If the ray is going into a dielectric
+        // Ray is going out of a dielectric
         if (math::dotProduct(ray.direction, rec.normal) > 0.0)
         {
-            if ((coeff * sine > 1.0) || drand48() < math::schlick(cosine, refractIdx))
-                scattered = Ray(rec.p, math::refract(ray.direction, scale(-1, rec.normal), coeff));
-            else
+            float cosine = refractIdx * math::dotProduct(math::unitVec(ray.direction), rec.normal);
+            float sine = sqrt(1.0 - cosine * cosine);
+            if ((refractIdx * sine > 1.0) || drand48() < math::schlick(cosine, refractIdx))
                 scattered = Ray(rec.p, math::reflection(scale(-1, rec.normal), ray.direction));
+            else
+                scattered = Ray(rec.p, math::refract(ray.direction, scale(-1, rec.normal), refractIdx));
         }
         else
         {
-            // The ray is going out of a dielectric
-            coeff = 1.0f / refractIdx;
-            // If there is total internal reflection || fresnel takes over
-            if ((coeff * sine > 1.0) || drand48() < math::schlick(cosine, coeff))
-                scattered = Ray(rec.p, math::refract(ray.direction, rec.normal, coeff));
+            float cosine = -math::dotProduct(math::unitVec(ray.direction), rec.normal);
+            float sine = sqrt(1.0 - cosine * cosine);
+            // If there is total internal reflection || fresnel effect on glancing edges
+            if (((1.0f / refractIdx) * sine > 1.0) || drand48() < math::schlick(cosine, (1.0f / refractIdx)))
+                scattered = Ray(rec.p, math::reflection(rec.normal, ray.direction));                
             else
-                scattered = Ray(rec.p, math::reflection(rec.normal, ray.direction));
+                scattered = Ray(rec.p, math::refract(ray.direction, rec.normal, (1.0f / refractIdx)));
         }
         return true;
     }

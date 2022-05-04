@@ -97,7 +97,6 @@ int main(int argc, char *args[])
     // s->addLight(prims::Light(Point(0, 0, 0), 1000.0, Point(255, 255, 255)));
     // s->addLight(prims::Light(Point(0, 2, -10), 1000.0, Point(255, 255, 255)));
     int channels = 3;
-    
 
     // auto start = high_resolution_clock::now();
     // auto stop = high_resolution_clock::now();
@@ -115,13 +114,27 @@ int main(int argc, char *args[])
 
     static float fov = 90.0;
 
-    char* pixels;
+    char *pixels;
+
+    static float sx = 0;
+    static float sy = 0;
+    static float sz = 0;
+
+    static float sr = 0;
+    static float sg = 0;
+    static float sb = 0;
+
+    static float r = 1;
+
+    static float prop = 0;
+    static float col = 0;
+
+    struct nk_colorf sphereCol;
+    Point _sphereCol;
 
     nk_color bgbyte = nk_rgb_cf(background);
     // Point(150, 170, 240)
     Scene *s = new Scene(SCREEN_WIDTH, SCREEN_HEIGHT, PinholeCamera(SCREEN_WIDTH, SCREEN_HEIGHT, 90.0f, Point(x, y, z), Point(lx, ly, lz)), Point(bgbyte.r, bgbyte.g, bgbyte.b));
-
-    // SDL_SetRenderDrawColor(renderer, background.r * 255, background.g * 255, background.b * 255, background.a * 255);
 
     SDL_Surface *surface = NULL;
     SDL_Texture *finalTexture = NULL;
@@ -169,13 +182,9 @@ int main(int argc, char *args[])
                                                    0);
                 finalTexture = SDL_CreateTextureFromSurface(renderer, surface);
                 SDL_FreeSurface(surface);
-                // SDL_BlitSurface(surface, NULL, screenSurface, NULL);
-
-                // Update the surface
-                // SDL_UpdateWindowSurface(window);
             }
 
-            nk_layout_row_dynamic(ctx, 300, 2);
+            nk_layout_row_dynamic(ctx, 400, 2);
             if (nk_group_begin(ctx, "Camera settings", NK_WINDOW_BORDER))
             {
                 nk_layout_row_dynamic(ctx, 30, 1);
@@ -215,54 +224,71 @@ int main(int argc, char *args[])
 
                     s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(-8, 2, -30), m));
                     s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(8, 2, -30), d));
-                    // s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-7, -3, -15), d));
+                    s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-0, 3, -15), d));
                     s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-3, 3, -30), lred));
                     s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(3, 3, -30), lblue));
                     s->addSphere(prims::Sphere(0.3, Point(255, 255, 255), Point(2, 2, -12), ma));
                     s->addSphere(prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, -30), l));
-                    // for(auto sphere : s->getSpheres()) {
-                    //     std::cout << sphere.location.x << std::endl;
-                    // }
                 }
+                nk_layout_row_dynamic(ctx, 30, 1);
+                nk_label(ctx, "Add Sphere", NK_TEXT_ALIGN_LEFT);
+                static const char *material[] = {"Metal", "Lambertian", "Dielectric"}; // The options we want to display
+                static int selected_item_index = 0;                                    // Selected item index
+                struct nk_vec2 size = {100, 100};                                      // Size of the dropdown that displays all our items
+                nk_layout_row_dynamic(ctx, 30, 2);
+                nk_combobox(ctx, material, 3, &selected_item_index, 20, size);
+                switch (selected_item_index)
+                {
+                case (0): // Metal
+                    nk_layout_row_dynamic(ctx, 30, 2);
+                    nk_property_float(ctx, "Fuzz:", 0, &prop, 1, 0.1, 0.2);
+                    if (nk_combo_begin_color(ctx, nk_rgb_cf(sphereCol), nk_vec2(nk_widget_width(ctx), 400)))
+                    {
+                        nk_layout_row_dynamic(ctx, 120, 1);
+                        sphereCol = nk_color_picker(ctx, sphereCol, NK_RGB);
+                        nk_layout_row_dynamic(ctx, 25, 1);
+                        sphereCol.r = nk_propertyf(ctx, "#R:", 0, sphereCol.r, 1.0f, 0.01f, 0.005f);
+                        sphereCol.g = nk_propertyf(ctx, "#G:", 0, sphereCol.g, 1.0f, 0.01f, 0.005f);
+                        sphereCol.b = nk_propertyf(ctx, "#B:", 0, sphereCol.b, 1.0f, 0.01f, 0.005f);
+                        _sphereCol.x = nk_rgb_cf(sphereCol).r;
+                        _sphereCol.x = nk_rgb_cf(sphereCol).g;
+                        _sphereCol.x = nk_rgb_cf(sphereCol).b;
+                        nk_combo_end(ctx);
+                    }
+                    break;
+                case (1): // Lambertian
+                    if (nk_combo_begin_color(ctx, nk_rgb_cf(sphereCol), nk_vec2(nk_widget_width(ctx), 400)))
+                    {
+                        nk_layout_row_dynamic(ctx, 120, 1);
+                        sphereCol = nk_color_picker(ctx, sphereCol, NK_RGB);
+                        nk_layout_row_dynamic(ctx, 25, 1);
+                        sphereCol.r = nk_propertyf(ctx, "#R:", 0, sphereCol.r, 1.0f, 0.01f, 0.005f);
+                        sphereCol.g = nk_propertyf(ctx, "#G:", 0, sphereCol.g, 1.0f, 0.01f, 0.005f);
+                        sphereCol.b = nk_propertyf(ctx, "#B:", 0, sphereCol.b, 1.0f, 0.01f, 0.005f);
+                        _sphereCol.x = nk_rgb_cf(sphereCol).r;
+                        _sphereCol.x = nk_rgb_cf(sphereCol).g;
+                        _sphereCol.x = nk_rgb_cf(sphereCol).b;
+                        nk_combo_end(ctx);
+                    }
+                    break;
+                case (2): // Dielectric
+                    nk_layout_row_dynamic(ctx, 30, 1);
+                    nk_property_float(ctx, "Refractive Index:", 0, &prop, 100, 0.1, 0.2);
+                    break;
+                }
+                nk_layout_row_dynamic(ctx, 30, 1);
+                nk_property_float(ctx, "#Radius:", 0, &r, FLOAT_MAX, 5, 1);
+                nk_layout_row_dynamic(ctx, 30, 1);
+                nk_label(ctx, "Location:", NK_TEXT_LEFT);
+                nk_layout_row_dynamic(ctx, 30, 3);
+                nk_property_float(ctx, "#X:", FLOAT_MIN, &sx, FLOAT_MAX, 5, 1);
+                nk_property_float(ctx, "#Y:", FLOAT_MIN, &sy, FLOAT_MAX, 5, 1);
+                nk_property_float(ctx, "#Z:", FLOAT_MIN, &sz, FLOAT_MAX, 5, 1);
+                nk_layout_row_dynamic(ctx, 30, 1);
                 if (nk_button_label(ctx, "Add Sphere"))
                 {
-                    if (nk_menu_begin_label(ctx, "Material", NK_TEXT_ALIGN_LEFT, nk_vec2(150, 200)))
-                    {
-                        if (nk_button_label(ctx, "Metal"))
-                        {
-                        }
-                        if (nk_button_label(ctx, "Lambertian"))
-                        {
-                        }
-                        if (nk_button_label(ctx, "Dielectric"))
-                        {
-                        }
-                        nk_menu_end(ctx);
-                    }
-                    Metal *m = new Metal(Point(0.9, 0.9, 0.9), 0.5);
-                    Lambertian *l = new Lambertian(Point(0.9, 0.9, 0.9));
-                    Metal *ma = new Metal(Point(0.9, 0.9, 0.6), 0.8);
-                    Lambertian *la = new Lambertian(Point(0.5, 0.5, 0.5));
-                    Lambertian *lred = new Lambertian(Point(0.9, 0.0, 0.0));
-                    Lambertian *lblue = new Lambertian(Point(0.0, 0.0, 0.9));
-                    Dielectrics *d = new Dielectrics(1.3);
-
-                    s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(-8, 2, -30), m));
-                    s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(8, 2, -30), d));
-                    // s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-7, -3, -15), d));
-                    s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-3, 3, -30), lred));
-                    s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(3, 3, -30), lblue));
-                    s->addSphere(prims::Sphere(0.3, Point(255, 255, 255), Point(2, 2, -12), ma));
-                    s->addSphere(prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, -30), l));
-                    // for(auto sphere : s->getSpheres()) {
-                    //     std::cout << sphere.location.x << std::endl;
-                    // }
-                }
-                if (nk_button_label(ctx, "Samples per Pixel"))
-                {
-                }
-                if (nk_button_label(ctx, "Max Bounces"))
-                {
+                    std::cout << sx << sy << sz << std::endl;
+                    s->addSphere(prims::Sphere(r, _sphereCol, Point(sx, sy, sz), new Metal(Point(0, 0, 0), 0.5)));
                 }
                 nk_group_end(ctx);
             }
