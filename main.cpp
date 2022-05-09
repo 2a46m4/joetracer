@@ -45,9 +45,6 @@ int main(int argc, char *args[])
 
     int flags = 0;
 
-    // The surface contained by the window
-    SDL_Surface *screenSurface = NULL;
-
     // Initialize SDL
     SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
     if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -89,9 +86,6 @@ int main(int argc, char *args[])
 
     background.r = 0.40f, background.g = 0.58f, background.b = 0.70f, background.a = 1.0f;
 
-    // // Get window surface
-    screenSurface = SDL_GetWindowSurface(window);
-
     // // s->debugAddCube();
     // s->addLight(prims::Light(Point(0, 2, -5), 1000.0, Point(255, 255, 255)));
     // s->addLight(prims::Light(Point(0, 0, 0), 1000.0, Point(255, 255, 255)));
@@ -130,7 +124,9 @@ int main(int argc, char *args[])
     static float col = 0;
 
     struct nk_colorf sphereCol;
-    Point _sphereCol;
+    sphereCol.r = 1;
+    sphereCol.g = 0;
+    sphereCol.b = 0;
 
     nk_color bgbyte = nk_rgb_cf(background);
     // Point(150, 170, 240)
@@ -250,9 +246,6 @@ int main(int argc, char *args[])
                         sphereCol.r = nk_propertyf(ctx, "#R:", 0, sphereCol.r, 1.0f, 0.01f, 0.005f);
                         sphereCol.g = nk_propertyf(ctx, "#G:", 0, sphereCol.g, 1.0f, 0.01f, 0.005f);
                         sphereCol.b = nk_propertyf(ctx, "#B:", 0, sphereCol.b, 1.0f, 0.01f, 0.005f);
-                        _sphereCol.x = nk_rgb_cf(sphereCol).r;
-                        _sphereCol.x = nk_rgb_cf(sphereCol).g;
-                        _sphereCol.x = nk_rgb_cf(sphereCol).b;
                         nk_combo_end(ctx);
                     }
                     break;
@@ -265,9 +258,6 @@ int main(int argc, char *args[])
                         sphereCol.r = nk_propertyf(ctx, "#R:", 0, sphereCol.r, 1.0f, 0.01f, 0.005f);
                         sphereCol.g = nk_propertyf(ctx, "#G:", 0, sphereCol.g, 1.0f, 0.01f, 0.005f);
                         sphereCol.b = nk_propertyf(ctx, "#B:", 0, sphereCol.b, 1.0f, 0.01f, 0.005f);
-                        _sphereCol.x = nk_rgb_cf(sphereCol).r;
-                        _sphereCol.x = nk_rgb_cf(sphereCol).g;
-                        _sphereCol.x = nk_rgb_cf(sphereCol).b;
                         nk_combo_end(ctx);
                     }
                     break;
@@ -287,8 +277,27 @@ int main(int argc, char *args[])
                 nk_layout_row_dynamic(ctx, 30, 1);
                 if (nk_button_label(ctx, "Add Sphere"))
                 {
-                    std::cout << sx << sy << sz << std::endl;
-                    s->addSphere(prims::Sphere(r, _sphereCol, Point(sx, sy, sz), new Metal(Point(0, 0, 0), 0.5)));
+                    switch (selected_item_index)
+                    {
+                    case (0): // Metal
+                    {
+                        Metal *x = new Metal(Point(sphereCol.r, sphereCol.g, sphereCol.b), prop);
+                        s->addSphere(prims::Sphere(r, Point(0, 0, 0), Point(sx, sy, sz), x));
+                        break;
+                    }
+                    case (1): // Lambertian
+                    {
+                        Lambertian *xx = new Lambertian(Point(sphereCol.r, sphereCol.g, sphereCol.b));
+                        s->addSphere(prims::Sphere(r, Point(0, 0, 0), Point(sx, sy, sz), xx));
+                        break;
+                    }
+                    case (2): // Dielectric
+                    {
+                        Dielectrics *xxx = new Dielectrics(prop);
+                        s->addSphere(prims::Sphere(r, Point(0, 0, 0), Point(sx, sy, sz), xxx));
+                        break;
+                    }
+                    }
                 }
                 nk_group_end(ctx);
             }

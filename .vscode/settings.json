@@ -95,6 +95,8 @@
         "source_location": "cpp",
         "future": "cpp",
         "forward_list": "cpp",
-        "typeindex": "cpp"
+        "typeindex": "cpp",
+        "sdl_surface.h": "c",
+        "sdl.h": "c"
     }
 }

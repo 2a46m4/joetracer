@@ -29,6 +29,7 @@ glfont: glfont.c Makefile
 # recipe for building the final executable
 $(EXEC): $(OBJS) $(HDRS) Makefile
 	$(CC) -o $@ $(OBJS) $(CFLAGS)
+	rm -f $(OBJS)
 
 # recipe for building object files
 $(OBJS): $(@:.o=.cpp) $(HDRS) Makefile
