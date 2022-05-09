@@ -2,30 +2,27 @@
 #define _SPHERE_H
 
 #include "Point.h"
+#include "Hittable.h"
 
 using namespace utils;
-
-namespace prims
-{
-    class Sphere
+namespace prims {
+    class Sphere: public Hittable 
     {
     public:
         Point location;
-        double specular = 0.2;
-        double lambert = 0.7;
-        double ambient = 0.1;
         Point color;
         int rad;
 
+        prims::Materials* material;
+
         Sphere();
 
-        Sphere(int rad, Point col, Point loc);
+        Sphere(float rad, Point col, Point loc, Materials* material);
+
+        bool hit(const Ray& r, hitRecord& rec) const;
 
     private:
-        // type of Object.
-        //  s : sphere
-        char type;
+
     };
 }
-
 #endif

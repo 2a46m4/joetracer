@@ -5,10 +5,9 @@
 #include "utils/Vec.h"
 #include "utils/Sphere.h"
 #include "PinholeCamera.h"
-#include "utils/VectorOps.h"
+#include "utils/Functions.h"
 #include "utils/Light.h"
-#include "utils/TriangleList.h"
-#include "utils/Triangle.h"
+#include "utils/Ray.h"
 
 #include <math.h>
 #include <vector>
@@ -26,29 +25,23 @@ private:
 
     std::vector<prims::Light> lights;
     std::vector<prims::Sphere> spheres;
-    TriangleList tlist;
-    PinholeCamera camera;
+
+    Point background;
+
+    int samples = 10;
+    int bounces = 4;
+
+    char *pixels = new char[height * width * 3];
 
 public:
+
+    PinholeCamera camera;
+
     Scene();
 
-    Scene(int w, int h);
+    Scene(int w, int h, PinholeCamera camera, Point background);
 
-    char *render(PinholeCamera camera) const;
-
-    Point lightIn(const Point P, const Vec wi) const;
-
-    Point lightOut(prims::Triangle &sx, const Vec &wo, const Point &X) const;
-
-    // Point lightScatteredDirect(Surfel &sx, const Vec &wo);
-
-    bool findFirstIntersection(const Point &P, const Vec &w, prims::Triangle &s, float &t) const;
-
-    bool rayTriangleIntersect(const Point &P, const Vec w, const Point V[3], float b[3], float &t) const;
-
-    bool testAllTriangles(const Point P, const Vec w, prims::Triangle &tri, float& t) const;
-
-    bool visible(const Point X, const Point Y) const;
+    char *render() const;
 
     void addSphere(prims::Sphere o);
 
@@ -68,13 +61,21 @@ public:
 
     const std::vector<prims::Light> getLights() const;
 
+    void changeBackground(Point background);
+
     // Sphere stuff
 
-    // Point debugColour(Point P, Vec w) const;
-    // bool debugIntersection(Point P, Vec w) const;
-    // void debugAddSphere(int r, int x, int y, int z);
+    Point Colour(Ray r, int limit) const;
 
-    // std::vector<prims::Sphere> getSpheres() const;
+    // returns the t that the intersection happened, as well as the normal
+    bool sphereIntersect(Ray& rIn, prims::hitRecord& rec) const;
+
+    std::vector<prims::Sphere> getSpheres() const;
+
+    void changeSamples(int a);
+
+    void changeBounces(int a);
+
 };
 
 #endif

@@ -3,230 +3,72 @@
 #include "utils/Vec.h"
 #include "utils/Sphere.h"
 #include "PinholeCamera.h"
-#include "utils/VectorOps.h"
+#include "utils/Functions.h"
 #include "utils/Light.h"
+#include "utils/Ray.h"
+#include "utils/Functions.h"
 
 #include <iostream>
 #include <cmath>
 #include <vector>
-#include <utility>
-#include <memory>
 #include <limits>
-
-#define PI 3.14159265358979323846264338327950288419716939937510582097
+#include <random>
+#include <thread>
 
 using namespace utils;
 
 Scene::Scene()
 {
-    width = 640;
-    height = 480;
+    width = 1000;
+    height = 800;
 }
 
-Scene::Scene(int w, int h)
+Scene::Scene(int w, int h, PinholeCamera camera, Point background)
 {
     width = w;
     height = h;
+    this->camera = camera;
+    this->background = background;
 }
 
-char *Scene::render(PinholeCamera camera) const
+char *Scene::render() const
 {
-    // PinholeCamera *camera = new PinholeCamera(1.0f, 45.0f, Point(0, 0, 0));
-    char *pixels = new char[width * height * 3];
+    int threads = std::thread::hardware_concurrency();
 
-    int loc = 0;
-    for (int y = 0; y < height; ++y)
+#pragma omp parallel
     {
-        for (int x = 0; x < width; ++x)
+#pragma omp for
         {
-            Point P;
-            Vec w;
+            for (int y = 0; y < height; y++)
+            {
 
-            camera.getPrimaryRay(float(x) + 0.5f, float(y) + 0.5f, width, height, P, w);
+                for (int x = 0; x < width * 3; x += 3)
+                {
+                    Ray r;
+                    Point col;
 
-            // Point col = debugColour(P, w);
-            const Point col = lightIn(P, w);
+                    std::random_device device;
+                    std::mt19937 gen(device());
+                    std::uniform_real_distribution<> realrand(0, 1);
 
-            // R channel
-            pixels[loc++] = col.x;
-            // G channel
-            pixels[loc++] = col.y;
-            // B channel
-            pixels[loc++] = col.z;
+                    for (int i = 0; i < samples; i++)
+                    {
+                        camera.getPrimaryRay(float(x / 3) + realrand(device), float(y) + realrand(device), r);
+                        col = math::add(col, Colour(r, bounces));
+                    }
+
+                    // R channel
+                    pixels[y * (width * 3) + (x % (width * 3 - 1))] = (sqrt(col.x / samples / 255)) * 255;
+                    // G channel
+                    pixels[y * (width * 3) + (x % (width * 3 - 1)) + 1] = (sqrt(col.y / samples / 255)) * 255;
+                    // B channel
+                    pixels[y * (width * 3) + (x % (width * 3 - 1)) + 2] = (sqrt(col.z / samples / 255)) * 255;
+                }
+            }
         }
     }
+
     return pixels;
-}
-
-// checks for intersection between triangle and ray.
-// P + tw is ray, and V[3] is triangle. Stores barycentric coordinates in b[],
-// and stores the intersection distance in t. Otherwise returns false.
-bool Scene::rayTriangleIntersect(const Point &P, const Vec w, const Point V[3], float b[3], float &t) const
-{
-    const float precision = 1e-6;
-
-    // Edge vectors
-    const Vec &edge1 = math::sub(V[1].direction(), V[0].direction());
-    const Vec &edge2 = math::sub(V[2].direction(), V[0].direction());
-
-    // Normal
-    const Vec &n = math::crossProduct(edge1, edge2);
-
-    const Vec &q = math::crossProduct(w, edge2);
-    const float a = math::dotProduct(edge1, q); // this is prob the m
-
-    // Return false if nearly parallel or backfacing, or close to precision limit
-    if ((math::dotProduct(n, w) >= 0) || (abs(a) <= precision))
-        return false;
-
-    const Vec &s = math::scale(1 / a, math::sub(P, V[0]).direction());
-    const Vec &r = math::crossProduct(s, edge1);
-
-    b[0] = math::dotProduct(s, q); // Barycentric coordinates of V0
-    b[1] = math::dotProduct(r, w); // Barycentric coordinates of V1
-    b[2] = 1.0f - b[0] - b[1];     // Barycentric coordinates of V2
-
-    // Intersection outside triangle
-    if ((b[0] < 0.0f || b[1] < 0.0f || b[2] < 0.0f))
-        return false;
-
-    t = math::dotProduct(edge2, r);
-    return (t >= 0.0f);
-}
-
-// Returns if the ray has intersected a triangle or not and stores the closest triangle
-bool Scene::testAllTriangles(const Point P, const Vec w, prims::Triangle &tri, float &t) const
-{
-    float min = t = std::numeric_limits<float>::max();
-    for (int i = 0; i < tlist.size(); i++)
-    {
-        const prims::Triangle temp = tlist.triangle(i);
-        float b[3];
-        rayTriangleIntersect(P, w, temp.m_vertex, b, t);
-        if (t < min)
-        {
-            min = t;
-            tri = temp;
-        }
-        return (min != std::numeric_limits<float>::max());
-    }
-}
-
-// Takes in a light point Y and a test point X and checks if there are any triangles intersecting it
-bool Scene::visible(const Point Y, const Point X) const
-{
-    Vec b = math::sub(Y, X).direction();
-    Vec a = math::getUnitVec(b);
-    // const Vec b = Vec(0.02, 0.02, 0.02);
-    // const Vec w = math::add(a, b); // Add bump
-    prims::Triangle tri;
-    float t;
-    if (findFirstIntersection(Y, a, tri, t))
-    {
-        return true;
-    }
-    return false;
-}
-
-// Returns the amount of light received if the ray intersects wtih a triangle. Otherwise returns 0.
-Point Scene::lightIn(const Point P, const Vec wi) const
-{
-    // Intersection triangle
-    prims::Triangle s;
-    // Intersection distance
-    float t;
-    if (findFirstIntersection(P, wi, s, t))
-    {
-        Point intsec = math::add(P, math::point((math::scale(t, wi))));
-        // std::cout << "found intersection at: " << intsec.x << intsec.y << intsec.z << std::endl;
-        Point L;
-        L = lightOut(s, -wi, intsec);
-        return L;
-    }
-    return Point(0, 0, 0); // No intersection has been found
-}
-
-// Returns the amount of light that bounces from a surface (not using a surfel)
-Point Scene::lightOut(prims::Triangle &sx, const Vec &wo, const Point &X) const
-{
-    // Local radiance, we'll implement that later
-    Point L = sx.material.emittedRadiance(wo);
-    // Position of the intersection point
-    // The dot product(?) between the light source and the normal of the material (in world coordinates)
-    const Vec &edge1 = math::sub(sx.m_vertex[1].direction(), sx.m_vertex[0].direction());
-    const Vec &edge2 = math::sub(sx.m_vertex[2].direction(), sx.m_vertex[0].direction());
-    const Vec &n = math::crossProduct(edge1, edge2);
-
-    for (const prims::Light &light : lights)
-    {
-        const Point &Y = light.getPosition();
-
-        if (visible(Y, X))
-        {
-            const Vec &wi = math::sub(Y, X).direction();
-            const Point &bi = light.biradiance(X);
-            const Point &f = sx.material.finiteScatteringDensity(wi, wo);
-            L = L + math::scale(abs(math::dotProduct(n, wi)), bi * f);
-        }
-    }
-
-    return L;
-}
-
-// Finds the first intersection of a triangle and stores the triangle in s, and returns true. Returns false if nothing is intersected by the ray.
-bool Scene::findFirstIntersection(const Point &P, const Vec &w, prims::Triangle &s, float &t) const
-{
-    prims::Triangle tri;
-    if (testAllTriangles(P, w, tri, t))
-    {
-        s = tri;
-        return true;
-    }
-    else
-        return false;
-}
-
-// This takes too long to add. Need a better way to add primitive shapes / organize triangles. Also things are clockwise for some reason
-void Scene::debugAddCube()
-{
-    tlist.addTriangle(prims::Triangle(Point(2, 0, -20),
-                                      Point(-1, 0, -20),
-                                      Point(-1, 3, -20)));
-    tlist.addTriangle(prims::Triangle(Point(2, 0, -20),
-                                      Point(-1, 3, -20),
-                                      Point(2, 3, -20)));
-    tlist.addTriangle(prims::Triangle(Point(2, 0, -23),
-                                      Point(2, 0, -20),
-                                      Point(2, 3, -20)));
-    tlist.addTriangle(prims::Triangle(Point(2, 0, -23),
-                                      Point(2, 0, -20),
-                                      Point(2, 3, -20)));
-    // tlist.addTriangle(prims::Triangle(Point(),
-    //                                   Point(),
-    //                                   Point()));
-    // tlist.addTriangle(prims::Triangle(Point(),
-    //                                   Point(),
-    //                                   Point()));
-    // tlist.addTriangle(prims::Triangle(Point(),
-    //                                   Point(),
-    //                                   Point()));
-    // tlist.addTriangle(prims::Triangle(Point(),
-    //                                   Point(),
-    //                                   Point()));
-    // tlist.addTriangle(prims::Triangle(Point(),
-    //                                   Point(),
-    //                                   Point()));
-    // tlist.addTriangle(prims::Triangle(Point(),
-    //                                   Point(),
-    //                                   Point()));
-    // tlist.addTriangle(prims::Triangle(Point(),
-    //                                   Point(),
-    //                                   Point()));
-    // tlist.addTriangle(prims::Triangle(Point(),
-    //                                   Point(),
-    //                                   Point()));
-
-    std::cout << tlist.size() << std::endl;;
 }
 
 void Scene::newCamera(PinholeCamera p)
@@ -264,49 +106,60 @@ const std::vector<prims::Light> Scene::getLights() const
     return lights;
 }
 
+void Scene::changeBackground(Point background)
+{
+    this->background = background;
+}
+
+void changeSamples(int a);
+
+void changeBounces(int a);
+
 /*--------------- Sphere stuff ---------------*/
 
-// std::vector<prims::Sphere> Scene::getSpheres() const
-// {
-//     return spheres;
-// }
+std::vector<prims::Sphere> Scene::getSpheres() const
+{
+    return spheres;
+}
 
-// Point Scene::debugColour(Point P, Vec w) const
-// {
+Point Scene::Colour(Ray r, int limit) const
+{
+    prims::hitRecord rec;
+    rec.t = std::numeric_limits<float>::max();
 
-//     bool intersect_sphere = debugIntersection(P, w);
-//     prims::Triangle tri;
-//     bool intersect_triangle = testAllTriangles(P, w, tri);
+    // prims::Triangle tri;
+    // bool intersect_triangle = testAllTriangles(P, w, tri);
 
-//     if (intersect_sphere || intersect_triangle)
-//         return Point::char_max();
-//     else
-//         return Point::zero();
-// }
+    if (sphereIntersect(r, rec) && limit > 0)
+    {
+        Ray scattered;
+        Point attenuation;
+        rec.matPtr->scatter(r, rec, attenuation, scattered);
+        return attenuation * Colour(scattered, limit - 1);
+    }
+    else
+        return background; // Background colour
+}
 
-// void Scene::addSphere(prims::Sphere o)
-// {
-//     spheres.push_back(o);
-// }
+void Scene::addSphere(prims::Sphere o)
+{
+    spheres.push_back(o);
+}
 
-// void Scene::debugAddSphere(int r, int x, int y, int z)
-// {
-//     spheres.push_back(prims::Sphere(r, Point(100, 100, 100), Point(x, y, z)));
-// }
-
-// // Sphere intersection
-// bool Scene::debugIntersection(Point P, Vec w) const
-// {
-//     for (auto sphere : spheres)
-//     {
-
-//         Vec v = math::sub(P.direction(), sphere.location.direction());
-//         int a = math::dotProduct(w, v) * math::dotProduct(w, v);
-//         int b = math::dotProduct(w, w) * (math::dotProduct(v, v) - (sphere.rad * sphere.rad));
-//         if (a - b > 0)
-//         {
-//             return true;
-//         }
-//     }
-//     return false;
-// }
+// Sphere intersection
+bool Scene::sphereIntersect(Ray &rIn, prims::hitRecord &rec) const
+{
+    bool hit = false;
+    for (auto sphere : spheres)
+    {
+        prims::hitRecord temp;
+        temp.t = std::numeric_limits<float>::max();
+        bool hitsphere = sphere.hit(rIn, temp);
+        if (hitsphere && temp.t < rec.t)
+        {
+            rec = temp;
+        }
+        hit = hit || hitsphere;
+    }
+    return hit;
+}
