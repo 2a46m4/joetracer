@@ -85,18 +85,7 @@ int main(int argc, char *args[])
     }
 
     background.r = 0.40f, background.g = 0.58f, background.b = 0.70f, background.a = 1.0f;
-
-    // // s->debugAddCube();
-    // s->addLight(prims::Light(Point(0, 2, -5), 1000.0, Point(255, 255, 255)));
-    // s->addLight(prims::Light(Point(0, 0, 0), 1000.0, Point(255, 255, 255)));
-    // s->addLight(prims::Light(Point(0, 2, -10), 1000.0, Point(255, 255, 255)));
     int channels = 3;
-
-    // auto start = high_resolution_clock::now();
-    // auto stop = high_resolution_clock::now();
-
-    // auto duration = duration_cast<milliseconds>(stop - start);
-    // std::cout << duration.count() << std::endl;
 
     static float x = 0;
     static float y = 0;
@@ -165,6 +154,8 @@ int main(int argc, char *args[])
             nk_layout_row_dynamic(ctx, 30, 1);
             if (nk_button_label(ctx, "Render"))
             {
+                auto start = high_resolution_clock::now();
+
                 s->newCamera(PinholeCamera(SCREEN_WIDTH, SCREEN_HEIGHT, fov, Point(x, y, z), Point(lx, ly, lz)));
                 pixels = s->render();
                 surface = SDL_CreateRGBSurfaceFrom((void *)pixels,
@@ -178,6 +169,11 @@ int main(int argc, char *args[])
                                                    0);
                 finalTexture = SDL_CreateTextureFromSurface(renderer, surface);
                 SDL_FreeSurface(surface);
+
+                auto stop = high_resolution_clock::now();
+
+                auto duration = duration_cast<milliseconds>(stop - start);
+                std::cout << duration.count() << std::endl;
             }
 
             nk_layout_row_dynamic(ctx, 400, 2);
@@ -210,21 +206,35 @@ int main(int argc, char *args[])
                 nk_layout_row_dynamic(ctx, 30, 1);
                 if (nk_button_label(ctx, "Add Sample Spheres"))
                 {
-                    Metal *m = new Metal(Point(0.9, 0.9, 0.9), 0.5);
-                    Lambertian *l = new Lambertian(Point(0.9, 0.9, 0.9));
-                    Metal *ma = new Metal(Point(0.9, 0.9, 0.6), 0.8);
-                    Lambertian *la = new Lambertian(Point(0.5, 0.5, 0.5));
+                    Metal *mwhite = new Metal(Point(0.9, 0.9, 0.9), 0.5);
+                    Lambertian *lwhite = new Lambertian(Point(0.9, 0.9, 0.9));
+                    Metal *mgold = new Metal(Point(0.9, 0.9, 0.6), 0.8);
+                    Lambertian *lgrey = new Lambertian(Point(0.5, 0.5, 0.5));
                     Lambertian *lred = new Lambertian(Point(0.9, 0.0, 0.0));
                     Lambertian *lblue = new Lambertian(Point(0.0, 0.0, 0.9));
-                    Dielectrics *d = new Dielectrics(1.3);
+                    Dielectrics *glass = new Dielectrics(1.3);
 
-                    s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(-8, 2, -30), m));
-                    s->addSphere(prims::Sphere(2, Point(255, 255, 255), Point(8, 2, -30), d));
-                    s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-0, 3, -15), d));
-                    s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(-3, 3, -30), lred));
-                    s->addSphere(prims::Sphere(3, Point(255, 255, 255), Point(3, 3, -30), lblue));
-                    s->addSphere(prims::Sphere(0.3, Point(255, 255, 255), Point(2, 2, -12), ma));
-                    s->addSphere(prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, -30), l));
+                    prims::Hittable *metallicSphere = new prims::Sphere(2, Point(255, 255, 255), Point(-8, 2, -30), mwhite);
+
+                    prims::Hittable *glassSphere = new prims::Sphere(2, Point(255, 255, 255), Point(8, 2, -30), glass);
+
+                    prims::Hittable *glassSphere2 = new prims::Sphere(3, Point(255, 255, 255), Point(-0, 3, -15), glass);
+
+                    prims::Hittable *redSphere = new prims::Sphere(3, Point(255, 255, 255), Point(-3, 3, -30), lred);
+
+                    prims::Hittable *blueSphere = new prims::Sphere(3, Point(255, 255, 255), Point(3, 3, -30), lblue);
+
+                    prims::Hittable *goldSphere = new prims::Sphere(0.3, Point(255, 255, 255), Point(2, 2, -12), mgold);
+
+                    prims::Hittable *ground = new prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, -30), lwhite);
+
+                    s->addObject(metallicSphere);
+                    s->addObject(glassSphere);
+                    s->addObject(glassSphere2);
+                    s->addObject(redSphere);
+                    s->addObject(blueSphere);
+                    s->addObject(goldSphere);
+                    s->addObject(ground);
                 }
                 nk_layout_row_dynamic(ctx, 30, 1);
                 nk_label(ctx, "Add Sphere", NK_TEXT_ALIGN_LEFT);
@@ -281,20 +291,17 @@ int main(int argc, char *args[])
                     {
                     case (0): // Metal
                     {
-                        Metal *x = new Metal(Point(sphereCol.r, sphereCol.g, sphereCol.b), prop);
-                        s->addSphere(prims::Sphere(r, Point(0, 0, 0), Point(sx, sy, sz), x));
+                        s->addObject(new prims::Sphere(r, Point(0, 0, 0), Point(sx, sy, sz), new Metal(Point(sphereCol.r, sphereCol.g, sphereCol.b), prop)));
                         break;
                     }
                     case (1): // Lambertian
                     {
-                        Lambertian *xx = new Lambertian(Point(sphereCol.r, sphereCol.g, sphereCol.b));
-                        s->addSphere(prims::Sphere(r, Point(0, 0, 0), Point(sx, sy, sz), xx));
+                        s->addObject(new prims::Sphere(r, Point(0, 0, 0), Point(sx, sy, sz), new Lambertian(Point(sphereCol.r, sphereCol.g, sphereCol.b))));
                         break;
                     }
                     case (2): // Dielectric
                     {
-                        Dielectrics *xxx = new Dielectrics(prop);
-                        s->addSphere(prims::Sphere(r, Point(0, 0, 0), Point(sx, sy, sz), xxx));
+                        s->addObject(new prims::Sphere(r, Point(0, 0, 0), Point(sx, sy, sz), new Dielectrics(prop)));
                         break;
                     }
                     }

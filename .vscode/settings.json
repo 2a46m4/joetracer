@@ -98,5 +98,12 @@
         "typeindex": "cpp",
         "sdl_surface.h": "c",
         "sdl.h": "c"
-    }
+    },
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/dabanya02/Projects/joetracer",
+            "binaryPath": "/home/dabanya02/Projects/joetracer/Joetracer",
+            "binaryArgs": []
+        }
+    ]
 }

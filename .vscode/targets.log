@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri May 13 00:28:46 2022
+# Make data base, printed on Fri May 13 01:31:45 2022
 
 # Variables
 
@@ -125,7 +125,7 @@ XMODIFIERS = @im=fcitx
 # environment
 SHLVL = 1
 # makefile (from 'Makefile', line 10)
-HDRS := ./Scene.h ./prims/Light.h ./prims/Hittable.h ./prims/Materials/Lambertian.h ./prims/Materials/Metal.h ./prims/Materials/Dielectrics.h ./prims/Materials/Emissive.h ./prims/Sphere.h ./PinholeCamera.h ./utils/aabb.h ./utils/Functions.h ./utils/Vec.h ./utils/Point.h ./utils/light/Radiance.h ./utils/Ray.h ./gui/nuklear/nuklear_sdl_renderer.h ./gui/nuklear/nuklear.h ./gui/nuklear/sdl2surface_rawfb.h
+HDRS := ./Scene.h ./prims/Light.h ./prims/Hittable.h ./prims/BVHNode.h ./prims/Materials/Lambertian.h ./prims/Materials/Metal.h ./prims/Materials/Dielectrics.h ./prims/Materials/Emissive.h ./prims/Sphere.h ./PinholeCamera.h ./utils/aabb.h ./utils/Functions.h ./utils/Vec.h ./utils/Point.h ./utils/light/Radiance.h ./utils/Ray.h ./gui/nuklear/nuklear_sdl_renderer.h ./gui/nuklear/nuklear.h ./gui/nuklear/sdl2surface_rawfb.h
 # environment
 MAKELEVEL := 0
 # default
@@ -239,9 +239,9 @@ GDMSESSION = plasma
 
 # Directories
 
-# . (device 66307, inode 35918963): 21 files, no impossibilities.
+# . (device 66307, inode 35918963): 22 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 22 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -252,11 +252,11 @@ GDMSESSION = plasma
 # Not a target:
 Scene.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 00:01:46.204672123
+#  Last modified 2022-05-13 01:28:12.831488762
 #  File has been updated.
 #  Successfully updated.
 
-utils/Point.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+utils/Point.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -277,25 +277,25 @@ gui/nuklear/sdl2surface_rawfb.h:
 #  File has been updated.
 #  Successfully updated.
 
-Joetracer: main.o PinholeCamera.o prims/Light.o prims/Sphere.o utils/Functions.o utils/Point.o utils/light/Radiance.o utils/Vec.o utils/Ray.o Scene.o Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+Joetracer: main.o PinholeCamera.o prims/Light.o prims/Sphere.o utils/Functions.o utils/Point.o utils/light/Radiance.o utils/Vec.o utils/Ray.o Scene.o Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Last modified 2022-05-12 03:51:51.037783817
 #  File has been updated.
 #  Needs to be updated (-q is set).
- 
 # variable set hash-table stats:
+ 
 # Load=0/32=0%, Rehash=0, Collisions=0/5=0%
 #  recipe to execute (from 'Makefile', line 33):
 	$(CC) -o $@ $(OBJS) $(CFLAGS)
 
-utils/Ray.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+utils/Ray.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 37):
 	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
 
-prims/Light.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+prims/Light.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -305,7 +305,7 @@ prims/Light.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-12 03:50:55.86445015
+#  Last modified 2022-05-13 01:31:40.34482809
 #  File has been updated.
 #  Successfully updated.
 
@@ -322,7 +322,7 @@ showfont.c:
 #  Modification time never checked.
 #  File has not been updated.
 
-utils/Vec.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+utils/Vec.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -358,7 +358,7 @@ utils/light/Radiance.h:
 #  File has been updated.
 #  Successfully updated.
 
-PinholeCamera.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+PinholeCamera.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -375,7 +375,7 @@ prims/Materials/Dielectrics.h:
 # Not a target:
 prims/Hittable.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 00:20:15.081370864
+#  Last modified 2022-05-13 01:11:56.421460535
 #  File has been updated.
 #  Successfully updated.
 
@@ -389,25 +389,25 @@ utils/Point.h:
 # Not a target:
 utils/aabb.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-12 05:08:26.494478194
+#  Last modified 2022-05-13 00:52:09.641426242
 #  File has been updated.
 #  Successfully updated.
 
-utils/Functions.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+utils/Functions.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 37):
 	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
 
-prims/Sphere.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+prims/Sphere.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 37):
 	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
 
-Scene.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+Scene.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -438,13 +438,20 @@ utils/Functions.h:
 #  Successfully updated.
 
 # Not a target:
+prims/BVHNode.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-13 01:22:30.541478861
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
 prims/Light.h:
 #  Implicit rule search has been done.
 #  Last modified 2022-05-12 03:51:55.064450508
 #  File has been updated.
 #  Successfully updated.
 
-main.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+main.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
 #  Last modified 2022-05-12 03:51:49.077783805
@@ -457,13 +464,13 @@ main.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prim
 # automatic
 # < := Scene.h
 # automatic
-# + := Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+# + := Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 # automatic
 # % := 
 # automatic
-# ^ := Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+# ^ := Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 # automatic
-# ? := Scene.h prims/Light.h prims/Hittable.h prims/Sphere.h utils/aabb.h
+# ? := Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Sphere.h utils/aabb.h Makefile
 # automatic
 # | := 
 # variable set hash-table stats:
@@ -530,7 +537,7 @@ utils/Ray.h:
 #  File has been updated.
 #  Successfully updated.
 
-utils/light/Radiance.o: Scene.h prims/Light.h prims/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+utils/light/Radiance.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -545,20 +552,20 @@ gui/nuklear/nuklear.h:
 #  Successfully updated.
 
 # files hash-table stats:
-# Load=39/1024=4%, Rehash=0, Collisions=1/117=1%
+# Load=40/1024=4%, Rehash=0, Collisions=1/120=1%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 55 / storage = 734 B / avg = 13 B
-# current buf: size = 8162 B / used = 734 B / count = 55 / avg = 13 B
+# strcache buffers: 1 (0) / strings = 57 / storage = 757 B / avg = 13 B
+# current buf: size = 8162 B / used = 757 B / count = 57 / avg = 13 B
 
-# strcache performance: lookups = 118 / hit rate = 53%
+# strcache performance: lookups = 121 / hit rate = 52%
 # hash-table stats:
  
-# Load=55/8192=1%, Rehash=0, Collisions=0/118=0%
-# Finished Make data base on Fri May 13 00:28:46 2022
+# Load=57/8192=1%, Rehash=0, Collisions=0/121=0%
+# Finished Make data base on Fri May 13 01:31:45 2022
 
  

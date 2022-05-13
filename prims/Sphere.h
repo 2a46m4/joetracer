@@ -3,6 +3,8 @@
 
 #include "../utils/Point.h"
 #include "Hittable.h"
+#include "../utils/aabb.h"
+
 
 using namespace utils;
 namespace prims {
@@ -19,7 +21,7 @@ namespace prims {
 
         Sphere(float rad, Point col, Point loc, Materials* material);
 
-        bool boundingBox(double t0, double t1, aabb& outputBox) const;
+        bool boundingBox(double t0, double t1, aabb& outputBox) const override;
 
         bool hit(const Ray& r, hitRecord& rec, double tMin, double tMax) const override;
 

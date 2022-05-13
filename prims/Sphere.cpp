@@ -2,6 +2,7 @@
 #include "../utils/Point.h"
 #include <cmath>
 #include "../utils/Functions.h"
+#include "../utils/aabb.h"
 
 #include <limits>
 
@@ -35,7 +36,6 @@ namespace prims
     bool Sphere::hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const
     {
         bool intercept = false;
-        float dist = std::numeric_limits<float>::max();
         Vec v = sub(r.origin.direction(), location.direction());
         float a = dotProduct(r.direction, r.direction);
         float b = dotProduct(r.direction, v);
@@ -44,19 +44,19 @@ namespace prims
         if (discriminant > 0)
         {
             rec.t = ((-sqrt(discriminant)) - b) / a;
-            if (dist > rec.t && rec.t > 0.0001)
+            if (tMax > rec.t && rec.t > 0.0001)
             {
                 intercept = true;
-                dist = rec.t;
+                tMax = rec.t;
                 rec.normal = unitVec(sub(add(r.origin.direction(), scale(rec.t, r.direction)), location.direction()));
                 rec.p = add(r.origin, point(scale(rec.t, r.direction)));
                 rec.matPtr = material;
             }
             rec.t = (sqrt(discriminant) - b) / a;
-            if (dist > rec.t && rec.t > 0.0001)
+            if (tMax > rec.t && rec.t > 0.0001)
             {
                 intercept = true;
-                dist = rec.t;
+                tMax = rec.t;
                 rec.normal = unitVec(sub(add(r.origin.direction(), scale(rec.t, r.direction)), location.direction()));
                 rec.p = add(r.origin, point(scale(rec.t, r.direction)));
                 rec.matPtr = material;

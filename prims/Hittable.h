@@ -1,10 +1,13 @@
 #ifndef _HITTABLE_H
 #define _HITTABLE_H
 
+#include <vector>
+
 #include "../utils/Point.h"
 #include "../utils/Vec.h"
 #include "../utils/Ray.h"
 #include "../utils/aabb.h"
+#include "../utils/Functions.h"
 
 using namespace utils;
 
@@ -27,11 +30,16 @@ namespace prims
         // Returns true if the ray has hit an object within tMin and tMax, and stores the information in rec.
         virtual bool hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const = 0;
 
-        // Returns true if a primitive can be bound with a box, as well as the bounding box of the hittable object
+        // Returns true if a primitive can be bound with a box, and stores the bounding box of the hittable object in outputBox
         virtual bool boundingBox(double t0, double t1, aabb &outputBox) const = 0;
 
     private:
     };
+
+#endif // _HITTABLE_H
+
+#ifndef _MATERIALS_H
+#define _MATERIALS_H
 
     class Materials
     {
@@ -46,6 +54,11 @@ namespace prims
         Point reflectivity();
     };
 
+#endif // _MATERIALS_H
+
+#ifndef _HITTABLE_LIST_H
+#define _HITTABLE_LIST_H
+
     class HittableList : public Hittable
     {
     public:
@@ -55,7 +68,7 @@ namespace prims
 
         void add(Hittable *object) { objects.push_back(object); }
 
-        // Returns true if a ray has hit a list of hittable objects.
+        // Returns true if a ray has hit a list of hittable objects, and stores the hit information in rec.
         virtual bool hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const override
         {
             hitRecord tempRec;
@@ -101,4 +114,4 @@ namespace prims
 
 }
 
-#endif
+#endif // _HITTABLE_LIST_H

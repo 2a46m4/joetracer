@@ -92,8 +92,9 @@ namespace math
     Vec refract(const Vec &v, const Vec &n, float etaRatio)
     {
         double cosTheta = fmin(dotProduct(-v, n), 1.0);
-        Vec r_perpen = scale(etaRatio, (add(v, scale(cosTheta, n))));
-        Vec r_parall = -(scale(sqrt(fabs(1.0 - (length(r_perpen) * length(r_perpen)))), n));
-        return add(r_parall, r_perpen);
+        Vec rPerpen = scale(etaRatio, (add(v, scale(cosTheta, n))));
+        Vec rParall = -(scale(sqrt(fabs(1.0 - (length(rPerpen) * length(rPerpen)))), n));
+        return add(rParall, rPerpen);
     }
+
 }

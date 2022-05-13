@@ -6,7 +6,8 @@
 #include "utils/Functions.h"
 #include "prims/Light.h"
 #include "utils/Ray.h"
-#include "utils/Functions.h"
+#include "prims/Hittable.h"
+#include "prims/BVHNode.h"
 
 #include <iostream>
 #include <cmath>
@@ -35,6 +36,8 @@ char *Scene::render() const
 {
     int threads = std::thread::hardware_concurrency();
 
+    prims::BVHNode* box = new prims::BVHNode(hittables, 0, std::numeric_limits<float>::max());
+    
 #pragma omp parallel
     {
 #pragma omp for
@@ -81,13 +84,14 @@ void Scene::addLight(prims::Light p)
     lights.push_back(p);
 }
 
-bool Scene::removeObject(int i)
-{
-    if (i > spheres.size())
-        return false;
-    else
-        spheres.erase(spheres.begin() + i);
-}
+// Implement this later when we can update BVH
+// bool Scene::removeObject(int i)
+// {
+//     if (i > hittables.objects.size())
+//         return false;
+//     else
+//         hittables.objects.erase(spheres.begin() + i);
+// }
 
 bool Scene::removeLight(int i)
 {
@@ -95,10 +99,6 @@ bool Scene::removeLight(int i)
         return false;
     else
         lights.erase(lights.begin() + i);
-}
-
-void Scene::deleteScene()
-{
 }
 
 const std::vector<prims::Light> Scene::getLights() const
@@ -111,15 +111,24 @@ void Scene::changeBackground(Point background)
     this->background = background;
 }
 
-void changeSamples(int a);
+void Scene::changeSamples(int a) {
+    samples = a;
+}
 
-void changeBounces(int a);
+void Scene::changeBounces(int a) {
+    bounces = a;
+}
 
 /*--------------- Sphere stuff ---------------*/
 
-std::vector<prims::Sphere> Scene::getSpheres() const
+// std::vector<prims::Sphere> Scene::getSpheres() const
+// {
+//     return spheres;
+// }
+
+prims::HittableList Scene::getObjects() const
 {
-    return spheres;
+    return hittables;
 }
 
 Point Scene::Colour(Ray r, int limit) const
@@ -138,9 +147,9 @@ Point Scene::Colour(Ray r, int limit) const
         return background; // Background colour
 }
 
-void Scene::addSphere(prims::Sphere o)
+void Scene::addObject(prims::Hittable* o)
 {
-    spheres.push_back(o);
+    hittables.objects.push_back(o);
 }
 
 // // Sphere intersection

@@ -25,7 +25,7 @@ private:
     int width;
 
     std::vector<prims::Light> lights;
-    std::vector<prims::Sphere> spheres;
+    // std::vector<prims::Sphere> spheres;
     prims::HittableList hittables;
 
     Point background;
@@ -36,7 +36,6 @@ private:
     char *pixels = new char[height * width * 3];
 
 public:
-
     PinholeCamera camera;
 
     Scene();
@@ -45,7 +44,8 @@ public:
 
     char *render() const;
 
-    void addSphere(prims::Sphere o);
+    // Inserts a pointer to a hittable object into the list
+    void addObject(prims::Hittable* o);
 
     void debugAddCube();
 
@@ -69,15 +69,16 @@ public:
 
     Point Colour(Ray r, int limit) const;
 
-    // returns the t that the intersection happened, as well as the normal
-    bool sphereIntersect(Ray& rIn, prims::hitRecord& rec) const;
+    // // returns the t that the intersection happened, as well as the normal
+    // bool sphereIntersect(Ray& rIn, prims::hitRecord& rec) const;
 
-    std::vector<prims::Sphere> getSpheres() const;
+    // std::vector<prims::Sphere> getSpheres() const;
+
+    prims::HittableList getObjects() const;
 
     void changeSamples(int a);
 
     void changeBounces(int a);
-
 };
 
 #endif

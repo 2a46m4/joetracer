@@ -100,6 +100,15 @@ namespace math
     Vec randomRayInSphere(const Vec& n);
 
     Vec refract(const Vec &v, const Vec &n, float etaRatio);
+
+    // Returns a random number [min, max). For integers add 1 to the max.
+    template <class T>
+    inline T randomNum(T min, T max) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+        std::uniform_real_distribution<> urd(min, max);
+        return (T)(urd(gen));
+    }
 }
 
 #endif
