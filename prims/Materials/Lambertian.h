@@ -1,7 +1,10 @@
+#ifndef _LAMBERTIAN_H
+#define _LAMBERTIAN_H
+
 #include "../Hittable.h"
-#include "../Vec.h"
-#include "../Ray.h"
-#include "../Functions.h"
+#include "../../utils/Vec.h"
+#include "../../utils/Ray.h"
+#include "../../utils/Functions.h"
 
 using namespace math;
 
@@ -20,3 +23,5 @@ public:
 
     Point albedo;
 };
+
+#endif

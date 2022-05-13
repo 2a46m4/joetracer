@@ -1,6 +1,6 @@
 #include "Light.h"
-#include "Point.h"
-#include "Functions.h"
+#include "../utils/Point.h"
+#include "../utils/Functions.h"
 
 #define PI 3.1415926535
 

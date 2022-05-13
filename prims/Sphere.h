@@ -1,7 +1,7 @@
 #ifndef _SPHERE_H
 #define _SPHERE_H
 
-#include "Point.h"
+#include "../utils/Point.h"
 #include "Hittable.h"
 
 using namespace utils;
@@ -19,7 +19,9 @@ namespace prims {
 
         Sphere(float rad, Point col, Point loc, Materials* material);
 
-        bool hit(const Ray& r, hitRecord& rec) const;
+        bool boundingBox(double t0, double t1, aabb& outputBox) const;
+
+        bool hit(const Ray& r, hitRecord& rec, double tMin, double tMax) const override;
 
     private:
 

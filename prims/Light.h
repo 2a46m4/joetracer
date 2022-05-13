@@ -1,7 +1,7 @@
 #ifndef _LIGHT_H
 #define _LIGHT_H
 
-#include "Point.h"
+#include "../utils/Point.h"
 
 using namespace utils;
 

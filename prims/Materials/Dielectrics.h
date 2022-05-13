@@ -1,9 +1,12 @@
-#include "../Hittable.h"
-#include "../Vec.h"
-#include "../Ray.h"
-#include "../Functions.h"
+#ifndef _DIELECTRIC_H
+#define _DIELECTRIC_H
 
-using namespace math;
+#include "../Hittable.h"
+#include "../../utils/Vec.h"
+#include "../../utils/Ray.h"
+#include "../../utils/Functions.h"
+
+// using namespace math;
 
 class Dielectrics : public prims::Materials
 {
@@ -39,3 +42,5 @@ public:
 
     float refractIdx;
 };
+
+#endif

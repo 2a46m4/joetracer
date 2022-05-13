@@ -2,11 +2,11 @@
 #define _METAL_H
 
 #include "../Hittable.h"
-#include "../Vec.h"
-#include "../Ray.h"
-#include "../Functions.h"
+#include "../../utils/Vec.h"
+#include "../../utils/Ray.h"
+#include "../../utils/Functions.h"
 
-using namespace math;
+// using namespace math;
 
 class Metal : public prims::Materials {
     public:

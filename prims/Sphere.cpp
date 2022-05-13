@@ -1,7 +1,7 @@
 #include "Sphere.h"
-#include "Point.h"
+#include "../utils/Point.h"
 #include <cmath>
-#include "Functions.h"
+#include "../utils/Functions.h"
 
 #include <limits>
 
@@ -16,7 +16,7 @@ namespace prims
         location = Point(0, 0, -5);
     }
 
-    Sphere::Sphere(float rad, Point col, Point loc, Materials* material)
+    Sphere::Sphere(float rad, Point col, Point loc, Materials *material)
     {
         this->rad = rad;
         location = loc;
@@ -24,7 +24,15 @@ namespace prims
         this->material = material;
     }
 
-    bool Sphere::hit(const Ray &r, hitRecord &rec) const
+    bool Sphere::boundingBox(double t0, double t1, aabb &outputBox) const
+    {
+        outputBox = aabb(
+            sub(location, Point(rad, rad, rad)),
+            add(location, Point(rad, rad, rad)));
+        return true;
+    }
+
+    bool Sphere::hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const
     {
         bool intercept = false;
         float dist = std::numeric_limits<float>::max();

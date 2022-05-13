@@ -6,10 +6,12 @@ CC := clang++
 # set the compiler flags
 CFLAGS := `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
 # add header files here
-HDRS := Scene.h utils/Point.h utils/Ray.h utils/Sphere.h utils/Vec.h PinholeCamera.h utils/Light.h utils/Hittable.h utils/Materials/Lambertian.h utils/Materials/Metal.h utils/Functions.h gui/nuklear/nuklear.h
+# Scene.h utils/Point.h utils/Ray.h utils/Sphere.h utils/Vec.h PinholeCamera.h utils/Light.h utils/Hittable.h prims/Materials/Lambertian.h prims/Materials/Metal.h utils/Functions.h gui/nuklear/nuklear.h
+HDRS := $(shell find './' ! -path '*/extraneous/*' -name '*.h')
 
 # add source files here
-SRCS := main.cpp Scene.cpp utils/Point.cpp utils/Ray.cpp utils/Sphere.cpp utils/Vec.cpp PinholeCamera.cpp utils/Light.cpp utils/Functions.cpp
+# main.cpp Scene.cpp utils/Point.cpp utils/Ray.cpp utils/Sphere.cpp utils/Vec.cpp PinholeCamera.cpp utils/Light.cpp utils/Functions.cpp
+SRCS := $(shell find './' ! -path '*/extraneous/*' -name '*.cpp' -or -name '*.c')
 
 # generate names of object files
 OBJS := $(SRCS:.cpp=.o)
@@ -29,7 +31,6 @@ glfont: glfont.c Makefile
 # recipe for building the final executable
 $(EXEC): $(OBJS) $(HDRS) Makefile
 	$(CC) -o $@ $(OBJS) $(CFLAGS)
-	rm -f $(OBJS)
 
 # recipe for building object files
 $(OBJS): $(@:.o=.cpp) $(HDRS) Makefile

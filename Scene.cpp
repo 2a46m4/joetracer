@@ -1,10 +1,10 @@
 #include "Scene.h"
 #include "utils/Point.h"
 #include "utils/Vec.h"
-#include "utils/Sphere.h"
+#include "prims/Sphere.h"
 #include "PinholeCamera.h"
 #include "utils/Functions.h"
-#include "utils/Light.h"
+#include "prims/Light.h"
 #include "utils/Ray.h"
 #include "utils/Functions.h"
 
@@ -125,12 +125,9 @@ std::vector<prims::Sphere> Scene::getSpheres() const
 Point Scene::Colour(Ray r, int limit) const
 {
     prims::hitRecord rec;
-    rec.t = std::numeric_limits<float>::max();
 
-    // prims::Triangle tri;
-    // bool intersect_triangle = testAllTriangles(P, w, tri);
-
-    if (sphereIntersect(r, rec) && limit > 0)
+    // Check all objects
+    if (hittables.hit(r, rec, 0, std::numeric_limits<float>::max()) && limit > 0)
     {
         Ray scattered;
         Point attenuation;
@@ -146,20 +143,21 @@ void Scene::addSphere(prims::Sphere o)
     spheres.push_back(o);
 }
 
-// Sphere intersection
-bool Scene::sphereIntersect(Ray &rIn, prims::hitRecord &rec) const
-{
-    bool hit = false;
-    for (auto sphere : spheres)
-    {
-        prims::hitRecord temp;
-        temp.t = std::numeric_limits<float>::max();
-        bool hitsphere = sphere.hit(rIn, temp);
-        if (hitsphere && temp.t < rec.t)
-        {
-            rec = temp;
-        }
-        hit = hit || hitsphere;
-    }
-    return hit;
-}
+// // Sphere intersection
+// bool Scene::sphereIntersect(Ray &rIn, prims::hitRecord &rec) const
+// {
+//     bool hit = false;
+//     for (auto sphere : spheres)
+//     {
+//         prims::hitRecord temp;
+//         temp.t = std::numeric_limits<float>::max();
+        
+//         bool hitsphere = sphere.hit(rIn, temp);
+//         if (hitsphere && temp.t < rec.t)
+//         {
+//             rec = temp;
+//         }
+//         hit = hit || hitsphere;
+//     }
+//     return hit;
+// }

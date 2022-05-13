@@ -3,11 +3,12 @@
 
 #include "utils/Point.h"
 #include "utils/Vec.h"
-#include "utils/Sphere.h"
+#include "prims/Sphere.h"
 #include "PinholeCamera.h"
 #include "utils/Functions.h"
-#include "utils/Light.h"
+#include "prims/Light.h"
 #include "utils/Ray.h"
+#include "prims/Hittable.h"
 
 #include <math.h>
 #include <vector>
@@ -25,6 +26,7 @@ private:
 
     std::vector<prims::Light> lights;
     std::vector<prims::Sphere> spheres;
+    prims::HittableList hittables;
 
     Point background;
 

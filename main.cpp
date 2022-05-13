@@ -7,12 +7,12 @@
 
 #include "Scene.h"
 #include "utils/Point.h"
-#include "utils/Light.h"
-#include "utils/Sphere.h"
-#include "utils/Hittable.h"
-#include "utils/Materials/Lambertian.h"
-#include "utils/Materials/Metal.h"
-#include "utils/Materials/Dielectrics.h"
+#include "prims/Light.h"
+#include "prims/Sphere.h"
+#include "prims/Hittable.h"
+#include "prims/Materials/Lambertian.h"
+#include "prims/Materials/Metal.h"
+#include "prims/Materials/Dielectrics.h"
 
 #define NK_INCLUDE_FIXED_TYPES
 #define NK_INCLUDE_STANDARD_IO

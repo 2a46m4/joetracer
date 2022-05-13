@@ -1,0 +1,15 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/dabanya02/Projects/joetracer'
+clang++ -o main.o main.cpp -c `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+clang++ -o PinholeCamera.o PinholeCamera.cpp -c `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+clang++ -o prims/Light.o prims/Light.cpp -c `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+clang++ -o prims/Sphere.o prims/Sphere.cpp -c `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+clang++ -o utils/Functions.o utils/Functions.cpp -c `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+clang++ -o utils/Point.o utils/Point.cpp -c `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+clang++ -o utils/light/Radiance.o utils/light/Radiance.cpp -c `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+clang++ -o utils/Vec.o utils/Vec.cpp -c `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+clang++ -o utils/Ray.o utils/Ray.cpp -c `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+clang++ -o Scene.o Scene.cpp -c `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+clang++ -o Joetracer ./main.o ./PinholeCamera.o ./prims/Light.o ./prims/Sphere.o ./utils/Functions.o ./utils/Point.o ./utils/light/Radiance.o ./utils/Vec.o ./utils/Ray.o ./Scene.o `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
+make: Leaving directory '/home/dabanya02/Projects/joetracer'
+ 
