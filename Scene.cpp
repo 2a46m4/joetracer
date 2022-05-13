@@ -22,6 +22,7 @@ Scene::Scene()
 {
     width = 1000;
     height = 800;
+    pixels = new char[height * width * 3];
 }
 
 Scene::Scene(int w, int h, PinholeCamera camera, Point background)
@@ -30,21 +31,20 @@ Scene::Scene(int w, int h, PinholeCamera camera, Point background)
     height = h;
     this->camera = camera;
     this->background = background;
+    pixels = new char[height * width * 3];
 }
 
 char *Scene::render() const
 {
-    int threads = std::thread::hardware_concurrency();
 
-    prims::BVHNode* box = new prims::BVHNode(hittables, 0, std::numeric_limits<float>::max());
-    
+    prims::BVHNode *box = new prims::BVHNode(hittables, 0, std::numeric_limits<float>::max());
+
 #pragma omp parallel
     {
 #pragma omp for
         {
             for (int y = 0; y < height; y++)
             {
-
                 for (int x = 0; x < width * 3; x += 3)
                 {
                     Ray r;
@@ -57,7 +57,7 @@ char *Scene::render() const
                     for (int i = 0; i < samples; i++)
                     {
                         camera.getPrimaryRay(float(x / 3) + realrand(device), float(y) + realrand(device), r);
-                        col = math::add(col, Colour(r, bounces));
+                        col = math::add(col, Colour(r, bounces, *box));
                     }
 
                     // R channel
@@ -70,7 +70,7 @@ char *Scene::render() const
             }
         }
     }
-
+    // delete box;
     return pixels;
 }
 
@@ -98,7 +98,10 @@ bool Scene::removeLight(int i)
     if (i > lights.size())
         return false;
     else
+    {
         lights.erase(lights.begin() + i);
+        return true;
+    }
 }
 
 const std::vector<prims::Light> Scene::getLights() const
@@ -111,11 +114,13 @@ void Scene::changeBackground(Point background)
     this->background = background;
 }
 
-void Scene::changeSamples(int a) {
+void Scene::changeSamples(int a)
+{
     samples = a;
 }
 
-void Scene::changeBounces(int a) {
+void Scene::changeBounces(int a)
+{
     bounces = a;
 }
 
@@ -131,23 +136,34 @@ prims::HittableList Scene::getObjects() const
     return hittables;
 }
 
-Point Scene::Colour(Ray r, int limit) const
+Point Scene::Colour(Ray r, int limit, prims::BVHNode &sceneBox) const
 {
     prims::hitRecord rec;
 
-    // Check all objects
-    if (hittables.hit(r, rec, 0, std::numeric_limits<float>::max()) && limit > 0)
+    // Checks all objects
+    if (sceneBox.hit(r, rec, 0, std::numeric_limits<float>::max()) && limit > 0)
     {
         Ray scattered;
         Point attenuation;
         rec.matPtr->scatter(r, rec, attenuation, scattered);
-        return attenuation * Colour(scattered, limit - 1);
+        return attenuation * Colour(scattered, limit - 1, sceneBox);
     }
     else
-        return background; // Background colour
+        return background;
+
+    // // Check all objects
+    // if (hittables.hit(r, rec, 0, std::numeric_limits<float>::max()) && limit > 0)
+    // {
+    //     Ray scattered;
+    //     Point attenuation;
+    //     rec.matPtr->scatter(r, rec, attenuation, scattered);
+    //     return attenuation * Colour(scattered, limit - 1, sceneBox);
+    // }
+    // else
+    //     return background; // Background colour
 }
 
-void Scene::addObject(prims::Hittable* o)
+void Scene::addObject(prims::Hittable *o)
 {
     hittables.objects.push_back(o);
 }
@@ -160,7 +176,7 @@ void Scene::addObject(prims::Hittable* o)
 //     {
 //         prims::hitRecord temp;
 //         temp.t = std::numeric_limits<float>::max();
-        
+
 //         bool hitsphere = sphere.hit(rIn, temp);
 //         if (hitsphere && temp.t < rec.t)
 //         {

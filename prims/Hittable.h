@@ -107,6 +107,7 @@ namespace prims
                 else
                     outputBox = surroundingBox(outputBox, tempBox);
             }
+            return true;
         }
 
         std::vector<Hittable *> objects;

@@ -3,6 +3,7 @@
 #include "Ray.h"
 
 #include <cmath>
+#include <iostream>
 
 namespace utils
 {
@@ -36,9 +37,11 @@ namespace utils
         // It is not possible for the two to intersect. Therefore, return false.
         // Or, if one of them is parallel, then this condition will also fail.
         // If they are equal, then the ray is grazing the corner of the box.
-        if (tMax <= tMin)
+        if (tMax <= tMin) 
+        {
+            // std::cout << tMax << " " << tMin << std::endl;
             return false;
-
+        }
         // Y dimension.
         double dirY = 1.0 / r.direction.y;
         double t0y = fmin((min.y - r.origin.y) * dirY,
@@ -48,8 +51,11 @@ namespace utils
         tMin = fmax(t0y, tMin);
         tMax = fmin(t1y, tMin);
 
-        if (tMax <= tMin)
+        if (tMax <= tMin) {
+            std::cout << "y failed" << std::endl;
             return false;
+        }
+            
 
         // Z dimension.
         double dirZ = 1.0 / r.direction.z;
@@ -60,8 +66,10 @@ namespace utils
         tMin = fmax(t0z, tMin);
         tMax = fmin(t1z, tMin);
 
-        if (tMax <= tMin)
+        if (tMax <= tMin){
+            std::cout << "z failed" << std::endl;
             return false;
+        }
         else
             return true;
     }

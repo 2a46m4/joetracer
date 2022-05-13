@@ -9,6 +9,7 @@
 #include "prims/Light.h"
 #include "utils/Ray.h"
 #include "prims/Hittable.h"
+#include "prims/BVHNode.h"
 
 #include <math.h>
 #include <vector>
@@ -33,7 +34,7 @@ private:
     int samples = 10;
     int bounces = 4;
 
-    char *pixels = new char[height * width * 3];
+    char *pixels;
 
 public:
     PinholeCamera camera;
@@ -45,7 +46,7 @@ public:
     char *render() const;
 
     // Inserts a pointer to a hittable object into the list
-    void addObject(prims::Hittable* o);
+    void addObject(prims::Hittable *o);
 
     void debugAddCube();
 
@@ -67,7 +68,7 @@ public:
 
     // Sphere stuff
 
-    Point Colour(Ray r, int limit) const;
+    Point Colour(Ray r, int limit, prims::BVHNode& sceneBox) const;
 
     // // returns the t that the intersection happened, as well as the normal
     // bool sphereIntersect(Ray& rIn, prims::hitRecord& rec) const;

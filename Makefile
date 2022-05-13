@@ -22,10 +22,10 @@ EXEC := Joetracer
 # default recipe
 all: $(EXEC)
  
-showfont: showfont.c Makefile
+showfont: showfont.cpp Makefile
 	$(CC) -o $@ $@.cpp $(CFLAGS) $(LIBS)
 
-glfont: glfont.c Makefile
+glfont: glfont.cpp Makefile
 	$(CC) -o $@ $@.cpp $(CFLAGS) $(LIBS)
 
 # recipe for building the final executable
