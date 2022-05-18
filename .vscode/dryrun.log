@@ -1,6 +1,24 @@
-make Joetracer --dry-run --keep-going --print-directory
+make Joetracer --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/dabanya02/Projects/joetracer'
- 
-make: 'Joetracer' is up to date.
+clang++ -o main.o main.cpp -c  
+clang++ -o PinholeCamera.o PinholeCamera.cpp -c  
+clang++ -o prims/Light.o prims/Light.cpp -c  
+clang++ -o prims/BVHNode.o prims/BVHNode.cpp -c  
+clang++ -o prims/Sphere.o prims/Sphere.cpp -c  
+clang++ -o utils/Functions.o utils/Functions.cpp -c  
+clang++ -o utils/Point.o utils/Point.cpp -c  
+clang++ -o utils/aabb.o utils/aabb.cpp -c  
+clang++ -o utils/light/Radiance.o utils/light/Radiance.cpp -c  
+clang++ -o utils/Vec.o utils/Vec.cpp -c  
+clang++ -o utils/Ray.o utils/Ray.cpp -c  
+clang++ -o Scene.o Scene.cpp -c  
+clang++ -o gui/imgui/imgui_draw.o gui/imgui/imgui_draw.cpp -c  
+clang++ -o gui/imgui/imgui_demo.o gui/imgui/imgui_demo.cpp -c  
+clang++ -o gui/imgui/imgui_widgets.o gui/imgui/imgui_widgets.cpp -c  
+clang++ -o gui/imgui/imgui_tables.o gui/imgui/imgui_tables.cpp -c  
+clang++ -o gui/imgui/imgui.o gui/imgui/imgui.cpp -c  
+clang++ -o gui/imgui/backends/imgui_impl_sdlrenderer.o gui/imgui/backends/imgui_impl_sdlrenderer.cpp -c  
+clang++ -o gui/imgui/backends/imgui_impl_sdl.o gui/imgui/backends/imgui_impl_sdl.cpp -c  
+clang++ -o Joetracer ./main.o ./PinholeCamera.o ./prims/Light.o ./prims/BVHNode.o ./prims/Sphere.o ./utils/Functions.o ./utils/Point.o ./utils/aabb.o ./utils/light/Radiance.o ./utils/Vec.o ./utils/Ray.o ./Scene.o ./gui/imgui/imgui_draw.o ./gui/imgui/imgui_demo.o ./gui/imgui/imgui_widgets.o ./gui/imgui/imgui_tables.o ./gui/imgui/imgui.o ./gui/imgui/backends/imgui_impl_sdlrenderer.o ./gui/imgui/backends/imgui_impl_sdl.o -std=c++11 -I -I/backends `sdl2-config --libs --cflags` -ggdb3 -O0 -g -Wall -Wformat -lSDL2 -lm -fopenmp -lGL -ldl `sdl2-config --libs` -I/usr/include/
 make: Leaving directory '/home/dabanya02/Projects/joetracer'
  

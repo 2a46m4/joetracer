@@ -54,7 +54,7 @@ namespace prims
         else if (size == 3)
         {
             left = objs[start];
-            right = new BVHNode(objs, start + 1, start + 2, t0, t1);
+            right = new BVHNode(objs, start + 1, start + 3, t0, t1);
         }
         else
         {
@@ -63,13 +63,13 @@ namespace prims
             size_t mid = start + size / 2;
             // std::cout << "mid " << end - (mid + 1) << std::endl;
 
-            aabb testBox;
-            std::cout << "iteration from " << start << " to " << end << std::endl;
-            for (size_t i = start; i < end; i++)
-            {
-                objs[i]->boundingBox(t0, t1, testBox);
-                std::cout << testBox.max.x << std::endl;
-            }
+            // aabb testBox;
+            // // std::cout << "iteration from " << start << " to " << end << std::endl;
+            // for (size_t i = start; i < end; i++)
+            // {
+            //     objs[i]->boundingBox(t0, t1, testBox);
+            //     // std::cout << testBox.max.x << std::endl;
+            // }
 
             // Recursively define children nodes
             left = new BVHNode(objs, start, mid, t0, t1);
@@ -99,7 +99,7 @@ namespace prims
         bool hitLeft = left->hit(r, rec, tMin, tMax);
         bool hitRight = right->hit(r, rec, tMin, hitLeft ? rec.t : tMax);
 
-        std::cout << ((hitLeft) ? "true" : "false") << " " << ((hitRight) ? "true" : "false") << std::endl;
+        // std::cout << ((hitLeft) ? "true" : "false") << " " << ((hitRight) ? "true" : "false") << std::endl;
         return hitLeft || hitRight;
     }
 

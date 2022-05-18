@@ -22,6 +22,7 @@ namespace utils
         // The "speed" of the x vector
         double dirX = 1.0 / r.direction.x;
         // X dimension. If coming from behind, max will be smaller, so return the smaller of the two.
+        // std::cout << (min.x - r.origin.x) * dirX << " " << (max.x - r.origin.x) * dirX << std::endl;
         double t0x = fmin((min.x - r.origin.x) * dirX,
                           (max.x - r.origin.x) * dirX);
         // Similarly, return the greater of the two.
@@ -31,7 +32,7 @@ namespace utils
         // gets the interval of this dimension.
         // If the rays is parallel with a dimension but outside the box, one of them will be infinity or negative infinity, and will fail the next check
         tMin = fmax(t0x, tMin);
-        tMax = fmin(t1x, tMin);
+        tMax = fmin(t1x, tMax);
 
         // If the max time possible for a interval in a certain dimension is less than the min time possible for an interval in a certain dimension
         // It is not possible for the two to intersect. Therefore, return false.
@@ -49,10 +50,10 @@ namespace utils
         double t1y = fmax((min.y - r.origin.y) * dirY,
                           (max.y - r.origin.y) * dirY);
         tMin = fmax(t0y, tMin);
-        tMax = fmin(t1y, tMin);
+        tMax = fmin(t1y, tMax);
 
         if (tMax <= tMin) {
-            std::cout << "y failed" << std::endl;
+            // std::cout << "y failed" << std::endl;
             return false;
         }
             
@@ -64,10 +65,10 @@ namespace utils
         double t1z = fmax((min.z - r.origin.z) * dirZ,
                           (max.z - r.origin.z) * dirZ);
         tMin = fmax(t0z, tMin);
-        tMax = fmin(t1z, tMin);
+        tMax = fmin(t1z, tMax);
 
         if (tMax <= tMin){
-            std::cout << "z failed" << std::endl;
+            // std::cout << "z failed" << std::endl;
             return false;
         }
         else

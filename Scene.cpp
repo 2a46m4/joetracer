@@ -36,9 +36,9 @@ Scene::Scene(int w, int h, PinholeCamera camera, Point background)
 
 char *Scene::render() const
 {
-
+    if(hittables.objects.empty()) return NULL;
     prims::BVHNode *box = new prims::BVHNode(hittables, 0, std::numeric_limits<float>::max());
-
+    
 #pragma omp parallel
     {
 #pragma omp for
@@ -107,21 +107,6 @@ bool Scene::removeLight(int i)
 const std::vector<prims::Light> Scene::getLights() const
 {
     return lights;
-}
-
-void Scene::changeBackground(Point background)
-{
-    this->background = background;
-}
-
-void Scene::changeSamples(int a)
-{
-    samples = a;
-}
-
-void Scene::changeBounces(int a)
-{
-    bounces = a;
 }
 
 /*--------------- Sphere stuff ---------------*/

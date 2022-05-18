@@ -34,7 +34,7 @@ const float FLOAT_MIN = std::numeric_limits<float>::lowest();
 
 using namespace std::chrono;
 
-int main(int argc, char *args[])
+int joe(int argc, char *args[])
 {
 
     bool quit = false;
@@ -328,7 +328,8 @@ int main(int argc, char *args[])
                 background.g = nk_propertyf(ctx, "#G:", 0, background.g, 1.0f, 0.01f, 0.005f);
                 background.b = nk_propertyf(ctx, "#B:", 0, background.b, 1.0f, 0.01f, 0.005f);
                 bgbyte = nk_rgb_cf(background);
-                s->changeBackground(Point(bgbyte.r, bgbyte.g, bgbyte.b));
+                // s->changeBackground(Point(bgbyte.r, bgbyte.g, bgbyte.b));
+                s->background = Point(bgbyte.r, bgbyte.g, bgbyte.b);
                 nk_combo_end(ctx);
             }
         }

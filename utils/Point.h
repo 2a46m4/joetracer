@@ -33,6 +33,8 @@ namespace utils
 
         Point operator*(Point a);
 
+        float& operator[](int idx);
+
         const Point operator*(const Point& a) const;
 
         bool operator==(const Point& a) const;

@@ -5,9 +5,8 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
- 
 
-# Make data base, printed on Fri May 13 06:33:25 2022
+# Make data base, printed on Wed May 18 08:32:14 2022
 
 # Variables
 
@@ -20,17 +19,19 @@ NO_AT_BRIDGE = 1
 # environment
 GTK_RC_FILES = /etc/gtk/gtkrc:/home/dabanya02/.gtkrc:/home/dabanya02/.config/gtkrc
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-b8c538b3-bf2a-4b20-86d7-6f805e82e335.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-7c15189c-18b5-4642-94bd-09872745ca15.sock
 # environment
 VSCODE_CWD = /home/dabanya02
 # environment
 WINDOWPATH = 2
+# makefile (from 'Makefile', line 25)
+LIBS = -lGL -ldl `sdl2-config --libs` -I/usr/include/
 # environment
 GDM_LANG = en_US.UTF-8
 # default
 MAKE_COMMAND := make
 # environment
-GTK3_MODULES = xapp-gtk3-module:xapp-gtk3-module
+GTK3_MODULES = xapp-gtk3-module
 # automatic
 @D = $(patsubst %/,%,$(dir $@))
 # environment
@@ -69,14 +70,12 @@ CURDIR := /home/dabanya02/Projects/joetracer
 VSCODE_PIPE_LOGGING = true
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
-# makefile (from 'Makefile', line 14)
-SRCS := ./main.cpp ./PinholeCamera.cpp ./prims/Light.cpp ./prims/BVHNode.cpp ./prims/Sphere.cpp ./utils/Functions.cpp ./utils/Point.cpp ./utils/aabb.cpp ./utils/light/Radiance.cpp ./utils/Vec.cpp ./utils/Ray.cpp ./Scene.cpp
+# makefile (from 'Makefile', line 16)
+SRCS := ./main.cpp ./PinholeCamera.cpp ./prims/Light.cpp ./prims/BVHNode.cpp ./prims/Sphere.cpp ./utils/Functions.cpp ./utils/Point.cpp ./utils/aabb.cpp ./utils/light/Radiance.cpp ./utils/Vec.cpp ./utils/Ray.cpp ./Scene.cpp ./gui/imgui/imgui_draw.cpp ./gui/imgui/imgui_demo.cpp ./gui/imgui/imgui_widgets.cpp ./gui/imgui/imgui_tables.cpp ./gui/imgui/imgui.cpp ./gui/imgui/backends/imgui_impl_sdlrenderer.cpp ./gui/imgui/backends/imgui_impl_sdl.cpp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
 MFLAGS = -pqrR
-# environment
-SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 # default
 .SHELLFLAGS := -c
 # environment
@@ -93,14 +92,16 @@ MAKEFILE_LIST := Makefile
 @F = $(notdir $@)
 # environment
 VSCODE_VERBOSE_LOGGING = true
+# makefile (from 'Makefile', line 12)
+IMGUI_DIR = gui/imgui/
 # environment
-VSCODE_PID = 29982
+VSCODE_PID = 44089
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/dabanya02:@/tmp/.ICE-unix/28063,unix/dabanya02:/tmp/.ICE-unix/28063
+SESSION_MANAGER = local/dabanya02:@/tmp/.ICE-unix/1147,unix/dabanya02:/tmp/.ICE-unix/1147
 # automatic
 *F = $(notdir $*)
 # environment
@@ -109,14 +110,14 @@ CHROME_DESKTOP = code-url-handler.desktop
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
-# makefile (from 'Makefile', line 20)
+# makefile (from 'Makefile', line 22)
 EXEC := Joetracer
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
-# makefile (from 'Makefile', line 17)
-OBJS := ./main.o ./PinholeCamera.o ./prims/Light.o ./prims/BVHNode.o ./prims/Sphere.o ./utils/Functions.o ./utils/Point.o ./utils/aabb.o ./utils/light/Radiance.o ./utils/Vec.o ./utils/Ray.o ./Scene.o
+# makefile (from 'Makefile', line 19)
+OBJS := ./main.o ./PinholeCamera.o ./prims/Light.o ./prims/BVHNode.o ./prims/Sphere.o ./utils/Functions.o ./utils/Point.o ./utils/aabb.o ./utils/light/Radiance.o ./utils/Vec.o ./utils/Ray.o ./Scene.o ./gui/imgui/imgui_draw.o ./gui/imgui/imgui_demo.o ./gui/imgui/imgui_widgets.o ./gui/imgui/imgui_tables.o ./gui/imgui/imgui.o ./gui/imgui/backends/imgui_impl_sdlrenderer.o ./gui/imgui/backends/imgui_impl_sdl.o
 # makefile
 SHELL = /bin/sh
 # default
@@ -126,13 +127,13 @@ XMODIFIERS = @im=fcitx
 # environment
 SHLVL = 1
 # makefile (from 'Makefile', line 10)
-HDRS := ./Scene.h ./prims/Light.h ./prims/Hittable.h ./prims/BVHNode.h ./prims/Materials/Lambertian.h ./prims/Materials/Metal.h ./prims/Materials/Dielectrics.h ./prims/Materials/Emissive.h ./prims/Sphere.h ./PinholeCamera.h ./utils/aabb.h ./utils/Functions.h ./utils/Vec.h ./utils/Point.h ./utils/light/Radiance.h ./utils/Ray.h ./gui/nuklear/nuklear_sdl_renderer.h ./gui/nuklear/nuklear.h ./gui/nuklear/sdl2surface_rawfb.h
+HDRS := ./Scene.h ./prims/Light.h ./prims/Textures/Texture.h ./prims/Hittable.h ./prims/BVHNode.h ./prims/Materials/Lambertian.h ./prims/Materials/Metal.h ./prims/Materials/Dielectrics.h ./prims/Materials/Emissive.h ./prims/Sphere.h ./PinholeCamera.h ./utils/aabb.h ./utils/Functions.h ./utils/Vec.h ./utils/Point.h ./utils/light/Radiance.h ./utils/Ray.h ./gui/imgui/imgui_internal.h ./gui/imgui/imstb_rectpack.h ./gui/imgui/imstb_textedit.h ./gui/imgui/imconfig.h ./gui/imgui/imgui.h ./gui/imgui/imstb_truetype.h ./gui/imgui/backends/imgui_impl_sdlrenderer.h ./gui/imgui/backends/imgui_impl_sdl.h ./gui/nuklear/nuklear_sdl_renderer.h ./gui/nuklear/nuklear.h ./gui/nuklear/sdl2surface_rawfb.h
 # environment
 MAKELEVEL := 0
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
-PATH = /usr/local/bin:/usr/bin:/usr/local/sbin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/dabanya02/Scripts:/usr/lib/jvm/default/bin:/home/dabanya02/Scripts
+PATH = /usr/local/bin:/usr/bin:/usr/local/sbin:/var/lib/flatpak/exports/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/home/dabanya02/Scripts
 # default
 MAKEFILES := 
 # environment
@@ -168,7 +169,7 @@ XDG_VTNR = 2
 # makefile
 .DEFAULT_GOAL := all
 # environment
-SYSTEMD_EXEC_PID = 1103
+SYSTEMD_EXEC_PID = 1031
 # environment
 DISPLAY = :1
 # environment
@@ -182,12 +183,11 @@ KDE_SESSION_UID = 1000
 # 'override' directive
 .SHELLSTATUS := 0
 # environment
+DEBUGINFOD_URLS = https://debuginfod.archlinux.org 
+# environment
 _ = /usr/bin/make
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
-# makefile (from 'Makefile', line 7)
- 
-CFLAGS := `sdl2-config --libs --cflags` -ggdb3 -O0 -Wall -lSDL2 -lm -fopenmp
 # environment
 VISUAL = nano
 # environment
@@ -205,7 +205,7 @@ ELECTRON_RUN_AS_NODE = 1
 # environment
 VSCODE_IPC_HOOK = /run/user/1000/vscode-91a89094-1.67.1-main.sock
 # environment
-XDG_SESSION_ID = 11
+XDG_SESSION_ID = 3
 # environment
 XCURSOR_SIZE = 24
 # default
@@ -220,6 +220,8 @@ QT_AUTO_SCREEN_SCALE_FACTOR = 0
 VSCODE_CLI = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
+# makefile (from 'Makefile', line 7)
+CXXFLAGS := -std=c++11 -I -I/backends `sdl2-config --libs --cflags` -ggdb3 -O0 -g -Wall -Wformat -lSDL2 -lm -fopenmp
 # environment
 KDE_SESSION_VERSION = 5
 # default
@@ -229,11 +231,9 @@ CC := clang++
 # environment
 KDE_FULL_SESSION = true
 # environment
-XDG_MENU_PREFIX = gnome-
-# environment
 GDMSESSION = plasma
 # variable set hash-table stats:
-# Load=110/1024=11%, Rehash=0, Collisions=9/155=6%
+# Load=111/1024=11%, Rehash=0, Collisions=11/159=7%
 
 # Pattern-specific Variable Values
 
@@ -241,9 +241,9 @@ GDMSESSION = plasma
 
 # Directories
 
-# . (device 66307, inode 35918963): 22 files, no impossibilities.
+# . (device 66310, inode 35918963): 35 files, no impossibilities.
 
-# 22 files, no impossibilities in 1 directories.
+# 35 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -258,18 +258,42 @@ Scene.h:
 #  File has been updated.
 #  Successfully updated.
 
-utils/Point.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+utils/Point.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:07.678685449
+#  Last modified 2022-05-18 08:20:05.87860639
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
+
+gui/imgui/imgui_demo.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-18 08:20:06.338606403
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
+
+gui/imgui/backends/imgui_impl_sdlrenderer.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+#  Implicit rule search has not been done.
+ 
+#  Last modified 2022-05-18 08:20:06.661939746
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
+
+gui/imgui/imgui_widgets.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-18 08:20:06.851939752
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
 # Not a target:
 PinholeCamera.h:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-05-09 01:09:34.858387976
 #  File has been updated.
 #  Successfully updated.
@@ -281,52 +305,73 @@ gui/nuklear/sdl2surface_rawfb.h:
 #  File has been updated.
 #  Successfully updated.
 
-Joetracer: main.o PinholeCamera.o prims/Light.o prims/BVHNode.o prims/Sphere.o utils/Functions.o utils/Point.o utils/aabb.o utils/light/Radiance.o utils/Vec.o utils/Ray.o Scene.o Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+Joetracer: main.o PinholeCamera.o prims/Light.o prims/BVHNode.o prims/Sphere.o utils/Functions.o utils/Point.o utils/aabb.o utils/light/Radiance.o utils/Vec.o utils/Ray.o Scene.o gui/imgui/imgui_draw.o gui/imgui/imgui_demo.o gui/imgui/imgui_widgets.o gui/imgui/imgui_tables.o gui/imgui/imgui.o gui/imgui/backends/imgui_impl_sdlrenderer.o gui/imgui/backends/imgui_impl_sdl.o Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:08.572018809
+#  Last modified 2022-05-18 08:20:07.655273108
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 33):
-	$(CC) -o $@ $(OBJS) $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 32):
+	$(CC) -o $@ $(OBJS) $(CXXFLAGS) $(LIBS)
 
-utils/Ray.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+utils/Ray.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:08.048685459
+#  Last modified 2022-05-18 08:20:06.158606398
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
-prims/Light.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+prims/Light.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:06.758685423
+#  Last modified 2022-05-18 08:20:06.2086064
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
+
+# Not a target:
+prims/Textures/Texture.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-13 23:36:45.103027901
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 06:33:03.438685327
+#  Last modified 2022-05-18 07:26:45.535180498
 #  File has been updated.
 #  Successfully updated.
+
+gui/imgui/backends/imgui_impl_sdl.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-18 08:20:06.655273079
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
 # Not a target:
 prims/Materials/Lambertian.h:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-05-12 03:50:17.797783254
 #  File has been updated.
 #  Successfully updated.
 
-utils/Vec.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
-#  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:07.818685453
+# Not a target:
+gui/imgui/imgui_internal.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-16 03:50:33.98429
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+
+utils/Vec.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-18 08:20:05.865273057
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
 # Not a target:
 utils/Vec.h:
@@ -340,8 +385,15 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 41):
+#  recipe to execute (from 'Makefile', line 40):
 	rm -f $(EXEC) $(OBJS)
+
+# Not a target:
+gui/imgui/imgui.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-16 03:50:33.980957
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 prims/Sphere.h:
@@ -357,20 +409,19 @@ utils/light/Radiance.h:
 #  File has been updated.
 #  Successfully updated.
 
-PinholeCamera.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+PinholeCamera.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:06.525352082
+#  Last modified 2022-05-18 08:20:06.2486064
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
 # Not a target:
 prims/Materials/Dielectrics.h:
 #  Implicit rule search has been done.
 #  Last modified 2022-05-12 03:50:08.951116533
 #  File has been updated.
- 
 #  Successfully updated.
 
 # Not a target:
@@ -387,21 +438,21 @@ utils/Point.h:
 #  File has been updated.
 #  Successfully updated.
 
-utils/aabb.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+utils/aabb.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:07.742018784
+#  Last modified 2022-05-18 08:20:06.178606398
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
-prims/BVHNode.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+prims/BVHNode.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:07.122018767
+#  Last modified 2022-05-18 08:20:06.405273072
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
 # Not a target:
 utils/aabb.h:
@@ -410,36 +461,79 @@ utils/aabb.h:
 #  File has been updated.
 #  Successfully updated.
 
- 
-utils/Functions.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+utils/Functions.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:07.61201878
+#  Last modified 2022-05-18 08:20:06.171939731
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
-prims/Sphere.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+prims/Sphere.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:07.36868544
+#  Last modified 2022-05-18 08:20:06.211939733
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
-Scene.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+gui/imgui/imgui_draw.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:08.502018806
+#  Last modified 2022-05-18 08:20:06.655273079
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
+
+gui/imgui/imgui_tables.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-18 08:20:06.78193975
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
+
+Scene.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+#  Implicit rule search has not been done.
+#  Last modified 2022-05-18 08:20:06.505273075
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
 # Not a target:
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
+
+# Not a target:
+gui/imgui/imstb_textedit.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-16 03:50:33.987624
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gui/imgui/imstb_truetype.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-16 03:50:33.987624
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gui/imgui/backends/imgui_impl_sdlrenderer.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-16 19:46:21.993180714
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gui/imgui/imstb_rectpack.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-16 03:50:33.987624
+#  File has been updated.
+#  Successfully updated.
 
 all: Joetracer
 #  Phony target (prerequisite of .PHONY).
@@ -450,23 +544,24 @@ all: Joetracer
 #  Successfully updated.
 
 # Not a target:
-glfont.cpp:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-# Not a target:
- 
 utils/Functions.h:
 #  Implicit rule search has been done.
+ 
 #  Last modified 2022-05-13 04:33:17.141810531
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+gui/imgui/backends/imgui_impl_sdl.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-16 19:46:06.959847666
 #  File has been updated.
 #  Successfully updated.
 
 # Not a target:
 prims/BVHNode.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-13 06:23:47.122002549
+#  Last modified 2022-05-13 21:01:30.553088262
 #  File has been updated.
 #  Successfully updated.
 
@@ -477,13 +572,13 @@ prims/Light.h:
 #  File has been updated.
 #  Successfully updated.
 
-main.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+main.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:06.218685406
+#  Last modified 2022-05-18 08:20:07.548606438
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
 # Not a target:
 prims/Materials/Metal.h:
@@ -499,33 +594,20 @@ gui/nuklear/nuklear_sdl_renderer.h:
 #  File has been updated.
 #  Successfully updated.
 
-glfont: glfont.cpp Makefile
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 29):
-	$(CC) -o $@ $@.cpp $(CFLAGS) $(LIBS)
-
 # Not a target:
 prims/Materials/Emissive.h:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-05-09 01:09:34.895054643
 #  File has been updated.
 #  Successfully updated.
 
-# Not a target:
-showfont.cpp:
+gui/imgui/imgui.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-
-showfont: showfont.cpp Makefile
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 26):
-	$(CC) -o $@ $@.cpp $(CFLAGS) $(LIBS)
+#  Last modified 2022-05-18 08:20:07.208606428
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
 
 .PHONY: all clean
 #  Implicit rule search has not been done.
@@ -539,13 +621,20 @@ utils/Ray.h:
 #  File has been updated.
 #  Successfully updated.
 
-utils/light/Radiance.o: Scene.h prims/Light.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
+utils/light/Radiance.o: Scene.h prims/Light.h prims/Textures/Texture.h prims/Hittable.h prims/BVHNode.h prims/Materials/Lambertian.h prims/Materials/Metal.h prims/Materials/Dielectrics.h prims/Materials/Emissive.h prims/Sphere.h PinholeCamera.h utils/aabb.h utils/Functions.h utils/Vec.h utils/Point.h utils/light/Radiance.h utils/Ray.h gui/imgui/imgui_internal.h gui/imgui/imstb_rectpack.h gui/imgui/imstb_textedit.h gui/imgui/imconfig.h gui/imgui/imgui.h gui/imgui/imstb_truetype.h gui/imgui/backends/imgui_impl_sdlrenderer.h gui/imgui/backends/imgui_impl_sdl.h gui/nuklear/nuklear_sdl_renderer.h gui/nuklear/nuklear.h gui/nuklear/sdl2surface_rawfb.h Makefile
 #  Implicit rule search has not been done.
-#  Last modified 2022-05-13 06:33:07.762018784
+#  Last modified 2022-05-18 08:20:05.811939721
 #  File has been updated.
 #  Successfully updated.
-#  recipe to execute (from 'Makefile', line 37):
-	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS)
+#  recipe to execute (from 'Makefile', line 36):
+	$(CC) -o $@ $(@:.o=.cpp) -c $(CFLAGS) 
+
+# Not a target:
+gui/imgui/imconfig.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-05-16 03:50:33.977624
+#  File has been updated.
+#  Successfully updated.
 
 # Not a target:
 gui/nuklear/nuklear.h:
@@ -555,20 +644,19 @@ gui/nuklear/nuklear.h:
 #  Successfully updated.
 
 # files hash-table stats:
-# Load=42/1024=4%, Rehash=0, Collisions=1/125=1%
+# Load=54/1024=5%, Rehash=0, Collisions=4/165=2%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 59 / storage = 790 B / avg = 13 B
-# current buf: size = 8162 B / used = 790 B / count = 59 / avg = 13 B
+# strcache buffers: 1 (0) / strings = 84 / storage = 1368 B / avg = 16 B
+# current buf: size = 8162 B / used = 1368 B / count = 84 / avg = 16 B
 
-# strcache performance: lookups = 126 / hit rate = 53%
- 
+# strcache performance: lookups = 170 / hit rate = 50%
 # hash-table stats:
-# Load=59/8192=1%, Rehash=0, Collisions=0/126=0%
-# Finished Make data base on Fri May 13 06:33:25 2022
+# Load=84/8192=1%, Rehash=0, Collisions=0/170=0%
+# Finished Make data base on Wed May 18 08:32:14 2022
 
  

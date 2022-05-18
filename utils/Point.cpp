@@ -75,4 +75,14 @@ namespace utils
     bool Point::operator==(const Point& a) const {
         return ((x == a.x) && (y == a.y) && (z == a.z));
     }
+
+    float& Point::operator[](int idx) {
+        if(idx == 1) {
+            return x;
+        } else if(idx == 2) {
+            return y;
+        } else {
+            return z;
+        }
+    }
 }
