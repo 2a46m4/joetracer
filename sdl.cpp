@@ -37,6 +37,7 @@ void addSampleScene(Scene &s)
 {
 	Metal *mwhite = new Metal(Point(0.9, 0.9, 0.9), 0.5);
 	Lambertian *lwhite = new Lambertian(Point(0.9, 0.9, 0.9));
+	Lambertian *lchecker = new Lambertian(new prims::CheckerTexture(Point(0.9, 0, 0), Point(0, 0, 0.9)));
 	Metal *mgold = new Metal(Point(0.9, 0.9, 0.6), 0.8);
 	Lambertian *lred = new Lambertian(Point(0.9, 0.0, 0.0));
 	Lambertian *lblue = new Lambertian(Point(0.0, 0.0, 0.9));
@@ -54,7 +55,7 @@ void addSampleScene(Scene &s)
 
 	prims::Hittable *goldSphere = new prims::Sphere(0.3, Point(255, 255, 255), Point(2, 2, -12), mgold);
 
-	prims::Hittable *ground = new prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, -30), lwhite);
+	prims::Hittable *ground = new prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, -30), lchecker);
 
 	s.addObject(metallicSphere);
 	s.addObject(glassSphere);
@@ -68,8 +69,6 @@ void addSampleScene(Scene &s)
 int main(int, char **)
 {
 	// Setup SDL
-	// (Some versions of SDL before <2.0.10 appears to have performance/stalling issues on a minority of Windows systems,
-	// depending on whether SDL_INIT_GAMECONTROLLER is enabled or disabled.. updating to latest version of SDL is recommended!)
 	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) != 0)
 	{
 		printf("Error: %s\n", SDL_GetError());

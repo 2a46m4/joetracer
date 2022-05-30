@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun May 29 18:20:33 2022
+# Make data base, printed on Sun May 29 18:53:18 2022
 
 # Variables
 
@@ -19,7 +19,7 @@ NO_AT_BRIDGE = 1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-b08cd6e3-5787-4e74-9a71-5ce4672c51cd.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-edaf202f-cb19-468a-b12e-a1c76aafdc5f.sock
 # environment
 VSCODE_CWD = /home/dabanya02
 # environment
@@ -91,7 +91,7 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from 'Makefile', line 11)
 IMGUI_DIR = gui/imgui/
 # environment
-VSCODE_PID = 151283
+VSCODE_PID = 161577
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
@@ -179,7 +179,7 @@ MANAGERPID = 992
 # environment
 DEBUGINFOD_URLS = https://debuginfod.archlinux.org 
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 151264
+GIO_LAUNCHED_DESKTOP_FILE_PID = 161559
 # environment
 _ = /usr/bin/make
 # environment
@@ -277,7 +277,6 @@ all:
 # automatic
 # + := 
 # automatic
- 
 # % := 
 # automatic
 # ^ := 
@@ -315,6 +314,6 @@ all:
 # strcache performance: lookups = 53 / hit rate = 20%
 # hash-table stats:
 # Load=42/8192=1%, Rehash=0, Collisions=0/53=0%
-# Finished Make data base on Sun May 29 18:20:33 2022
+# Finished Make data base on Sun May 29 18:53:18 2022
 
  
