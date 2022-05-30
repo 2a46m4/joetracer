@@ -6,8 +6,6 @@
 #include "../../utils/Ray.h"
 #include "../../utils/Functions.h"
 
-// using namespace math;
-
 class Dielectrics : public prims::Materials
 {
 public:
@@ -15,7 +13,6 @@ public:
 
     virtual bool scatter(const Ray &ray, const prims::hitRecord &rec, Point &attenuation, Ray &scattered) const
     {
-        Vec reflected = math::reflection(rec.normal, ray.direction);
         attenuation = Point(1, 1, 1);
         // Ray is going out of a dielectric
         if (math::dotProduct(ray.direction, rec.normal) > 0.0)

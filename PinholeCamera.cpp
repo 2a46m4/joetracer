@@ -27,7 +27,7 @@ PinholeCamera::PinholeCamera(int width, int height, float verticalFOV, Point loc
 
     // Reference
     vUp = Vec(0, 1, 0);
-
+	
     // Get u, v, w
     w = unitVec(sub(location, view).direction());
     u = unitVec(crossProduct(vUp, w));
