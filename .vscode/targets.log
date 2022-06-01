@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun May 29 18:53:18 2022
+# Make data base, printed on Tue May 31 18:35:09 2022
 
 # Variables
 
@@ -19,7 +19,7 @@ NO_AT_BRIDGE = 1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-edaf202f-cb19-468a-b12e-a1c76aafdc5f.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-089be178-25c1-409f-bd25-5c37e25ef5cb.sock
 # environment
 VSCODE_CWD = /home/dabanya02
 # environment
@@ -91,13 +91,13 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from 'Makefile', line 11)
 IMGUI_DIR = gui/imgui/
 # environment
-VSCODE_PID = 161577
+VSCODE_PID = 3638
 # environment
 XDG_SESSION_TYPE = x11
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/dabanya02:@/tmp/.ICE-unix/1077,unix/dabanya02:/tmp/.ICE-unix/1077
+SESSION_MANAGER = local/dabanya02:@/tmp/.ICE-unix/1095,unix/dabanya02:/tmp/.ICE-unix/1095
 # automatic
 *F = $(notdir $*)
 # environment
@@ -125,7 +125,7 @@ GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
 SHLVL = 1
 # makefile (from 'Makefile', line 9)
-HDRS := ./Scene.h ./prims/Light.h ./prims/Textures/CheckerTexture.h ./prims/Textures/SolidColour.h ./prims/Textures/Texture.h ./prims/Hittable.h ./prims/BVHNode.h ./prims/Materials/Lambertian.h ./prims/Materials/Metal.h ./prims/Materials/Dielectrics.h ./prims/Materials/Emissive.h ./prims/Sphere.h ./PinholeCamera.h ./utils/aabb.h ./utils/Functions.h ./utils/Vec.h ./utils/Point.h ./utils/light/Radiance.h ./utils/Ray.h ./gui/imgui/imgui_internal.h ./gui/imgui/imstb_rectpack.h ./gui/imgui/imstb_textedit.h ./gui/imgui/imconfig.h ./gui/imgui/imgui.h ./gui/imgui/imstb_truetype.h ./gui/imgui/backends/imgui_impl_sdlrenderer.h ./gui/imgui/backends/imgui_impl_sdl.h
+HDRS := ./Scene.h ./prims/Light.h ./prims/Textures/CheckerTexture.h ./prims/Textures/SolidColour.h ./prims/Textures/Texture.h ./prims/Textures/ImageTexture.h ./prims/Hittable.h ./prims/BVHNode.h ./prims/Materials/Lambertian.h ./prims/Materials/Metal.h ./prims/Materials/Dielectrics.h ./prims/Materials/Emissive.h ./prims/Sphere.h ./PinholeCamera.h ./utils/aabb.h ./utils/Functions.h ./utils/Vec.h ./utils/Point.h ./utils/light/Radiance.h ./utils/Ray.h ./gui/imgui/imgui_internal.h ./gui/imgui/imstb_rectpack.h ./gui/imgui/imstb_textedit.h ./gui/imgui/imconfig.h ./gui/imgui/imgui.h ./gui/imgui/imstb_truetype.h ./gui/imgui/backends/imgui_impl_sdlrenderer.h ./gui/imgui/backends/imgui_impl_sdl.h
 # environment
 MAKELEVEL := 0
 # default
@@ -139,7 +139,7 @@ MOTD_SHOWN = pam
 # automatic
 ^F = $(notdir $^)
 # environment
-INVOCATION_ID = 796d7a0509f4412598bd3d36ef06cb83
+INVOCATION_ID = 2518f5d19a1b432bb1f85270293f2e5a
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
@@ -165,7 +165,7 @@ GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/visual-studio-code.desktop
 # makefile
 .DEFAULT_GOAL := all
 # environment
-SYSTEMD_EXEC_PID = 1092
+SYSTEMD_EXEC_PID = 1110
 # environment
 DISPLAY = :1
 # environment
@@ -175,17 +175,17 @@ MAKE_VERSION := 4.3
 # 'override' directive
 .SHELLSTATUS := 0
 # environment
-MANAGERPID = 992
+MANAGERPID = 1013
 # environment
 DEBUGINFOD_URLS = https://debuginfod.archlinux.org 
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 161559
+GIO_LAUNCHED_DESKTOP_FILE_PID = 3620
 # environment
 _ = /usr/bin/make
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
-JOURNAL_STREAM = 8:492
+JOURNAL_STREAM = 8:19405
 # environment
 VISUAL = nano
 # environment
@@ -211,7 +211,7 @@ VSCODE_CLI = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # makefile (from 'Makefile', line 7)
-CXXFLAGS := -std=c++11 -I -I/backends -O3 -g -Wall -Wformat -lSDL2 -fopenmp -lGL -ldl `sdl2-config --libs`
+CXXFLAGS := -std=c++11 -I -I/backends -O1 -g -Wall -Wformat -fopenmp -lGL -ldl `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink guile load
 # makefile (from 'Makefile', line 4)
@@ -229,9 +229,9 @@ GDMSESSION = gnome
 
 # Directories
 
-# . (device 66307, inode 35918963): 35 files, no impossibilities.
+# . (device 66307, inode 35918963): 40 files, no impossibilities.
 
-# 35 files, no impossibilities in 1 directories.
+# 40 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -242,7 +242,7 @@ GDMSESSION = gnome
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-29 15:03:06.644424807
+#  Last modified 2022-05-30 16:06:56.110694373
 #  File has been updated.
 #  Successfully updated.
 
@@ -288,6 +288,7 @@ all:
 # Load=8/32=25%, Rehash=0, Collisions=4/15=27%
 #  recipe to execute (from 'Makefile', line 24):
 	$(CC) -o $(EXEC) $(SRCS) $(CXXFLAGS)
+ 
 
 # Not a target:
 .SUFFIXES:
@@ -308,12 +309,12 @@ all:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 42 / storage = 436 B / avg = 10 B
-# current buf: size = 8162 B / used = 436 B / count = 42 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 47 / storage = 517 B / avg = 11 B
+# current buf: size = 8162 B / used = 517 B / count = 47 / avg = 11 B
 
-# strcache performance: lookups = 53 / hit rate = 20%
+# strcache performance: lookups = 58 / hit rate = 18%
 # hash-table stats:
-# Load=42/8192=1%, Rehash=0, Collisions=0/53=0%
-# Finished Make data base on Sun May 29 18:53:18 2022
+# Load=47/8192=1%, Rehash=0, Collisions=0/58=0%
+# Finished Make data base on Tue May 31 18:35:09 2022
 
  

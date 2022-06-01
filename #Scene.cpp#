@@ -146,22 +146,3 @@ void Scene::addObject(prims::Hittable *o)
 {
 	hittables.objects.push_back(o);
 }
-
-// // Sphere intersection
-// bool Scene::sphereIntersect(Ray &rIn, prims::hitRecord &rec) const
-// {
-//     bool hit = false;
-//     for (auto sphere : spheres)
-//     {
-//         prims::hitRecord temp;
-//         temp.t = std::numeric_limits<float>::max();
-
-//         bool hitsphere = sphere.hit(rIn, temp);
-//         if (hitsphere && temp.t < rec.t)
-//         {
-//             rec = temp;
-//         }
-//         hit = hit || hitsphere;
-//     }
-//     return hit;
-// }

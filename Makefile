@@ -4,14 +4,14 @@
 CC := clang++
 
 # set the compiler flags
-CXXFLAGS := -std=c++11 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends -O3 -g -Wall -Wformat -lSDL2 -fopenmp -lGL -ldl `sdl2-config --libs`
+CXXFLAGS := -std=c++11 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends -O1 -g -Wall -Wformat -fopenmp -lGL -ldl `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image
 # add header files here
 HDRS := $(shell find './' ! -path '*/extraneous/*' -name '*.h')
 
 IMGUI_DIR = gui/imgui/
 
 # Source files
-SRCS := $(shell find './' ! -path '*/extraneous/*' -name '*.cpp' -or -name '*.c')
+SRCS := $(shell find './' ! -path '*/extraneous/*' -name '*.cpp')
 
 # obj file names
 OBJS := $(SRCS:.cpp=.o)

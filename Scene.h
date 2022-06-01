@@ -55,7 +55,7 @@ public:
 
     // Removes based on the id of the Object
     // True if success
-    bool removeObject(int i);
+    void removeObject(int i);
 
     bool removeLight(int i);
 
@@ -67,12 +67,7 @@ public:
 
     Point Colour(Ray r, int limit, prims::BVHNode &sceneBox) const;
 
-    // // returns the t that the intersection happened, as well as the normal
-    // bool sphereIntersect(Ray& rIn, prims::hitRecord& rec) const;
-
-    // std::vector<prims::Sphere> getSpheres() const;
-
-    prims::HittableList getObjects() const;
+    std::vector<prims::Hittable*> getObjects() const;
 };
 
 #endif

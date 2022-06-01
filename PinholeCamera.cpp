@@ -40,6 +40,7 @@ PinholeCamera::PinholeCamera(int width, int height, float verticalFOV, Point loc
     horizontal = scale(viewportWidth, u);                                                                   // width scaled to the direction of the u vector
     vertical = scale(viewportHeight, v);                                                                    // height scaled to the direction of the v vector
     lowerLeftCorner = sub(location.direction(), add(w, add(scale(0.5, horizontal), scale(0.5, vertical)))); // add focal distance (currently w = 1 so focal distance is 1)
+
 }
 
 void PinholeCamera::getPrimaryRay(float x, float y, Ray &r) const
@@ -53,10 +54,10 @@ void PinholeCamera::getPrimaryRay(float x, float y, Ray &r) const
     // std::cout << x << " " << width << std::endl;
 
     r.origin = location;
-    r.direction = sub(location.direction(), add(lowerLeftCorner, add(scale(x / width, horizontal), scale(y / height, vertical)))); //
+    r.direction = sub(add(lowerLeftCorner, add(scale(x / width, horizontal), scale((height  - y) / height, vertical))), location.direction()); 
 }
 
 void PinholeCamera::changeLocation(Point p)
-{
+{	
     location = p;
 }

@@ -1,6 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/dabanya02/Projects/joetracer'
  
-clang++ -o Joetracer ./PinholeCamera.cpp ./prims/Light.cpp ./prims/BVHNode.cpp ./prims/Sphere.cpp ./sdl.cpp ./utils/Functions.cpp ./utils/Point.cpp ./utils/aabb.cpp ./utils/light/Radiance.cpp ./utils/Vec.cpp ./utils/Ray.cpp ./Scene.cpp ./gui/imgui/imgui_draw.cpp ./gui/imgui/imgui_demo.cpp ./gui/imgui/imgui_widgets.cpp ./gui/imgui/imgui_tables.cpp ./gui/imgui/imgui.cpp ./gui/imgui/backends/imgui_impl_sdlrenderer.cpp ./gui/imgui/backends/imgui_impl_sdl.cpp -std=c++11 -I -I/backends -O3 -g -Wall -Wformat -lSDL2 -fopenmp -lGL -ldl `sdl2-config --libs`
+clang++ -o Joetracer ./PinholeCamera.cpp ./prims/Light.cpp ./prims/BVHNode.cpp ./prims/Sphere.cpp ./sdl.cpp ./utils/Functions.cpp ./utils/Point.cpp ./utils/aabb.cpp ./utils/light/Radiance.cpp ./utils/Vec.cpp ./utils/Ray.cpp ./Scene.cpp ./gui/imgui/imgui_draw.cpp ./gui/imgui/imgui_demo.cpp ./gui/imgui/imgui_widgets.cpp ./gui/imgui/imgui_tables.cpp ./gui/imgui/imgui.cpp ./gui/imgui/backends/imgui_impl_sdlrenderer.cpp ./gui/imgui/backends/imgui_impl_sdl.cpp -std=c++11 -I -I/backends -O1 -g -Wall -Wformat -fopenmp -lGL -ldl `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image
 make: Leaving directory '/home/dabanya02/Projects/joetracer'
  
