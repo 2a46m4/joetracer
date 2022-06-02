@@ -2,6 +2,7 @@
 #define _POINT_H
 
 #include "Vec.h"
+#include <iostream>
 
 namespace utils
 {
@@ -38,6 +39,8 @@ namespace utils
         const Point operator*(const Point& a) const;
 
         bool operator==(const Point& a) const;
+
+				friend std::ostream& operator<< (std::ostream& out, const Point& point);
     };
 }
 

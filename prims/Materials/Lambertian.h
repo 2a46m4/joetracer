@@ -13,17 +13,17 @@ using namespace math;
 class Lambertian : public prims::Materials
 {
 public:
-    Lambertian(const Point &a) : albedo(new prims::SolidColour(a)) {}
-	Lambertian(const prims::Texture* a) : albedo(a){};
-    virtual bool scatter(const Ray &ray, const prims::hitRecord &rec, Point &attenuation, Ray &scattered) const
-    {
-        Vec w = randomRayInSphere(rec.normal);
-        scattered = Ray(rec.p, w);
-        attenuation = albedo->value(rec.u, rec.v, rec.p);
-        return true;
-    }
+	Lambertian(const Point &a) : albedo(new prims::SolidColour(a)) {}
+	Lambertian(const prims::Texture *a) : albedo(a){};
+	virtual bool scatter(const Ray &ray, const prims::hitRecord &rec, Point &attenuation, Ray &scattered) const
+	{
+		Vec w = randomRayInSphere(rec.normal);
+		scattered = Ray(rec.p, w);
+		attenuation = albedo->value(rec.u, rec.v, rec.p);
+		return true;
+	}
 
-    const prims::Texture* albedo;
+	const prims::Texture *albedo;
 };
 
 #endif

@@ -29,7 +29,7 @@ private:
     // std::vector<prims::Sphere> spheres;
     prims::HittableList hittables;
 
-    char *pixels;
+    unsigned char *pixels;
 
 public:
     PinholeCamera camera;
@@ -42,7 +42,7 @@ public:
 
     Scene(int w, int h, PinholeCamera camera, Point background);
 
-    char *render() const;
+    unsigned char *render() const;
 
     // Inserts a pointer to a hittable object into the list
     void addObject(prims::Hittable *o);

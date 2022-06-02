@@ -9,11 +9,13 @@
 #include "prims/Materials/Lambertian.h"
 #include "prims/Materials/Metal.h"
 #include "prims/Materials/Dielectrics.h"
+#include "prims/Materials/Emissive.h"
 
 // Textures
 #include "prims/Textures/CheckerTexture.h"
 #include "prims/Textures/SolidColour.h"
 #include "prims/Textures/ImageTexture.h"
+#include "prims/Textures/PerlinTexture.h"
 
 // GUI
 #include "gui/imgui/imgui.h"
@@ -32,18 +34,20 @@
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif
 
-static int screenWidth = 1200;
-static int screenHeight = 800;
+static int screenWidth = 1920;
+static int screenHeight = 1080;
 
 void addSampleScene(Scene &s)
 {
 	Metal *mwhite = new Metal(Point(0.9, 0.9, 0.9), 0.5);
+	Metal *mirror = new Metal(Point(0.9, 0.9, 0.9), 0.0);
 	Lambertian *lwhite = new Lambertian(Point(0.9, 0.9, 0.9));
 	Lambertian *lchecker = new Lambertian(new prims::CheckerTexture(Point(0.9, 0.9, 0.9), Point(0.7, 0, 0.7)));
-	Metal *mgold = new Metal(Point(0.9, 0.9, 0.6), 0.8);
+	Metal *mgold = new Metal(Point(0.9, 0.9, 0.6), 0.2);
 	Lambertian *lred = new Lambertian(Point(0.9, 0.0, 0.0));
 	Lambertian *lblue = new Lambertian(Point(0.0, 0.0, 0.9));
 	Dielectrics *glass = new Dielectrics(1.3);
+	Lambertian *perlin = new Lambertian(new prims::PerlinTexture());
 
 	// Load image at specified path
 	SDL_Surface *loadedSurface = IMG_Load("earthmap.jpg");
@@ -52,32 +56,44 @@ void addSampleScene(Scene &s)
 		printf("Unable to load image! SDL_image Error: %s\n", IMG_GetError());
 	}
 
-	Lambertian *earth = new Lambertian(new prims::ImageTexture((char*) loadedSurface->pixels, loadedSurface->w, loadedSurface->h));
+	Lambertian *earth = new Lambertian(new prims::ImageTexture(((unsigned char *)loadedSurface->pixels), loadedSurface->w, loadedSurface->h));
 
-	prims::Hittable *earthSphere = new prims::Sphere(3, Point(), Point(1, 2, 3), earth);
+	prims::Hittable *earthSphere2 = new prims::Sphere(1, Point(), Point(1, 2, -10), earth);
 
-	prims::Hittable *metallicSphere = new prims::Sphere(2, Point(255, 255, 255), Point(-8, 2, -30), mwhite);
+	prims::Hittable *earthSphere = new prims::Sphere(2, Point(), Point(-10, 4, -40), glass);
 
-	prims::Hittable *glassSphere = new prims::Sphere(2, Point(255, 255, 255), Point(8, 2, -30), glass);
+	prims::Hittable *metallicSphere = new prims::Sphere(3, Point(255, 255, 255), Point(-18, 6, -40), mwhite);
 
-	prims::Hittable *glassSphere2 = new prims::Sphere(3, Point(255, 255, 255), Point(-0, 3, -15), glass);
+	prims::Hittable *mirrorSphere = new prims::Sphere(4, Point(255, 255, 255), Point(-8, 18, -70), mirror);
 
-	prims::Hittable *redSphere = new prims::Sphere(3, Point(255, 255, 255), Point(-3, 3, -30), lred);
+	prims::Hittable *glassSphere = new prims::Sphere(5, Point(255, 255, 255), Point(28, 10, -80), glass);
 
-	prims::Hittable *blueSphere = new prims::Sphere(3, Point(255, 255, 255), Point(3, 3, -30), lblue);
+	prims::Hittable *glassSphere2 = new prims::Sphere(6, Point(255, 255, 255), Point(-0, 12, -80), glass);
 
-	prims::Hittable *goldSphere = new prims::Sphere(0.3, Point(255, 255, 255), Point(2, 2, -12), mgold);
+	prims::Hittable *redSphere = new prims::Sphere(7, Point(255, 255, 255), Point(-30, 14, -60), lred);
 
-	prims::Hittable *ground = new prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, -30), lchecker);
+	prims::Hittable *blueSphere = new prims::Sphere(8, Point(255, 255, 255), Point(32, 16, -90), lblue);
 
-	// s.addObject(earthSphere);
+	prims::Hittable *goldSphere = new prims::Sphere(9, Point(255, 255, 255), Point(22, 18, -50), mgold);
+
+	prims::Hittable *ground = new prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, 0), lchecker);
+
+	prims::Hittable *perlinSphere = new prims::Sphere(3, Point(255, 255, 255), Point(2, 16, -30), perlin);
+
+	prims::Hittable *emitterSphere = new prims::Sphere(3, Point(255, 255, 255), Point(2, 8, -20), new Emissive(Point(255, 255, 255)));
+
+	s.addObject(earthSphere);
+	s.addObject(earthSphere2);
 	s.addObject(metallicSphere);
+	s.addObject(mirrorSphere);
 	s.addObject(glassSphere);
 	s.addObject(glassSphere2);
 	s.addObject(redSphere);
 	s.addObject(blueSphere);
 	s.addObject(goldSphere);
 	s.addObject(ground);
+	s.addObject(perlinSphere);
+	s.addObject(emitterSphere);
 }
 
 int main(int, char **)
@@ -98,7 +114,7 @@ int main(int, char **)
 	}
 
 	// Setup window
-	SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
+	SDL_WindowFlags window_flags = (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_FULLSCREEN_DESKTOP);
 	SDL_Window *window = SDL_CreateWindow("JoeTracer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, window_flags);
 
 	// Setup SDL_Renderer instance
@@ -124,8 +140,8 @@ int main(int, char **)
 	ImGui_ImplSDL2_InitForSDLRenderer(window, renderer);
 	ImGui_ImplSDLRenderer_Init(renderer);
 
-	// Our state
-	bool show_demo_window = true;
+	// demo window
+	bool show_demo_window = false;
 	// background color
 	ImVec4 clear_color = ImVec4(0.40f, 0.58f, 0.70f, 1.00f);
 
@@ -137,13 +153,15 @@ int main(int, char **)
 	static float ly = 0;
 	static float lz = 1;
 
+	int debug = 0;
+
 	Point location(0, 0, 0);
 	Point lookingAt(0, 0, -1);
 
 	Scene s = Scene(screenWidth, screenHeight, PinholeCamera(screenWidth, screenHeight, 90.0f, Point(x, y, z), Point(lx, ly, lz)), Point(clear_color.x * 255.0f, clear_color.y * 255.0f, clear_color.z * 255.0f));
 
 	// RGB Array of pixels
-	char *pixels;
+	unsigned char *pixels;
 
 	SDL_Surface *surface = NULL;
 	SDL_Texture *finalTexture = NULL;
@@ -175,6 +193,7 @@ int main(int, char **)
 			ImGui::Begin("Settings");
 			if (ImGui::Button("Render", ImVec2(ImGui::GetWindowWidth() - 15, 20.0f)))
 			{
+				debug = 1;
 				s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f, clear_color.z * 255.0f);
 				s.newCamera(PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
 				pixels = s.render();

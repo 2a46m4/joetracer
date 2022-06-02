@@ -6,6 +6,7 @@
 #include "SolidColour.h"
 #include "../../utils/Functions.h"
 #include <cmath>
+#include <iostream>
 
 using namespace utils;
 
@@ -16,7 +17,7 @@ namespace prims
 	public:
 		ImageTexture() {}
 
-		ImageTexture(char *p, int _width, int _height) : pixels(p), width(_width), height(_height), pitch(3 * _width) {}
+		ImageTexture(unsigned char *p, int _width, int _height) : pixels(p), width(_width), height(_height), pitch(3 * _width) {}
 
 		Point value(double u, double v, const Point p) const override
 		{
@@ -33,8 +34,10 @@ namespace prims
 			if(j >= height) 
 				j = height - 1;
 
-			char* pixel = pixels + j * pitch + i * 3;
-			return Point(pixel[0] / 255, pixel[1] / 255, pixel[2] / 255);
+			// std::cout << i << " " << j << std::endl;
+
+			unsigned char* pixel = pixels + (j * pitch) + (i * 3);
+			return Point((float) pixel[0] / 255, (float) pixel[1] / 255, (float) pixel[2] / 255);
 		}
 
 		~ImageTexture()
@@ -43,7 +46,7 @@ namespace prims
 		}
 
 	private:
-		char *pixels;
+		unsigned char *pixels;
 		int width;
 		int height;
 		int pitch;

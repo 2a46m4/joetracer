@@ -4,7 +4,7 @@
 CC := clang++
 
 # set the compiler flags
-CXXFLAGS := -std=c++11 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends -O1 -g -Wall -Wformat -fopenmp -lGL -ldl `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image
+CXXFLAGS := -std=c++11 -I$(IMGUI_DIR) -I$(IMGUI_DIR)/backends -O0 -g -Wall -Wformat -fopenmp -lGL -ldl `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image
 # add header files here
 HDRS := $(shell find './' ! -path '*/extraneous/*' -name '*.h')
 

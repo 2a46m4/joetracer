@@ -13,17 +13,22 @@ using namespace math;
 class Emissive : public prims::Materials
 {
 public:
-    Emissive(const Point &a) : emit(new prims::SolidColour(a)) {}
-	Emissive(const prims::Texture* a) : emit(a){};
-    virtual bool scatter(const Ray &ray, const prims::hitRecord &rec, Point &attenuation, Ray &scattered) const
-    {
-        Vec w = randomRayInSphere(rec.normal);
-        scattered = Ray(rec.p, w);
-        attenuation = emit->value(rec.u, rec.v, rec.p);
-        return true;
-    }
+	Emissive(const Point &a) : emit(new prims::SolidColour(a)) {}
+	Emissive(const prims::Texture *a) : emit(a){};
+	bool scatter(const Ray &ray, const prims::hitRecord &rec, Point &attenuation, Ray &scattered) const
+	{
+		return false; // never scatters, duh
+	}
+	Point emitted(double u, double v, const Point &p) const override
+	{
+		return emit->value(u, v, p);
+	}
 
-    const prims::Texture* emit;
+	~Emissive() {
+		delete emit;
+	}
+
+	const prims::Texture *emit;
 };
 
 #endif

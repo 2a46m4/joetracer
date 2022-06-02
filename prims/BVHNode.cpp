@@ -40,20 +40,23 @@ namespace prims
 		};
 
 		size_t size = end - start; // size of the list to be sorted
-		// Only one item in the list. Should only happen if there is only one
+		// Only one item in the list.
 		if (size == 1)
 		{
 			left = right = objs[start];
 		}
 		else if (size == 2)
 		{
-			left = objs[start];
-			right = objs[start + 1];
-		}
-		else if (size == 3)
-		{
-			left = objs[start];
-			right = new BVHNode(objs, start + 1, start + 3, t0, t1);
+			if (boxCompare(objs[start], objs[start + 1]))
+			{
+				left = objs[start];
+				right = objs[start + 1];
+			}
+			else
+			{
+				left = objs[start + 1];
+				right = objs[start];
+			}
 		}
 		else
 		{
@@ -88,7 +91,7 @@ namespace prims
 
 		bool hitLeft = left->hit(r, rec, tMin, tMax);
 		bool hitRight = right->hit(r, rec, tMin, hitLeft ? rec.t : tMax);
-		
+
 		return hitLeft || hitRight;
 	}
 

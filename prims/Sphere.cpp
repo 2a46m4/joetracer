@@ -5,6 +5,7 @@
 #include "../utils/aabb.h"
 
 #include <limits>
+#include <iostream>
 
 using namespace utils;
 using namespace math;
@@ -41,22 +42,25 @@ namespace prims
 		float b = dotProduct(r.direction, v);
 		float c = dotProduct(v, v) - (rad * rad);
 		float discriminant = (b * b) - (a * c);
+		float time = 0;
 		if (discriminant > 0)
 		{
-			rec.t = ((-sqrt(discriminant)) - b) / a;
-			if (tMax > rec.t && rec.t > 0.001)
+			time = ((-sqrt(discriminant)) - b) / a;
+			if (tMax > time && time > 0.001)
 			{
 				intercept = true;
+				rec.t = time;
 				tMax = rec.t;
 				rec.normal = unitVec(sub(add(r.origin.direction(), scale(rec.t, r.direction)), location.direction()));
 				rec.p = add(r.origin, point(scale(rec.t, r.direction)));
 				getUV(rec.normal, rec.u, rec.v);
 				rec.matPtr = material;
 			}
-			rec.t = (sqrt(discriminant) - b) / a;
-			if (tMax > rec.t && rec.t > 0.001)
+			time = (sqrt(discriminant) - b) / a;
+			if (tMax > time && time > 0.001)
 			{
 				intercept = true;
+				rec.t = time;
 				tMax = rec.t;
 				rec.normal = unitVec(sub(add(r.origin.direction(), scale(rec.t, r.direction)), location.direction()));
 				rec.p = add(r.origin, point(scale(rec.t, r.direction)));
@@ -80,5 +84,6 @@ namespace prims
 
 		u = phi / (2 * M_PI);
 		v = theta / M_PI;
+		// std::cout << u  << " " << v << std::endl;
 	}
 }

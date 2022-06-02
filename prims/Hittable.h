@@ -49,6 +49,10 @@ namespace prims
 	public:
 		virtual bool scatter(const Ray &ray, const prims::hitRecord &rec, Point &attenuation, Ray &scattered) const = 0;
 
+		virtual Point emitted(double u, double v, const Point& p) const {
+			return Point(0, 0, 0);
+		};
+
 		Point emittedRadiance(const Vec &wo);
 
 		Point finiteScatteringDensity(const Vec &wi, const Vec &wo);
