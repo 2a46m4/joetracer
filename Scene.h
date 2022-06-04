@@ -1,22 +1,20 @@
 #ifndef _SCENE_H
 #define _SCENE_H
 
-#include "utils/Point.h"
-#include "utils/Vec.h"
-#include "prims/Sphere.h"
+#include "./Point.h"
+#include "./Vec.h"
+#include "./Sphere.h"
 #include "PinholeCamera.h"
-#include "utils/Functions.h"
-#include "prims/Light.h"
-#include "utils/Ray.h"
-#include "prims/Hittable.h"
-#include "prims/BVHNode.h"
+#include "./Functions.h"
+#include "./Light.h"
+#include "./Ray.h"
+#include "./Hittable.h"
+#include "./BVHNode.h"
 
 #include <math.h>
 #include <vector>
 #include <utility>
 #include <memory>
-
-using namespace utils;
 
 class Scene
 {
@@ -25,9 +23,9 @@ private:
     int height;
     int width;
 
-    std::vector<prims::Light> lights;
+    std::vector<Light> lights;
     // std::vector<prims::Sphere> spheres;
-    prims::HittableList hittables;
+    HittableList hittables;
 
     unsigned char *pixels;
 
@@ -45,13 +43,13 @@ public:
     unsigned char *render() const;
 
     // Inserts a pointer to a hittable object into the list
-    void addObject(prims::Hittable *o);
+    void addObject(Hittable *o);
 
     void debugAddCube();
 
     void newCamera(PinholeCamera p);
 
-    void addLight(prims::Light p);
+    void addLight(Light p);
 
     // Removes based on the id of the Object
     // True if success
@@ -61,13 +59,13 @@ public:
 
     void deleteScene();
 
-    const std::vector<prims::Light> getLights() const;
+    const std::vector<Light> getLights() const;
 
     // Sphere stuff
 
-    Point Colour(Ray r, int limit, prims::BVHNode &sceneBox) const;
+    Point Colour(Ray r, int limit, BVHNode &sceneBox) const;
 
-    std::vector<prims::Hittable*> getObjects() const;
+    std::vector<Hittable*> getObjects() const;
 };
 
 #endif

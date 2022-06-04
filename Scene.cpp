@@ -1,13 +1,13 @@
 #include "Scene.h"
-#include "utils/Point.h"
-#include "utils/Vec.h"
-#include "prims/Sphere.h"
+#include "./Point.h"
+#include "./Vec.h"
+#include "./Sphere.h"
 #include "PinholeCamera.h"
-#include "utils/Functions.h"
-#include "prims/Light.h"
-#include "utils/Ray.h"
-#include "prims/Hittable.h"
-#include "prims/BVHNode.h"
+#include "./Functions.h"
+#include "./Light.h"
+#include "./Ray.h"
+#include "./Hittable.h"
+#include "./BVHNode.h"
 
 #include <iostream>
 #include <cmath>
@@ -15,8 +15,6 @@
 #include <limits>
 #include <random>
 #include <thread>
-
-using namespace utils;
 
 Scene::Scene()
 {
@@ -38,7 +36,7 @@ unsigned char *Scene::render() const
 {
 	if (hittables.objects.empty())
 		return NULL;
-	prims::BVHNode box = prims::BVHNode(hittables, 0, std::numeric_limits<float>::max());
+	BVHNode box = BVHNode(hittables, 0, std::numeric_limits<float>::max());
 	// for(auto hittable : hittables.objects) {
 	// 	aabb test;
 	// 	hittable->boundingBox(0, std::numeric_limits<double>::max(), test);
@@ -62,7 +60,7 @@ unsigned char *Scene::render() const
 					for (int i = 0; i < samples; i++)
 					{
 						camera.getPrimaryRay(float(x / 3) + realrand(device), float(y) + realrand(device), r);
-						col = math::add(col, Colour(r, bounces, box));
+						col = add(col, Colour(r, bounces, box));
 					}
 					// R channel
 					pixels[y * (width * 3) + x] = (sqrt(col.x / samples / 255)) * 255;
@@ -82,12 +80,12 @@ void Scene::newCamera(PinholeCamera p)
 	camera = p;
 }
 
-void Scene::addLight(prims::Light p)
+void Scene::addLight(Light p)
 {
 	lights.push_back(p);
 }
 
-std::vector<prims::Hittable *> Scene::getObjects() const
+std::vector<Hittable *> Scene::getObjects() const
 {
 	return hittables.objects;
 }
@@ -111,16 +109,16 @@ bool Scene::removeLight(int i)
 	}
 }
 
-const std::vector<prims::Light> Scene::getLights() const
+const std::vector<Light> Scene::getLights() const
 {
 	return lights;
 }
 
 /*--------------- Sphere stuff ---------------*/
 
-Point Scene::Colour(Ray r, int limit, prims::BVHNode &sceneBox) const
+Point Scene::Colour(Ray r, int limit, BVHNode &sceneBox) const
 {
-	prims::hitRecord rec;
+	hitRecord rec;
 
 	// Checks all objects
 	if (sceneBox.hit(r, rec, 0, std::numeric_limits<float>::max()) && limit > 0)
@@ -139,7 +137,7 @@ Point Scene::Colour(Ray r, int limit, prims::BVHNode &sceneBox) const
 		return background;
 }
 
-void Scene::addObject(prims::Hittable *o)
+void Scene::addObject(Hittable *o)
 {
 	hittables.objects.push_back(o);
 }

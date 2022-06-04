@@ -1,14 +1,11 @@
 #include "PinholeCamera.h"
-#include "utils/Functions.h"
-#include "utils/Ray.h"
+#include "./Functions.h"
+#include "./Ray.h"
 
 #include <iostream>
 
-using namespace utils;
-
 #define PI 3.14159265358979323846264338327950288419716939937510582097
 
-using namespace math;
 
 PinholeCamera::PinholeCamera()
 {
@@ -26,7 +23,7 @@ PinholeCamera::PinholeCamera(int width, int height, float verticalFOV, Point loc
     this->height = height;
 
     // Reference
-    vUp = Vec(0, 1, 0);
+    vUp = Vec(0, 1, 0); 
 	
     // Get u, v, w
     w = unitVec(sub(location, view).direction());

@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jun  2 21:33:02 2022
+# Make data base, printed on Fri Jun  3 20:37:57 2022
 
 # Variables
 
@@ -19,7 +19,8 @@ NO_AT_BRIDGE = 1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-ef886178-cc2f-44d7-b539-0595b9992ac1.sock
+ 
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-c601bcbe-5349-4304-adaf-ec7f72b93dd7.sock
 # environment
 VSCODE_CWD = /home/dabanya02
 # environment
@@ -69,7 +70,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
 # makefile (from 'Makefile', line 14)
-SRCS := ./PinholeCamera.cpp ./prims/Light.cpp ./prims/BVHNode.cpp ./prims/Sphere.cpp ./sdl.cpp ./utils/Functions.cpp ./utils/Point.cpp ./utils/aabb.cpp ./utils/light/Radiance.cpp ./utils/Vec.cpp ./utils/Ray.cpp ./Scene.cpp ./gui/imgui/imgui_draw.cpp ./gui/imgui/imgui_demo.cpp ./gui/imgui/imgui_widgets.cpp ./gui/imgui/imgui_tables.cpp ./gui/imgui/imgui.cpp ./gui/imgui/backends/imgui_impl_sdlrenderer.cpp ./gui/imgui/backends/imgui_impl_sdl.cpp
+SRCS := ./Light.cpp ./Functions.cpp ./BVHNode.cpp ./Sphere.cpp ./PinholeCamera.cpp ./Point.cpp ./sdl.cpp ./aabb.cpp ./Vec.cpp ./Scene.cpp ./gui/imgui/imgui_draw.cpp ./gui/imgui/imgui_demo.cpp ./gui/imgui/imgui_widgets.cpp ./gui/imgui/imgui_tables.cpp ./gui/imgui/imgui.cpp ./gui/imgui/backends/imgui_impl_sdlrenderer.cpp ./gui/imgui/backends/imgui_impl_sdl.cpp ./Ray.cpp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -91,7 +92,7 @@ VSCODE_VERBOSE_LOGGING = true
 # makefile (from 'Makefile', line 11)
 IMGUI_DIR = gui/imgui/
 # environment
-VSCODE_PID = 25059
+VSCODE_PID = 73483
 # environment
 XDG_SESSION_TYPE = x11
 # environment
@@ -99,7 +100,7 @@ CUDA_PATH = /opt/cuda
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/dabanya02:@/tmp/.ICE-unix/1086,unix/dabanya02:/tmp/.ICE-unix/1086
+SESSION_MANAGER = local/dabanya02:@/tmp/.ICE-unix/1088,unix/dabanya02:/tmp/.ICE-unix/1088
 # automatic
 *F = $(notdir $*)
 # environment
@@ -115,7 +116,7 @@ VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupp
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # makefile (from 'Makefile', line 17)
-OBJS := ./PinholeCamera.o ./prims/Light.o ./prims/BVHNode.o ./prims/Sphere.o ./sdl.o ./utils/Functions.o ./utils/Point.o ./utils/aabb.o ./utils/light/Radiance.o ./utils/Vec.o ./utils/Ray.o ./Scene.o ./gui/imgui/imgui_draw.o ./gui/imgui/imgui_demo.o ./gui/imgui/imgui_widgets.o ./gui/imgui/imgui_tables.o ./gui/imgui/imgui.o ./gui/imgui/backends/imgui_impl_sdlrenderer.o ./gui/imgui/backends/imgui_impl_sdl.o
+OBJS := ./Light.o ./Functions.o ./BVHNode.o ./Sphere.o ./PinholeCamera.o ./Point.o ./sdl.o ./aabb.o ./Vec.o ./Scene.o ./gui/imgui/imgui_draw.o ./gui/imgui/imgui_demo.o ./gui/imgui/imgui_widgets.o ./gui/imgui/imgui_tables.o ./gui/imgui/imgui.o ./gui/imgui/backends/imgui_impl_sdlrenderer.o ./gui/imgui/backends/imgui_impl_sdl.o ./Ray.o
 # makefile
 SHELL = /bin/sh
 # default
@@ -127,7 +128,7 @@ GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
 SHLVL = 1
 # makefile (from 'Makefile', line 9)
-HDRS := ./Scene.h ./prims/Light.h ./prims/Textures/CheckerTexture.h ./prims/Textures/SolidColour.h ./prims/Textures/PerlinTexture.h ./prims/Textures/Texture.h ./prims/Textures/ImageTexture.h ./prims/Hittable.h ./prims/BVHNode.h ./prims/Materials/Lambertian.h ./prims/Materials/Metal.h ./prims/Materials/Dielectrics.h ./prims/Materials/Emissive.h ./prims/Sphere.h ./PinholeCamera.h ./utils/aabb.h ./utils/Functions.h ./utils/Vec.h ./utils/Point.h ./utils/light/Radiance.h ./utils/Ray.h ./utils/ImageReader.h ./gui/imgui/imgui_internal.h ./gui/imgui/imstb_rectpack.h ./gui/imgui/imstb_textedit.h ./gui/imgui/imconfig.h ./gui/imgui/imgui.h ./gui/imgui/imstb_truetype.h ./gui/imgui/backends/imgui_impl_sdlrenderer.h ./gui/imgui/backends/imgui_impl_sdl.h
+HDRS := ./aabb.h ./Light.h ./Textures/CheckerTexture.h ./Textures/SolidColour.h ./Textures/PerlinTexture.h ./Textures/Texture.h ./Textures/ImageTexture.h ./Functions.h ./Hittable.h ./Vec.h ./Scene.h ./BVHNode.h ./Materials/Lambertian.h ./Materials/Metal.h ./Materials/Dielectrics.h ./Materials/Emissive.h ./Sphere.h ./PinholeCamera.h ./Point.h ./Ray.h ./gui/imgui/imgui_internal.h ./gui/imgui/imstb_rectpack.h ./gui/imgui/imstb_textedit.h ./gui/imgui/imconfig.h ./gui/imgui/imgui.h ./gui/imgui/imstb_truetype.h ./gui/imgui/backends/imgui_impl_sdlrenderer.h ./gui/imgui/backends/imgui_impl_sdl.h ./ImageReader.h
 # environment
 MAKELEVEL := 0
 # default
@@ -141,7 +142,7 @@ MOTD_SHOWN = pam
 # automatic
 ^F = $(notdir $^)
 # environment
-INVOCATION_ID = c09f148592684d9fafb78b581c78c7b5
+INVOCATION_ID = 026a0ad676fc466ea5f7a6f759ce2724
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
@@ -167,7 +168,7 @@ GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/visual-studio-code.desktop
 # makefile
 .DEFAULT_GOAL := all
 # environment
-SYSTEMD_EXEC_PID = 1101
+SYSTEMD_EXEC_PID = 1103
 # environment
 DISPLAY = :1
 # environment
@@ -177,17 +178,17 @@ MAKE_VERSION := 4.3
 # 'override' directive
 .SHELLSTATUS := 0
 # environment
-MANAGERPID = 1004
+MANAGERPID = 1006
 # environment
 DEBUGINFOD_URLS = https://debuginfod.archlinux.org 
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 25041
+GIO_LAUNCHED_DESKTOP_FILE_PID = 73466
 # environment
 _ = /usr/bin/make
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
-JOURNAL_STREAM = 8:224
+JOURNAL_STREAM = 8:15138
 # environment
 VISUAL = nano
 # environment
@@ -231,9 +232,9 @@ GDMSESSION = gnome
 
 # Directories
 
-# . (device 66307, inode 35918963): 38 files, no impossibilities.
+# . (device 66307, inode 35918963): 49 files, no impossibilities.
 
-# 38 files, no impossibilities in 1 directories.
+# 49 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -244,7 +245,7 @@ GDMSESSION = gnome
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-01 11:30:12.786653734
+#  Last modified 2022-06-03 20:37:42.045300405
 #  File has been updated.
 #  Successfully updated.
 
@@ -298,7 +299,6 @@ all:
 #  File has not been updated.
 
 .PHONY: all clean
- 
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -311,12 +311,13 @@ all:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 45 / storage = 465 B / avg = 10 B
-# current buf: size = 8162 B / used = 465 B / count = 45 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 56 / storage = 562 B / avg = 10 B
+# current buf: size = 8162 B / used = 562 B / count = 56 / avg = 10 B
 
-# strcache performance: lookups = 56 / hit rate = 19%
+# strcache performance: lookups = 67 / hit rate = 16%
 # hash-table stats:
-# Load=45/8192=1%, Rehash=0, Collisions=0/56=0%
-# Finished Make data base on Thu Jun  2 21:33:02 2022
+ 
+# Load=56/8192=1%, Rehash=0, Collisions=1/67=1%
+# Finished Make data base on Fri Jun  3 20:37:57 2022
 
  

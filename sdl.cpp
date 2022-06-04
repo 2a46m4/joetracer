@@ -1,26 +1,26 @@
 // Scene Functions
 #include "Scene.h"
-#include "utils/Point.h"
-#include "prims/Light.h"
-#include "prims/Sphere.h"
-#include "prims/Hittable.h"
+#include "./Point.h"
+#include "./Light.h"
+#include "./Sphere.h"
+#include "./Hittable.h"
 
 // Materials
-#include "prims/Materials/Lambertian.h"
-#include "prims/Materials/Metal.h"
-#include "prims/Materials/Dielectrics.h"
-#include "prims/Materials/Emissive.h"
+#include "./Materials/Lambertian.h"
+#include "./Materials/Metal.h"
+#include "./Materials/Dielectrics.h"
+#include "./Materials/Emissive.h"
 
 // Textures
-#include "prims/Textures/CheckerTexture.h"
-#include "prims/Textures/SolidColour.h"
-#include "prims/Textures/ImageTexture.h"
-#include "prims/Textures/PerlinTexture.h"
+#include "./Textures/CheckerTexture.h"
+#include "./Textures/SolidColour.h"
+#include "./Textures/ImageTexture.h"
+#include "./Textures/PerlinTexture.h"
 
 // GUI
-#include "gui/imgui/imgui.h"
-#include "gui/imgui/backends/imgui_impl_sdl.h"
-#include "gui/imgui/backends/imgui_impl_sdlrenderer.h"
+#include "./gui/imgui/imgui.h"
+#include "./gui/imgui/backends/imgui_impl_sdl.h"
+#include "./gui/imgui/backends/imgui_impl_sdlrenderer.h"
 #include <stdio.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
@@ -42,12 +42,12 @@ void addSampleScene(Scene &s)
 	Metal *mwhite = new Metal(Point(0.9, 0.9, 0.9), 0.5);
 	Metal *mirror = new Metal(Point(0.9, 0.9, 0.9), 0.0);
 	Lambertian *lwhite = new Lambertian(Point(0.9, 0.9, 0.9));
-	Lambertian *lchecker = new Lambertian(new prims::CheckerTexture(Point(0.9, 0.9, 0.9), Point(0.7, 0, 0.7)));
+	Lambertian *lchecker = new Lambertian(new CheckerTexture(Point(0.9, 0.9, 0.9), Point(0.7, 0, 0.7)));
 	Metal *mgold = new Metal(Point(0.9, 0.9, 0.6), 0.2);
 	Lambertian *lred = new Lambertian(Point(0.9, 0.0, 0.0));
 	Lambertian *lblue = new Lambertian(Point(0.0, 0.0, 0.9));
 	Dielectrics *glass = new Dielectrics(1.3);
-	Lambertian *perlin = new Lambertian(new prims::PerlinTexture());
+	Lambertian *perlin = new Lambertian(new PerlinTexture());
 
 	// Load image at specified path
 	SDL_Surface *loadedSurface = IMG_Load("earthmap.jpg");
@@ -56,31 +56,31 @@ void addSampleScene(Scene &s)
 		printf("Unable to load image! SDL_image Error: %s\n", IMG_GetError());
 	}
 
-	Lambertian *earth = new Lambertian(new prims::ImageTexture(((unsigned char *)loadedSurface->pixels), loadedSurface->w, loadedSurface->h));
+	Lambertian *earth = new Lambertian(new ImageTexture(((unsigned char *)loadedSurface->pixels), loadedSurface->w, loadedSurface->h));
 
-	prims::Hittable *earthSphere2 = new prims::Sphere(1, Point(), Point(1, 2, -10), earth);
+	Hittable *earthSphere2 = new Sphere(1, Point(), Point(1, 2, -10), earth);
 
-	prims::Hittable *earthSphere = new prims::Sphere(2, Point(), Point(-10, 4, -40), glass);
+	Hittable *earthSphere = new Sphere(2, Point(), Point(-10, 4, -40), glass);
 
-	prims::Hittable *metallicSphere = new prims::Sphere(3, Point(255, 255, 255), Point(-18, 6, -40), mwhite);
+	Hittable *metallicSphere = new Sphere(3, Point(255, 255, 255), Point(-18, 6, -40), mwhite);
 
-	prims::Hittable *mirrorSphere = new prims::Sphere(4, Point(255, 255, 255), Point(-8, 18, -70), mirror);
+	Hittable *mirrorSphere = new Sphere(4, Point(255, 255, 255), Point(-8, 18, -70), mirror);
 
-	prims::Hittable *glassSphere = new prims::Sphere(5, Point(255, 255, 255), Point(28, 10, -80), glass);
+	Hittable *glassSphere = new Sphere(5, Point(255, 255, 255), Point(28, 10, -80), glass);
 
-	prims::Hittable *glassSphere2 = new prims::Sphere(6, Point(255, 255, 255), Point(-0, 12, -80), glass);
+	Hittable *glassSphere2 = new Sphere(6, Point(255, 255, 255), Point(-0, 12, -80), glass);
 
-	prims::Hittable *redSphere = new prims::Sphere(7, Point(255, 255, 255), Point(-30, 14, -60), lred);
+	Hittable *redSphere = new Sphere(7, Point(255, 255, 255), Point(-30, 14, -60), lred);
 
-	prims::Hittable *blueSphere = new prims::Sphere(8, Point(255, 255, 255), Point(32, 16, -90), lblue);
+	Hittable *blueSphere = new Sphere(8, Point(255, 255, 255), Point(32, 16, -90), lblue);
 
-	prims::Hittable *goldSphere = new prims::Sphere(9, Point(255, 255, 255), Point(22, 18, -50), mgold);
+	Hittable *goldSphere = new Sphere(9, Point(255, 255, 255), Point(22, 18, -50), mgold);
 
-	prims::Hittable *ground = new prims::Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, 0), lchecker);
+	Hittable *ground = new Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, 0), lchecker);
 
-	prims::Hittable *perlinSphere = new prims::Sphere(3, Point(255, 255, 255), Point(2, 16, -30), perlin);
+	Hittable *perlinSphere = new Sphere(3, Point(255, 255, 255), Point(2, 16, -30), perlin);
 
-	prims::Hittable *emitterSphere = new prims::Sphere(3, Point(255, 255, 255), Point(2, 8, -20), new Emissive(Point(255, 255, 255)));
+	Hittable *emitterSphere = new Sphere(3, Point(255, 255, 255), Point(2, 8, -20), new Emissive(Point(255, 255, 255)));
 
 	s.addObject(earthSphere);
 	s.addObject(earthSphere2);
@@ -244,7 +244,7 @@ int main(int, char **)
 					static float radius = 1.0f;
 					static float slocation[3] = {0, 0, 1};
 					ImGui::Combo("Material Type", &currentMaterial, "Metal\0Diffuse\0Dielectric\0\0");
-					prims::Materials *m;
+					Materials *m;
 					static float fuzz = 0;
 					static float rfidx = 1.3f;
 					const float FUZZMAX = 1.0f;
@@ -287,7 +287,7 @@ int main(int, char **)
 					}
 					if (ImGui::Button("Add Sphere"))
 					{
-						s.addObject(new prims::Sphere(radius, Point(colour.x, colour.y, colour.z), Point(slocation[0], slocation[1], slocation[2]), m));
+						s.addObject(new Sphere(radius, Point(colour.x, colour.y, colour.z), Point(slocation[0], slocation[1], slocation[2]), m));
 					}
 					ImGui::ColorEdit3("Background", (float *)&clear_color);
 

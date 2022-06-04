@@ -1,9 +1,8 @@
 #ifndef _PINHOLE_CAMERA_H
 #define _PINHOLE_CAMERA_H
-#include "utils/Ray.h"
+#include "./Ray.h"
 #include <cmath>
 
-using namespace utils;
 
 class PinholeCamera
 {
