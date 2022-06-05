@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jun  3 20:37:57 2022
+# Make data base, printed on Sat Jun  4 20:01:15 2022
 
 # Variables
 
@@ -19,8 +19,7 @@ NO_AT_BRIDGE = 1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
- 
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-c601bcbe-5349-4304-adaf-ec7f72b93dd7.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-49eeaff8-821b-4acc-86f8-067e78c9fa61.sock
 # environment
 VSCODE_CWD = /home/dabanya02
 # environment
@@ -61,6 +60,8 @@ XAUTHORITY = /run/user/1000/gdm/Xauthority
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# makefile (from 'Makefile', line 51)
+CMAKE_COMMAND = /usr/bin/cmake
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -69,8 +70,6 @@ CURDIR := /home/dabanya02/Projects/joetracer
 VSCODE_PIPE_LOGGING = true
 # environment
 APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
-# makefile (from 'Makefile', line 14)
-SRCS := ./Light.cpp ./Functions.cpp ./BVHNode.cpp ./Sphere.cpp ./PinholeCamera.cpp ./Point.cpp ./sdl.cpp ./aabb.cpp ./Vec.cpp ./Scene.cpp ./gui/imgui/imgui_draw.cpp ./gui/imgui/imgui_demo.cpp ./gui/imgui/imgui_widgets.cpp ./gui/imgui/imgui_tables.cpp ./gui/imgui/imgui.cpp ./gui/imgui/backends/imgui_impl_sdlrenderer.cpp ./gui/imgui/backends/imgui_impl_sdl.cpp ./Ray.cpp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -85,22 +84,24 @@ SSH_AUTH_SOCK = /run/user/1000/keyring/ssh
 XDG_SESSION_DESKTOP = gnome
 # makefile (from 'Makefile', line 1)
 MAKEFILE_LIST := Makefile
+# makefile (from 'Makefile', line 63)
+CMAKE_BINARY_DIR = /home/dabanya02/Projects/joetracer
 # automatic
 @F = $(notdir $@)
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# makefile (from 'Makefile', line 11)
-IMGUI_DIR = gui/imgui/
 # environment
-VSCODE_PID = 73483
+VSCODE_PID = 8384
 # environment
 XDG_SESSION_TYPE = x11
 # environment
 CUDA_PATH = /opt/cuda
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
+# makefile (from 'Makefile', line 60)
+CMAKE_SOURCE_DIR = /home/dabanya02/Projects/joetracer
 # environment
-SESSION_MANAGER = local/dabanya02:@/tmp/.ICE-unix/1088,unix/dabanya02:/tmp/.ICE-unix/1088
+SESSION_MANAGER = local/dabanya02:@/tmp/.ICE-unix/1078,unix/dabanya02:/tmp/.ICE-unix/1078
 # automatic
 *F = $(notdir $*)
 # environment
@@ -109,15 +110,11 @@ CHROME_DESKTOP = code-url-handler.desktop
 DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/1000/bus
 # automatic
 <D = $(patsubst %/,%,$(dir $<))
-# makefile (from 'Makefile', line 20)
-EXEC := Joetracer
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
-# makefile (from 'Makefile', line 17)
-OBJS := ./Light.o ./Functions.o ./BVHNode.o ./Sphere.o ./PinholeCamera.o ./Point.o ./sdl.o ./aabb.o ./Vec.o ./Scene.o ./gui/imgui/imgui_draw.o ./gui/imgui/imgui_demo.o ./gui/imgui/imgui_widgets.o ./gui/imgui/imgui_tables.o ./gui/imgui/imgui.o ./gui/imgui/backends/imgui_impl_sdlrenderer.o ./gui/imgui/backends/imgui_impl_sdl.o ./Ray.o
-# makefile
+# makefile (from 'Makefile', line 48)
 SHELL = /bin/sh
 # default
 MAKECMDGOALS := all
@@ -127,8 +124,6 @@ XMODIFIERS = @im=fcitx
 GJS_DEBUG_TOPICS = JS ERROR;JS LOG
 # environment
 SHLVL = 1
-# makefile (from 'Makefile', line 9)
-HDRS := ./aabb.h ./Light.h ./Textures/CheckerTexture.h ./Textures/SolidColour.h ./Textures/PerlinTexture.h ./Textures/Texture.h ./Textures/ImageTexture.h ./Functions.h ./Hittable.h ./Vec.h ./Scene.h ./BVHNode.h ./Materials/Lambertian.h ./Materials/Metal.h ./Materials/Dielectrics.h ./Materials/Emissive.h ./Sphere.h ./PinholeCamera.h ./Point.h ./Ray.h ./gui/imgui/imgui_internal.h ./gui/imgui/imstb_rectpack.h ./gui/imgui/imstb_textedit.h ./gui/imgui/imconfig.h ./gui/imgui/imgui.h ./gui/imgui/imstb_truetype.h ./gui/imgui/backends/imgui_impl_sdlrenderer.h ./gui/imgui/backends/imgui_impl_sdl.h ./ImageReader.h
 # environment
 MAKELEVEL := 0
 # default
@@ -142,7 +137,7 @@ MOTD_SHOWN = pam
 # automatic
 ^F = $(notdir $^)
 # environment
-INVOCATION_ID = 026a0ad676fc466ea5f7a6f759ce2724
+INVOCATION_ID = 92883df7eb0b400882fb54b3637271a3
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
@@ -161,34 +156,38 @@ DESKTOP_SESSION = gnome
 ORIGINAL_XDG_CURRENT_DESKTOP = GNOME
 # 'override' directive
 GNUMAKEFLAGS := 
+# makefile (from 'Makefile', line 57)
+EQUALS = =
 # environment
 LOGNAME = dabanya02
 # environment
 GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/visual-studio-code.desktop
 # makefile
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := default_target
 # environment
-SYSTEMD_EXEC_PID = 1103
+SYSTEMD_EXEC_PID = 1093
+# makefile (from 'Makefile', line 54)
+RM = /usr/bin/cmake -E rm -f
 # environment
 DISPLAY = :1
 # environment
 USER = dabanya02
 # default
 MAKE_VERSION := 4.3
-# 'override' directive
-.SHELLSTATUS := 0
 # environment
-MANAGERPID = 1006
+MANAGERPID = 996
 # environment
 DEBUGINFOD_URLS = https://debuginfod.archlinux.org 
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 73466
+GIO_LAUNCHED_DESKTOP_FILE_PID = 8367
+# makefile (from 'Makefile', line 35)
+MAKESILENT = -s
 # environment
 _ = /usr/bin/make
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
-JOURNAL_STREAM = 8:15138
+JOURNAL_STREAM = 8:23781
 # environment
 VISUAL = nano
 # environment
@@ -213,18 +212,14 @@ SUFFIXES :=
 VSCODE_CLI = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
-# makefile (from 'Makefile', line 7)
-CXXFLAGS := -std=c++11 -I -I/backends -O0 -g -Wall -Wformat -fopenmp -lGL -ldl `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink guile load
-# makefile (from 'Makefile', line 4)
-CC := clang++
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
 GDMSESSION = gnome
 # variable set hash-table stats:
-# Load=106/1024=10%, Rehash=0, Collisions=9/153=6%
+# Load=104/1024=10%, Rehash=0, Collisions=5/143=3%
 
 # Pattern-specific Variable Values
 
@@ -232,30 +227,604 @@ GDMSESSION = gnome
 
 # Directories
 
-# . (device 66307, inode 35918963): 49 files, no impossibilities.
+# RCS: could not be stat'd.
+# SCCS: could not be stat'd.
+# . (device 66307, inode 35918963): 48 files, no impossibilities.
 
-# 49 files, no impossibilities in 1 directories.
+# 48 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
-# No implicit rules.
+%: %,v
 
+%: RCS/%
+
+%: RCS/%,v
+
+%: SCCS/s.%
+
+%: s.%
+
+%.hpux_make_needs_suffix_list:
+
+# 6 implicit rules, 0 (0.0%) terminal.
 # Files
+
+gui/imgui/imgui_widgets.s: gui/imgui/imgui_widgets.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_widgets.i: gui/imgui/imgui_widgets.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+aaRect.o: aaRect.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_draw.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 513):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_draw.cpp.s
+
+sdl.s: sdl.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+aaRect.s: aaRect.cpp.s
+#  Phony target (prerequisite of .PHONY).
+ 
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/backends/imgui_impl_sdl.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 417):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdl.cpp.s
+
+depend:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 116):
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+
+gui/imgui/imgui_widgets.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 553):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_widgets.cpp.i
+
+sdl.i: sdl.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_widgets.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 545):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_widgets.cpp.o
+
+gui/imgui/imgui_demo.o: gui/imgui/imgui_demo.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Scene.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 297):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Scene.cpp.s
+
+default_target: all
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Vec.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 329):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Vec.cpp.o
+
+aaRect.i: aaRect.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/backends/imgui_impl_sdlrenderer.o: gui/imgui/backends/imgui_impl_sdlrenderer.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_widgets.o: gui/imgui/imgui_widgets.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/backends/imgui_impl_sdl.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 401):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdl.cpp.o
+
+edit_cache/fast: edit_cache
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+BVHNode.o: BVHNode.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui.i: gui/imgui/imgui.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/backends/imgui_impl_sdl.i: gui/imgui/backends/imgui_impl_sdl.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+aaRect.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 361):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aaRect.cpp.i
+
+sdl.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 585):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/sdl.cpp.s
+
+gui/imgui/imgui.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 457):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui.cpp.i
 
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-03 20:37:42.045300405
+#  Last modified 2022-06-04 18:43:48.675255028
 #  File has been updated.
 #  Successfully updated.
+
+Light.o: Light.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Functions.s: Functions.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+rebuild_cache:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 80):
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+
+gui/imgui/backends/imgui_impl_sdl.o: gui/imgui/backends/imgui_impl_sdl.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+aabb.o: aabb.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+BVHNode.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 145):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/BVHNode.cpp.i
+
+Sphere.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 321):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Sphere.cpp.s
+
+gui/imgui/imgui_demo.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 473):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_demo.cpp.o
+
+gui/imgui/imgui_tables.s: gui/imgui/imgui_tables.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+.SILENT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+Scene.s: Scene.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/backends/imgui_impl_sdl.s: gui/imgui/backends/imgui_impl_sdl.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Sphere.s: Sphere.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+PinholeCamera.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 217):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/PinholeCamera.cpp.i
 
 clean:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 28):
-	rm -f $(EXEC) $(OBJS)
+#  recipe to execute (from 'Makefile', line 97):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+
+cmake_force:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Light.s: Light.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Light.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 185):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Light.cpp.o
+
+preinstall/fast:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 111):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+
+gui/imgui/imgui_widgets.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 561):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_widgets.cpp.s
+
+gui/imgui/imgui.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+ 
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 449):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui.cpp.o
+
+Functions.o: Functions.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+edit_cache:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 70):
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+
+BVHNode.s: BVHNode.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+PinholeCamera.o: PinholeCamera.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Vec.s: Vec.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Ray.i: Ray.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+sdl.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 577):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/sdl.cpp.i
+
+gui/imgui/imgui_demo.i: gui/imgui/imgui_demo.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_draw.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 505):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_draw.cpp.i
+
+Functions.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 177):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Functions.cpp.s
+
+rebuild_cache/fast: rebuild_cache
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Functions.i: Functions.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Light.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 201):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Light.cpp.s
+
+Point.i: Point.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+.hpux_make_needs_suffix_list:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+gui/imgui/imgui_demo.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 489):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_demo.cpp.s
+
+sdl.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 569):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/sdl.cpp.o
+
+Functions.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 169):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Functions.cpp.i
+
+Point.o: Point.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+PinholeCamera.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 209):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/PinholeCamera.cpp.o
+
+gui/imgui/imgui_demo.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 481):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_demo.cpp.i
+
+Light.i: Light.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+aabb.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 377):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aabb.cpp.o
+
+gui/imgui/imgui_draw.o: gui/imgui/imgui_draw.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+preinstall: all
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 106):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+
+Point.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 249):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Point.cpp.s
+
+gui/imgui/imgui_tables.o: gui/imgui/imgui_tables.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Scene.o: Scene.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_tables.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 521):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_tables.cpp.o
+
+gui/imgui/imgui.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 465):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui.cpp.s
+
+Ray.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 273):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Ray.cpp.s
+
+gui/imgui/backends/imgui_impl_sdlrenderer.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 441):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdlrenderer.cpp.s
+
+Ray.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 257):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Ray.cpp.o
+
+aaRect.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 369):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aaRect.cpp.s
 
 # Not a target:
 .DEFAULT:
@@ -263,16 +832,300 @@ clean:
 #  Modification time never checked.
 #  File has not been updated.
 
-all:
+Functions.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 161):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Functions.cpp.o
+
+all: cmake_check_build_system
 #  Phony target (prerequisite of .PHONY).
 #  Command line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
+#  recipe to execute (from 'Makefile', line 90):
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dabanya02/Projects/joetracer/CMakeFiles /home/dabanya02/Projects/joetracer//CMakeFiles/progress.marks
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dabanya02/Projects/joetracer/CMakeFiles 0
+
+PinholeCamera.s: PinholeCamera.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+help:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 590):
+	@echo "The following are some of the valid targets for this Makefile:"
+	@echo "... all (the default if no target is provided)"
+	@echo "... clean"
+	@echo "... depend"
+	@echo "... edit_cache"
+	@echo "... rebuild_cache"
+ 
+	@echo "... joetracer"
+	@echo "... BVHNode.o"
+	@echo "... BVHNode.i"
+	@echo "... BVHNode.s"
+	@echo "... Functions.o"
+	@echo "... Functions.i"
+	@echo "... Functions.s"
+	@echo "... Light.o"
+	@echo "... Light.i"
+	@echo "... Light.s"
+	@echo "... PinholeCamera.o"
+	@echo "... PinholeCamera.i"
+	@echo "... PinholeCamera.s"
+	@echo "... Point.o"
+	@echo "... Point.i"
+	@echo "... Point.s"
+	@echo "... Ray.o"
+	@echo "... Ray.i"
+	@echo "... Ray.s"
+	@echo "... Scene.o"
+	@echo "... Scene.i"
+	@echo "... Scene.s"
+	@echo "... Sphere.o"
+	@echo "... Sphere.i"
+	@echo "... Sphere.s"
+	@echo "... Vec.o"
+	@echo "... Vec.i"
+	@echo "... Vec.s"
+	@echo "... aaRect.o"
+	@echo "... aaRect.i"
+	@echo "... aaRect.s"
+	@echo "... aabb.o"
+	@echo "... aabb.i"
+	@echo "... aabb.s"
+	@echo "... gui/imgui/backends/imgui_impl_sdl.o"
+	@echo "... gui/imgui/backends/imgui_impl_sdl.i"
+	@echo "... gui/imgui/backends/imgui_impl_sdl.s"
+	@echo "... gui/imgui/backends/imgui_impl_sdlrenderer.o"
+	@echo "... gui/imgui/backends/imgui_impl_sdlrenderer.i"
+	@echo "... gui/imgui/backends/imgui_impl_sdlrenderer.s"
+	@echo "... gui/imgui/imgui.o"
+	@echo "... gui/imgui/imgui.i"
+	@echo "... gui/imgui/imgui.s"
+	@echo "... gui/imgui/imgui_demo.o"
+	@echo "... gui/imgui/imgui_demo.i"
+	@echo "... gui/imgui/imgui_demo.s"
+	@echo "... gui/imgui/imgui_draw.o"
+	@echo "... gui/imgui/imgui_draw.i"
+	@echo "... gui/imgui/imgui_draw.s"
+	@echo "... gui/imgui/imgui_tables.o"
+	@echo "... gui/imgui/imgui_tables.i"
+	@echo "... gui/imgui/imgui_tables.s"
+	@echo "... gui/imgui/imgui_widgets.o"
+	@echo "... gui/imgui/imgui_widgets.i"
+	@echo "... gui/imgui/imgui_widgets.s"
+	@echo "... sdl.o"
+	@echo "... sdl.i"
+	@echo "... sdl.s"
+
+aabb.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 385):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aabb.cpp.i
+
+sdl.o: sdl.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+aabb.i: aabb.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Scene.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 281):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Scene.cpp.o
+
+gui/imgui/imgui_draw.s: gui/imgui/imgui_draw.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+clean/fast: clean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/backends/imgui_impl_sdlrenderer.i: gui/imgui/backends/imgui_impl_sdlrenderer.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Point.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 241):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Point.cpp.i
+
+Ray.o: Ray.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Vec.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 345):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Vec.cpp.s
+
+BVHNode.i: BVHNode.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_tables.i: gui/imgui/imgui_tables.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+aabb.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 393):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aabb.cpp.s
+
+gui/imgui/backends/imgui_impl_sdlrenderer.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 433):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdlrenderer.cpp.i
+
+joetracer: cmake_check_build_system
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 124):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 joetracer
+
+Scene.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 289):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Scene.cpp.i
+
+PinholeCamera.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 225):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/PinholeCamera.cpp.s
+
+Vec.o: Vec.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+.NOTPARALLEL:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+BVHNode.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 153):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/BVHNode.cpp.s
+
+Point.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 233):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Point.cpp.o
+
+gui/imgui/imgui.s: gui/imgui/imgui.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Sphere.o: Sphere.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+BVHNode.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 137):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/BVHNode.cpp.o
+
+aabb.s: aabb.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_demo.s: gui/imgui/imgui_demo.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/backends/imgui_impl_sdlrenderer.s: gui/imgui/backends/imgui_impl_sdlrenderer.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+cmake_check_build_system:
+#  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: ''
 #  File does not exist.
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
-# @ := all
+# @ := cmake_check_build_system
 # automatic
 # * := 
 # automatic
@@ -288,36 +1141,179 @@ all:
 # automatic
 # | := 
 # variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=4/15=27%
-#  recipe to execute (from 'Makefile', line 24):
-	$(CC) -o $(EXEC) $(SRCS) $(CXXFLAGS)
+# Load=8/32=25%, Rehash=0, Collisions=1/14=7%
+#  recipe to execute (from 'Makefile', line 665):
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 
-# Not a target:
-.SUFFIXES:
+gui/imgui/imgui_tables.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 537):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_tables.cpp.s
+
+Vec.i: Vec.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/backends/imgui_impl_sdl.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+ 
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 409):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdl.cpp.i
+
+joetracer/fast:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 129):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/build
+
+Light.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 193):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Light.cpp.i
+
+Ray.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 265):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Ray.cpp.i
+
+Sphere.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 305):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Sphere.cpp.o
+
+PinholeCamera.i: PinholeCamera.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Sphere.i: Sphere.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+Ray.s: Ray.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_draw.i: gui/imgui/imgui_draw.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_tables.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 529):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_tables.cpp.i
+
+gui/imgui/imgui.o: gui/imgui/imgui.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+gui/imgui/imgui_draw.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 497):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_draw.cpp.o
+
+Sphere.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 313):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Sphere.cpp.i
+
+Point.s: Point.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+.SUFFIXES: .hpux_make_needs_suffix_list
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-.PHONY: all clean
+Vec.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 337):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Vec.cpp.i
+
+.PHONY: default_target cmake_force edit_cache edit_cache/fast rebuild_cache rebuild_cache/fast all clean clean/fast preinstall preinstall/fast depend joetracer joetracer/fast BVHNode.o BVHNode.cpp.o BVHNode.i BVHNode.cpp.i BVHNode.s BVHNode.cpp.s Functions.o Functions.cpp.o Functions.i Functions.cpp.i Functions.s Functions.cpp.s Light.o Light.cpp.o Light.i Light.cpp.i Light.s Light.cpp.s PinholeCamera.o PinholeCamera.cpp.o PinholeCamera.i PinholeCamera.cpp.i PinholeCamera.s PinholeCamera.cpp.s Point.o Point.cpp.o Point.i Point.cpp.i Point.s Point.cpp.s Ray.o Ray.cpp.o Ray.i Ray.cpp.i Ray.s Ray.cpp.s Scene.o Scene.cpp.o Scene.i Scene.cpp.i Scene.s Scene.cpp.s Sphere.o Sphere.cpp.o Sphere.i Sphere.cpp.i Sphere.s Sphere.cpp.s Vec.o Vec.cpp.o Vec.i Vec.cpp.i Vec.s Vec.cpp.s aaRect.o aaRect.cpp.o aaRect.i aaRect.cpp.i aaRect.s aaRect.cpp.s aabb.o aabb.cpp.o aabb.i aabb.cpp.i aabb.s aabb.cpp.s gui/imgui/backends/imgui_impl_sdl.o gui/imgui/backends/imgui_impl_sdl.cpp.o gui/imgui/backends/imgui_impl_sdl.i gui/imgui/backends/imgui_impl_sdl.cpp.i gui/imgui/backends/imgui_impl_sdl.s gui/imgui/backends/imgui_impl_sdl.cpp.s gui/imgui/backends/imgui_impl_sdlrenderer.o gui/imgui/backends/imgui_impl_sdlrenderer.cpp.o gui/imgui/backends/imgui_impl_sdlrenderer.i gui/imgui/backends/imgui_impl_sdlrenderer.cpp.i gui/imgui/backends/imgui_impl_sdlrenderer.s gui/imgui/backends/imgui_impl_sdlrenderer.cpp.s gui/imgui/imgui.o gui/imgui/imgui.cpp.o gui/imgui/imgui.i gui/imgui/imgui.cpp.i gui/imgui/imgui.s gui/imgui/imgui.cpp.s gui/imgui/imgui_demo.o gui/imgui/imgui_demo.cpp.o gui/imgui/imgui_demo.i gui/imgui/imgui_demo.cpp.i gui/imgui/imgui_demo.s gui/imgui/imgui_demo.cpp.s gui/imgui/imgui_draw.o gui/imgui/imgui_draw.cpp.o gui/imgui/imgui_draw.i gui/imgui/imgui_draw.cpp.i gui/imgui/imgui_draw.s gui/imgui/imgui_draw.cpp.s gui/imgui/imgui_tables.o gui/imgui/imgui_tables.cpp.o gui/imgui/imgui_tables.i gui/imgui/imgui_tables.cpp.i gui/imgui/imgui_tables.s gui/imgui/imgui_tables.cpp.s gui/imgui/imgui_widgets.o gui/imgui/imgui_widgets.cpp.o gui/imgui/imgui_widgets.i gui/imgui/imgui_widgets.cpp.i gui/imgui/imgui_widgets.s gui/imgui/imgui_widgets.cpp.s sdl.o sdl.cpp.o sdl.i sdl.cpp.i sdl.s sdl.cpp.s help cmake_check_build_system
 #  Implicit rule search has not been done.
 #  Modification time never checked.
+#  File has not been updated.
+
+gui/imgui/backends/imgui_impl_sdlrenderer.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 425):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdlrenderer.cpp.o
+
+aaRect.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 353):
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aaRect.cpp.o
+
+Scene.i: Scene.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
 #  File has not been updated.
 
 # files hash-table stats:
-# Load=6/1024=1%, Rehash=0, Collisions=0/20=0%
+# Load=137/1024=13%, Rehash=0, Collisions=28/533=5%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 56 / storage = 562 B / avg = 10 B
-# current buf: size = 8162 B / used = 562 B / count = 56 / avg = 10 B
+# strcache buffers: 1 (0) / strings = 194 / storage = 2869 B / avg = 14 B
+# current buf: size = 8162 B / used = 2869 B / count = 194 / avg = 14 B
 
-# strcache performance: lookups = 67 / hit rate = 16%
+# strcache performance: lookups = 794 / hit rate = 75%
 # hash-table stats:
- 
-# Load=56/8192=1%, Rehash=0, Collisions=1/67=1%
-# Finished Make data base on Fri Jun  3 20:37:57 2022
+# Load=194/8192=2%, Rehash=0, Collisions=11/794=1%
+# Finished Make data base on Sat Jun  4 20:01:15 2022
 
  

@@ -5,6 +5,7 @@
 #include "../Vec.h"
 #include "../Ray.h"
 #include "../Functions.h"
+#include <iostream>
 
 // using namespace math;
 
@@ -20,6 +21,7 @@ public:
 	}
 	virtual bool scatter(const Ray &ray, const hitRecord &rec, Point &attenuation, Ray &scattered) const
 	{
+		// std::cout << rec.normal.z << " " << ray.direction.x << " " << ray.direction.y << " " << ray.direction.z << std::endl;
 		const Vec reflected = reflection(rec.normal, ray.direction);
 		scattered = Ray(rec.p, add(reflected, scale(fuzz, randomRayInSphere(rec.normal))));
 		attenuation = albedo;

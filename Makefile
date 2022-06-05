@@ -345,6 +345,54 @@ Vec.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Vec.cpp.s
 .PHONY : Vec.cpp.s
 
+aaBox.o: aaBox.cpp.o
+.PHONY : aaBox.o
+
+# target to build an object file
+aaBox.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aaBox.cpp.o
+.PHONY : aaBox.cpp.o
+
+aaBox.i: aaBox.cpp.i
+.PHONY : aaBox.i
+
+# target to preprocess a source file
+aaBox.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aaBox.cpp.i
+.PHONY : aaBox.cpp.i
+
+aaBox.s: aaBox.cpp.s
+.PHONY : aaBox.s
+
+# target to generate assembly for a file
+aaBox.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aaBox.cpp.s
+.PHONY : aaBox.cpp.s
+
+aaRect.o: aaRect.cpp.o
+.PHONY : aaRect.o
+
+# target to build an object file
+aaRect.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aaRect.cpp.o
+.PHONY : aaRect.cpp.o
+
+aaRect.i: aaRect.cpp.i
+.PHONY : aaRect.i
+
+# target to preprocess a source file
+aaRect.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aaRect.cpp.i
+.PHONY : aaRect.cpp.i
+
+aaRect.s: aaRect.cpp.s
+.PHONY : aaRect.s
+
+# target to generate assembly for a file
+aaRect.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/aaRect.cpp.s
+.PHONY : aaRect.cpp.s
+
 aabb.o: aabb.cpp.o
 .PHONY : aabb.o
 
@@ -597,6 +645,12 @@ help:
 	@echo "... Vec.o"
 	@echo "... Vec.i"
 	@echo "... Vec.s"
+	@echo "... aaBox.o"
+	@echo "... aaBox.i"
+	@echo "... aaBox.s"
+	@echo "... aaRect.o"
+	@echo "... aaRect.i"
+	@echo "... aaRect.s"
 	@echo "... aabb.o"
 	@echo "... aabb.i"
 	@echo "... aabb.s"

@@ -28,6 +28,6 @@ set(IMGUI
 # add the executable
 add_executable(joetracer ${SOURCES} ${IMGUI})
 
-set(CMAKE_CXX_FLAGS "-Wall -lSDL2 -lSDL2_image")
+set(CMAKE_CXX_FLAGS "-Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEX2" CACHE STRING "Set C++ Compiler Flags" FORCE)

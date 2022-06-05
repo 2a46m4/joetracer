@@ -1,1 +1,0 @@
-// Implement this later, but should have collection of triangles that make an object (like a cube) and a surfel, which defines the material

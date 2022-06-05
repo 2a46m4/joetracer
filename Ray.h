@@ -3,6 +3,7 @@
 
 #include "Point.h"
 #include "Vec.h"
+#include <iostream>
 
     class Ray
     {
@@ -18,6 +19,8 @@
             Ray(const Point &origin, const Vec &direction);
 
             Point pointAtTime(float t) const;
+
+						friend std::ostream& operator<< (std::ostream& out, const Vec& point);
     };
 
 

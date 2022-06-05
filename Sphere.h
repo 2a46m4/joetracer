@@ -10,14 +10,13 @@
 	{
 	public:
 		Point location;
-		Point color;
 		int rad;
 
 		Materials *material;
 
 		Sphere();
 
-		Sphere(float rad, Point col, Point loc, Materials *material);
+		Sphere(float rad, Point loc, Materials *material);
 
 		bool boundingBox(double t0, double t1, aabb &outputBox) const override;
 

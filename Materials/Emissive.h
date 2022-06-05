@@ -22,10 +22,6 @@ public:
 		return emit->value(u, v, p);
 	}
 
-	~Emissive() {
-		delete emit;
-	}
-
 	const Texture *emit;
 };
 

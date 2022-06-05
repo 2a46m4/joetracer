@@ -1,9 +1,11 @@
-// Scene Functions
+// Scene Functions and Primitives
 #include "Scene.h"
 #include "./Point.h"
 #include "./Light.h"
 #include "./Sphere.h"
+#include "./aaRect.h"
 #include "./Hittable.h"
+#include "./aaBox.h"
 
 // Materials
 #include "./Materials/Lambertian.h"
@@ -34,8 +36,8 @@
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif
 
-static int screenWidth = 1920;
-static int screenHeight = 1080;
+static int screenWidth = 600;
+static int screenHeight = 600;
 
 void addSampleScene(Scene &s)
 {
@@ -47,7 +49,7 @@ void addSampleScene(Scene &s)
 	Lambertian *lred = new Lambertian(Point(0.9, 0.0, 0.0));
 	Lambertian *lblue = new Lambertian(Point(0.0, 0.0, 0.9));
 	Dielectrics *glass = new Dielectrics(1.3);
-	Lambertian *perlin = new Lambertian(new PerlinTexture());
+	Lambertian *perlin = new Lambertian(new PerlinTexture(5));
 
 	// Load image at specified path
 	SDL_Surface *loadedSurface = IMG_Load("earthmap.jpg");
@@ -57,30 +59,18 @@ void addSampleScene(Scene &s)
 	}
 
 	Lambertian *earth = new Lambertian(new ImageTexture(((unsigned char *)loadedSurface->pixels), loadedSurface->w, loadedSurface->h));
-
-	Hittable *earthSphere2 = new Sphere(1, Point(), Point(1, 2, -10), earth);
-
-	Hittable *earthSphere = new Sphere(2, Point(), Point(-10, 4, -40), glass);
-
-	Hittable *metallicSphere = new Sphere(3, Point(255, 255, 255), Point(-18, 6, -40), mwhite);
-
-	Hittable *mirrorSphere = new Sphere(4, Point(255, 255, 255), Point(-8, 18, -70), mirror);
-
-	Hittable *glassSphere = new Sphere(5, Point(255, 255, 255), Point(28, 10, -80), glass);
-
-	Hittable *glassSphere2 = new Sphere(6, Point(255, 255, 255), Point(-0, 12, -80), glass);
-
-	Hittable *redSphere = new Sphere(7, Point(255, 255, 255), Point(-30, 14, -60), lred);
-
-	Hittable *blueSphere = new Sphere(8, Point(255, 255, 255), Point(32, 16, -90), lblue);
-
-	Hittable *goldSphere = new Sphere(9, Point(255, 255, 255), Point(22, 18, -50), mgold);
-
-	Hittable *ground = new Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, 0), lchecker);
-
-	Hittable *perlinSphere = new Sphere(3, Point(255, 255, 255), Point(2, 16, -30), perlin);
-
-	Hittable *emitterSphere = new Sphere(3, Point(255, 255, 255), Point(2, 8, -20), new Emissive(Point(255, 255, 255)));
+	Hittable *earthSphere2 = new Sphere(1, Point(1, 2, -10), earth);
+	Hittable *earthSphere = new Sphere(2, Point(-10, 4, -40), glass);
+	Hittable *metallicSphere = new Sphere(3, Point(-18, 6, -40), mwhite);
+	Hittable *mirrorSphere = new Sphere(4, Point(-8, 18, -70), mirror);
+	Hittable *glassSphere = new Sphere(5, Point(28, 10, -80), glass);
+	Hittable *glassSphere2 = new Sphere(6, Point(-0, 12, -80), glass);
+	Hittable *redSphere = new Sphere(7, Point(-30, 14, -60), lred);
+	Hittable *blueSphere = new Sphere(8, Point(32, 16, -90), lblue);
+	Hittable *goldSphere = new Sphere(9, Point(22, 18, -50), mgold);
+	Hittable *ground = new Sphere(1100, Point(0, -1100.5, 0), lchecker);
+	Hittable *perlinSphere = new Sphere(3, Point(2, 16, -30), perlin);
+	Hittable *emitterSphere = new Sphere(3, Point(2, 8, -20), new Emissive(Point(255, 255, 255)));
 
 	s.addObject(earthSphere);
 	s.addObject(earthSphere2);
@@ -95,6 +85,82 @@ void addSampleScene(Scene &s)
 	s.addObject(perlinSphere);
 	s.addObject(emitterSphere);
 }
+
+void addCornellBox(Scene &s)
+{
+	Lambertian *green = new Lambertian(Point(.12, .45, .15));
+	Lambertian *red = new Lambertian(Point(.65, .05, .05));
+	Lambertian *white = new Lambertian(Point(.73, .73, .73));
+	Emissive *light = new Emissive(Point(4500, 4500, 4500));
+
+	Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green);
+	Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red);
+	Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554, light);
+	Hittable *rect4 = new XZRectangle(0, 555, -555, 0, 0, white);
+	Hittable *rect5 = new XZRectangle(0, 555, -555, 0, 555, white);
+	Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white);
+
+	Box *box1 = new Box(Point(130, 0, -230), Point(295, 165, -65), white);
+	Box *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295), white);
+
+	s.addObject(rect1);
+	s.addObject(rect2);
+	s.addObject(rect3);
+	s.addObject(rect4);
+	s.addObject(rect5);
+	s.addObject(rect6);
+	s.addObject(box1);
+	s.addObject(box2);
+}
+
+void addDebugScene(Scene &s)
+{
+
+	// Hittable *xz = new XZRectangle(-5, 5, -5, 5, 3, white);
+	// s.addObject(xz);
+	Lambertian *lchecker = new Lambertian(new CheckerTexture(Point(0.9, 0.9, 0.9), Point(0.7, 0, 0.7)));
+	Metal *metal = new Metal(Point(1, 1, 1), 0);
+	Hittable *rect = new XYRectangle(-5, 5, -5, 5, -10, metal);
+
+	Hittable *xz2 = new XZRectangle(-5, 5, -10, 5, -0.5, lchecker);
+	
+	
+	s.addObject(xz2);
+	s.addObject(rect);
+
+	Lambertian *perlin = new Lambertian(new PerlinTexture(5));
+	Hittable *perlinCube = new Box(Point(-2, 0, -4), Point(0, 2, -2), perlin);
+	s.addObject(perlinCube);
+	// Hittable *perlinSphere = new Sphere(1, Point(1, 0.5, -5), perlin);
+	// s.addObject(perlinSphere);
+
+	Lambertian *perlin2 = new Lambertian(new PerlinTexture(5));
+	Hittable *metalSphere = new Sphere(1, Point(-1, 0.5, -5), perlin2);
+	s.addObject(metalSphere);
+
+	// Hittable *emitterSphere = new Sphere(1, Point(-1, 0.5, -5), new Emissive(Point(500, 500, 500)));
+	// s.addObject(emitterSphere);
+	// Hittable *metalSphere = new Sphere(1, Point(-1, 0.5, -5), metal);
+	// s.addObject(metalSphere);
+
+	// Lambertian *lchecker = new Lambertian(new CheckerTexture(Point(0.9, 0.9, 0.9), Point(0.7, 0, 0.7)));
+	// Hittable *ground = new Sphere(1100, Point(0, -1100.5, 0), lchecker);
+	// s.addObject(ground);
+}
+
+// void addDebugScene(Scene &s)
+// {
+// 	Lambertian *perlin = new Lambertian(new PerlinTexture(5));
+// 	Hittable *perlinSphere = new Sphere(1, Point(255, 255, 255), Point(1, 0.5, -5), perlin);
+// 	s.addObject(perlinSphere);
+
+// 	Hittable *emitterSphere = new Sphere(1, Point(255, 255, 255), Point(-1, 0.5, -5), new Emissive(Point(255, 255, 255)));
+// 	s.addObject(emitterSphere);
+
+// 	Lambertian *lchecker = new Lambertian(new CheckerTexture(Point(0.9, 0.9, 0.9), Point(0.7, 0, 0.7)));
+// 	Hittable *ground = new Sphere(1100, Point(255, 255, 255), Point(0, -1100.5, 0), lchecker);
+// 	s.addObject(ground);
+// }
 
 int main(int, char **)
 {
@@ -141,9 +207,11 @@ int main(int, char **)
 	ImGui_ImplSDLRenderer_Init(renderer);
 
 	// demo window
-	bool show_demo_window = false;
+	bool show_demo_window = true;
 	// background color
-	ImVec4 clear_color = ImVec4(0.40f, 0.58f, 0.70f, 1.00f);
+	// ImVec4 clear_color = ImVec4(0.40f, 0.58f, 0.70f, 1.00f);
+	ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 1.00f);
+	// ImVec4 clear_color = ImVec4(0.0f, 0.0f, 0.0f, 1.00f);
 
 	static float x = 0;
 	static float y = 0;
@@ -153,10 +221,11 @@ int main(int, char **)
 	static float ly = 0;
 	static float lz = 1;
 
-	int debug = 0;
+	// Point location(2.25, 1.4, 1.7);
+	// Point lookingAt(0, 0, -4.45);
 
-	Point location(0, 0, 0);
-	Point lookingAt(0, 0, -1);
+	Point location(278, 278, 800);
+	Point lookingAt(278, 278, 0);
 
 	Scene s = Scene(screenWidth, screenHeight, PinholeCamera(screenWidth, screenHeight, 90.0f, Point(x, y, z), Point(lx, ly, lz)), Point(clear_color.x * 255.0f, clear_color.y * 255.0f, clear_color.z * 255.0f));
 
@@ -193,7 +262,8 @@ int main(int, char **)
 			ImGui::Begin("Settings");
 			if (ImGui::Button("Render", ImVec2(ImGui::GetWindowWidth() - 15, 20.0f)))
 			{
-				debug = 1;
+
+				// addDebugScene(s);
 				s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f, clear_color.z * 255.0f);
 				s.newCamera(PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
 				pixels = s.render();
@@ -237,6 +307,15 @@ int main(int, char **)
 					{
 						addSampleScene(s);
 					}
+					if (ImGui::Button("Add Debug Scene"))
+					{
+						addDebugScene(s);
+					}
+					if (ImGui::Button("Add Cornell Box"))
+					{
+						addCornellBox(s);
+					}
+
 					ImGui::Text("Add Sphere");
 
 					static int currentMaterial = 0;
@@ -287,7 +366,7 @@ int main(int, char **)
 					}
 					if (ImGui::Button("Add Sphere"))
 					{
-						s.addObject(new Sphere(radius, Point(colour.x, colour.y, colour.z), Point(slocation[0], slocation[1], slocation[2]), m));
+						s.addObject(new Sphere(radius, Point(slocation[0], slocation[1], slocation[2]), m));
 					}
 					ImGui::ColorEdit3("Background", (float *)&clear_color);
 

@@ -22,9 +22,7 @@ class Scene
 private:
     int height;
     int width;
-
-    std::vector<Light> lights;
-    // std::vector<prims::Sphere> spheres;
+		
     HittableList hittables;
 
     unsigned char *pixels;
@@ -32,7 +30,7 @@ private:
 public:
     PinholeCamera camera;
 
-    int samples = 1;
+    int samples = 12;
     int bounces = 4;
     Point background;
 
@@ -49,17 +47,11 @@ public:
 
     void newCamera(PinholeCamera p);
 
-    void addLight(Light p);
-
     // Removes based on the id of the Object
     // True if success
     void removeObject(int i);
 
-    bool removeLight(int i);
-
     void deleteScene();
-
-    const std::vector<Light> getLights() const;
 
     // Sphere stuff
 

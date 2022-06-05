@@ -1,6 +1,59 @@
-make all --dry-run --keep-going --print-directory
+make all --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/dabanya02/Projects/joetracer'
+/usr/bin/cmake -S/home/dabanya02/Projects/joetracer -B/home/dabanya02/Projects/joetracer --check-build-system CMakeFiles/Makefile.cmake 0
+/usr/bin/cmake -E cmake_progress_start /home/dabanya02/Projects/joetracer/CMakeFiles /home/dabanya02/Projects/joetracer//CMakeFiles/progress.marks
+make -s -f CMakeFiles/Makefile2 all
+make[1]: Entering directory '/home/dabanya02/Projects/joetracer'
+make -s -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/depend
+make[2]: Entering directory '/home/dabanya02/Projects/joetracer'
+cd /home/dabanya02/Projects/joetracer && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/dabanya02/Projects/joetracer /home/dabanya02/Projects/joetracer /home/dabanya02/Projects/joetracer /home/dabanya02/Projects/joetracer /home/dabanya02/Projects/joetracer/CMakeFiles/joetracer.dir/DependInfo.cmake --color=
+make[2]: Leaving directory '/home/dabanya02/Projects/joetracer'
+make -s -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/build
  
-clang++ -o Joetracer ./Light.cpp ./Functions.cpp ./BVHNode.cpp ./Sphere.cpp ./PinholeCamera.cpp ./Point.cpp ./sdl.cpp ./aabb.cpp ./Vec.cpp ./Scene.cpp ./gui/imgui/imgui_draw.cpp ./gui/imgui/imgui_demo.cpp ./gui/imgui/imgui_widgets.cpp ./gui/imgui/imgui_tables.cpp ./gui/imgui/imgui.cpp ./gui/imgui/backends/imgui_impl_sdlrenderer.cpp ./gui/imgui/backends/imgui_impl_sdl.cpp ./Ray.cpp -std=c++11 -I -I/backends -O0 -g -Wall -Wformat -fopenmp -lGL -ldl `sdl2-config --cflags --libs` -lSDL2 -lSDL2_image
+make[2]: Entering directory '/home/dabanya02/Projects/joetracer'
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=1 "Building CXX object CMakeFiles/joetracer.dir/BVHNode.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/BVHNode.cpp.o -MF CMakeFiles/joetracer.dir/BVHNode.cpp.o.d -o CMakeFiles/joetracer.dir/BVHNode.cpp.o -c /home/dabanya02/Projects/joetracer/BVHNode.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=2 "Building CXX object CMakeFiles/joetracer.dir/Functions.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/Functions.cpp.o -MF CMakeFiles/joetracer.dir/Functions.cpp.o.d -o CMakeFiles/joetracer.dir/Functions.cpp.o -c /home/dabanya02/Projects/joetracer/Functions.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=3 "Building CXX object CMakeFiles/joetracer.dir/Light.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/Light.cpp.o -MF CMakeFiles/joetracer.dir/Light.cpp.o.d -o CMakeFiles/joetracer.dir/Light.cpp.o -c /home/dabanya02/Projects/joetracer/Light.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=4 "Building CXX object CMakeFiles/joetracer.dir/PinholeCamera.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/PinholeCamera.cpp.o -MF CMakeFiles/joetracer.dir/PinholeCamera.cpp.o.d -o CMakeFiles/joetracer.dir/PinholeCamera.cpp.o -c /home/dabanya02/Projects/joetracer/PinholeCamera.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=5 "Building CXX object CMakeFiles/joetracer.dir/Point.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/Point.cpp.o -MF CMakeFiles/joetracer.dir/Point.cpp.o.d -o CMakeFiles/joetracer.dir/Point.cpp.o -c /home/dabanya02/Projects/joetracer/Point.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=6 "Building CXX object CMakeFiles/joetracer.dir/Ray.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/Ray.cpp.o -MF CMakeFiles/joetracer.dir/Ray.cpp.o.d -o CMakeFiles/joetracer.dir/Ray.cpp.o -c /home/dabanya02/Projects/joetracer/Ray.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=7 "Building CXX object CMakeFiles/joetracer.dir/Scene.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/Scene.cpp.o -MF CMakeFiles/joetracer.dir/Scene.cpp.o.d -o CMakeFiles/joetracer.dir/Scene.cpp.o -c /home/dabanya02/Projects/joetracer/Scene.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=8 "Building CXX object CMakeFiles/joetracer.dir/Sphere.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/Sphere.cpp.o -MF CMakeFiles/joetracer.dir/Sphere.cpp.o.d -o CMakeFiles/joetracer.dir/Sphere.cpp.o -c /home/dabanya02/Projects/joetracer/Sphere.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=9 "Building CXX object CMakeFiles/joetracer.dir/Vec.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/Vec.cpp.o -MF CMakeFiles/joetracer.dir/Vec.cpp.o.d -o CMakeFiles/joetracer.dir/Vec.cpp.o -c /home/dabanya02/Projects/joetracer/Vec.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=10 "Building CXX object CMakeFiles/joetracer.dir/aaRect.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/aaRect.cpp.o -MF CMakeFiles/joetracer.dir/aaRect.cpp.o.d -o CMakeFiles/joetracer.dir/aaRect.cpp.o -c /home/dabanya02/Projects/joetracer/aaRect.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=11 "Building CXX object CMakeFiles/joetracer.dir/aabb.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/aabb.cpp.o -MF CMakeFiles/joetracer.dir/aabb.cpp.o.d -o CMakeFiles/joetracer.dir/aabb.cpp.o -c /home/dabanya02/Projects/joetracer/aabb.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=12 "Building CXX object CMakeFiles/joetracer.dir/sdl.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/sdl.cpp.o -MF CMakeFiles/joetracer.dir/sdl.cpp.o.d -o CMakeFiles/joetracer.dir/sdl.cpp.o -c /home/dabanya02/Projects/joetracer/sdl.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=13 "Building CXX object CMakeFiles/joetracer.dir/gui/imgui/imgui.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/gui/imgui/imgui.cpp.o -MF CMakeFiles/joetracer.dir/gui/imgui/imgui.cpp.o.d -o CMakeFiles/joetracer.dir/gui/imgui/imgui.cpp.o -c /home/dabanya02/Projects/joetracer/gui/imgui/imgui.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=14 "Building CXX object CMakeFiles/joetracer.dir/gui/imgui/imgui_demo.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/gui/imgui/imgui_demo.cpp.o -MF CMakeFiles/joetracer.dir/gui/imgui/imgui_demo.cpp.o.d -o CMakeFiles/joetracer.dir/gui/imgui/imgui_demo.cpp.o -c /home/dabanya02/Projects/joetracer/gui/imgui/imgui_demo.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=15 "Building CXX object CMakeFiles/joetracer.dir/gui/imgui/imgui_draw.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/gui/imgui/imgui_draw.cpp.o -MF CMakeFiles/joetracer.dir/gui/imgui/imgui_draw.cpp.o.d -o CMakeFiles/joetracer.dir/gui/imgui/imgui_draw.cpp.o -c /home/dabanya02/Projects/joetracer/gui/imgui/imgui_draw.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=16 "Building CXX object CMakeFiles/joetracer.dir/gui/imgui/imgui_widgets.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/gui/imgui/imgui_widgets.cpp.o -MF CMakeFiles/joetracer.dir/gui/imgui/imgui_widgets.cpp.o.d -o CMakeFiles/joetracer.dir/gui/imgui/imgui_widgets.cpp.o -c /home/dabanya02/Projects/joetracer/gui/imgui/imgui_widgets.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=17 "Building CXX object CMakeFiles/joetracer.dir/gui/imgui/imgui_tables.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/gui/imgui/imgui_tables.cpp.o -MF CMakeFiles/joetracer.dir/gui/imgui/imgui_tables.cpp.o.d -o CMakeFiles/joetracer.dir/gui/imgui/imgui_tables.cpp.o -c /home/dabanya02/Projects/joetracer/gui/imgui/imgui_tables.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=18 "Building CXX object CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdl.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdl.cpp.o -MF CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdl.cpp.o.d -o CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdl.cpp.o -c /home/dabanya02/Projects/joetracer/gui/imgui/backends/imgui_impl_sdl.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=19 "Building CXX object CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdlrenderer.cpp.o"
+/usr/bin/c++   -Wall -lSDL2 -lSDL2_image -fopenmp -DEX2 -std=gnu++11 -MD -MT CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdlrenderer.cpp.o -MF CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdlrenderer.cpp.o.d -o CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdlrenderer.cpp.o -c /home/dabanya02/Projects/joetracer/gui/imgui/backends/imgui_impl_sdlrenderer.cpp
+/usr/bin/cmake -E cmake_echo_color --switch= --green --bold --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=20 "Linking CXX executable joetracer"
+/usr/bin/cmake -E cmake_link_script CMakeFiles/joetracer.dir/link.txt --verbose=
+make[2]: Leaving directory '/home/dabanya02/Projects/joetracer'
+/usr/bin/cmake -E cmake_echo_color --switch= --progress-dir=/home/dabanya02/Projects/joetracer/CMakeFiles --progress-num=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20 "Built target joetracer"
+make[1]: Leaving directory '/home/dabanya02/Projects/joetracer'
+/usr/bin/cmake -E cmake_progress_start /home/dabanya02/Projects/joetracer/CMakeFiles 0
 make: Leaving directory '/home/dabanya02/Projects/joetracer'
  

@@ -45,30 +45,28 @@ unsigned char *Scene::render() const
 #pragma omp parallel
 	{
 #pragma omp for
+		for (int y = 0; y < height; y++)
 		{
-			for (int y = 0; y < height; y++)
+			for (int x = 0; x < width * 3; x += 3)
 			{
-				for (int x = 0; x < width * 3; x += 3)
+				Ray r;
+				Point col;
+
+				std::random_device device;
+				std::mt19937 gen(device());
+				std::uniform_real_distribution<> realrand(0, 1);
+
+				for (int i = 0; i < samples; i++)
 				{
-					Ray r;
-					Point col;
-
-					std::random_device device;
-					std::mt19937 gen(device());
-					std::uniform_real_distribution<> realrand(0, 1);
-
-					for (int i = 0; i < samples; i++)
-					{
-						camera.getPrimaryRay(float(x / 3) + realrand(device), float(y) + realrand(device), r);
-						col = add(col, Colour(r, bounces, box));
-					}
-					// R channel
-					pixels[y * (width * 3) + x] = (sqrt(col.x / samples / 255)) * 255;
-					// G channel
-					pixels[y * (width * 3) + x + 1] = (sqrt(col.y / samples / 255)) * 255;
-					// B channel
-					pixels[y * (width * 3) + x + 2] = (sqrt(col.z / samples / 255)) * 255;
+					camera.getPrimaryRay(float(x / 3) + realrand(device), float(y) + realrand(device), r);
+					col = add(col, Colour(r, bounces, box));
 				}
+				// R channel
+				pixels[y * (width * 3) + x] = (col.x / samples >= 255) ? 255 : col.x / samples;
+				// G channel
+				pixels[y * (width * 3) + x + 1] = (col.y / samples >= 255) ? 255 : col.y / samples;
+				// B channel
+				pixels[y * (width * 3) + x + 2] = (col.z / samples >= 255) ? 255 : col.z / samples;
 			}
 		}
 	}
@@ -78,11 +76,6 @@ unsigned char *Scene::render() const
 void Scene::newCamera(PinholeCamera p)
 {
 	camera = p;
-}
-
-void Scene::addLight(Light p)
-{
-	lights.push_back(p);
 }
 
 std::vector<Hittable *> Scene::getObjects() const
@@ -98,22 +91,6 @@ void Scene::removeObject(int i)
 		hittables.objects.erase(hittables.objects.begin() + i);
 }
 
-bool Scene::removeLight(int i)
-{
-	if (i > lights.size())
-		return false;
-	else
-	{
-		lights.erase(lights.begin() + i);
-		return true;
-	}
-}
-
-const std::vector<Light> Scene::getLights() const
-{
-	return lights;
-}
-
 /*--------------- Sphere stuff ---------------*/
 
 Point Scene::Colour(Ray r, int limit, BVHNode &sceneBox) const
@@ -126,10 +103,9 @@ Point Scene::Colour(Ray r, int limit, BVHNode &sceneBox) const
 		Ray scattered;
 		Point attenuation;																				// surface value of the rendering equation
 		Point emitted = rec.matPtr->emitted(rec.u, rec.v, rec.p); // emitted value of the rendering equation
-		if (!rec.matPtr->scatter(r, rec, attenuation, scattered)) {
-			// std::cout << emitted << std::endl;
+		if (!rec.matPtr->scatter(r, rec, attenuation, scattered))
+		{
 			return emitted; // returns the emitted value if the object doesn't scatter
-
 		}
 		return emitted + attenuation * Colour(scattered, limit - 1, sceneBox);
 	}

@@ -13,11 +13,10 @@
 		location = Point(0, 0, -5);
 	}
 
-	Sphere::Sphere(float rad, Point col, Point loc, Materials *material)
+	Sphere::Sphere(float rad, Point loc, Materials *material)
 	{
 		this->rad = rad;
 		location = loc;
-		color = col;
 		this->material = material;
 	}
 
