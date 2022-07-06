@@ -54,7 +54,8 @@ void PinholeCamera::getPrimaryRay(float x, float y, Ray &r) const
     r.direction = sub(add(lowerLeftCorner, add(scale(x / width, horizontal), scale((height  - y) / height, vertical))), location.direction()); 
 }
 
-void PinholeCamera::changeLocation(Point p)
-{	
-    location = p;
+void PinholeCamera::changeLocation(Point p) { location = p; }
+
+void PinholeCamera::changeView(Point P) {
+  view = P;
 }

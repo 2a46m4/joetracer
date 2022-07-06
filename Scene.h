@@ -1,63 +1,68 @@
 #ifndef _SCENE_H
 #define _SCENE_H
 
-#include "./Point.h"
-#include "./Vec.h"
-#include "./Sphere.h"
-#include "PinholeCamera.h"
-#include "./Functions.h"
-#include "./Light.h"
-#include "./Ray.h"
-#include "./Hittable.h"
 #include "./BVHNode.h"
+#include "./Functions.h"
+#include "./Hittable.h"
+#include "./Light.h"
+#include "./Point.h"
+#include "./Ray.h"
+#include "./Sphere.h"
+#include "./Vec.h"
+#include "PinholeCamera.h"
 
 #include <math.h>
-#include <vector>
-#include <utility>
 #include <memory>
+#include <utility>
+#include <vector>
 
-class Scene
-{
+class Scene {
 
 private:
-    int height;
-    int width;
-		
-    HittableList hittables;
+  int height;
+  int width;
 
-    unsigned char *pixels;
+  HittableList hittables;
+
+  // unsigned char *pixels;
 
 public:
-    PinholeCamera camera;
+  PinholeCamera camera;
 
-    int samples = 12;
-    int bounces = 4;
-    Point background;
+  int samples = 12;
+  int bounces = 4;
+  Point background;
 
-    Scene();
+  Scene();
 
-    Scene(int w, int h, PinholeCamera camera, Point background);
+  Scene(int w, int h, PinholeCamera camera, Point background);
 
-    unsigned char *render() const;
+  unsigned char *render() const;
 
-    // Inserts a pointer to a hittable object into the list
-    void addObject(Hittable *o);
+  // Inserts a pointer to a hittable object into the list
+  void addObject(Hittable *o);
 
-    void debugAddCube();
+  void debugAddCube();
 
-    void newCamera(PinholeCamera p);
+  void newCamera(PinholeCamera p);
 
-    // Removes based on the id of the Object
-    // True if success
-    void removeObject(int i);
+  // Removes based on the id of the Object
+  // True if success
+  void removeObject(int i);
 
-    void deleteScene();
+  void deleteScene();
 
-    // Sphere stuff
+  // Sphere stuff
 
-    Point Colour(Ray r, int limit, BVHNode &sceneBox) const;
+  Point Colour(Ray r, int limit, BVHNode &sceneBox) const;
 
-    std::vector<Hittable*> getObjects() const;
+  std::vector<Hittable *> getObjects() const;
+
+  int getWidth();
+
+  int getHeight();
+
+  HittableList* getHittables();
 };
 
 #endif
