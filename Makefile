@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named cuda
+
+# Build rule for target.
+cuda: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cuda
+.PHONY : cuda
+
+# fast build rule for target.
+cuda/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cuda.dir/build.make CMakeFiles/cuda.dir/build
+.PHONY : cuda/fast
+
+#=============================================================================
 # Target rules for targets named joetracer
 
 # Build rule for target.
@@ -152,6 +165,30 @@ BVHNode.s: BVHNode.cpp.s
 BVHNode.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/BVHNode.cpp.s
 .PHONY : BVHNode.cpp.s
+
+Compute.o: Compute.cu.o
+.PHONY : Compute.o
+
+# target to build an object file
+Compute.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cuda.dir/build.make CMakeFiles/cuda.dir/Compute.cu.o
+.PHONY : Compute.cu.o
+
+Compute.i: Compute.cu.i
+.PHONY : Compute.i
+
+# target to preprocess a source file
+Compute.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cuda.dir/build.make CMakeFiles/cuda.dir/Compute.cu.i
+.PHONY : Compute.cu.i
+
+Compute.s: Compute.cu.s
+.PHONY : Compute.s
+
+# target to generate assembly for a file
+Compute.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cuda.dir/build.make CMakeFiles/cuda.dir/Compute.cu.s
+.PHONY : Compute.cu.s
 
 Functions.o: Functions.cpp.o
 .PHONY : Functions.o
@@ -273,6 +310,30 @@ Ray.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Ray.cpp.s
 .PHONY : Ray.cpp.s
 
+Rotation.o: Rotation.cpp.o
+.PHONY : Rotation.o
+
+# target to build an object file
+Rotation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Rotation.cpp.o
+.PHONY : Rotation.cpp.o
+
+Rotation.i: Rotation.cpp.i
+.PHONY : Rotation.i
+
+# target to preprocess a source file
+Rotation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Rotation.cpp.i
+.PHONY : Rotation.cpp.i
+
+Rotation.s: Rotation.cpp.s
+.PHONY : Rotation.s
+
+# target to generate assembly for a file
+Rotation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Rotation.cpp.s
+.PHONY : Rotation.cpp.s
+
 Scene.o: Scene.cpp.o
 .PHONY : Scene.o
 
@@ -320,6 +381,30 @@ Sphere.s: Sphere.cpp.s
 Sphere.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Sphere.cpp.s
 .PHONY : Sphere.cpp.s
+
+Translate.o: Translate.cpp.o
+.PHONY : Translate.o
+
+# target to build an object file
+Translate.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Translate.cpp.o
+.PHONY : Translate.cpp.o
+
+Translate.i: Translate.cpp.i
+.PHONY : Translate.i
+
+# target to preprocess a source file
+Translate.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Translate.cpp.i
+.PHONY : Translate.cpp.i
+
+Translate.s: Translate.cpp.s
+.PHONY : Translate.s
+
+# target to generate assembly for a file
+Translate.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Translate.cpp.s
+.PHONY : Translate.cpp.s
 
 Vec.o: Vec.cpp.o
 .PHONY : Vec.o
@@ -617,10 +702,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... cuda"
 	@echo "... joetracer"
 	@echo "... BVHNode.o"
 	@echo "... BVHNode.i"
 	@echo "... BVHNode.s"
+	@echo "... Compute.o"
+	@echo "... Compute.i"
+	@echo "... Compute.s"
 	@echo "... Functions.o"
 	@echo "... Functions.i"
 	@echo "... Functions.s"
@@ -636,12 +725,18 @@ help:
 	@echo "... Ray.o"
 	@echo "... Ray.i"
 	@echo "... Ray.s"
+	@echo "... Rotation.o"
+	@echo "... Rotation.i"
+	@echo "... Rotation.s"
 	@echo "... Scene.o"
 	@echo "... Scene.i"
 	@echo "... Scene.s"
 	@echo "... Sphere.o"
 	@echo "... Sphere.i"
 	@echo "... Sphere.s"
+	@echo "... Translate.o"
+	@echo "... Translate.i"
+	@echo "... Translate.s"
 	@echo "... Vec.o"
 	@echo "... Vec.i"
 	@echo "... Vec.s"

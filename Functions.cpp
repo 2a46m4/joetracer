@@ -103,3 +103,7 @@ double clamp(double val, double low, double high)
 	else
 		return val;
 }
+
+double degreesToRadians(double degrees) {
+  return degrees * PI / 180;
+}       

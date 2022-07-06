@@ -1,0 +1,16 @@
+#ifndef _ROTATION_H
+#define _ROTATION_H
+
+#include "Hittable.h"
+
+class Rotation : public Hittable
+{
+public:
+	Rotation(Hittable *p, Point &angle);
+
+	virtual bool hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const = 0;
+
+	virtual bool boundingBox(double t0, double t1, aabb &outputBox) const = 0;
+};
+
+#endif

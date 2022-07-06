@@ -1,111 +1,84 @@
 #ifndef _FUNCTIONS_H
 #define _FUNCTIONS_H
 
-#include "Vec.h"
 #include "Point.h"
+#include "Vec.h"
 #include <cmath>
 #include <random>
 
-	template <class T>
-	const T sub(const T &a, const T &b)
-	{
-		return T(a.x - b.x,
-				 a.y - b.y,
-				 a.z - b.z);
-	}
+#define PI 3.1415926535897932384626433832795028841
 
-	template <class T>
-	T sub(T &a, T &b)
-	{
-		return T(a.x - b.x,
-				 a.y - b.y,
-				 a.z - b.z);
-	}
+template <class T, class U> const T sub(const T &a, const U &b) {
+  return T(a.x - b.x, a.y - b.y, a.z - b.z);
+}
 
-	Vec add3(Vec &a, Vec &b, Vec &c);
+template <class T, class U> T sub(T &a, U &b) {
+  return T(a.x - b.x, a.y - b.y, a.z - b.z);
+}
 
-	template <class T>
-	T add(const T &a, const T &b)
-	{
-		return T(a.x + b.x,
-				 a.y + b.y,
-				 a.z + b.z);
-	}
+Vec add3(Vec &a, Vec &b, Vec &c);
 
-	template <class T>
-	T add(T &a, T &b)
-	{
-		return T(a.x + b.x,
-				 a.y + b.y,
-				 a.z + b.z);
-	}
+template <class T, class U> T add(const T &a, const U &b) {
+  return T(a.x + b.x, a.y + b.y, a.z + b.z);
+} 
 
-	template <class T>
-	const T scale(const double m, const T &a)
-	{
-		return T(a.x * m,
-				 a.y * m,
-				 a.z * m);
-	}
+template <class T, class U> T add(T &a, U &b) {
+  return T(a.x + b.x, a.y + b.y, a.z + b.z);
+}
 
-	template <class T>
-	T scale(double m, T &a)
-	{
-		return T(a.x * m,
-				 a.y * m,
-				 a.z * m);
-	}
+template <class T> const T scale(const double m, const T &a) {
+  return T(a.x * m, a.y * m, a.z * m);
+}
 
-	Vec unitVec(Vec &a);
+template <class T> T scale(double m, T &a) {
+  return T(a.x * m, a.y * m, a.z * m);
+}
 
-	const Vec unitVec(const Vec &a);
+Vec unitVec(Vec &a);
 
-	// Returns the magnitude of the vector
-	double length(Vec &a);
+const Vec unitVec(const Vec &a);
 
-	const double sqrlen(const Vec &a);
+// Returns the magnitude of the vector
+double length(Vec &a);
 
-	const double length(const Vec &a);
+const double sqrlen(const Vec &a);
 
-	double dotProduct(const Vec &a, const Vec &b);
+const double length(const Vec &a);
 
-	template <class T>
-	Vec crossProduct(T &a, T &b)
-	{
-		return Vec((a.y * b.z) - (a.z * b.y),
-				   (a.z * b.x) - (a.x * b.z),
-				   (a.x * b.y) - (a.y * b.x));
-	}
+double dotProduct(const Vec &a, const Vec &b);
 
-	// Perfect reflection
-	template <class T>
-	T reflection(T &normal, T &a)
-	{
-		return sub(a, scale(2, scale(dotProduct(a, normal), normal)));
-	}
+template <class T> Vec crossProduct(T &a, T &b) {
+  return Vec((a.y * b.z) - (a.z * b.y), (a.z * b.x) - (a.x * b.z),
+             (a.x * b.y) - (a.y * b.x));
+}
 
-	Point vecToPoint(Vec &a);
+// Perfect reflection
+template <class T> T reflection(T &normal, T &a) {
+  return sub(a, scale(2, scale(dotProduct(a, normal), normal)));
+}
 
-	Vec power(const Vec &a, int power);
+Point vecToPoint(Vec &a);
 
-	Point point(const Vec &a);
+Vec power(const Vec &a, int power);
 
-	float schlick(const float cosine, const float refractIdx);
+Point point(const Vec &a);
 
-	Vec randomRayInSphere(const Vec &n);
+float schlick(const float cosine, const float refractIdx);
 
-	Vec refract(const Vec &v, const Vec &n, float etaRatio);
+Vec randomRayInSphere(const Vec &n);
 
-	// Returns a random number [min, max). For integers add 1 to the max.
-	template <class T>
-	inline T randomNum(T min, T max)
-	{
-		std::random_device rd;
-		std::mt19937 gen(rd());
-		std::uniform_real_distribution<> urd(min, max);
-		return (T)(urd(gen));
-	}
+Vec refract(const Vec &v, const Vec &n, float etaRatio);
 
-	double clamp(double val, double low, double high);
+// Returns a random number [min, max). For integers add 1 to the max.
+template <class T> inline T randomNum(T min, T max) {
+  std::random_device rd;
+  std::mt19937 gen(rd());
+  std::uniform_real_distribution<> urd(min, max);
+  return (T)(urd(gen));
+}
+
+double clamp(double val, double low, double high);
+
+double degreesToRadians(double degrees);
 
 #endif
