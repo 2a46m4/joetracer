@@ -24,7 +24,7 @@ private:
 
   HittableList hittables;
 
-  // unsigned char *pixels;
+  unsigned char *pixels;
 
 public:
   PinholeCamera camera;

@@ -20,7 +20,7 @@
 Scene::Scene() {
   width = 1000;
   height = 800;
-  // pixels = new unsigned char[height * width * 3];
+  pixels = new unsigned char[height * width * 3];
 }
 
 Scene::Scene(int w, int h, PinholeCamera camera, Point background) {
@@ -28,39 +28,38 @@ Scene::Scene(int w, int h, PinholeCamera camera, Point background) {
   height = h;
   this->camera = camera;
   this->background = background;
-  // pixels = new unsigned char[height * width * 3];
+  pixels = new unsigned char[height * width * 3];
 }
 
 unsigned char *Scene::render() const {
 
-  unsigned char* pixels = GPUrender(*this);
+  BVHNode box = BVHNode(hittables, 0, std::numeric_limits<float>::max());
+  #pragma omp parallel for
+  for (int y = 0; y < height; y++) {
+    for (int x = 0; x < width * 3; x += 3) {
+      Ray r;
+      Point col;
 
-  // BVHNode box = BVHNode(hittables, 0, std::numeric_limits<float>::max());
-  // for (int y = 0; y < height; y++) {
-  //   for (int x = 0; x < width * 3; x += 3) {
-  //     Ray r;
-  //     Point col;
+      std::random_device device;
+      std::mt19937 gen(device());
+      std::uniform_real_distribution<> realrand(0, 1);
 
-  //     std::random_device device;
-  //     std::mt19937 gen(device());
-  //     std::uniform_real_distribution<> realrand(0, 1);
-
-  //     for (int i = 0; i < samples; i++) {
-  //       camera.getPrimaryRay(float(x / 3) + realrand(device),
-  //                            float(y) + realrand(device), r);
-  //       col = add(col, Colour(r, bounces, box));
-  //     }
-  //     // R channel
-  //     pixels[y * (width * 3) + x] =
-  //         (col.x / samples >= 255) ? 255 : col.x / samples;
-  //     // G channel
-  //     pixels[y * (width * 3) + x + 1] =
-  //         (col.y / samples >= 255) ? 255 : col.y / samples;
-  //     // B channel
-  //     pixels[y * (width * 3) + x + 2] =
-  //         (col.z / samples >= 255) ? 255 : col.z / samples;
-  //   }
-  // }
+      for (int i = 0; i < samples; i++) {
+        camera.getPrimaryRay(float(x / 3) + realrand(device),
+                             float(y) + realrand(device), r);
+        col = add(col, Colour(r, bounces, box));
+      }
+      // R channel
+      pixels[y * (width * 3) + x] =
+          (col.x / samples >= 255) ? 255 : col.x / samples;
+      // G channel
+      pixels[y * (width * 3) + x + 1] =
+          (col.y / samples >= 255) ? 255 : col.y / samples;
+      // B channel
+      pixels[y * (width * 3) + x + 2] =
+          (col.z / samples >= 255) ? 255 : col.z / samples;
+    }
+  }
   return pixels;
 }
 

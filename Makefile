@@ -117,19 +117,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named cuda
-
-# Build rule for target.
-cuda: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cuda
-.PHONY : cuda
-
-# fast build rule for target.
-cuda/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cuda.dir/build.make CMakeFiles/cuda.dir/build
-.PHONY : cuda/fast
-
-#=============================================================================
 # Target rules for targets named joetracer
 
 # Build rule for target.
@@ -165,30 +152,6 @@ BVHNode.s: BVHNode.cpp.s
 BVHNode.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/BVHNode.cpp.s
 .PHONY : BVHNode.cpp.s
-
-Compute.o: Compute.cu.o
-.PHONY : Compute.o
-
-# target to build an object file
-Compute.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cuda.dir/build.make CMakeFiles/cuda.dir/Compute.cu.o
-.PHONY : Compute.cu.o
-
-Compute.i: Compute.cu.i
-.PHONY : Compute.i
-
-# target to preprocess a source file
-Compute.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cuda.dir/build.make CMakeFiles/cuda.dir/Compute.cu.i
-.PHONY : Compute.cu.i
-
-Compute.s: Compute.cu.s
-.PHONY : Compute.s
-
-# target to generate assembly for a file
-Compute.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cuda.dir/build.make CMakeFiles/cuda.dir/Compute.cu.s
-.PHONY : Compute.cu.s
 
 Functions.o: Functions.cpp.o
 .PHONY : Functions.o
@@ -702,14 +665,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... cuda"
 	@echo "... joetracer"
 	@echo "... BVHNode.o"
 	@echo "... BVHNode.i"
 	@echo "... BVHNode.s"
-	@echo "... Compute.o"
-	@echo "... Compute.i"
-	@echo "... Compute.s"
 	@echo "... Functions.o"
 	@echo "... Functions.i"
 	@echo "... Functions.s"

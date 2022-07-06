@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 3.10)
 
 # set the project name
-project(Joetracer LANGUAGES CXX CUDA)
+project(Joetracer)
 
 file(GLOB SOURCES "[a-z0-9A-Z]*.cpp" "[a-z0-9A-Z]*.h")
-file(GLOB CUDA_SOURCES "[a-z0-9A-Z]*.cu" "[a-z0-9A-Z]*.hu")
-add_library(cuda STATIC
-		 Compute.cu)
-set_target_properties(cuda
-                      PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
+# file(GLOB CUDA_SOURCES "[a-z0-9A-Z]*.cu" "[a-z0-9A-Z]*.hu")
+# add_library(cuda STATIC
+#		 Compute.cu)
+# set_target_properties(cuda
+#                      PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
 # set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 # c++11 standard
@@ -34,11 +34,11 @@ set(IMGUI
 # add the executable
 add_executable(joetracer ${SOURCES} ${IMGUI})	
 
-set_property(TARGET joetracer
-             PROPERTY CUDA_SEPARABLE_COMPILATION ON)
+# set_property(TARGET joetracer
+#             PROPERTY CUDA_SEPARABLE_COMPILATION ON)
 
-target_link_libraries(joetracer PRIVATE cuda)
+# target_link_libraries(joetracer PRIVATE cuda)
 
-set(CMAKE_CXX_FLAGS "-Ofast -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat  -I/opt/cuda/lib64 -lcudart")
+set(CMAKE_CXX_FLAGS "-Ofast -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEX2" CACHE STRING "Set C++ Compiler Flags" FORCE)
