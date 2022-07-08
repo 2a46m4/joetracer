@@ -3,11 +3,9 @@
 
 #include "../Point.h"
 
-	class Texture
-	{
-	public:
-		virtual Point value(double u, double v, const Point p) const = 0;
-	};
-
+class Texture {
+public:
+  virtual Point value(double u, double v, const Point p) const = 0;
+};
 
 #endif

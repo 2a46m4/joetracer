@@ -1,0 +1,15 @@
+#ifndef _ISOTROPIC_H
+#define _ISOTROPIC_H
+
+#include "../Hittable.h"
+#include "../Vec.h"
+#include "../Ray.h"
+#include "../Functions.h"
+
+class Isotropic : public Materials {
+public:
+  Isotropic()
+  
+}
+
+#endif

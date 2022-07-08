@@ -8,15 +8,21 @@
 
 Rotation::Rotation(Hittable *p, Point angle) {
   obj = p;
-  double radX = degreesToRadians(angle.x);
-  double radY = degreesToRadians(angle.y);
-  double radZ = degreesToRadians(angle.z);
-
   hasBox = p->boundingBox(0, 1, rotBox);
+ 
+  double rotYPlane = degreesToRadians(angle.x);
+  double rotZPlane = degreesToRadians(angle.y);
+  double rotXPlane = degreesToRadians(angle.z);
+  
+  sinXTheta = std::sin(rotYPlane);
+  cosXTheta = std::cos(rotYPlane);
 
-  sinXTheta = std::sin(radX);
-  cosXTheta = std::cos(radX);
+  sinYTheta = std::sin(rotZPlane);
+  cosYTheta = std::cos(rotZPlane);
 
+  sinZTheta = std::sin(rotXPlane);
+  cosZTheta = std::cos(rotXPlane);
+  
   double inf = std::numeric_limits<double>::max();
   double neginf = std::numeric_limits<double>::lowest();
 
@@ -96,6 +102,8 @@ bool Rotation::hit(const Ray &r, hitRecord &rec, double tMin,
 
   return true;
 }
+
+
 
 bool Rotation::boundingBox(double t0, double t1, aabb &outputBox) const {
   outputBox = rotBox;

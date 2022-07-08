@@ -42,7 +42,7 @@ float schlick(const float cosine, const float refractIdx) {
   return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
 
-// Returns a random ray for a perfect lambertian surface
+// Returns a random ray for a perfect lambertian surface given a normal
 Vec randomRayInSphere(const Vec &n) {
   std::random_device rd;
   std::mt19937 gen(rd());
