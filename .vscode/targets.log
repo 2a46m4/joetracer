@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Jul  4 19:29:58 2022
+# Make data base, printed on Tue Jul  5 21:30:43 2022
 
 # Variables
 
@@ -19,7 +19,7 @@ NO_AT_BRIDGE = 1
 # environment
 GJS_DEBUG_OUTPUT = stderr
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-95d52e18-5522-4179-962d-0c26f5ba0117.sock
+VSCODE_IPC_HOOK_EXTHOST = /run/user/1000/vscode-ipc-98495548-16ff-4162-aa43-20c9c4492ec0.sock
 # environment
 VSCODE_CWD = /home/dabanya02
 # environment
@@ -91,7 +91,7 @@ CMAKE_BINARY_DIR = /home/dabanya02/Projects/joetracer
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_PID = 2190
+VSCODE_PID = 5693
 # environment
 XDG_SESSION_TYPE = x11
 # environment
@@ -101,7 +101,7 @@ CUDA_PATH = /opt/cuda
 # makefile (from 'Makefile', line 60)
 CMAKE_SOURCE_DIR = /home/dabanya02/Projects/joetracer
 # environment
-SESSION_MANAGER = local/dabanya02:@/tmp/.ICE-unix/1097,unix/dabanya02:/tmp/.ICE-unix/1097
+SESSION_MANAGER = local/dabanya02:@/tmp/.ICE-unix/3769,unix/dabanya02:/tmp/.ICE-unix/3769
 # automatic
 *F = $(notdir $*)
 # environment
@@ -137,7 +137,7 @@ MOTD_SHOWN = pam
 # automatic
 ^F = $(notdir $^)
 # environment
-INVOCATION_ID = c03bdff4b07a455fa99347be167d0885
+INVOCATION_ID = 4eb460b3f555427fa380621d21eb7887
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
@@ -165,7 +165,7 @@ GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/visual-studio-code.desktop
 # makefile
 .DEFAULT_GOAL := default_target
 # environment
-SYSTEMD_EXEC_PID = 1112
+SYSTEMD_EXEC_PID = 3785
 # makefile (from 'Makefile', line 54)
 RM = /usr/bin/cmake -E rm -f
 # environment
@@ -175,11 +175,11 @@ USER = dabanya02
 # default
 MAKE_VERSION := 4.3
 # environment
-MANAGERPID = 1015
+MANAGERPID = 1028
 # environment
 DEBUGINFOD_URLS = https://debuginfod.archlinux.org 
 # environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 2173
+GIO_LAUNCHED_DESKTOP_FILE_PID = 5672
 # makefile (from 'Makefile', line 35)
 MAKESILENT = -s
 # environment
@@ -187,7 +187,7 @@ _ = /usr/bin/make
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
-JOURNAL_STREAM = 8:19161
+JOURNAL_STREAM = 8:44101
 # environment
 VISUAL = nano
 # environment
@@ -229,9 +229,9 @@ GDMSESSION = gnome
 
 # RCS: could not be stat'd.
 # SCCS: could not be stat'd.
-# . (device 66307, inode 35918963): 61 files, no impossibilities.
+# . (device 66307, inode 35918963): 68 files, no impossibilities.
 
-# 61 files, no impossibilities in 3 directories.
+# 68 files, no impossibilities in 3 directories.
 
 # Implicit Rules
 
@@ -289,10 +289,10 @@ aaRect.s: aaRect.cpp.s
 #  File has not been updated.
 
 gui/imgui/backends/imgui_impl_sdl.cpp.s:
- 
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
+ 
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 489):
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/backends/imgui_impl_sdl.cpp.s
@@ -464,7 +464,7 @@ gui/imgui/imgui.cpp.i:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-04 02:07:55.074952933
+#  Last modified 2022-07-05 20:01:57.324506666
 #  File has been updated.
 #  Successfully updated.
 
@@ -583,6 +583,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
+ 
 #  recipe to execute (from 'Makefile', line 97):
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
 
@@ -592,7 +593,6 @@ cmake_force:
 #  File does not exist.
 #  File has not been updated.
 
- 
 Light.s: Light.cpp.s
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -868,6 +868,7 @@ gui/imgui/backends/imgui_impl_sdlrenderer.cpp.s:
 
 Ray.cpp.o:
 #  Phony target (prerequisite of .PHONY).
+ 
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
@@ -895,7 +896,6 @@ Functions.cpp.o:
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 161):
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Functions.cpp.o
- 
 
 all: cmake_check_build_system
 #  Phony target (prerequisite of .PHONY).
@@ -1164,6 +1164,7 @@ BVHNode.cpp.s:
 #  recipe to execute (from 'Makefile', line 153):
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/BVHNode.cpp.s
 
+ 
 Point.cpp.o:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
@@ -1188,7 +1189,6 @@ BVHNode.cpp.o:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
- 
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 137):
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/BVHNode.cpp.o
@@ -1443,12 +1443,13 @@ Scene.i: Scene.cpp.i
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 225 / storage = 3247 B / avg = 14 B
-# current buf: size = 8162 B / used = 3247 B / count = 225 / avg = 14 B
+# strcache buffers: 1 (0) / strings = 232 / storage = 3321 B / avg = 14 B
+# current buf: size = 8162 B / used = 3321 B / count = 232 / avg = 14 B
 
-# strcache performance: lookups = 906 / hit rate = 75%
+# strcache performance: lookups = 913 / hit rate = 74%
 # hash-table stats:
-# Load=225/8192=3%, Rehash=0, Collisions=11/906=1%
-# Finished Make data base on Mon Jul  4 19:29:58 2022
+ 
+# Load=232/8192=3%, Rehash=0, Collisions=11/913=1%
+# Finished Make data base on Tue Jul  5 21:30:43 2022
 
  

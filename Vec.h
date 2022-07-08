@@ -1,16 +1,19 @@
 #ifndef _VEC_H
 #define _VEC_H
 
-    class Vec
-    {
-    public:
-        float x, y, z;
+#include <iostream>
 
-        Vec();
+class Vec {
+public:
+  float x, y, z;
 
-        Vec(const float dx, const float dy, const float dz);
+  Vec();
 
-        Vec operator-() const;
-    };
+  Vec(const float dx, const float dy, const float dz);
+
+  Vec operator-() const;
+
+  friend std::ostream &operator<<(std::ostream &out, const Vec &point);
+};
 
 #endif

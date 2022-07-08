@@ -177,6 +177,30 @@ Functions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Functions.cpp.s
 .PHONY : Functions.cpp.s
 
+Hittable.o: Hittable.cpp.o
+.PHONY : Hittable.o
+
+# target to build an object file
+Hittable.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Hittable.cpp.o
+.PHONY : Hittable.cpp.o
+
+Hittable.i: Hittable.cpp.i
+.PHONY : Hittable.i
+
+# target to preprocess a source file
+Hittable.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Hittable.cpp.i
+.PHONY : Hittable.cpp.i
+
+Hittable.s: Hittable.cpp.s
+.PHONY : Hittable.s
+
+# target to generate assembly for a file
+Hittable.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Hittable.cpp.s
+.PHONY : Hittable.cpp.s
+
 Light.o: Light.cpp.o
 .PHONY : Light.o
 
@@ -200,6 +224,30 @@ Light.s: Light.cpp.s
 Light.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Light.cpp.s
 .PHONY : Light.cpp.s
+
+Move.o: Move.cpp.o
+.PHONY : Move.o
+
+# target to build an object file
+Move.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Move.cpp.o
+.PHONY : Move.cpp.o
+
+Move.i: Move.cpp.i
+.PHONY : Move.i
+
+# target to preprocess a source file
+Move.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Move.cpp.i
+.PHONY : Move.cpp.i
+
+Move.s: Move.cpp.s
+.PHONY : Move.s
+
+# target to generate assembly for a file
+Move.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Move.cpp.s
+.PHONY : Move.cpp.s
 
 PinholeCamera.o: PinholeCamera.cpp.o
 .PHONY : PinholeCamera.o
@@ -672,9 +720,15 @@ help:
 	@echo "... Functions.o"
 	@echo "... Functions.i"
 	@echo "... Functions.s"
+	@echo "... Hittable.o"
+	@echo "... Hittable.i"
+	@echo "... Hittable.s"
 	@echo "... Light.o"
 	@echo "... Light.i"
 	@echo "... Light.s"
+	@echo "... Move.o"
+	@echo "... Move.i"
+	@echo "... Move.s"
 	@echo "... PinholeCamera.o"
 	@echo "... PinholeCamera.i"
 	@echo "... PinholeCamera.s"

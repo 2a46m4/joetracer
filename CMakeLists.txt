@@ -12,7 +12,7 @@ file(GLOB SOURCES "[a-z0-9A-Z]*.cpp" "[a-z0-9A-Z]*.h")
 # set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
 
 # c++11 standard
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 11)
 set(IMGUI
     gui/imgui/imconfig.h
     gui/imgui/imgui.cpp

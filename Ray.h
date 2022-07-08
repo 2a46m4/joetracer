@@ -5,23 +5,21 @@
 #include "Vec.h"
 #include <iostream>
 
-    class Ray
-    {
-        public:
-            Point origin;
+class Ray {
+public:
+  Point origin;
 
-            Vec direction;
+  Vec direction;
 
-            Ray();
+  Ray();
 
-            Ray(Point &origin, Vec &direction);
+  Ray(Point &origin, Vec &direction);
 
-            Ray(const Point &origin, const Vec &direction);
+  Ray(const Point &origin, const Vec &direction);
 
-            Point pointAtTime(float t) const;
+  Point pointAtTime(float t) const;
 
-						friend std::ostream& operator<< (std::ostream& out, const Vec& point);
-    };
-
+  friend std::ostream &operator<<(std::ostream &out, const Vec &point);
+};
 
 #endif

@@ -20,7 +20,7 @@ Vec add3(Vec &a, Vec &b, Vec &c);
 
 template <class T, class U> T add(const T &a, const U &b) {
   return T(a.x + b.x, a.y + b.y, a.z + b.z);
-} 
+}
 
 template <class T, class U> T add(T &a, U &b) {
   return T(a.x + b.x, a.y + b.y, a.z + b.z);
@@ -80,5 +80,9 @@ template <class T> inline T randomNum(T min, T max) {
 double clamp(double val, double low, double high);
 
 double degreesToRadians(double degrees);
+
+template <class T> inline T findCentre(T min, T max) {
+  return T((max.x + min.x) / 2, (max.y + min.y) / 2, (max.z + min.z) / 2);
+}
 
 #endif

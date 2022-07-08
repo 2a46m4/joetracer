@@ -19,6 +19,8 @@ Rotation::Rotation(Hittable *p, Point angle) {
 
   double inf = std::numeric_limits<double>::max();
   double neginf = std::numeric_limits<double>::lowest();
+
+  // std::cout << rotBox.max << " " << rotBox.min << std::endl;
   
   Point min(inf, inf, inf);
   Point max(neginf, neginf, neginf);
@@ -34,11 +36,15 @@ Rotation::Rotation(Hittable *p, Point angle) {
 
 	// The rotated x and rotated y
         double newX = cosXTheta * x + sinXTheta * z;
-        double newZ = -sinXTheta * x + cosZTheta * z;
+        double newZ = -sinXTheta * x + cosXTheta * z;
 
+	// std::cout << "newX: " << newX << std::endl;
+	// std::cout << "newZ: " << newZ << std::endl;
+
+	
 	// aabb bounding boxes are still axis aligned, so we need to find the smallest box that fits with the new corners
         Vec cur(newX, y, newZ);
-
+	// std::cout << cur << std::endl;
         min.x = std::fmin(min.x, cur.x);
         max.x = std::fmax(max.x, cur.x);
         min.y = std::fmin(min.y, cur.y);
@@ -49,6 +55,9 @@ Rotation::Rotation(Hittable *p, Point angle) {
     }
   }
   // gets the new box dimensions
+
+  // std::cout << "min: " << min << std::endl;
+  // std::cout << "max: " << max << std::endl;
   rotBox = aabb(min, max);
 }
 

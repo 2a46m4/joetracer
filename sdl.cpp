@@ -5,6 +5,7 @@
 #include "./Sphere.h"
 #include "./aaBox.h"
 #include "./aaRect.h"
+#include "Move.h"
 #include "Rotation.h"
 #include "Scene.h"
 #include "Translate.h"
@@ -109,6 +110,10 @@ void addDebugScene(Scene &s) {
   Hittable *sphere = new Sphere(1, Point(1, 0.5, -5), green);
   Hittable *cube = new Box(Point(-1, -0.5, -6), Point(-0.5, 0, -5.5), red);
 
+  cube = new Rotation(cube, Point(45, 0, 0));
+  // cube = new Translate(cube, Vec(-1, 1, 1));
+  cube = new Move(cube, Point(-1, -0.5, -6));
+
   Hittable *light = new XZRectangle(-20, 20, -20, 20, 20, emission);
   s.addObject(floor);
   s.addObject(light);
@@ -176,8 +181,8 @@ int main(int argc, char **argv) {
   // demo window
   bool show_demo_window = true;
   // background color
-  // ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 1.00f);
-  ImVec4 clear_color = ImVec4(0, 0, 0, 1.0f);
+  ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 1.00f);
+  // ImVec4 clear_color = ImVec4(0, 0, 0, 1.0f);
   static float x = 0;
   static float y = 0;
   static float z = 0;
@@ -208,7 +213,7 @@ int main(int argc, char **argv) {
     // addCornellBox(s);
     // addSampleScene(s);
     addDebugScene(s);
-    s.samples = 25;
+    s.samples = 12;
     static float fov = 90.0f;
 
     s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,

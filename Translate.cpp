@@ -26,4 +26,5 @@ bool Translate::boundingBox(double t0, double t1, aabb &outputBox) const {
     return false;
 
   outputBox = aabb(add(outputBox.min, offset), add(outputBox.max, offset));
+  return true;
 }
