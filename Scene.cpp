@@ -12,7 +12,6 @@
 #include "Compute.h"
 #include <cmath>
 #include <iostream>
-#include <limits>
 #include <random>
 #include <thread>
 #include <vector>
@@ -33,7 +32,7 @@ Scene::Scene(int w, int h, PinholeCamera camera, Point background) {
 
 unsigned char *Scene::render() const {
 
-  BVHNode box = BVHNode(hittables, 0, std::numeric_limits<float>::max());
+  BVHNode box = BVHNode(hittables, 0, FLT_INF);
   #pragma omp parallel for
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width * 3; x += 3) {
@@ -67,10 +66,8 @@ void Scene::newCamera(PinholeCamera p) { camera = p; }
 
 std::vector<Hittable *> Scene::getObjects() const { return hittables.objects; }
 
-void Scene::removeObject(int i) {
-  if (i > hittables.objects.size())
-    ;
-  else
+void Scene::removeObject(unsigned int i) {
+  if (i < hittables.objects.size())
     hittables.objects.erase(hittables.objects.begin() + i);
 }
 
@@ -78,7 +75,7 @@ Point Scene::Colour(Ray r, int limit, BVHNode &sceneBox) const {
   hitRecord rec;
 
   // Checks all objects
-  if (sceneBox.hit(r, rec, 0, std::numeric_limits<float>::max()) && limit > 0) {
+  if (sceneBox.hit(r, rec, 0, DBL_INF) && limit > 0) {
     Ray scattered;
     Point attenuation; // surface value of the rendering equation
     Point emitted = rec.matPtr->emitted(

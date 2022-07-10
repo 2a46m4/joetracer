@@ -4,7 +4,7 @@
 #include "./Hittable.h"
 #include "./Point.h"
 #include "./aabb.h"
-#include <cmath>
+
 
 class Sphere : public Hittable {
 public:

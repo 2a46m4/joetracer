@@ -2,8 +2,8 @@
 #include "./Functions.h"
 #include "./Point.h"
 #include "./aabb.h"
-#include <cmath>
 
+#include <cmath>
 #include <iostream>
 #include <limits>
 
@@ -69,9 +69,9 @@ void Sphere::getUV(const Vec &p, double &u, double &v) {
   //     <0 0 1> yields <0.25 0.50>       < 0  0 -1> yields <0.75 0.50>
 
   double theta = acos(-p.y);
-  double phi = atan2(-p.z, p.x) + M_PI;
+  double phi = atan2(-p.z, p.x) + PI;
 
-  u = phi / (2 * M_PI);
-  v = theta / M_PI;
+  u = phi / (2 * PI);
+  v = theta / PI;
   // std::cout << u  << " " << v << std::endl;
 }

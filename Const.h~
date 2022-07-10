@@ -1,0 +1,15 @@
+
+#include <limits>
+
+// Constants
+
+static const double PI =
+    3.14159265358979323846264338327950288419716939937510582097;
+
+static const double DBL_INF = std::numeric_limits<double>::max();
+
+static const double DBL_NEG_INF = std::numeric_limits<double>::lowest();
+
+static const float FLT_INF = std::numeric_limits<float>::max();
+
+static const float FLT_NEG_INF = std::numeric_limits<float>::min();

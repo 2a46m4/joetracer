@@ -153,6 +153,30 @@ BVHNode.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/BVHNode.cpp.s
 .PHONY : BVHNode.cpp.s
 
+ConstantMedium.o: ConstantMedium.cpp.o
+.PHONY : ConstantMedium.o
+
+# target to build an object file
+ConstantMedium.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/ConstantMedium.cpp.o
+.PHONY : ConstantMedium.cpp.o
+
+ConstantMedium.i: ConstantMedium.cpp.i
+.PHONY : ConstantMedium.i
+
+# target to preprocess a source file
+ConstantMedium.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/ConstantMedium.cpp.i
+.PHONY : ConstantMedium.cpp.i
+
+ConstantMedium.s: ConstantMedium.cpp.s
+.PHONY : ConstantMedium.s
+
+# target to generate assembly for a file
+ConstantMedium.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/ConstantMedium.cpp.s
+.PHONY : ConstantMedium.cpp.s
+
 Functions.o: Functions.cpp.o
 .PHONY : Functions.o
 
@@ -717,6 +741,9 @@ help:
 	@echo "... BVHNode.o"
 	@echo "... BVHNode.i"
 	@echo "... BVHNode.s"
+	@echo "... ConstantMedium.o"
+	@echo "... ConstantMedium.i"
+	@echo "... ConstantMedium.s"
 	@echo "... Functions.o"
 	@echo "... Functions.i"
 	@echo "... Functions.s"

@@ -3,7 +3,6 @@
 #include "./Ray.h"
 #include <cmath>
 
-
 class PinholeCamera
 {
 protected:

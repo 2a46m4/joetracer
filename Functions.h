@@ -5,8 +5,7 @@
 #include "Vec.h"
 #include <cmath>
 #include <random>
-
-#define PI 3.1415926535897932384626433832795028841
+#include "Const.h"
 
 template <class T, class U> const T sub(const T &a, const U &b) {
   return T(a.x - b.x, a.y - b.y, a.z - b.z);

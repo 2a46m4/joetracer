@@ -1,35 +1,36 @@
 // Scene Functions and Primitives
-#include "./Hittable.h"
-#include "./Light.h"
-#include "./Point.h"
-#include "./Sphere.h"
-#include "./aaBox.h"
-#include "./aaRect.h"
+#include "Hittable.h"
+#include "Light.h"
+#include "Point.h"
+#include "Vec.h"
+#include "Sphere.h"
+#include "ConstantMedium.h"
+#include "aaBox.h"
+#include "aaRect.h"
 #include "Move.h"
 #include "Rotation.h"
 #include "Scene.h"
 #include "Translate.h"
 
 // Materials
-#include "./Materials/Dielectrics.h"
-#include "./Materials/Emissive.h"
-#include "./Materials/Lambertian.h"
-#include "./Materials/Metal.h"
+#include "Materials/Dielectrics.h"
+#include "Materials/Emissive.h"
+#include "Materials/Lambertian.h"
+#include "Materials/Metal.h"
+#include "Materials/Isotropic.h"
 
 // Textures
-#include "./Textures/CheckerTexture.h"
-#include "./Textures/ImageTexture.h"
-#include "./Textures/PerlinTexture.h"
-#include "./Textures/SolidColour.h"
+#include "Textures/CheckerTexture.h"
+#include "Textures/ImageTexture.h"
+#include "Textures/PerlinTexture.h"
+#include "Textures/SolidColour.h"
 
 // GUI
-#include "./gui/imgui/backends/imgui_impl_sdl.h"
-#include "./gui/imgui/backends/imgui_impl_sdlrenderer.h"
-#include "./gui/imgui/imgui.h"
-#include "Vec.h"
+#include "gui/imgui/backends/imgui_impl_sdl.h"
+#include "gui/imgui/backends/imgui_impl_sdlrenderer.h"
+#include "gui/imgui/imgui.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <stdio.h>
 
 // System libraries
 #include <iostream>
@@ -46,7 +47,7 @@ static int screenHeight = 600;
 void addSampleScene(Scene &s) {
   Metal *mwhite = new Metal(Point(0.9, 0.9, 0.9), 0.5);
   Metal *mirror = new Metal(Point(0.9, 0.9, 0.9), 0.0);
-  Lambertian *lwhite = new Lambertian(Point(0.9, 0.9, 0.9));
+  // Lambertian *lwhite = new Lambertian(Point(0.9, 0.9, 0.9));
   Lambertian *lchecker = new Lambertian(
       new CheckerTexture(Point(0.9, 0.9, 0.9), Point(0.7, 0, 0.7)));
   Metal *mgold = new Metal(Point(0.9, 0.9, 0.6), 0.2);
@@ -114,7 +115,7 @@ void addDebugScene(Scene &s) {
   // cube = new Translate(cube, Vec(-1, 1, 1));
   cube = new Move(cube, Point(-1, 1, -6));
 
-  Hittable *light = new XZRectangle(-20, 20, -20, 20, 20, emission);
+  Hittable *light = new XZRectangle(-50, 50, -50, 50, 50, emission);
   s.addObject(floor);
   s.addObject(light);
   s.addObject(sphere);
@@ -125,11 +126,12 @@ void addCornellBox(Scene &s) {
   Lambertian *green = new Lambertian(Point(.12, .45, .15));
   Lambertian *red = new Lambertian(Point(.65, .05, .05));
   Lambertian *white = new Lambertian(Point(.73, .73, .73));
-  Emissive *light = new Emissive(Point(4500, 4500, 4500));
+  Emissive *light = new Emissive(Point(1500, 1500, 1500));
 
   Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green);
   Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red);
-  Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554, light);
+  // Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554, light);
+  Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, light);
   Hittable *rect4 = new XZRectangle(0, 555, -555, 0, 0, white);
   Hittable *rect5 = new XZRectangle(0, 555, -555, 0, 555, white);
   Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white);
@@ -140,13 +142,17 @@ void addCornellBox(Scene &s) {
   // white);
   // box2 = new Rotation(box2, Point(-18, 0, 0));
 
-  Hittable *box1 = new Box(Point(0, 0, 0), Point(165, 330, 165), white);
+  Hittable *fogBoundary = new Box(Point(0, 0, -555), Point(555, 555, 0), white);
+  Point fogCol = Point(1, 1, 1);
+  Hittable *fog = new ConstantMedium(fogBoundary, 0.001, fogCol);
+  
+  Hittable *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), white);
   box1 = new Rotation(box1, Point(-15, 0, 0));
   box1 = new Translate(box1, Vec(265, 0, -295));
-  Hittable *box2 = new Box(Point(0, 0, 0), Point(165, 165, 165), white);
+  Hittable *box2 = new Box(Point(0, 0, -165), Point(165, 165, 0), white);
   box2 = new Rotation(box2, Point(18, 0, 0));
   box2 = new Translate(box2, Vec(130, 0, -65));
-  
+
   s.addObject(rect1);
   s.addObject(rect2);
   s.addObject(rect3);
@@ -155,6 +161,7 @@ void addCornellBox(Scene &s) {
   s.addObject(rect6);
   s.addObject(box1);
   s.addObject(box2);
+  s.addObject(fog);
 }
 
 int main(int argc, char **argv) {
@@ -212,10 +219,10 @@ int main(int argc, char **argv) {
   SDL_Texture *finalTexture = NULL;
 
   if (debug) {
-				addCornellBox(s);
+    addCornellBox(s);
     // addSampleScene(s);
     // addDebugScene(s);
-    s.samples = 250;
+    s.samples = 1000;
     static float fov = 90.0f;
 
     s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,

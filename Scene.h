@@ -48,7 +48,7 @@ public:
 
   // Removes based on the id of the Object
   // True if success
-  void removeObject(int i);
+  void removeObject(unsigned int i);
 
   void deleteScene();
 

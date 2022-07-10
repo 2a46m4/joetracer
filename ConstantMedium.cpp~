@@ -1,0 +1,42 @@
+#include "ConstantMedium.h"
+#include "Hittable.h"
+#include "Textures/Texture.h"
+#include "Point.h"
+#include "aabb.h"
+#include "Const.h"
+#include "Functions.h"
+
+ConstantMedium::ConstantMedium(Hittable *hittablePtr, double d,
+                               Texture *texturePtr) {
+  boundary = hittablePtr;
+  negativeInvertedDensity = -1 / d;
+  phaseFunction = new Isotropic(texturePtr);
+}
+
+ConstantMedium::ConstantMedium(Hittable *hittablePtr, double d, Point &col) {
+  boundary = hittablePtr;
+  negativeInvertedDensity = -1 / d;
+  phaseFunction = new Isotropic(col);
+}
+
+bool ConstantMedium::hit(const Ray &r, hitRecord &rec, double tMin,
+                         double tMax) const {
+  hitRecord rec1, rec2;
+
+  if(!boundary->hit(r, rec1, DBL_NEG_INF, DBL_INF)) return false;
+  if(!boundary->hit(r, rec2, rec1.t + 0.0001, DBL_INF)) return false;
+
+  if(rec1.t < tMin) rec1.t = tMin;
+  if(rec2.t > tMax) rec2.t = tMax;
+
+  if(rec1.t >= rec2.t) return false;
+
+  if(rec1.t < 0) rec1.t = 0;
+
+  const float rayLength = length(r.direction);
+  
+}
+
+bool ConstantMedium::boundingBox(double t0, double t1, aabb &outputBox) const {
+   
+}
