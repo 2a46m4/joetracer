@@ -34,8 +34,6 @@ public:
   // Returns true if a primitive can be bound with a box, and stores the
   // bounding box of the hittable object in outputBox
   virtual bool boundingBox(double t0, double t1, aabb &outputBox) const = 0;
-
-private:
 };
 
 #endif // _HITTABLE_H
@@ -46,18 +44,16 @@ private:
 class Materials {
 public:
   virtual bool scatter(const Ray &ray, const hitRecord &rec, Point &attenuation,
-                       Ray &scattered) const = 0;
+                       Ray &scattered, double& pdf) const = 0;
 
   virtual Point emitted(double u, double v, const Point &p) const {
     return Point(0, 0, 0);
   };
 
-  Point emittedRadiance(const Vec &wo);
-
-  Point finiteScatteringDensity(const Vec &wi, const Vec &wo);
-
-  // Approximate reflectivity of surface, returns colour
-  Point reflectivity();
+  virtual double scatteringPDF(const Ray &rIn, const hitRecord &rec,
+                               const Ray &rOut) const {
+    return 0;
+  }
 };
 
 #endif // _MATERIALS_H

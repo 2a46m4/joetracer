@@ -16,7 +16,7 @@ public:
   Texture *albedo;
 
   virtual bool scatter(const Ray &ray, const hitRecord &rec, Point &attenuation,
-                       Ray &scattered) const override {
+                       Ray &scattered, double& pdf) const override {
     scattered = Ray(rec.p, randomRayInSphere(rec.normal));
     attenuation = albedo->value(rec.u, rec.v, rec.p);
     return true;

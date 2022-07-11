@@ -1,23 +1,23 @@
 // Scene Functions and Primitives
+#include "ConstantMedium.h"
 #include "Hittable.h"
 #include "Light.h"
-#include "Point.h"
-#include "Vec.h"
-#include "Sphere.h"
-#include "ConstantMedium.h"
-#include "aaBox.h"
-#include "aaRect.h"
 #include "Move.h"
+#include "Point.h"
 #include "Rotation.h"
 #include "Scene.h"
+#include "Sphere.h"
 #include "Translate.h"
+#include "Vec.h"
+#include "aaBox.h"
+#include "aaRect.h"
 
 // Materials
 #include "Materials/Dielectrics.h"
 #include "Materials/Emissive.h"
+#include "Materials/Isotropic.h"
 #include "Materials/Lambertian.h"
 #include "Materials/Metal.h"
-#include "Materials/Isotropic.h"
 
 // Textures
 #include "Textures/CheckerTexture.h"
@@ -143,9 +143,9 @@ void addCornellBox(Scene &s) {
   // box2 = new Rotation(box2, Point(-18, 0, 0));
 
   Hittable *fogBoundary = new Box(Point(0, 0, -555), Point(555, 555, 0), white);
-  Point fogCol = Point(1, 1, 1);
-  Hittable *fog = new ConstantMedium(fogBoundary, 0.001, fogCol);
-  
+  // Point fogCol = Point(1, 1, 1);
+  // Hittable *fog = new ConstantMedium(fogBoundary, 0.001, fogCol);
+
   Hittable *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), white);
   box1 = new Rotation(box1, Point(-15, 0, 0));
   box1 = new Translate(box1, Vec(265, 0, -295));
@@ -161,7 +161,7 @@ void addCornellBox(Scene &s) {
   s.addObject(rect6);
   s.addObject(box1);
   s.addObject(box2);
-  s.addObject(fog);
+  // s.addObject(fog);
 }
 
 int main(int argc, char **argv) {
@@ -222,7 +222,7 @@ int main(int argc, char **argv) {
     addCornellBox(s);
     // addSampleScene(s);
     // addDebugScene(s);
-    s.samples = 1000;
+    s.samples = 25;
     static float fov = 90.0f;
 
     s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,

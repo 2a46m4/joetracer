@@ -1,11 +1,11 @@
 #ifndef _FUNCTIONS_H
 #define _FUNCTIONS_H
 
+#include "Const.h"
 #include "Point.h"
 #include "Vec.h"
 #include <cmath>
 #include <random>
-#include "Const.h"
 
 template <class T, class U> const T sub(const T &a, const U &b) {
   return T(a.x - b.x, a.y - b.y, a.z - b.z);
@@ -65,6 +65,14 @@ Point point(const Vec &a);
 float schlick(const float cosine, const float refractIdx);
 
 Vec randomRayInSphere(const Vec &n);
+
+Vec randomRayInUnitVector();
+
+template <class T> bool isDegenerate(T v) {
+  const double nearZero = 0.00000001;
+  return (std::fabs(v.x) <= nearZero && std::fabs(v.y) <= nearZero && 
+          std::fabs(v.z) <= nearZero);
+}
 
 Vec refract(const Vec &v, const Vec &n, float etaRatio);
 
