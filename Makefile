@@ -705,6 +705,30 @@ gui/imgui/imgui_widgets.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/gui/imgui/imgui_widgets.cpp.s
 .PHONY : gui/imgui/imgui_widgets.cpp.s
 
+onb.o: onb.cpp.o
+.PHONY : onb.o
+
+# target to build an object file
+onb.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/onb.cpp.o
+.PHONY : onb.cpp.o
+
+onb.i: onb.cpp.i
+.PHONY : onb.i
+
+# target to preprocess a source file
+onb.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/onb.cpp.i
+.PHONY : onb.cpp.i
+
+onb.s: onb.cpp.s
+.PHONY : onb.s
+
+# target to generate assembly for a file
+onb.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/onb.cpp.s
+.PHONY : onb.cpp.s
+
 sdl.o: sdl.cpp.o
 .PHONY : sdl.o
 
@@ -810,6 +834,9 @@ help:
 	@echo "... gui/imgui/imgui_widgets.o"
 	@echo "... gui/imgui/imgui_widgets.i"
 	@echo "... gui/imgui/imgui_widgets.s"
+	@echo "... onb.o"
+	@echo "... onb.i"
+	@echo "... onb.s"
 	@echo "... sdl.o"
 	@echo "... sdl.i"
 	@echo "... sdl.s"

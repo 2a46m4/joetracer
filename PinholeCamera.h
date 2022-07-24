@@ -3,43 +3,43 @@
 #include "./Ray.h"
 #include <cmath>
 
-class PinholeCamera
-{
+class PinholeCamera {
 protected:
-    // Distance of the virtual plane to the centre of projection
-    float height, width;
+  // Distance of the virtual plane to the centre of projection
+  float height, width;
 
-    float verticalFOV;
+  float verticalFOV;
 
-    Point location;
+  Point location;
 
-    // the out axis
-    Point view;
+  // the out axis
+  Point view;
 
-    Vec vUp, u, v, w;
+  Vec vUp, u, v, w;
 
-    float theta, h;
+  float theta, h;
 
-    Vec horizontal, vertical, lowerLeftCorner;
+  Vec horizontal, vertical, lowerLeftCorner;
 
-    float viewportHeight, viewportWidth;
+  float viewportHeight, viewportWidth;
 
 public:
-    PinholeCamera();
+  PinholeCamera();
 
-    PinholeCamera(int width, int height, float verticalFOV, Point location, Point view);
+  PinholeCamera(int width, int height, float verticalFOV, Point location,
+                Point view);
 
-    /*
-    x, y are the virtual coordinates on the virtual plane camera (our "sensor")
-    width and height are the real size on the virtual plane
-    P is the actual point of the ray
-    w is the direction of the ray
-     */
-    void getPrimaryRay(float x, float y, Ray& r) const;
+  /*
+  x, y are the virtual coordinates on the virtual plane camera (our "sensor")
+  width and height are the real size on the virtual plane
+  P is the actual point of the ray
+  w is the direction of the ray
+   */
+  void getPrimaryRay(float x, float y, Ray &r) const;
 
-    void changeLocation(Point p);
+  void changeLocation(Point p);
 
-    void changeView(Point p);
+  void changeView(Point p);
 };
 
 #endif

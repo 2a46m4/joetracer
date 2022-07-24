@@ -1,6 +1,6 @@
 
-#ifndef _LAMBERTIAN_H
-#define _LAMBERTIAN_H
+#ifndef _LAMBERTIAN_ONB_H
+#define _LAMBERTIAN_ONB_H
 
 #include "../Functions.h"
 #include "../Hittable.h"
@@ -8,21 +8,35 @@
 #include "../Textures/SolidColour.h"
 #include "../Textures/Texture.h"
 #include "../Vec.h"
-class Lambertian : public Materials {
+#include "../onb.h"
+
+class Lambertian_ONB : public Materials {
 public:
-  Lambertian(const Point &a) : albedo(new SolidColour(a)) {}
-  Lambertian(const Texture *a) : albedo(a){};
+  Lambertian_ONB(const Point &a) : albedo(new SolidColour(a)) {}
+  Lambertian_ONB(const Texture *a) : albedo(a){};
   virtual bool scatter(const Ray &ray, const hitRecord &rec, Point &alb,
-                       Ray &scattered, double &pdf) const {
+                       Ray &scattered, double &pdf) const override {
     // direction, follows a cosine distribution
-    Vec scatterDirection = add(rec.normal, randomRayInUnitVector());
+    // std::cout << rec.normal << std::endl;
+    onb uvw;
+    uvw.buildFromW(rec.normal);
+    Vec rcpr = randomCosinePDFRay();
+    // std::cout << uvw.u() << std::endl;
+    // std::cout << uvw.v() << std::endl; //
+    // std::cout << uvw.w() << std::endl; //
+    // std::cout << rcpr << std::endl;
+    Vec scatterDirection = uvw.local(rcpr);
+    // std::cout << scatterDirection << std::endl;
     if (isDegenerate(scatterDirection))
       scatterDirection = rec.normal;
     scattered = Ray(rec.p, unitVec(scatterDirection));
     alb = albedo->value(rec.u, rec.v, rec.p);
+    // std::cout << alb << std::endl; //
     // pdf of a lambertian reflectance model (same as the scattering
     // reflectance) allowed to be negative to not throw divide by zero errors
-    pdf = dotProduct(rec.normal, scattered.direction) / PI;
+    // std::cout << scattered.direction << std::endl;
+    pdf = dotProduct(uvw.w(), scattered.direction) / PI;
+    // std::cout << pdf << std::endl;
     return true;
   }
 

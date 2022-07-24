@@ -17,6 +17,7 @@
 #include "Materials/Emissive.h"
 #include "Materials/Isotropic.h"
 #include "Materials/Lambertian.h"
+#include "Materials/Lambertian_ONB.h"
 #include "Materials/Metal.h"
 
 // Textures
@@ -124,9 +125,10 @@ void addDebugScene(Scene &s) {
 
 void addCornellBox(Scene &s) {
   Lambertian *green = new Lambertian(Point(.12, .45, .15));
-  Lambertian *red = new Lambertian(Point(.65, .05, .05));
+  Lambertian_ONB *red = new Lambertian_ONB(Point(.65, .05, .05));
   Lambertian *white = new Lambertian(Point(.73, .73, .73));
   Emissive *light = new Emissive(Point(1500, 1500, 1500));
+  // Dielectrics *glass = new Dielectrics(1.3);
 
   Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green);
   Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red);
@@ -136,13 +138,7 @@ void addCornellBox(Scene &s) {
   Hittable *rect5 = new XZRectangle(0, 555, -555, 0, 555, white);
   Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white);
 
-  // Hittable *box1 = new Box(Point(130, 0, -230), Point(295, 165, -65), white);
-  // box1 = new Rotation(box1, Point(15, 0, 0));
-  // Hittable *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295),
-  // white);
-  // box2 = new Rotation(box2, Point(-18, 0, 0));
-
-  Hittable *fogBoundary = new Box(Point(0, 0, -555), Point(555, 555, 0), white);
+  // Hittable *fogBoundary = new Box(Point(0, 0, -555), Point(555, 555, 0), white);
   // Point fogCol = Point(1, 1, 1);
   // Hittable *fog = new ConstantMedium(fogBoundary, 0.001, fogCol);
 

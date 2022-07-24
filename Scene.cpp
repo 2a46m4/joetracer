@@ -34,7 +34,7 @@ Scene::Scene(int w, int h, PinholeCamera camera, Point background) {
 unsigned char *Scene::render() const {
 
   BVHNode box = BVHNode(hittables, 0, FLT_INF);
-#pragma omp parallel for
+// #pragma omp parallel for	
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width * 3; x += 3) {
       Ray r;
@@ -82,18 +82,22 @@ Point Scene::Colour(Ray r, int limit, BVHNode &sceneBox) const {
     Point emitted = rec.matPtr->emitted(
         rec.u, rec.v, rec.p); // emitted value of the rendering equation
     double pdf;
-    Point albedo; // partial reflectance value
+    Point albedo; // fractional reflectance value
     if (!rec.matPtr->scatter(r, rec, albedo, scattered, pdf)) {
       return emitted; // returns the emitted value if the object doesn't scatter
     }
-    // std::cout << pdf << std::endl; 
-    // emission + fractional reflectance value * scattering PDF * colour of next rays / what we are sampling the most of pdf
-    // std::cout << rec.matPtr->scatteringPDF(r, rec, scattered) << std::endl;
-    // std::cout << albedo << std::endl;
-    
-    Point test = emitted + scale(1/pdf, scale(rec.matPtr->scatteringPDF(r, rec, scattered), albedo) * Colour(scattered, limit - 1, sceneBox));
-    // std::cout << test << std::endl;
-    return test;
+
+    // Point lightPoint = Point(randomNum(T min, T max))
+
+    // emission + fractional reflectance value * scattering PDF * colour of next
+    // rays / what;  we are sampling the most of pdf
+
+    Point colour =
+        emitted +
+        scale(1 / pdf,
+              scale(rec.matPtr->scatteringPDF(r, rec, scattered), albedo) *
+                  Colour(scattered, limit - 1, sceneBox));
+    return colour;
   } else
     return background;
 }

@@ -15,7 +15,9 @@ template <class T, class U> T sub(T &a, U &b) {
   return T(a.x - b.x, a.y - b.y, a.z - b.z);
 }
 
-Vec add3(Vec &a, Vec &b, Vec &c);
+template <class T> T add3(T &a, T &b, T &c) {
+  return T(a.x + b.x + c.x, a.y + b.y + c.y, a.z + b.z + c.z);
+}
 
 template <class T, class U> T add(const T &a, const U &b) {
   return T(a.x + b.x, a.y + b.y, a.z + b.z);
@@ -26,6 +28,7 @@ template <class T, class U> T add(T &a, U &b) {
 }
 
 template <class T> const T scale(const double m, const T &a) {
+  // std::cout << m << std::endl;	//
   return T(a.x * m, a.y * m, a.z * m);
 }
 
@@ -33,9 +36,9 @@ template <class T> T scale(double m, T &a) {
   return T(a.x * m, a.y * m, a.z * m);
 }
 
-Vec unitVec(Vec &a);
+Vec unitVec(Vec a);
 
-const Vec unitVec(const Vec &a);
+// const Vec unitVec(const Vec a);	// 
 
 // Returns the magnitude of the vector
 double length(Vec &a);
@@ -46,9 +49,12 @@ const double length(const Vec &a);
 
 double dotProduct(const Vec &a, const Vec &b);
 
-template <class T> Vec crossProduct(T &a, T &b) {
-  return Vec((a.y * b.z) - (a.z * b.y), (a.z * b.x) - (a.x * b.z),
-             (a.x * b.y) - (a.y * b.x));
+template <class T, class U> T crossProduct(T &a, U &b) {
+  // std::cout << T((a.y * b.z) - (a.z * b.y), (a.z * b.x) - (a.x * b.z),
+		 // (a.x * b.y) - (a.y * b.x)) << std::endl;
+
+  return T((a.y * b.z) - (a.z * b.y), (a.z * b.x) - (a.x * b.z),
+           (a.x * b.y) - (a.y * b.x));
 }
 
 // Perfect reflection
@@ -68,9 +74,11 @@ Vec randomRayInSphere(const Vec &n);
 
 Vec randomRayInUnitVector();
 
+Vec randomCosinePDFRay();
+
 template <class T> bool isDegenerate(T v) {
   const double nearZero = 0.00000001;
-  return (std::fabs(v.x) <= nearZero && std::fabs(v.y) <= nearZero && 
+  return (std::fabs(v.x) <= nearZero && std::fabs(v.y) <= nearZero &&
           std::fabs(v.z) <= nearZero);
 }
 

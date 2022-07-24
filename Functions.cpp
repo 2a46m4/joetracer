@@ -2,21 +2,27 @@
 #include <cmath>
 #include <random>
 
-Vec add3(Vec &a, Vec &b, Vec &c) {
-  return Vec(a.x + b.x + c.z, a.y + b.y + c.z, a.z + b.z + c.z);
+Vec unitVec(Vec a) {
+  // std::cout << a.x << std::endl; // 
+  return scale((1 / length(a)), a);
 }
 
-Vec unitVec(Vec &a) { return scale((1 / length(a)), a); }
-
-const Vec unitVec(const Vec &a) { return scale((1 / length(a)), a); }
+// const Vec unitVec(const Vec a) {
+//   // std::cout << a.x << std::endl; //
+//   return scale((1 / length(a)), a);
+// }
 
 const double length(const Vec &a) {
+  // std::cout << a << std::endl;
   return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
 }
 
 const double sqrlen(const Vec &a) { return a.x * a.x + a.y * a.y + a.z * a.z; }
 
-double length(Vec &a) { return sqrt(a.x * a.x + a.y * a.y + a.z * a.z); }
+double length(Vec &a) {
+  // std::cout << sqrt(a.x * a.x + a.y * a.y + a.z * a.z) << std::endl;
+  return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+}
 
 double dotProduct(const Vec &a, const Vec &b) {
   return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
@@ -25,12 +31,10 @@ double dotProduct(const Vec &a, const Vec &b) {
 Point vecToPoint(Vec &a) { return Point(a.x, a.y, a.z); }
 
 Vec power(const Vec &a, int power) {
-  Vec b = a;
-  while (--power) {
-    b.x *= a.x;
-    b.y *= a.y;
-    b.z *= a.z;
-  }
+  Vec b;
+  b.x = powf(a.x, power);
+  b.y = powf(a.y, power);
+  b.z = powf(a.z, power);
   return b;
 }
 
@@ -43,7 +47,23 @@ float schlick(const float cosine, const float refractIdx) {
   return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
 
-// Returns a random ray for a perfect lambertian surface given a normal
+// I'm not totally sure how this works, but it returns a ray in the direction of
+// Z with a PDF of cosine(theta). See Peter Shirley's book
+Vec randomCosinePDFRay() {
+  double r1 = randomNum(0.0, 1.0);
+  double r2 = randomNum(0.0, 1.0);
+  double z = sqrt(1 - r2);
+
+  double phi = 2 * PI * r1;
+  double x = cos(phi) * sqrt(r2);
+  double y = sin(phi) * sqrt(r2);
+
+  // std::cout << x << y << z << std::endl;
+
+  return Vec(x, y, z);
+}
+
+// Returns a random ray in the upper hemisphere
 Vec randomRayInSphere(const Vec &n) {
   std::random_device rd;
   std::mt19937 gen(rd());
@@ -58,6 +78,7 @@ Vec randomRayInSphere(const Vec &n) {
     return -w;
 }
 
+// Returns a random ray in the unit sphere
 Vec randomRayInUnitVector() {
   std::random_device rd;
   std::mt19937 gen(rd());
@@ -68,7 +89,6 @@ Vec randomRayInUnitVector() {
   } while (length(w) >= 1.0);
   return w;
 }
-
 
 // Returns true if there is refraction (and not reflection), and finds the
 // direction of the ray.
