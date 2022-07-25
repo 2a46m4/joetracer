@@ -17,7 +17,6 @@ public:
   }
 
   Vec local(const Vec &a) const {
-    // std::cout << add3(scale(a.x, u()), scale(a.y, v()), scale(a.z, w())) << std::endl;
     return add3(scale(a.x, u()), scale(a.y, v()), scale(a.z, w()));
   }
 

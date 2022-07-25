@@ -19,7 +19,7 @@ struct hitRecord {
   Point p;
   Vec normal;
   Materials *matPtr;
-
+  
   double u;
   double v;
 };
@@ -34,6 +34,16 @@ public:
   // Returns true if a primitive can be bound with a box, and stores the
   // bounding box of the hittable object in outputBox
   virtual bool boundingBox(double t0, double t1, aabb &outputBox) const = 0;
+
+  // The PDF value of the hittable object
+  virtual double pdfValue(const Point& origin, const Vec& v) const {
+    return 0.0;
+  }
+
+  // 
+  virtual Vec random(const Point& origin) const {
+    return Vec(1, 0, 0);
+  }
 };
 
 #endif // _HITTABLE_H
@@ -44,9 +54,10 @@ public:
 class Materials {
 public:
   virtual bool scatter(const Ray &ray, const hitRecord &rec, Point &attenuation,
-                       Ray &scattered, double& pdf) const = 0;
+                       Ray &scattered, double &pdf) const = 0;
 
-  virtual Point emitted(double u, double v, const Point &p) const {
+  virtual Point emitted(double u, double v, const Point &p, const hitRecord,
+                        const Ray) const {
     return Point(0, 0, 0);
   };
 

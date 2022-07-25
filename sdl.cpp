@@ -108,7 +108,7 @@ void addDebugScene(Scene &s) {
 
   Emissive *emission = new Emissive(Point(500, 500, 500));
 
-  Hittable *floor = new XZRectangle(-100, 100, -100, 100, -0.5, white);
+  Hittable *floor = new XZRectangle(-100, 100, -100, 100, -0.5, white, 0);
   Hittable *sphere = new Sphere(1, Point(1, 0.5, -5), green);
   Hittable *cube = new Box(Point(-1, -0.5, -6), Point(-0.5, 0, -5.5), red);
 
@@ -116,7 +116,7 @@ void addDebugScene(Scene &s) {
   // cube = new Translate(cube, Vec(-1, 1, 1));
   cube = new Move(cube, Point(-1, 1, -6));
 
-  Hittable *light = new XZRectangle(-50, 50, -50, 50, 50, emission);
+  Hittable *light = new XZRectangle(-50, 50, -50, 50, 50, emission, 0);
   s.addObject(floor);
   s.addObject(light);
   s.addObject(sphere);
@@ -125,18 +125,26 @@ void addDebugScene(Scene &s) {
 
 void addCornellBox(Scene &s) {
   Lambertian *green = new Lambertian(Point(.12, .45, .15));
-  Lambertian_ONB *red = new Lambertian_ONB(Point(.65, .05, .05));
+  Lambertian *red = new Lambertian(Point(.65, .05, .05));
   Lambertian *white = new Lambertian(Point(.73, .73, .73));
-  Emissive *light = new Emissive(Point(1500, 1500, 1500));
+  Emissive *light = new Emissive(Point(7500, 7500, 7500));
+  Emissive *lightbig = new Emissive(Point(3500, 3500, 3500));
   // Dielectrics *glass = new Dielectrics(1.3);
 
-  Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green);
-  Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red);
-  // Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554, light);
-  Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, light);
-  Hittable *rect4 = new XZRectangle(0, 555, -555, 0, 0, white);
-  Hittable *rect5 = new XZRectangle(0, 555, -555, 0, 555, white);
-  Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white);
+  // Left wall
+  Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green, 1);
+  // Right wall
+  Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red, 0);
+  // Lights 
+  Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554, light, 1);
+  // Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1);
+  s.setLight(rect3);
+  // Bottom wall (floor)
+  Hittable *rect4 = new XZRectangle(0, 555, -555, 0, 0, white, 0);
+  // Top wall
+  Hittable *rect5 = new XZRectangle(0, 555, -555, 0, 555, white, 1);
+  // Front wall
+  Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white, 0);
 
   // Hittable *fogBoundary = new Box(Point(0, 0, -555), Point(555, 555, 0), white);
   // Point fogCol = Point(1, 1, 1);
@@ -218,7 +226,7 @@ int main(int argc, char **argv) {
     addCornellBox(s);
     // addSampleScene(s);
     // addDebugScene(s);
-    s.samples = 25;
+    s.samples = 100;
     static float fov = 90.0f;
 
     s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,

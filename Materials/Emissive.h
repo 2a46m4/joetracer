@@ -16,8 +16,11 @@ public:
                Ray &scattered, double& pdf) const {
     return false; // never scatters, duh
   }
-  Point emitted(double u, double v, const Point &p) const override {
-    return emit->value(u, v, p);
+
+  // unidirectional light 
+  Point emitted(double u, double v, const Point &p, const hitRecord rec, const Ray ray) const override {
+    if(dotProduct(rec.normal, ray.direction) >= 0) return Point(0, 0, 0);
+    else return emit->value(u, v, p);
   }
 
   const Texture *emit;

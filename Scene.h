@@ -26,6 +26,8 @@ private:
 
   unsigned char *pixels;
 
+  Hittable* lights;
+
 public:
   PinholeCamera camera;
 
@@ -63,6 +65,8 @@ public:
   int getHeight();
 
   HittableList* getHittables();
+
+  void setLight(Hittable*);
 };
 
 #endif

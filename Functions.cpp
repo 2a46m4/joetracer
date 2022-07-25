@@ -12,17 +12,7 @@ Vec unitVec(Vec a) {
 //   return scale((1 / length(a)), a);
 // }
 
-const double length(const Vec &a) {
-  // std::cout << a << std::endl;
-  return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-}
-
 const double sqrlen(const Vec &a) { return a.x * a.x + a.y * a.y + a.z * a.z; }
-
-double length(Vec &a) {
-  // std::cout << sqrt(a.x * a.x + a.y * a.y + a.z * a.z) << std::endl;
-  return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
-}
 
 double dotProduct(const Vec &a, const Vec &b) {
   return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);

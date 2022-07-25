@@ -41,18 +41,19 @@ Vec unitVec(Vec a);
 // const Vec unitVec(const Vec a);	// 
 
 // Returns the magnitude of the vector
-double length(Vec &a);
+inline double length(Vec &a) {
+  return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+}
 
 const double sqrlen(const Vec &a);
 
-const double length(const Vec &a);
+const inline double length(const Vec &a){
+  return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
+}
 
 double dotProduct(const Vec &a, const Vec &b);
 
 template <class T, class U> T crossProduct(T &a, U &b) {
-  // std::cout << T((a.y * b.z) - (a.z * b.y), (a.z * b.x) - (a.x * b.z),
-		 // (a.x * b.y) - (a.y * b.x)) << std::endl;
-
   return T((a.y * b.z) - (a.z * b.y), (a.z * b.x) - (a.x * b.z),
            (a.x * b.y) - (a.y * b.x));
 }
