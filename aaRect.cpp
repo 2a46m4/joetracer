@@ -1,4 +1,5 @@
 #include "aaRect.h"
+#include "Functions.h"
 #include <iostream>
 
 // face is 0, 1
@@ -30,7 +31,7 @@ bool XYRectangle::hit(const Ray &r, hitRecord &rec, double tMin,
   rec.p = hit;
   rec.t = t;
 
-  if (face)
+  if (dotProduct(r.direction, Vec(0, 0, 1)) > 0.0)
     rec.normal = Vec(0, 0, -1);
   else
     rec.normal = Vec(0, 0, 1);
@@ -69,7 +70,7 @@ bool XZRectangle::hit(const Ray &r, hitRecord &rec, double tMin,
   rec.matPtr = mat;
   rec.p = r.pointAtTime(t);
   rec.t = t;
-  if (face)
+  if (dotProduct(r.direction, Vec(0, 1, 0)) > 0.0)
     rec.normal = Vec(0, -1, 0);
   else
     rec.normal = Vec(0, 1, 0);
@@ -108,7 +109,7 @@ bool YZRectangle::hit(const Ray &r, hitRecord &rec, double tMin,
   rec.matPtr = mat;
   rec.p = hit;
   rec.t = t;
-  if (face)
+  if (dotProduct(r.direction, Vec(1, 0, 0)) > 0.0)
     rec.normal = Vec(-1, 0, 0);
   else
     rec.normal = Vec(1, 0, 0);

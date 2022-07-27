@@ -47,9 +47,7 @@ Vec randomCosinePDFRay() {
   double phi = 2 * PI * r1;
   double x = cos(phi) * sqrt(r2);
   double y = sin(phi) * sqrt(r2);
-
-  // std::cout << x << y << z << std::endl;
-
+  // Range: 0 < x, y, z < 1
   return Vec(x, y, z);
 }
 

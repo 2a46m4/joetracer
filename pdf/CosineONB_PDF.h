@@ -2,31 +2,24 @@
 #define _COSINE_PDF
 
 #include "../pdf.h"
-
-#include "../Functions.h"
+#include "../onb.h"
 // The scattering pdf that has the distribution of a cosine wave. Most commonly used for lambertian reflectance
 class CosinePDF : public pdf {
  public:
-  CosinePDF(const Vec& n) {
-    normal = n;
-  }
+  CosinePDF(const Vec& w) {uvw.buildFromW(w);}
 
   // Returns zero if the ray is absorbed, otherwise returns the cosine scattering pdf 
   virtual double value(const Vec& direction) const override {
-    float cosine = dotProduct(unitVec(direction), normal);
+    float cosine = dotProduct(unitVec(direction), uvw.w());
     return cosine / PI;
   }
 
   // Generates a random cosine ray based on the normal angle.
   virtual Vec generate() const override {
-    Vec scatterDirection = add(normal, randomRayInUnitVector());
-    if (isDegenerate(scatterDirection))
-      scatterDirection = normal;
-    Vec scattered = unitVec(scatterDirection);
-    return scattered;
-    }
+    return uvw.local(randomCosinePDFRay());
+  }
   
-  Vec normal;
+  onb uvw;
 };
 
 #endif

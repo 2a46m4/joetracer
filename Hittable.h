@@ -22,6 +22,7 @@ struct hitRecord {
   
   double u;
   double v;
+  // bool front_face;		
 };
 
 class Hittable {
@@ -40,7 +41,7 @@ public:
     return 0.0;
   }
 
-  // 
+  // random 
   virtual Vec random(const Point& origin) const {
     return Vec(1, 0, 0);
   }

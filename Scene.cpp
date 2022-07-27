@@ -7,8 +7,8 @@
 #include "./Ray.h"
 #include "./Sphere.h"
 #include "./Vec.h"
-#include "pdf/HittablePDF.h"
 #include "PinholeCamera.h"
+#include "pdf/HittablePDF.h"
 
 #include "Compute.h"
 #include "pdf/CosinePDF.h"
@@ -90,12 +90,18 @@ Point Scene::Colour(Ray r, int limit, BVHNode &sceneBox) const {
       return emitted; // returns the emitted value if the object doesn't scatter
     }
 
-    HittablePDF lightPDF(lights, rec.p);
-    CosinePDF cosinePDF(rec.normal);
-    MixturePDF mixPDF(&lightPDF, &cosinePDF);
-    scattered = Ray(rec.p, mixPDF.generate());
-    pdfValue = mixPDF.value(scattered.direction);
-    
+    // HittablePDF lightPDF(lights, rec.p);
+    // CosinePDF cosinePDF(rec.normal);
+    // MixturePDF mixPDF(&cosinePDF, &lightPDF);
+    // scattered = Ray(rec.p, mixPDF.generate());
+    // pdfValue = mixPDF.value(scattered.direction);
+
+    // scattered = Ray(rec.p, lightPDF.generate());
+    // pdfValue = lightPDF.value(scattered.direction);
+
+    // scattered = Ray(rec.p, cosinePDF.generate());
+    // pdfValue = cosinePDF.value(scattered.direction);
+
     // emission + fractional reflectance value * scattering PDF * colour of next
     // rays / pdf
 
@@ -105,7 +111,7 @@ Point Scene::Colour(Ray r, int limit, BVHNode &sceneBox) const {
     // same as scattering pdf
 
     // Point onLight =
-    //     Point(randomNum(213.0, 343.0), 554, randomNum(-332.0, -227.0));
+    // Point(randomNum(213.0, 343.0), 554, randomNum(-332.0, -227.0));
     // Vec toLight = sub(onLight, rec.p).direction();
     // float distanceSquared = length(toLight) * length(toLight);
     // toLight = unitVec(toLight);
@@ -116,11 +122,11 @@ Point Scene::Colour(Ray r, int limit, BVHNode &sceneBox) const {
 
     // double lightArea = (343 - 213) * (332 - 227);
     // float lightCosine = fabs(toLight.y);
-    // // grazing edge
-    // if(lightCosine < 0.000001)
-    //   return emitted;
+    // grazing edge
+    // if (lightCosine < 0.000001)
+    // return emitted;
 
-    // pdf = distanceSquared / (lightCosine * lightArea);
+    // pdfValue = distanceSquared / (lightCosine * lightArea);
     // scattered = Ray(rec.p, toLight);
 
     // This is the periodic density function of the light.
@@ -144,7 +150,7 @@ Point Scene::Colour(Ray r, int limit, BVHNode &sceneBox) const {
            scale(1 / pdfValue,
                  scale(rec.matPtr->scatteringPDF(r, rec, scattered), albedo) *
                      Colour(scattered, limit - 1, sceneBox));
-  } else // the ray hit nothing 
+  } else // the ray hit nothing
     return background;
 }
 
@@ -156,6 +162,4 @@ int Scene::getHeight() { return height; }
 
 HittableList *Scene::getHittables() { return &hittables; }
 
-void Scene::setLight(Hittable * light) {
-  lights = light;
-}
+void Scene::setLight(Hittable *light) { lights = light; }

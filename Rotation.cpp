@@ -9,11 +9,11 @@
 Rotation::Rotation(Hittable *p, Point angle) {
   obj = p;
   hasBox = p->boundingBox(0, 1, rotBox);
- 
+
   double rotYPlane = degreesToRadians(angle.x);
   double rotZPlane = degreesToRadians(angle.y);
   double rotXPlane = degreesToRadians(angle.z);
-  
+
   sinXTheta = std::sin(rotYPlane);
   cosXTheta = std::cos(rotYPlane);
 
@@ -22,12 +22,12 @@ Rotation::Rotation(Hittable *p, Point angle) {
 
   sinZTheta = std::sin(rotXPlane);
   cosZTheta = std::cos(rotXPlane);
-  
+
   double inf = std::numeric_limits<double>::max();
   double neginf = std::numeric_limits<double>::lowest();
 
   // std::cout << rotBox.max << " " << rotBox.min << std::endl;
-  
+
   Point min(inf, inf, inf);
   Point max(neginf, neginf, neginf);
 
@@ -40,17 +40,17 @@ Rotation::Rotation(Hittable *p, Point angle) {
         double y = j * rotBox.max.y + (1 - j) * rotBox.min.y;
         double z = k * rotBox.max.z + (1 - k) * rotBox.min.z;
 
-	// The rotated x and rotated y
+        // The rotated x and rotated y
         double newX = cosXTheta * x + sinXTheta * z;
         double newZ = -sinXTheta * x + cosXTheta * z;
 
-	// std::cout << "newX: " << newX << std::endl;
-	// std::cout << "newZ: " << newZ << std::endl;
+        // std::cout << "newX: " << newX << std::endl;
+        // std::cout << "newZ: " << newZ << std::endl;
 
-	
-	// aabb bounding boxes are still axis aligned, so we need to find the smallest box that fits with the new corners
+        // aabb bounding boxes are still axis aligned, so we need to find the
+        // smallest box that fits with the new corners
         Vec cur(newX, y, newZ);
-	// std::cout << cur << std::endl;
+        // std::cout << cur << std::endl;
         min.x = std::fmin(min.x, cur.x);
         max.x = std::fmax(max.x, cur.x);
         min.y = std::fmin(min.y, cur.y);
@@ -95,17 +95,19 @@ bool Rotation::hit(const Ray &r, hitRecord &rec, double tMin,
 
   // Rotate the normal
   normal.x = cosXTheta * rec.normal.x + sinXTheta * rec.normal.z;
-  normal.z = -sinXTheta * rec.normal.x + sinXTheta * rec.normal.z;
+  normal.z = -sinXTheta * rec.normal.x + cosXTheta * rec.normal.z;
 
   rec.p = p;
-  rec.normal = normal;
+  rec.normal =
+      // (dotProduct(rec.normal, rotated.direction) > 0.0) ? -normal :
+    normal;
+  // std::cout << rec.p << std::endl;
 
   return true;
 }
-
-
 
 bool Rotation::boundingBox(double t0, double t1, aabb &outputBox) const {
   outputBox = rotBox;
   return hasBox;
 }
+

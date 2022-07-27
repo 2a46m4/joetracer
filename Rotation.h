@@ -12,7 +12,16 @@ public:
   virtual bool hit(const Ray &r, hitRecord &rec, double tMin,
                    double tMax) const override;
 
-  virtual bool boundingBox(double t0, double t1, aabb &outputBox) const override;
+  virtual bool boundingBox(double t0, double t1,
+                           aabb &outputBox) const override;
+
+  // virtual double pdfValue(const Point &origin, const Vec &vec) const override {
+  //   return obj->pdfValue(origin, vec);
+  // }
+
+  // virtual Vec random(const Point &origin) const override {
+  //   return obj->random(origin);
+  // }
 
   Hittable *obj;
   bool hasBox;

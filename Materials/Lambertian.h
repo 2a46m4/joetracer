@@ -1,4 +1,3 @@
-
 #ifndef _LAMBERTIAN_H
 #define _LAMBERTIAN_H
 
@@ -8,12 +7,13 @@
 #include "../Textures/SolidColour.h"
 #include "../Textures/Texture.h"
 #include "../Vec.h"
+#include <limits>
 class Lambertian : public Materials {
 public:
   Lambertian(const Point &a) : albedo(new SolidColour(a)) {}
   Lambertian(const Texture *a) : albedo(a){};
   virtual bool scatter(const Ray &ray, const hitRecord &rec, Point &alb,
-                       Ray &scattered, double &pdf) const {
+                       Ray &scattered, double &pdf) const override {
     // direction, follows a cosine distribution
     Vec scatterDirection = add(rec.normal, randomRayInUnitVector());
     if (isDegenerate(scatterDirection))
@@ -31,7 +31,7 @@ public:
     double cosine = dotProduct(rec.normal, unitVec(rOut.direction));
     // absorb case where the cosine is negative
     // otherwise return scattering pdf of lambertian reflectance
-    return cosine < 0 ? 0 : cosine / PI;
+    return cosine / PI;
   }
 
   const Texture *albedo;

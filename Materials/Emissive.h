@@ -20,7 +20,8 @@ public:
   // unidirectional light 
   Point emitted(double u, double v, const Point &p, const hitRecord rec, const Ray ray) const override {
     if(dotProduct(rec.normal, ray.direction) >= 0) return Point(0, 0, 0);
-    else return emit->value(u, v, p);
+    else
+      return emit->value(u, v, p);
   }
 
   const Texture *emit;

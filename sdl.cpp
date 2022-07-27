@@ -136,8 +136,8 @@ void addCornellBox(Scene &s) {
   // Right wall
   Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red, 0);
   // Lights 
-  Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554, light, 1);
-  // Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1);
+  // Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554, light, 1);
+  Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1);
   s.setLight(rect3);
   // Bottom wall (floor)
   Hittable *rect4 = new XZRectangle(0, 555, -555, 0, 0, white, 0);
@@ -150,20 +150,30 @@ void addCornellBox(Scene &s) {
   // Point fogCol = Point(1, 1, 1);
   // Hittable *fog = new ConstantMedium(fogBoundary, 0.001, fogCol);
 
-  Hittable *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), white);
-  box1 = new Rotation(box1, Point(-15, 0, 0));
-  box1 = new Translate(box1, Vec(265, 0, -295));
+  // Hittable *testRect = new XYRectangle(0, 165, 0, 330, 0, white, 0);
+  // testRect = new Rotation(testRect, Point(-15, 0, 0));
+  // testRect = new Translate(testRect, Vec(265, 0, -295));
+  
+  // no rotation
+  // Hittable *box1 = new Box(Point(130, 0, -230), Point(295, 165, -65), white);
+  // Hittable *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295), white);
+  // 
+  Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), white);
+  Rotation* rbox = new Rotation(box1, Point(-15, 0, 0));
+  Translate* tbox = new Translate(rbox, Vec(265, 0, -295));
   Hittable *box2 = new Box(Point(0, 0, -165), Point(165, 165, 0), white);
   box2 = new Rotation(box2, Point(18, 0, 0));
   box2 = new Translate(box2, Vec(130, 0, -65));
 
-  s.addObject(rect1);
+  s.addObject(rect1);	       
   s.addObject(rect2);
   s.addObject(rect3);
   s.addObject(rect4);
   s.addObject(rect5);
   s.addObject(rect6);
-  s.addObject(box1);
+  // s.addObject(testRect);
+  s.addObject(tbox);	       
+  // s.addObject(box1);
   s.addObject(box2);
   // s.addObject(fog);
 }
