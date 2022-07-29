@@ -1,17 +1,11 @@
 #include "Functions.h"
+#include "RandomGenerator.h"
 #include <cmath>
 #include <random>
 
 Vec unitVec(Vec a) {
-  // std::cout << a.x << std::endl; // 
   return scale((1 / length(a)), a);
 }
-
-// const Vec unitVec(const Vec a) {
-//   // std::cout << a.x << std::endl; //
-//   return scale((1 / length(a)), a);
-// }
-
 const double sqrlen(const Vec &a) { return a.x * a.x + a.y * a.y + a.z * a.z; }
 
 double dotProduct(const Vec &a, const Vec &b) {
@@ -40,25 +34,22 @@ float schlick(const float cosine, const float refractIdx) {
 // I'm not totally sure how this works, but it returns a ray in the direction of
 // Z with a PDF of cosine(theta). See Peter Shirley's book
 Vec randomCosinePDFRay() {
-  double r1 = randomNum(0.0, 1.0);
-  double r2 = randomNum(0.0, 1.0);
+  double r1 = joetracer::randomOne();
+  double r2 = joetracer::randomOne();
   double z = sqrt(1 - r2);
 
   double phi = 2 * PI * r1;
   double x = cos(phi) * sqrt(r2);
   double y = sin(phi) * sqrt(r2);
-  // Range: 0 < x, y, z < 1
+  // Range: -1 < x, y, z < 1
   return Vec(x, y, z);
 }
 
 // Returns a random ray in the upper hemisphere
 Vec randomRayInSphere(const Vec &n) {
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> dis(-1, 1);
   Vec w;
   do {
-    w = Vec(dis(gen), dis(gen), dis(gen));
+    w = Vec(joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1));
   } while (length(w) >= 1.0);
   if (dotProduct(w, n) > 0.0) // in the same hemisphere as the normal
     return w;
@@ -68,12 +59,9 @@ Vec randomRayInSphere(const Vec &n) {
 
 // Returns a random ray in the unit sphere
 Vec randomRayInUnitVector() {
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> dis(-1, 1);
   Vec w;
   do {
-    w = Vec(dis(gen), dis(gen), dis(gen));
+    w = Vec(joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1));
   } while (length(w) >= 1.0);
   return w;
 }

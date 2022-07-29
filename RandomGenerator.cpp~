@@ -1,0 +1,16 @@
+#include "RandomGenerator.h"
+#include <random>
+
+namespace joetracer {
+std::random_device device;
+std::mt19937 generator(device());
+std::uniform_real_distribution<> randomReal(0, 1);
+  
+float randomNum(float min, float max) {
+  return (randomReal(generator) * (max - min)) + min;
+}
+int randomInt(int min, int max) {
+  std::uniform_real_distribution<> randomInt(min, max);
+  return randomInt(generator);
+}  
+} // namespace joetracer

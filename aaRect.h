@@ -46,6 +46,23 @@ public:
   virtual bool boundingBox(double t0, double t1,
                            aabb &outputBox) const override;
 
+    // This is the periodic density function of the light.
+    // p(direction) = distancesquared / lightcosine * lightarea
+    // This is the pdf of our light if we only sample the light.
+    // If we make it farther, the buckets that the rays will fall in will be
+    // higher, since the range of the angle of the rays will be smaller, given
+    // the same area. Now we need to downsample the rays such that they aren't
+    // overrepresented. The probability of a ray hitting a certain range inside
+    // the light is given by range / pdf. for example choosing a random number
+    // from 1-5, the probability of a number being within 0-2 is equal to 2/5.
+    // Now, the probability is
+    // a lot of light rays * lightcosine * lightarea / distancesquared.
+    // given that we sample the same in a big light versus a small light, we
+    // need to downsample the small light more because there will be more values
+    // falling into the small light, and to keep the total probability at 1, we
+    // need to divide it with a higher number - given by the equation above.
+    // This is analagous to the inverse square law in physics.
+  
   virtual double pdfValue(const Point &origin, const Vec &vec) const override {
     hitRecord rec;
     if (!this->hit(Ray(origin, vec), rec, 0.001, DBL_INF)) {
@@ -54,13 +71,12 @@ public:
 
     double area = (x1 - x0) * (z1 - z0);
     double distanceSquared = rec.t * rec.t * length(vec) * length(vec);
-    double cosine = fabs(dotProduct(vec, rec.normal) / length(vec));
-    // std::cout << distanceSquared / (cosine * area) << std::endl;
+    double cosine = fabs(dotProduct(rec.normal, vec) / length(vec));
     return distanceSquared / (cosine * area);
   }
 
   virtual Vec random(const Point& origin) const override {
-    Point randomPoint = Point(randomNum(x0, x1), k, randomNum(z0, z1));
+    Point randomPoint = Point(joetracer::randomNum(x0, x1), k, joetracer::randomNum(z0, z1));
     return sub(randomPoint, origin).direction();
   }
 

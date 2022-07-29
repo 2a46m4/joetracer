@@ -2,6 +2,7 @@
 #define _PERLIN_TEXTURE_H
 
 #include "../Functions.h"
+#include "../RandomGenerator.h"
 #include "../Point.h"
 #include "../Vec.h"
 #include "SolidColour.h"
@@ -16,8 +17,8 @@ public:
     randomVec = new Vec[points];
     for (int i = 0; i < points; i++) {
       *(randomVec + i) =
-          unitVec(Vec(randomNum(-1.0f, 1.0f), randomNum(-1.0f, 1.0f),
-                      randomNum(-1.0f, 1.0f)));
+	unitVec(Vec(joetracer::randomNum(-1.0, 1.0), joetracer::randomNum(-1.0f, 1.0f),
+		    joetracer::randomNum(-1.0f, 1.0f)));
     }
 
     permX = perlinGeneratePermutation();
@@ -131,7 +132,7 @@ private:
   // Randomized the elements into a different permutation of the array
   static void permute(int *p) {
     for (int i = points - 1; i > 0; i--) {
-      int target = randomNum(0, i + 1);
+      int target = joetracer::randomInt(0, i);
       int tmp = p[i];
       p[i] = p[target];
       p[target] = tmp;

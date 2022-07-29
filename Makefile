@@ -321,6 +321,30 @@ Point.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Point.cpp.s
 .PHONY : Point.cpp.s
 
+RandomGenerator.o: RandomGenerator.cpp.o
+.PHONY : RandomGenerator.o
+
+# target to build an object file
+RandomGenerator.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/RandomGenerator.cpp.o
+.PHONY : RandomGenerator.cpp.o
+
+RandomGenerator.i: RandomGenerator.cpp.i
+.PHONY : RandomGenerator.i
+
+# target to preprocess a source file
+RandomGenerator.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/RandomGenerator.cpp.i
+.PHONY : RandomGenerator.cpp.i
+
+RandomGenerator.s: RandomGenerator.cpp.s
+.PHONY : RandomGenerator.s
+
+# target to generate assembly for a file
+RandomGenerator.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/RandomGenerator.cpp.s
+.PHONY : RandomGenerator.cpp.s
+
 Ray.o: Ray.cpp.o
 .PHONY : Ray.o
 
@@ -786,6 +810,9 @@ help:
 	@echo "... Point.o"
 	@echo "... Point.i"
 	@echo "... Point.s"
+	@echo "... RandomGenerator.o"
+	@echo "... RandomGenerator.i"
+	@echo "... RandomGenerator.s"
 	@echo "... Ray.o"
 	@echo "... Ray.i"
 	@echo "... Ray.s"

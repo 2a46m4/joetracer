@@ -1,12 +1,12 @@
-#ifndef _COSINE_PDF
-#define _COSINE_PDF
+#ifndef _COSINEONB_PDF
+#define _COSINEONB_PDF
 
 #include "../pdf.h"
 #include "../onb.h"
 // The scattering pdf that has the distribution of a cosine wave. Most commonly used for lambertian reflectance
-class CosinePDF : public pdf {
+class CosineONB_PDF : public pdf {
  public:
-  CosinePDF(const Vec& w) {uvw.buildFromW(w);}
+  CosineONB_PDF(const Vec& w) {uvw.buildFromW(w);}
 
   // Returns zero if the ray is absorbed, otherwise returns the cosine scattering pdf 
   virtual double value(const Vec& direction) const override {

@@ -1,5 +1,6 @@
 #include "ConstantMedium.h"
 #include "Hittable.h"
+#include "RandomGenerator.h"
 #include "Textures/Texture.h"
 #include "Point.h"
 #include "aabb.h"
@@ -44,7 +45,7 @@ bool ConstantMedium::hit(const Ray &r, hitRecord &rec, double tMin,
   const float distanceInsideBoundary = (rec2.t - rec1.t) * rayLength;
   // - 1/d * log(rand(0, 1))
   // Lower density means higher probability that the medium will pass straight through
-  const float hitDistance = negativeInvertedDensity * log(randomNum(0.0, 1.0));
+  const float hitDistance = negativeInvertedDensity * log(joetracer::randomOne());
 
   if(hitDistance > distanceInsideBoundary) return false;
 

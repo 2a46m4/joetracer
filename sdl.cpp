@@ -34,9 +34,9 @@
 #include <SDL2/SDL_image.h>
 
 // System libraries
+#include <cmath>
 #include <iostream>
 #include <limits>
-#include <random>
 
 #if !SDL_VERSION_ATLEAST(2, 0, 17)
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
@@ -180,7 +180,6 @@ void addCornellBox(Scene &s) {
 }
 
 int main(int argc, char **argv) {
-
   // Setup SDL
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) !=
       0) {
@@ -217,46 +216,30 @@ int main(int argc, char **argv) {
   // Point location(1, 1, 1);
   // Point lookingAt(0, 0, -5);
 
+  // Scene s = Scene(screenWidth, screenHeight,
+  // PinholeCamera(screenWidth, screenHeight, 90.0f,
+  // Point(x, y, z), Point(lx, ly, lz)),
+  // Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
+  // clear_color.z * 255.0f));
+
+  double *raw = new double[screenHeight * screenWidth * 3];
+
   Scene s = Scene(screenWidth, screenHeight,
                   PinholeCamera(screenWidth, screenHeight, 90.0f,
                                 Point(x, y, z), Point(lx, ly, lz)),
                   Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
-                        clear_color.z * 255.0f));
+                        clear_color.z * 255.0f),
+                  raw);
 
   // RGB Array of pixels
-  unsigned char *pixels;
+  unsigned char *pixels = new unsigned char[screenHeight * screenWidth * 3];
 
   SDL_Surface *surface = NULL;
   SDL_Texture *finalTexture = NULL;
 
-  if (debug) {
-    addCornellBox(s);
-    // addSampleScene(s);
-    // addDebugScene(s);
-
-    s.samples = 100;
-    static float fov = 90.0f;
-
-    s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
-                         clear_color.z * 255.0f);
-    s.newCamera(
-        PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
-    while (true) {
-    }
-
-    pixels = s.render();
-    surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
-                                       screenHeight, 3 * 8, screenWidth * 3,
-                                       0x0000ff, 0x00ff00, 0xff0000, 0);
-    SDL_SaveBMP(surface, "output.bmp");
-    SDL_FreeSurface(surface);
-    return 0;
-  }
-
   // Setup window
   SDL_WindowFlags window_flags =
-      (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI |
-                        SDL_WINDOW_FULLSCREEN_DESKTOP);
+      (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
   SDL_Window *window = SDL_CreateWindow("JoeTracer", SDL_WINDOWPOS_CENTERED,
                                         SDL_WINDOWPOS_CENTERED, screenWidth,
                                         screenHeight, window_flags);
@@ -267,6 +250,44 @@ int main(int argc, char **argv) {
   if (renderer == NULL) {
     SDL_Log("Error creating SDL_Renderer!");
     return -1;
+  }
+
+  if (debug) {
+    addCornellBox(s);
+    // addSampleScene(s);
+    // addDebugScene(s);
+
+    s.samples = 1;
+    s.bounces = 4;
+
+    static float fov = 90.0f;
+
+    s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
+                         clear_color.z * 255.0f);
+    s.newCamera(
+        PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
+    int sampleCount = 0;
+    s.createBVHBox();
+    while (sampleCount < 25) {
+      sampleCount++;
+      s.render();
+      for (int i = 0; i < screenHeight * screenWidth * 3; i++) {
+        pixels[i] =
+            ((s.raw[i] / sampleCount > 255) ? 255 : s.raw[i] / sampleCount);
+      }
+
+      surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
+                                         screenHeight, 3 * 8, screenWidth * 3,
+                                         0x0000ff, 0x00ff00, 0xff0000, 0);
+      finalTexture = SDL_CreateTextureFromSurface(renderer, surface);
+      SDL_RenderClear(renderer);
+      SDL_RenderCopy(renderer, finalTexture, NULL, NULL);
+      SDL_RenderPresent(renderer);
+    }
+
+    SDL_SaveBMP(surface, "output.bmp");
+    SDL_FreeSurface(surface);
+    return 0;
   }
 
   // Setup Dear ImGui context
@@ -319,7 +340,7 @@ int main(int argc, char **argv) {
                              clear_color.z * 255.0f);
         s.newCamera(
             PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
-        pixels = s.render();
+        // pixels = s.render();
         surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
                                            screenHeight, 3 * 8, screenWidth * 3,
                                            0x0000ff, 0x00ff00, 0xff0000, 0);

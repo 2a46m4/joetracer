@@ -13,17 +13,16 @@ class CosinePDF : public pdf {
 
   // Returns zero if the ray is absorbed, otherwise returns the cosine scattering pdf 
   virtual double value(const Vec& direction) const override {
-    float cosine = dotProduct(unitVec(direction), normal);
+    double cosine = dotProduct(unitVec(direction), normal);
     return cosine / PI;
   }
 
   // Generates a random cosine ray based on the normal angle.
   virtual Vec generate() const override {
-    Vec scatterDirection = add(normal, randomRayInUnitVector());
+    Vec scatterDirection = add(normal, randomRayInSphere(normal));
     if (isDegenerate(scatterDirection))
       scatterDirection = normal;
-    Vec scattered = unitVec(scatterDirection);
-    return scattered;
+    return unitVec(scatterDirection);
     }
   
   Vec normal;

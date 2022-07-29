@@ -19,7 +19,7 @@ BVHNode::BVHNode(const std::vector<Hittable *> &objects, size_t start,
       objects; // can now modify objects - it will modify objects (despite
                // const), as these are references
   // Direction to cut
-  int axis = randomNum(0, 3);
+  int axis = joetracer::randomInt(0, 3);
   // Lambda function to compare boxes
   auto boxCompare = [axis](Hittable *a, Hittable *b) {
     aabb boxA;
