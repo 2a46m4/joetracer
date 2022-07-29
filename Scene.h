@@ -26,6 +26,8 @@ private:
 
   unsigned char *pixels;
 
+  
+  
   Hittable* lights;
 
 public:

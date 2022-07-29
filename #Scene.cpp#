@@ -63,6 +63,8 @@ unsigned char *Scene::render() const {
       // B channel
       pixels[y * (width * 3) + x + 2] =
           (col.z / samples >= 255) ? 255 : col.z / samples;
+      
+      
     }
   }
   return pixels;

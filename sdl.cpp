@@ -128,16 +128,16 @@ void addCornellBox(Scene &s) {
   Lambertian *red = new Lambertian(Point(.65, .05, .05));
   Lambertian *white = new Lambertian(Point(.73, .73, .73));
   Emissive *light = new Emissive(Point(7500, 7500, 7500));
-  Emissive *lightbig = new Emissive(Point(3500, 3500, 3500));
+  Emissive *lightbig = new Emissive(Point(2500, 2500, 2500));
   // Dielectrics *glass = new Dielectrics(1.3);
 
   // Left wall
   Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green, 1);
   // Right wall
   Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red, 0);
-  // Lights 
-  // Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554, light, 1);
-  Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1);
+  // Lights
+  Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554, light, 1);
+  // Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1);
   s.setLight(rect3);
   // Bottom wall (floor)
   Hittable *rect4 = new XZRectangle(0, 555, -555, 0, 0, white, 0);
@@ -146,33 +146,34 @@ void addCornellBox(Scene &s) {
   // Front wall
   Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white, 0);
 
-  // Hittable *fogBoundary = new Box(Point(0, 0, -555), Point(555, 555, 0), white);
-  // Point fogCol = Point(1, 1, 1);
-  // Hittable *fog = new ConstantMedium(fogBoundary, 0.001, fogCol);
+  // Hittable *fogBoundary = new Box(Point(0, 0, -555), Point(555, 555, 0),
+  // white); Point fogCol = Point(1, 1, 1); Hittable *fog = new
+  // ConstantMedium(fogBoundary, 0.001, fogCol);
 
   // Hittable *testRect = new XYRectangle(0, 165, 0, 330, 0, white, 0);
   // testRect = new Rotation(testRect, Point(-15, 0, 0));
   // testRect = new Translate(testRect, Vec(265, 0, -295));
-  
+
   // no rotation
   // Hittable *box1 = new Box(Point(130, 0, -230), Point(295, 165, -65), white);
-  // Hittable *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295), white);
-  // 
+  // Hittable *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295),
+  // white);
+  //
   Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), white);
-  Rotation* rbox = new Rotation(box1, Point(-15, 0, 0));
-  Translate* tbox = new Translate(rbox, Vec(265, 0, -295));
+  Rotation *rbox = new Rotation(box1, Point(-15, 0, 0));
+  Translate *tbox = new Translate(rbox, Vec(265, 0, -295));
   Hittable *box2 = new Box(Point(0, 0, -165), Point(165, 165, 0), white);
   box2 = new Rotation(box2, Point(18, 0, 0));
   box2 = new Translate(box2, Vec(130, 0, -65));
 
-  s.addObject(rect1);	       
+  s.addObject(rect1);
   s.addObject(rect2);
   s.addObject(rect3);
   s.addObject(rect4);
   s.addObject(rect5);
   s.addObject(rect6);
   // s.addObject(testRect);
-  s.addObject(tbox);	       
+  s.addObject(tbox);
   // s.addObject(box1);
   s.addObject(box2);
   // s.addObject(fog);
@@ -195,11 +196,7 @@ int main(int argc, char **argv) {
   }
 
   bool debug;
-  // if (argc < 2) {
-  // debug = false;
-  // } else if (strcmp(argv[0], "debug")) {
   debug = true;
-  // }
 
   // demo window
   bool show_demo_window = true;
@@ -236,6 +233,7 @@ int main(int argc, char **argv) {
     addCornellBox(s);
     // addSampleScene(s);
     // addDebugScene(s);
+
     s.samples = 100;
     static float fov = 90.0f;
 
@@ -243,6 +241,9 @@ int main(int argc, char **argv) {
                          clear_color.z * 255.0f);
     s.newCamera(
         PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
+    while (true) {
+    }
+
     pixels = s.render();
     surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
                                        screenHeight, 3 * 8, screenWidth * 3,

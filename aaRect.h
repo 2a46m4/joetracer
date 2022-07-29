@@ -55,7 +55,7 @@ public:
     double area = (x1 - x0) * (z1 - z0);
     double distanceSquared = rec.t * rec.t * length(vec) * length(vec);
     double cosine = fabs(dotProduct(vec, rec.normal) / length(vec));
-    std::cout << distanceSquared / (cosine * area) << std::endl;
+    // std::cout << distanceSquared / (cosine * area) << std::endl;
     return distanceSquared / (cosine * area);
   }
 
