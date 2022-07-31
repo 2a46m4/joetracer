@@ -104,7 +104,6 @@ Point Scene::Colour(Ray r, int limit) const {
     if (!rec.matPtr->scatter(r, rec, albedo, scattered, pdfValue)) {
       return emitted; // returns the emitted value if the object doesn't scatter
     }
-
     HittablePDF lightPDF(lights, rec.p);
     CosineONB_PDF cosinePDF(rec.normal);
     MixturePDF mixPDF(&cosinePDF, &lightPDF);

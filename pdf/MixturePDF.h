@@ -18,14 +18,14 @@ class MixturePDF : public pdf {
 
   virtual Vec generate() const override {
     if(joetracer::randomOne() < mixNum)
-      return pdf0->generate();
-    else
       return pdf1->generate();
+    else
+      return pdf0->generate();
   }
   
   pdf* pdf0;
   pdf* pdf1;
-  double mixNum = 0.5;
+  float mixNum = 0.5;
 };
 
 #endif

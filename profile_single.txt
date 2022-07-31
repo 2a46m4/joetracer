@@ -1,0 +1,685 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  us/call  us/call  name    
+ 11.49      0.27     0.27  1090841     0.25     1.38  BVHNode::hit(Ray const&, hitRecord&, double, double) const
+ 10.21      0.51     0.24  3844994     0.06     0.08  YZRectangle::hit(Ray const&, hitRecord&, double, double) const
+  9.36      0.73     0.22                             Scene::Colour(Ray, int) const
+  7.66      0.91     0.18  7357467     0.02     0.02  aabb::hit(Ray const&, double, double) const
+  7.66      1.09     0.18  5594314     0.03     0.06  XZRectangle::hit(Ray const&, hitRecord&, double, double) const
+  6.38      1.24     0.15 20824804     0.01     0.01  Point::Point(float, float, float)
+  5.11      1.36     0.12  3501722     0.03     0.06  XYRectangle::hit(Ray const&, hitRecord&, double, double) const
+  3.83      1.45     0.09 21854069     0.00     0.00  Vec::Vec(float, float, float)
+  3.83      1.54     0.09  1189447     0.08     0.50  Box::hit(Ray const&, hitRecord&, double, double) const
+  3.40      1.62     0.08  8026317     0.01     0.03  Ray::pointAtTime(float) const
+  2.98      1.69     0.07  2679459     0.03     0.03  unitVec(Vec)
+  2.55      1.75     0.06 13936224     0.00     0.00  Point::Point()
+  2.55      1.81     0.06  4190979     0.01     0.01  joetracer::randomNum(float, float)
+  2.13      1.86     0.05 13463835     0.00     0.00  Vec::Vec()
+  2.13      1.91     0.05  7691212     0.01     0.01  point(Vec const&)
+  2.13      1.96     0.05  5364976     0.01     0.01  dotProduct(Vec const&, Vec const&)
+  1.70      2.00     0.04  4690265     0.01     0.02  Ray::Ray(Point const&, Vec const&)
+  1.70      2.04     0.04  1308521     0.03     0.56  Translate::hit(Ray const&, hitRecord&, double, double) const
+  1.70      2.08     0.04   694252     0.06     0.14  XZRectangle::pdfValue(Point const&, Vec const&) const
+  1.70      2.12     0.04   586706     0.07     0.25  Lambertian::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const
+  1.70      2.16     0.04   513322     0.08     0.15  onb::buildFromW(Vec)
+  1.28      2.19     0.03  1347239     0.02     0.48  Rotation::hit(Ray const&, hitRecord&, double, double) const
+  1.28      2.22     0.03   616991     0.05     0.05  Point::direction()
+  1.28      2.25     0.03   431633     0.07     0.09  Emissive::emitted(double, double, Point const&, hitRecord, Ray) const
+  0.85      2.27     0.02  1602196     0.01     0.03  Ray::Ray()
+  0.85      2.29     0.02   601209     0.03     0.07  Lambertian::scatteringPDF(Ray const&, hitRecord const&, Ray const&) const
+  0.85      2.31     0.02   581197     0.03     0.12  randomRayInUnitVector()
+  0.43      2.32     0.01  1189690     0.01     0.01  joetracer::randomOne()
+  0.43      2.33     0.01   901052     0.01     0.01  SolidColour::value(double, double, Point) const
+  0.43      2.34     0.01   577823     0.02     0.04  PinholeCamera::getPrimaryRay(float, float, Ray&) const
+  0.43      2.35     0.01                             main
+  0.00      2.35     0.00   642081     0.00     0.00  HittablePDF::value(Vec const&) const
+  0.00      2.35     0.00   588072     0.00     0.00  Point::operator*(Point)
+  0.00      2.35     0.00   550827     0.00     0.00  Point::operator+(Point)
+  0.00      2.35     0.00   525016     0.00     0.00  Point::direction() const
+  0.00      2.35     0.00   496570     0.00     0.05  CosineONB_PDF::value(Vec const&) const
+  0.00      2.35     0.00   495325     0.00     0.00  Emissive::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const
+  0.00      2.35     0.00   494438     0.00     0.12  XZRectangle::random(Point const&) const
+  0.00      2.35     0.00      200     0.00     0.00  Scene::render() const
+  0.00      2.35     0.00       95     0.00     0.00  aabb::aabb()
+  0.00      2.35     0.00       84     0.00     0.01  aabb::aabb(Point const&, Point const&)
+  0.00      2.35     0.00       31     0.00     0.02  XZRectangle::boundingBox(double, double, aabb&) const
+  0.00      2.35     0.00       25     0.00     0.02  YZRectangle::boundingBox(double, double, aabb&) const
+  0.00      2.35     0.00       16     0.00     0.00  Rotation::boundingBox(double, double, aabb&) const
+  0.00      2.35     0.00       16     0.00     0.02  Translate::boundingBox(double, double, aabb&) const
+  0.00      2.35     0.00        8     0.00     0.00  Scene::addObject(Hittable*)
+  0.00      2.35     0.00        8     0.00     0.02  XYRectangle::boundingBox(double, double, aabb&) const
+  0.00      2.35     0.00        8     0.00     0.00  void std::vector<Hittable*, std::allocator<Hittable*> >::_M_realloc_insert<Hittable* const&>(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, Hittable* const&)
+  0.00      2.35     0.00        7     0.00     0.02  surroundingBox(aabb, aabb)
+  0.00      2.35     0.00        7     0.00     0.00  XZRectangle::XZRectangle(double, double, double, double, double, Materials*, int)
+  0.00      2.35     0.00        7     0.00     0.00  joetracer::randomInt(int, int)
+  0.00      2.35     0.00        6     0.00     0.00  degreesToRadians(double)
+  0.00      2.35     0.00        6     0.00     0.00  YZRectangle::YZRectangle(double, double, double, double, double, Materials*, int)
+  0.00      2.35     0.00        6     0.00     0.00  BVHNode::boundingBox(double, double, aabb&) const
+  0.00      2.35     0.00        5     0.00     0.00  XYRectangle::XYRectangle(double, double, double, double, double, Materials*, int)
+  0.00      2.35     0.00        3     0.00     0.68  void std::__insertion_sort<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>)
+  0.00      2.35     0.00        3     0.00     0.00  void std::__introsort_loop<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>)
+  0.00      2.35     0.00        2     0.00     0.25  PinholeCamera::PinholeCamera(int, int, float, Point, Point)
+  0.00      2.35     0.00        2     0.00     0.01  Box::Box(Point, Point, Materials*)
+  0.00      2.35     0.00        2     0.00     0.07  Rotation::Rotation(Hittable*, Point)
+  0.00      2.35     0.00        2     0.00     0.00  Translate::Translate(Hittable*, Vec const&)
+  0.00      2.35     0.00        2     0.00     0.01  Box::boundingBox(double, double, aabb&) const
+  0.00      2.35     0.00        1     0.00     0.26  addCornellBox(Scene&)
+  0.00      2.35     0.00        1     0.00     0.03  PinholeCamera::PinholeCamera()
+  0.00      2.35     0.00        1     0.00     2.81  Scene::createBVHBox()
+  0.00      2.35     0.00        1     0.00     0.00  Scene::setLight(Hittable*)
+  0.00      2.35     0.00        1     0.00     0.00  Scene::newCamera(PinholeCamera)
+  0.00      2.35     0.00        1     0.00     0.04  Scene::Scene(int, int, PinholeCamera, Point, double*)
+  0.00      2.35     0.00        1     0.00     2.81  BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 0.43% of 2.35 seconds
+
+index % time    self  children    called     name
+                              962553             Scene::Colour(Ray, int) const [1]
+[1]     99.6    0.22    2.12       0+962553  Scene::Colour(Ray, int) const [1]
+                0.27    1.23 1090841/1090841     BVHNode::hit(Ray const&, hitRecord&, double, double) const [2]
+                0.04    0.11  586706/586706      Lambertian::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [12]
+                0.04    0.06  694252/694252      XZRectangle::pdfValue(Point const&, Vec const&) const [14]
+                0.04    0.04  513322/513322      onb::buildFromW(Vec) [18]
+                0.00    0.06  494438/494438      XZRectangle::random(Point const&) const [22]
+                0.02    0.03 1602196/1602196     Ray::Ray() [25]
+                0.02    0.02  601209/601209      Lambertian::scatteringPDF(Ray const&, hitRecord const&, Ray const&) const [26]
+                0.03    0.01  431633/431633      Emissive::emitted(double, double, Point const&, hitRecord, Ray) const [27]
+                0.01    0.01  577823/577823      PinholeCamera::getPrimaryRay(float, float, Ray&) const [29]
+                0.00    0.02  496570/496570      CosineONB_PDF::value(Vec const&) const [30]
+                0.02    0.00 2419376/20824804     Point::Point(float, float, float) [11]
+                0.02    0.00 3849106/13936224     Point::Point() [20]
+                0.01    0.00 1189690/1189690     joetracer::randomOne() [32]
+                0.01    0.00 2634552/13463835     Vec::Vec() [23]
+                0.00    0.00  550059/4690265     Ray::Ray(Point const&, Vec const&) [17]
+                0.00    0.00  642081/642081      HittablePDF::value(Vec const&) const [61]
+                0.00    0.00  588072/588072      Point::operator*(Point) [62]
+                0.00    0.00  550827/550827      Point::operator+(Point) [63]
+                0.00    0.00  495325/495325      Emissive::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [64]
+                              962553             Scene::Colour(Ray, int) const [1]
+-----------------------------------------------
+                             5497539             BVHNode::hit(Ray const&, hitRecord&, double, double) const [2]
+                0.27    1.23 1090841/1090841     Scene::Colour(Ray, int) const [1]
+[2]     64.0    0.27    1.23 1090841+5497539 BVHNode::hit(Ray const&, hitRecord&, double, double) const [2]
+                0.04    0.69 1308521/1308521     Translate::hit(Ray const&, hitRecord&, double, double) const [3]
+                0.18    0.00 7357467/7357467     aabb::hit(Ray const&, double, double) const [10]
+                0.08    0.08 2473245/5594314     XZRectangle::hit(Ray const&, hitRecord&, double, double) const [6]
+                0.09    0.02 1486857/3844994     YZRectangle::hit(Ray const&, hitRecord&, double, double) const [7]
+                0.03    0.02  826426/3501722     XYRectangle::hit(Ray const&, hitRecord&, double, double) const [9]
+                             5497539             BVHNode::hit(Ray const&, hitRecord&, double, double) const [2]
+-----------------------------------------------
+                0.04    0.69 1308521/1308521     BVHNode::hit(Ray const&, hitRecord&, double, double) const [2]
+[3]     31.2    0.04    0.69 1308521         Translate::hit(Ray const&, hitRecord&, double, double) const [3]
+                0.03    0.62 1347239/1347239     Rotation::hit(Ray const&, hitRecord&, double, double) const [4]
+                0.01    0.01 1602300/4690265     Ray::Ray(Point const&, Vec const&) [17]
+                0.01    0.00 1711515/20824804     Point::Point(float, float, float) [11]
+                0.00    0.00  209105/5364976     dotProduct(Vec const&, Vec const&) [24]
+-----------------------------------------------
+                0.03    0.62 1347239/1347239     Translate::hit(Ray const&, hitRecord&, double, double) const [3]
+[4]     27.8    0.03    0.62 1347239         Rotation::hit(Ray const&, hitRecord&, double, double) const [4]
+                0.09    0.51 1189447/1189447     Box::hit(Ray const&, hitRecord&, double, double) const [5]
+                0.01    0.01 1331040/4690265     Ray::Ray(Point const&, Vec const&) [17]
+-----------------------------------------------
+                0.09    0.51 1189447/1189447     Rotation::hit(Ray const&, hitRecord&, double, double) const [4]
+[5]     25.5    0.09    0.51 1189447         Box::hit(Ray const&, hitRecord&, double, double) const [5]
+                0.15    0.03 2358137/3844994     YZRectangle::hit(Ray const&, hitRecord&, double, double) const [7]
+                0.08    0.08 2568435/5594314     XZRectangle::hit(Ray const&, hitRecord&, double, double) const [6]
+                0.09    0.06 2675296/3501722     XYRectangle::hit(Ray const&, hitRecord&, double, double) const [9]
+                0.01    0.00 1400084/13936224     Point::Point() [20]
+                0.01    0.00 1505800/13463835     Vec::Vec() [23]
+-----------------------------------------------
+                0.02    0.02  552634/5594314     XZRectangle::pdfValue(Point const&, Vec const&) const [14]
+                0.08    0.08 2473245/5594314     BVHNode::hit(Ray const&, hitRecord&, double, double) const [2]
+                0.08    0.08 2568435/5594314     Box::hit(Ray const&, hitRecord&, double, double) const [5]
+[6]     15.4    0.18    0.18 5594314         XZRectangle::hit(Ray const&, hitRecord&, double, double) const [6]
+                0.04    0.11 4356095/8026317     Ray::pointAtTime(float) const [8]
+                0.02    0.00 1975073/5364976     dotProduct(Vec const&, Vec const&) [24]
+                0.01    0.00 3402346/21854069     Vec::Vec(float, float, float) [15]
+-----------------------------------------------
+                0.09    0.02 1486857/3844994     BVHNode::hit(Ray const&, hitRecord&, double, double) const [2]
+                0.15    0.03 2358137/3844994     Box::hit(Ray const&, hitRecord&, double, double) const [5]
+[7]     12.6    0.24    0.06 3844994         YZRectangle::hit(Ray const&, hitRecord&, double, double) const [7]
+                0.02    0.04 1537453/8026317     Ray::pointAtTime(float) const [8]
+                0.00    0.00  150049/5364976     dotProduct(Vec const&, Vec const&) [24]
+                0.00    0.00  277169/21854069     Vec::Vec(float, float, float) [15]
+-----------------------------------------------
+                0.02    0.04 1537453/8026317     YZRectangle::hit(Ray const&, hitRecord&, double, double) const [7]
+                0.02    0.05 2132769/8026317     XYRectangle::hit(Ray const&, hitRecord&, double, double) const [9]
+                0.04    0.11 4356095/8026317     XZRectangle::hit(Ray const&, hitRecord&, double, double) const [6]
+[8]     11.7    0.08    0.20 8026317         Ray::pointAtTime(float) const [8]
+                0.05    0.06 7691212/7691212     point(Vec const&) [13]
+                0.06    0.00 7830954/20824804     Point::Point(float, float, float) [11]
+                0.03    0.00 8016167/21854069     Vec::Vec(float, float, float) [15]
+-----------------------------------------------
+                0.03    0.02  826426/3501722     BVHNode::hit(Ray const&, hitRecord&, double, double) const [2]
+                0.09    0.06 2675296/3501722     Box::hit(Ray const&, hitRecord&, double, double) const [5]
+[9]      8.4    0.12    0.08 3501722         XYRectangle::hit(Ray const&, hitRecord&, double, double) const [9]
+                0.02    0.05 2132769/8026317     Ray::pointAtTime(float) const [8]
+                0.00    0.00  297190/5364976     dotProduct(Vec const&, Vec const&) [24]
+                0.00    0.00  516104/21854069     Vec::Vec(float, float, float) [15]
+-----------------------------------------------
+                0.18    0.00 7357467/7357467     BVHNode::hit(Ray const&, hitRecord&, double, double) const [2]
+[10]     7.7    0.18    0.00 7357467         aabb::hit(Ray const&, double, double) const [10]
+-----------------------------------------------
+                0.00    0.00       2/20824804     PinholeCamera::PinholeCamera(int, int, float, Point, Point) [41]
+                0.00    0.00       4/20824804     Rotation::Rotation(Hittable*, Point) [47]
+                0.00    0.00       6/20824804     main [31]
+                0.00    0.00      11/20824804     addCornellBox(Scene&) [44]
+                0.00    0.00      14/20824804     surroundingBox(aabb, aabb) [46]
+                0.00    0.00      16/20824804     XYRectangle::boundingBox(double, double, aabb&) const [45]
+                0.00    0.00      32/20824804     Translate::boundingBox(double, double, aabb&) const [43]
+                0.00    0.00      50/20824804     YZRectangle::boundingBox(double, double, aabb&) const [40]
+                0.00    0.00      62/20824804     XZRectangle::boundingBox(double, double, aabb&) const [39]
+                0.01    0.00 1135787/20824804     XZRectangle::random(Point const&) const [22]
+                0.01    0.00 1711515/20824804     Translate::hit(Ray const&, hitRecord&, double, double) const [3]
+                0.02    0.00 2419376/20824804     Scene::Colour(Ray, int) const [1]
+                0.06    0.00 7726975/20824804     point(Vec const&) [13]
+                0.06    0.00 7830954/20824804     Ray::pointAtTime(float) const [8]
+[11]     6.4    0.15    0.00 20824804         Point::Point(float, float, float) [11]
+-----------------------------------------------
+                0.04    0.11  586706/586706      Scene::Colour(Ray, int) const [1]
+[12]     6.3    0.04    0.11  586706         Lambertian::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [12]
+                0.02    0.05  581197/581197      randomRayInUnitVector() [19]
+                0.01    0.00  508156/2679459     unitVec(Vec) [16]
+                0.01    0.00  588351/4690265     Ray::Ray(Point const&, Vec const&) [17]
+                0.01    0.00  467361/901052      SolidColour::value(double, double, Point) const [33]
+                0.01    0.00  538591/5364976     dotProduct(Vec const&, Vec const&) [24]
+                0.00    0.00  477621/21854069     Vec::Vec(float, float, float) [15]
+-----------------------------------------------
+                0.05    0.06 7691212/7691212     Ray::pointAtTime(float) const [8]
+[13]     4.5    0.05    0.06 7691212         point(Vec const&) [13]
+                0.06    0.00 7726975/20824804     Point::Point(float, float, float) [11]
+-----------------------------------------------
+                0.04    0.06  694252/694252      Scene::Colour(Ray, int) const [1]
+[14]     4.1    0.04    0.06  694252         XZRectangle::pdfValue(Point const&, Vec const&) const [14]
+                0.02    0.02  552634/5594314     XZRectangle::hit(Ray const&, hitRecord&, double, double) const [6]
+                0.01    0.01  618515/4690265     Ray::Ray(Point const&, Vec const&) [17]
+                0.01    0.00  630906/5364976     dotProduct(Vec const&, Vec const&) [24]
+                0.00    0.00  665304/13936224     Point::Point() [20]
+                0.00    0.00  692046/13463835     Vec::Vec() [23]
+-----------------------------------------------
+                0.00    0.00       2/21854069     addCornellBox(Scene&) [44]
+                0.00    0.00      16/21854069     Rotation::Rotation(Hittable*, Point) [47]
+                0.00    0.00      20/21854069     PinholeCamera::PinholeCamera(int, int, float, Point, Point) [41]
+                0.00    0.00  277169/21854069     YZRectangle::hit(Ray const&, hitRecord&, double, double) const [7]
+                0.00    0.00  477621/21854069     Lambertian::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [12]
+                0.00    0.00  516104/21854069     XYRectangle::hit(Ray const&, hitRecord&, double, double) const [9]
+                0.00    0.00  578371/21854069     Point::direction() const [34]
+                0.00    0.00  602685/21854069     Point::direction() [28]
+                0.00    0.00  986787/21854069     randomRayInUnitVector() [19]
+                0.01    0.00 1587919/21854069     onb::buildFromW(Vec) [18]
+                0.01    0.00 2661605/21854069     PinholeCamera::getPrimaryRay(float, float, Ray&) const [29]
+                0.01    0.00 2747257/21854069     unitVec(Vec) [16]
+                0.01    0.00 3402346/21854069     XZRectangle::hit(Ray const&, hitRecord&, double, double) const [6]
+                0.03    0.00 8016167/21854069     Ray::pointAtTime(float) const [8]
+[15]     3.8    0.09    0.00 21854069         Vec::Vec(float, float, float) [15]
+-----------------------------------------------
+                0.00    0.00       4/2679459     PinholeCamera::PinholeCamera(int, int, float, Point, Point) [41]
+                0.01    0.00  508156/2679459     Lambertian::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [12]
+                0.02    0.00  586144/2679459     CosineONB_PDF::value(Vec const&) const [30]
+                0.02    0.00  595773/2679459     Lambertian::scatteringPDF(Ray const&, hitRecord const&, Ray const&) const [26]
+                0.03    0.00  989382/2679459     onb::buildFromW(Vec) [18]
+[16]     3.5    0.07    0.01 2679459         unitVec(Vec) [16]
+                0.01    0.00 2747257/21854069     Vec::Vec(float, float, float) [15]
+-----------------------------------------------
+                0.00    0.00  550059/4690265     Scene::Colour(Ray, int) const [1]
+                0.01    0.00  588351/4690265     Lambertian::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [12]
+                0.01    0.01  618515/4690265     XZRectangle::pdfValue(Point const&, Vec const&) const [14]
+                0.01    0.01 1331040/4690265     Rotation::hit(Ray const&, hitRecord&, double, double) const [4]
+                0.01    0.01 1602300/4690265     Translate::hit(Ray const&, hitRecord&, double, double) const [3]
+[17]     3.4    0.04    0.04 4690265         Ray::Ray(Point const&, Vec const&) [17]
+                0.02    0.00 4749783/13936224     Point::Point() [20]
+                0.02    0.00 5014079/13463835     Vec::Vec() [23]
+-----------------------------------------------
+                0.04    0.04  513322/513322      Scene::Colour(Ray, int) const [1]
+[18]     3.3    0.04    0.04  513322         onb::buildFromW(Vec) [18]
+                0.03    0.00  989382/2679459     unitVec(Vec) [16]
+                0.01    0.00 1587919/21854069     Vec::Vec(float, float, float) [15]
+-----------------------------------------------
+                0.02    0.05  581197/581197      Lambertian::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [12]
+[19]     3.0    0.02    0.05  581197         randomRayInUnitVector() [19]
+                0.04    0.00 3024874/4190979     joetracer::randomNum(float, float) [21]
+                0.00    0.00  986787/21854069     Vec::Vec(float, float, float) [15]
+                0.00    0.00  574181/13463835     Vec::Vec() [23]
+-----------------------------------------------
+                0.00    0.00       1/13936224     Scene::Scene(int, int, PinholeCamera, Point, double*) [48]
+                0.00    0.00       2/13936224     PinholeCamera::PinholeCamera() [49]
+                0.00    0.00       2/13936224     Rotation::Rotation(Hittable*, Point) [47]
+                0.00    0.00       4/13936224     PinholeCamera::PinholeCamera(int, int, float, Point, Point) [41]
+                0.00    0.00       4/13936224     Box::Box(Point, Point, Materials*) [51]
+                0.00    0.00      14/13936224     surroundingBox(aabb, aabb) [46]
+                0.00    0.00      29/13936224     BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+                0.00    0.00      64/13936224     void std::__insertion_sort<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>) [37]
+                0.00    0.00      96/13936224     aabb::aabb() [42]
+                0.00    0.00     168/13936224     aabb::aabb(Point const&, Point const&) [38]
+                0.00    0.00  665304/13936224     XZRectangle::pdfValue(Point const&, Vec const&) const [14]
+                0.01    0.00 1400084/13936224     Box::hit(Ray const&, hitRecord&, double, double) const [5]
+                0.01    0.00 3271563/13936224     Ray::Ray() [25]
+                0.02    0.00 3849106/13936224     Scene::Colour(Ray, int) const [1]
+                0.02    0.00 4749783/13936224     Ray::Ray(Point const&, Vec const&) [17]
+[20]     2.6    0.06    0.00 13936224         Point::Point() [20]
+-----------------------------------------------
+                0.02    0.00 1166105/4190979     XZRectangle::random(Point const&) const [22]
+                0.04    0.00 3024874/4190979     randomRayInUnitVector() [19]
+[21]     2.6    0.06    0.00 4190979         joetracer::randomNum(float, float) [21]
+-----------------------------------------------
+                0.00    0.06  494438/494438      Scene::Colour(Ray, int) const [1]
+[22]     2.4    0.00    0.06  494438         XZRectangle::random(Point const&) const [22]
+                0.03    0.00  616987/616991      Point::direction() [28]
+                0.02    0.00 1166105/4190979     joetracer::randomNum(float, float) [21]
+                0.01    0.00 1135787/20824804     Point::Point(float, float, float) [11]
+-----------------------------------------------
+                0.00    0.00       1/13463835     Scene::Scene(int, int, PinholeCamera, Point, double*) [48]
+                0.00    0.00       2/13463835     Translate::Translate(Hittable*, Vec const&) [52]
+                0.00    0.00       6/13463835     PinholeCamera::PinholeCamera() [49]
+                0.00    0.00      14/13463835     PinholeCamera::PinholeCamera(int, int, float, Point, Point) [41]
+                0.00    0.00  574181/13463835     randomRayInUnitVector() [19]
+                0.00    0.00  692046/13463835     XZRectangle::pdfValue(Point const&, Vec const&) const [14]
+                0.01    0.00 1505800/13463835     Box::hit(Ray const&, hitRecord&, double, double) const [5]
+                0.01    0.00 2634552/13463835     Scene::Colour(Ray, int) const [1]
+                0.01    0.00 3043154/13463835     Ray::Ray() [25]
+                0.02    0.00 5014079/13463835     Ray::Ray(Point const&, Vec const&) [17]
+[23]     2.1    0.05    0.00 13463835         Vec::Vec() [23]
+-----------------------------------------------
+                0.00    0.00  150049/5364976     YZRectangle::hit(Ray const&, hitRecord&, double, double) const [7]
+                0.00    0.00  209105/5364976     Translate::hit(Ray const&, hitRecord&, double, double) const [3]
+                0.00    0.00  297190/5364976     XYRectangle::hit(Ray const&, hitRecord&, double, double) const [9]
+                0.00    0.00  397930/5364976     Emissive::emitted(double, double, Point const&, hitRecord, Ray) const [27]
+                0.01    0.00  538591/5364976     Lambertian::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [12]
+                0.01    0.00  572524/5364976     CosineONB_PDF::value(Vec const&) const [30]
+                0.01    0.00  593608/5364976     Lambertian::scatteringPDF(Ray const&, hitRecord const&, Ray const&) const [26]
+                0.01    0.00  630906/5364976     XZRectangle::pdfValue(Point const&, Vec const&) const [14]
+                0.02    0.00 1975073/5364976     XZRectangle::hit(Ray const&, hitRecord&, double, double) const [6]
+[24]     2.1    0.05    0.00 5364976         dotProduct(Vec const&, Vec const&) [24]
+-----------------------------------------------
+                0.02    0.03 1602196/1602196     Scene::Colour(Ray, int) const [1]
+[25]     1.9    0.02    0.03 1602196         Ray::Ray() [25]
+                0.01    0.00 3271563/13936224     Point::Point() [20]
+                0.01    0.00 3043154/13463835     Vec::Vec() [23]
+-----------------------------------------------
+                0.02    0.02  601209/601209      Scene::Colour(Ray, int) const [1]
+[26]     1.9    0.02    0.02  601209         Lambertian::scatteringPDF(Ray const&, hitRecord const&, Ray const&) const [26]
+                0.02    0.00  595773/2679459     unitVec(Vec) [16]
+                0.01    0.00  593608/5364976     dotProduct(Vec const&, Vec const&) [24]
+-----------------------------------------------
+                0.03    0.01  431633/431633      Scene::Colour(Ray, int) const [1]
+[27]     1.6    0.03    0.01  431633         Emissive::emitted(double, double, Point const&, hitRecord, Ray) const [27]
+                0.00    0.00  433691/901052      SolidColour::value(double, double, Point) const [33]
+                0.00    0.00  397930/5364976     dotProduct(Vec const&, Vec const&) [24]
+-----------------------------------------------
+                0.00    0.00       4/616991      PinholeCamera::PinholeCamera(int, int, float, Point, Point) [41]
+                0.03    0.00  616987/616991      XZRectangle::random(Point const&) const [22]
+[28]     1.4    0.03    0.00  616991         Point::direction() [28]
+                0.00    0.00  602685/21854069     Vec::Vec(float, float, float) [15]
+-----------------------------------------------
+                0.01    0.01  577823/577823      Scene::Colour(Ray, int) const [1]
+[29]     1.0    0.01    0.01  577823         PinholeCamera::getPrimaryRay(float, float, Ray&) const [29]
+                0.01    0.00 2661605/21854069     Vec::Vec(float, float, float) [15]
+                0.00    0.00  525016/525016      Point::direction() const [34]
+-----------------------------------------------
+                0.00    0.02  496570/496570      Scene::Colour(Ray, int) const [1]
+[30]     1.0    0.00    0.02  496570         CosineONB_PDF::value(Vec const&) const [30]
+                0.02    0.00  586144/2679459     unitVec(Vec) [16]
+                0.01    0.00  572524/5364976     dotProduct(Vec const&, Vec const&) [24]
+-----------------------------------------------
+                                                 <spontaneous>
+[31]     0.4    0.01    0.00                 main [31]
+                0.00    0.00       1/1           Scene::createBVHBox() [35]
+                0.00    0.00       2/2           PinholeCamera::PinholeCamera(int, int, float, Point, Point) [41]
+                0.00    0.00       1/1           addCornellBox(Scene&) [44]
+                0.00    0.00       6/20824804     Point::Point(float, float, float) [11]
+                0.00    0.00       1/1           Scene::Scene(int, int, PinholeCamera, Point, double*) [48]
+                0.00    0.00     200/200         Scene::render() const [65]
+                0.00    0.00       1/8           Scene::addObject(Hittable*) [67]
+                0.00    0.00       1/1           Scene::newCamera(PinholeCamera) [77]
+-----------------------------------------------
+                0.01    0.00 1189690/1189690     Scene::Colour(Ray, int) const [1]
+[32]     0.4    0.01    0.00 1189690         joetracer::randomOne() [32]
+-----------------------------------------------
+                0.00    0.00  433691/901052      Emissive::emitted(double, double, Point const&, hitRecord, Ray) const [27]
+                0.01    0.00  467361/901052      Lambertian::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [12]
+[33]     0.4    0.01    0.00  901052         SolidColour::value(double, double, Point) const [33]
+-----------------------------------------------
+                0.00    0.00  525016/525016      PinholeCamera::getPrimaryRay(float, float, Ray&) const [29]
+[34]     0.1    0.00    0.00  525016         Point::direction() const [34]
+                0.00    0.00  578371/21854069     Vec::Vec(float, float, float) [15]
+-----------------------------------------------
+                0.00    0.00       1/1           main [31]
+[35]     0.0    0.00    0.00       1         Scene::createBVHBox() [35]
+                0.00    0.00       1/1           BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+-----------------------------------------------
+                                   6             BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+                0.00    0.00       1/1           Scene::createBVHBox() [35]
+[36]     0.0    0.00    0.00       1+6       BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+                0.00    0.00       3/3           void std::__insertion_sort<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>) [37]
+                0.00    0.00       7/7           surroundingBox(aabb, aabb) [46]
+                0.00    0.00       6/31          XZRectangle::boundingBox(double, double, aabb&) const [39]
+                0.00    0.00      29/95          aabb::aabb() [42]
+                0.00    0.00      29/13936224     Point::Point() [20]
+                0.00    0.00       4/16          Translate::boundingBox(double, double, aabb&) const [43]
+                0.00    0.00       4/25          YZRectangle::boundingBox(double, double, aabb&) const [40]
+                0.00    0.00       2/8           XYRectangle::boundingBox(double, double, aabb&) const [45]
+                0.00    0.00       7/7           joetracer::randomInt(int, int) [70]
+                0.00    0.00       6/6           BVHNode::boundingBox(double, double, aabb&) const [73]
+                0.00    0.00       3/3           void std::__introsort_loop<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>) [75]
+                                   6             BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+-----------------------------------------------
+                0.00    0.00       3/3           BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+[37]     0.0    0.00    0.00       3         void std::__insertion_sort<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>) [37]
+                0.00    0.00      25/31          XZRectangle::boundingBox(double, double, aabb&) const [39]
+                0.00    0.00      21/25          YZRectangle::boundingBox(double, double, aabb&) const [40]
+                0.00    0.00      64/95          aabb::aabb() [42]
+                0.00    0.00      12/16          Translate::boundingBox(double, double, aabb&) const [43]
+                0.00    0.00      64/13936224     Point::Point() [20]
+                0.00    0.00       6/8           XYRectangle::boundingBox(double, double, aabb&) const [45]
+-----------------------------------------------
+                0.00    0.00       2/84          Rotation::Rotation(Hittable*, Point) [47]
+                0.00    0.00       2/84          Box::boundingBox(double, double, aabb&) const [50]
+                0.00    0.00       8/84          XYRectangle::boundingBox(double, double, aabb&) const [45]
+                0.00    0.00      16/84          Translate::boundingBox(double, double, aabb&) const [43]
+                0.00    0.00      25/84          YZRectangle::boundingBox(double, double, aabb&) const [40]
+                0.00    0.00      31/84          XZRectangle::boundingBox(double, double, aabb&) const [39]
+[38]     0.0    0.00    0.00      84         aabb::aabb(Point const&, Point const&) [38]
+                0.00    0.00     168/13936224     Point::Point() [20]
+-----------------------------------------------
+                0.00    0.00       6/31          BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+                0.00    0.00      25/31          void std::__insertion_sort<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>) [37]
+[39]     0.0    0.00    0.00      31         XZRectangle::boundingBox(double, double, aabb&) const [39]
+                0.00    0.00      62/20824804     Point::Point(float, float, float) [11]
+                0.00    0.00      31/84          aabb::aabb(Point const&, Point const&) [38]
+-----------------------------------------------
+                0.00    0.00       4/25          BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+                0.00    0.00      21/25          void std::__insertion_sort<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>) [37]
+[40]     0.0    0.00    0.00      25         YZRectangle::boundingBox(double, double, aabb&) const [40]
+                0.00    0.00      50/20824804     Point::Point(float, float, float) [11]
+                0.00    0.00      25/84          aabb::aabb(Point const&, Point const&) [38]
+-----------------------------------------------
+                0.00    0.00       2/2           main [31]
+[41]     0.0    0.00    0.00       2         PinholeCamera::PinholeCamera(int, int, float, Point, Point) [41]
+                0.00    0.00       4/616991      Point::direction() [28]
+                0.00    0.00       4/2679459     unitVec(Vec) [16]
+                0.00    0.00      20/21854069     Vec::Vec(float, float, float) [15]
+                0.00    0.00      14/13463835     Vec::Vec() [23]
+                0.00    0.00       4/13936224     Point::Point() [20]
+                0.00    0.00       2/20824804     Point::Point(float, float, float) [11]
+-----------------------------------------------
+                0.00    0.00       2/95          Rotation::Rotation(Hittable*, Point) [47]
+                0.00    0.00      29/95          BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+                0.00    0.00      64/95          void std::__insertion_sort<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>) [37]
+[42]     0.0    0.00    0.00      95         aabb::aabb() [42]
+                0.00    0.00      96/13936224     Point::Point() [20]
+-----------------------------------------------
+                0.00    0.00       4/16          BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+                0.00    0.00      12/16          void std::__insertion_sort<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>) [37]
+[43]     0.0    0.00    0.00      16         Translate::boundingBox(double, double, aabb&) const [43]
+                0.00    0.00      32/20824804     Point::Point(float, float, float) [11]
+                0.00    0.00      16/84          aabb::aabb(Point const&, Point const&) [38]
+                0.00    0.00      16/16          Rotation::boundingBox(double, double, aabb&) const [66]
+-----------------------------------------------
+                0.00    0.00       1/1           main [31]
+[44]     0.0    0.00    0.00       1         addCornellBox(Scene&) [44]
+                0.00    0.00       2/2           Rotation::Rotation(Hittable*, Point) [47]
+                0.00    0.00      11/20824804     Point::Point(float, float, float) [11]
+                0.00    0.00       2/2           Box::Box(Point, Point, Materials*) [51]
+                0.00    0.00       2/21854069     Vec::Vec(float, float, float) [15]
+                0.00    0.00       2/2           Translate::Translate(Hittable*, Vec const&) [52]
+                0.00    0.00       7/8           Scene::addObject(Hittable*) [67]
+                0.00    0.00       3/7           XZRectangle::XZRectangle(double, double, double, double, double, Materials*, int) [69]
+                0.00    0.00       2/6           YZRectangle::YZRectangle(double, double, double, double, double, Materials*, int) [72]
+                0.00    0.00       1/1           Scene::setLight(Hittable*) [76]
+                0.00    0.00       1/5           XYRectangle::XYRectangle(double, double, double, double, double, Materials*, int) [74]
+-----------------------------------------------
+                0.00    0.00       2/8           BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+                0.00    0.00       6/8           void std::__insertion_sort<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>) [37]
+[45]     0.0    0.00    0.00       8         XYRectangle::boundingBox(double, double, aabb&) const [45]
+                0.00    0.00      16/20824804     Point::Point(float, float, float) [11]
+                0.00    0.00       8/84          aabb::aabb(Point const&, Point const&) [38]
+-----------------------------------------------
+                0.00    0.00       7/7           BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+[46]     0.0    0.00    0.00       7         surroundingBox(aabb, aabb) [46]
+                0.00    0.00      14/20824804     Point::Point(float, float, float) [11]
+                0.00    0.00      14/13936224     Point::Point() [20]
+-----------------------------------------------
+                0.00    0.00       2/2           addCornellBox(Scene&) [44]
+[47]     0.0    0.00    0.00       2         Rotation::Rotation(Hittable*, Point) [47]
+                0.00    0.00      16/21854069     Vec::Vec(float, float, float) [15]
+                0.00    0.00       4/20824804     Point::Point(float, float, float) [11]
+                0.00    0.00       2/2           Box::boundingBox(double, double, aabb&) const [50]
+                0.00    0.00       2/84          aabb::aabb(Point const&, Point const&) [38]
+                0.00    0.00       2/95          aabb::aabb() [42]
+                0.00    0.00       2/13936224     Point::Point() [20]
+                0.00    0.00       6/6           degreesToRadians(double) [71]
+-----------------------------------------------
+                0.00    0.00       1/1           main [31]
+[48]     0.0    0.00    0.00       1         Scene::Scene(int, int, PinholeCamera, Point, double*) [48]
+                0.00    0.00       1/1           PinholeCamera::PinholeCamera() [49]
+                0.00    0.00       1/13936224     Point::Point() [20]
+                0.00    0.00       1/13463835     Vec::Vec() [23]
+-----------------------------------------------
+                0.00    0.00       1/1           Scene::Scene(int, int, PinholeCamera, Point, double*) [48]
+[49]     0.0    0.00    0.00       1         PinholeCamera::PinholeCamera() [49]
+                0.00    0.00       6/13463835     Vec::Vec() [23]
+                0.00    0.00       2/13936224     Point::Point() [20]
+-----------------------------------------------
+                0.00    0.00       2/2           Rotation::Rotation(Hittable*, Point) [47]
+[50]     0.0    0.00    0.00       2         Box::boundingBox(double, double, aabb&) const [50]
+                0.00    0.00       2/84          aabb::aabb(Point const&, Point const&) [38]
+-----------------------------------------------
+                0.00    0.00       2/2           addCornellBox(Scene&) [44]
+[51]     0.0    0.00    0.00       2         Box::Box(Point, Point, Materials*) [51]
+                0.00    0.00       4/13936224     Point::Point() [20]
+                0.00    0.00       8/8           void std::vector<Hittable*, std::allocator<Hittable*> >::_M_realloc_insert<Hittable* const&>(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, Hittable* const&) [68]
+                0.00    0.00       4/5           XYRectangle::XYRectangle(double, double, double, double, double, Materials*, int) [74]
+                0.00    0.00       4/7           XZRectangle::XZRectangle(double, double, double, double, double, Materials*, int) [69]
+                0.00    0.00       4/6           YZRectangle::YZRectangle(double, double, double, double, double, Materials*, int) [72]
+-----------------------------------------------
+                0.00    0.00       2/2           addCornellBox(Scene&) [44]
+[52]     0.0    0.00    0.00       2         Translate::Translate(Hittable*, Vec const&) [52]
+                0.00    0.00       2/13463835     Vec::Vec() [23]
+-----------------------------------------------
+                0.00    0.00  642081/642081      Scene::Colour(Ray, int) const [1]
+[61]     0.0    0.00    0.00  642081         HittablePDF::value(Vec const&) const [61]
+-----------------------------------------------
+                0.00    0.00  588072/588072      Scene::Colour(Ray, int) const [1]
+[62]     0.0    0.00    0.00  588072         Point::operator*(Point) [62]
+-----------------------------------------------
+                0.00    0.00  550827/550827      Scene::Colour(Ray, int) const [1]
+[63]     0.0    0.00    0.00  550827         Point::operator+(Point) [63]
+-----------------------------------------------
+                0.00    0.00  495325/495325      Scene::Colour(Ray, int) const [1]
+[64]     0.0    0.00    0.00  495325         Emissive::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [64]
+-----------------------------------------------
+                0.00    0.00     200/200         main [31]
+[65]     0.0    0.00    0.00     200         Scene::render() const [65]
+-----------------------------------------------
+                0.00    0.00      16/16          Translate::boundingBox(double, double, aabb&) const [43]
+[66]     0.0    0.00    0.00      16         Rotation::boundingBox(double, double, aabb&) const [66]
+-----------------------------------------------
+                0.00    0.00       1/8           main [31]
+                0.00    0.00       7/8           addCornellBox(Scene&) [44]
+[67]     0.0    0.00    0.00       8         Scene::addObject(Hittable*) [67]
+-----------------------------------------------
+                0.00    0.00       8/8           Box::Box(Point, Point, Materials*) [51]
+[68]     0.0    0.00    0.00       8         void std::vector<Hittable*, std::allocator<Hittable*> >::_M_realloc_insert<Hittable* const&>(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, Hittable* const&) [68]
+-----------------------------------------------
+                0.00    0.00       3/7           addCornellBox(Scene&) [44]
+                0.00    0.00       4/7           Box::Box(Point, Point, Materials*) [51]
+[69]     0.0    0.00    0.00       7         XZRectangle::XZRectangle(double, double, double, double, double, Materials*, int) [69]
+-----------------------------------------------
+                0.00    0.00       7/7           BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+[70]     0.0    0.00    0.00       7         joetracer::randomInt(int, int) [70]
+-----------------------------------------------
+                0.00    0.00       6/6           Rotation::Rotation(Hittable*, Point) [47]
+[71]     0.0    0.00    0.00       6         degreesToRadians(double) [71]
+-----------------------------------------------
+                0.00    0.00       2/6           addCornellBox(Scene&) [44]
+                0.00    0.00       4/6           Box::Box(Point, Point, Materials*) [51]
+[72]     0.0    0.00    0.00       6         YZRectangle::YZRectangle(double, double, double, double, double, Materials*, int) [72]
+-----------------------------------------------
+                0.00    0.00       6/6           BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+[73]     0.0    0.00    0.00       6         BVHNode::boundingBox(double, double, aabb&) const [73]
+-----------------------------------------------
+                0.00    0.00       1/5           addCornellBox(Scene&) [44]
+                0.00    0.00       4/5           Box::Box(Point, Point, Materials*) [51]
+[74]     0.0    0.00    0.00       5         XYRectangle::XYRectangle(double, double, double, double, double, Materials*, int) [74]
+-----------------------------------------------
+                0.00    0.00       3/3           BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [36]
+[75]     0.0    0.00    0.00       3         void std::__introsort_loop<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>) [75]
+-----------------------------------------------
+                0.00    0.00       1/1           addCornellBox(Scene&) [44]
+[76]     0.0    0.00    0.00       1         Scene::setLight(Hittable*) [76]
+-----------------------------------------------
+                0.00    0.00       1/1           main [31]
+[77]     0.0    0.00    0.00       1         Scene::newCamera(PinholeCamera) [77]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+  [24] dotProduct(Vec const&, Vec const&) [62] Point::operator*(Point) [40] YZRectangle::boundingBox(double, double, aabb&) const
+  [44] addCornellBox(Scene&)  [63] Point::operator+(Point) [7] YZRectangle::hit(Ray const&, hitRecord&, double, double) const
+  [46] surroundingBox(aabb, aabb) [35] Scene::createBVHBox() [30] CosineONB_PDF::value(Vec const&) const
+  [71] degreesToRadians(double) [76] Scene::setLight(Hittable*) [29] PinholeCamera::getPrimaryRay(float, float, Ray&) const
+  [19] randomRayInUnitVector() [67] Scene::addObject(Hittable*) [50] Box::boundingBox(double, double, aabb&) const
+  [13] point(Vec const&)      [77] Scene::newCamera(PinholeCamera) [5] Box::hit(Ray const&, hitRecord&, double, double) const
+  [16] unitVec(Vec)           [48] Scene::Scene(int, int, PinholeCamera, Point, double*) [8] Ray::pointAtTime(float) const
+  [74] XYRectangle::XYRectangle(double, double, double, double, double, Materials*, int) [36] BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double) [10] aabb::hit(Ray const&, double, double) const
+  [69] XZRectangle::XZRectangle(double, double, double, double, double, Materials*, int) [47] Rotation::Rotation(Hittable*, Point) [34] Point::direction() const
+  [72] YZRectangle::YZRectangle(double, double, double, double, double, Materials*, int) [52] Translate::Translate(Hittable*, Vec const&) [1] Scene::Colour(Ray, int) const
+  [41] PinholeCamera::PinholeCamera(int, int, float, Point, Point) [70] joetracer::randomInt(int, int) [65] Scene::render() const
+  [49] PinholeCamera::PinholeCamera() [21] joetracer::randomNum(float, float) [73] BVHNode::boundingBox(double, double, aabb&) const
+  [51] Box::Box(Point, Point, Materials*) [32] joetracer::randomOne() [2] BVHNode::hit(Ray const&, hitRecord&, double, double) const
+  [17] Ray::Ray(Point const&, Vec const&) [26] Lambertian::scatteringPDF(Ray const&, hitRecord const&, Ray const&) const [27] Emissive::emitted(double, double, Point const&, hitRecord, Ray) const
+  [25] Ray::Ray()             [12] Lambertian::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const [64] Emissive::scatter(Ray const&, hitRecord const&, Point&, Ray&, double&) const
+  [15] Vec::Vec(float, float, float) [61] HittablePDF::value(Vec const&) const [66] Rotation::boundingBox(double, double, aabb&) const
+  [23] Vec::Vec()             [33] SolidColour::value(double, double, Point) const [4] Rotation::hit(Ray const&, hitRecord&, double, double) const
+  [18] onb::buildFromW(Vec)   [45] XYRectangle::boundingBox(double, double, aabb&) const [43] Translate::boundingBox(double, double, aabb&) const
+  [42] aabb::aabb()            [9] XYRectangle::hit(Ray const&, hitRecord&, double, double) const [3] Translate::hit(Ray const&, hitRecord&, double, double) const
+  [38] aabb::aabb(Point const&, Point const&) [39] XZRectangle::boundingBox(double, double, aabb&) const [68] void std::vector<Hittable*, std::allocator<Hittable*> >::_M_realloc_insert<Hittable* const&>(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, Hittable* const&)
+  [28] Point::direction()      [6] XZRectangle::hit(Ray const&, hitRecord&, double, double) const [37] void std::__insertion_sort<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>)
+  [11] Point::Point(float, float, float) [22] XZRectangle::random(Point const&) const [75] void std::__introsort_loop<__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}> >(__gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, __gnu_cxx::__normal_iterator<Hittable**, std::vector<Hittable*, std::allocator<Hittable*> > >, long, __gnu_cxx::__ops::_Iter_comp_iter<BVHNode::BVHNode(std::vector<Hittable*, std::allocator<Hittable*> > const&, unsigned long, unsigned long, double, double)::{lambda(Hittable*, Hittable*)#1}>)
+  [20] Point::Point()         [14] XZRectangle::pdfValue(Point const&, Vec const&) const [31] main

@@ -34,6 +34,7 @@
 #include <SDL2/SDL_image.h>
 
 // System libraries
+#include <SDL2/SDL_render.h>
 #include <cmath>
 #include <iostream>
 #include <limits>
@@ -42,8 +43,8 @@
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif
 
-static int screenWidth = 600;
-static int screenHeight = 600;
+static int screenWidth = 200;
+static int screenHeight = 200;
 
 void addSampleScene(Scene &s) {
   Metal *mwhite = new Metal(Point(0.9, 0.9, 0.9), 0.5);
@@ -240,9 +241,9 @@ int main(int argc, char **argv) {
   // Setup window
   SDL_WindowFlags window_flags =
       (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-  SDL_Window *window = SDL_CreateWindow("JoeTracer", SDL_WINDOWPOS_CENTERED,
-                                        SDL_WINDOWPOS_CENTERED, screenWidth,
-                                        screenHeight, window_flags);
+  SDL_Window *window =
+      SDL_CreateWindow("JoeTracer", SDL_WINDOWPOS_CENTERED,
+                       SDL_WINDOWPOS_CENTERED, 600, 600, window_flags);
 
   // Setup SDL_Renderer instance
   SDL_Renderer *renderer = SDL_CreateRenderer(
@@ -254,8 +255,6 @@ int main(int argc, char **argv) {
 
   if (debug) {
     addCornellBox(s);
-    // addSampleScene(s);
-    // addDebugScene(s);
 
     s.samples = 1;
     s.bounces = 4;
@@ -268,14 +267,13 @@ int main(int argc, char **argv) {
         PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
     int sampleCount = 0;
     s.createBVHBox();
-    while (sampleCount < 25) {
+    while (true) {
       sampleCount++;
       s.render();
       for (int i = 0; i < screenHeight * screenWidth * 3; i++) {
         pixels[i] =
             ((s.raw[i] / sampleCount > 255) ? 255 : s.raw[i] / sampleCount);
       }
-
       surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
                                          screenHeight, 3 * 8, screenWidth * 3,
                                          0x0000ff, 0x00ff00, 0xff0000, 0);
@@ -283,10 +281,12 @@ int main(int argc, char **argv) {
       SDL_RenderClear(renderer);
       SDL_RenderCopy(renderer, finalTexture, NULL, NULL);
       SDL_RenderPresent(renderer);
+      SDL_FreeSurface(surface);
+      SDL_DestroyTexture(finalTexture); 
     }
 
     SDL_SaveBMP(surface, "output.bmp");
-    SDL_FreeSurface(surface);
+
     return 0;
   }
 

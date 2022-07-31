@@ -2,12 +2,13 @@
 #include "Const.h"
 #include <iostream>
 #include <random>
+#include <thread>
 
 namespace joetracer {
 
-static unsigned int seed = 12493048;
+thread_local static unsigned int seed = 12493048;
 
-  ;unsigned int xorShiftGenerator() {
+unsigned int xorShiftGenerator() {
   seed ^= seed << 13;
   seed ^= seed >> 17;
   seed ^= seed << 5;
