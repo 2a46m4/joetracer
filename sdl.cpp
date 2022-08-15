@@ -163,15 +163,15 @@ void addCornellBox(Scene &s) {
   // Hittable *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295),
   // white);
   //
-  Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), aluminum);
+  Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), white);
   Rotation *rbox = new Rotation(box1, Point(-15, 0, 0));
   Translate *tbox = new Translate(rbox, Vec(265, 0, -295));
-  // Hittable *box2 = new Box(Point(0, 0, -165), Point(165, 165, 0), white);
-  // box2 = new Rotation(box2, Point(18, 0, 0));
-  // box2 = new Translate(box2, Vec(130, 0, -65));
+  Hittable *box2 = new Box(Point(0, 0, -165), Point(165, 165, 0), white);
+  box2 = new Rotation(box2, Point(18, 0, 0));
+  box2 = new Translate(box2, Vec(130, 0, -65));
 
-  Sphere *sphere = new Sphere(90, Point(190, 90, -190), glass);
-  s.setFocusable(sphere);
+  // Sphere *sphere = new Sphere(90, Point(190, 90, -190), glass);
+  // s.setFocusable(sphere);
   
   s.addObject(rect1);
   s.addObject(rect2);
@@ -182,8 +182,8 @@ void addCornellBox(Scene &s) {
   // s.addObject(testRect);
   s.addObject(tbox);
   // s.addObject(box1);
-  // s.addObject(box2);
-  s.addObject(sphere);
+  s.addObject(box2);
+  // s.addObject(sphere);
   // s.addObject(fog);
 }
 

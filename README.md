@@ -11,19 +11,24 @@ I wrote this program to learn about the basics of raytracing and 3d graphics. It
 ## Screenshots:
 
 
-Caustics and specular with ~2000 pixels
+Caustics and specular with 2000 samples per pixel.
+
 ![](caustics.png)
 
-The Cornell Box rendered at 1000 samples per pixel.
-![](10k.png)
+The Cornell Box rendered at 2000 samples per pixel.
+
+![](2k.png)
 
 Implementation of fog
+
 ![](fog.png)
 
 Example scene rendered using 1000 samples per pixel. Shows a metallic, glass, and matte material on top of a checkerboard pattern floor.
+
 ![](example.png)
 
 Example of the GUI of the program.
+
 ![](GUI.png)
 
 Resources used:
