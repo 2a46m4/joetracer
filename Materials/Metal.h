@@ -15,15 +15,16 @@ public:
     else
       fuzz = 1;
   }
-  virtual bool scatter(const Ray &ray, const hitRecord &rec, Point &attenuation,
-                       Ray &scattered, double& pdf) const {
-    // std::cout << rec.normal.z << " " << ray.direction.x << " " <<
-    // ray.direction.y << " " << ray.direction.z << std::endl;
+  
+  virtual bool scatter(const Ray &ray, const hitRecord &rec,
+                       scatterRecord &srec) const {
     const Vec reflected = reflection(rec.normal, ray.direction);
-    scattered =
+    srec.specularRay =
         Ray(rec.p, add(reflected, scale(fuzz, randomRayInSphere(rec.normal))));
-    attenuation = albedo;
-    return (dotProduct(scattered.direction, rec.normal) > 0);
+    srec.attenuation = albedo;
+	srec.isSpecular = true;
+	srec.pdfptr = 0;
+    return (dotProduct(srec.specularRay.direction, rec.normal) > 0);
   }
 
   Point albedo;

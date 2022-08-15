@@ -5,6 +5,7 @@
 #include "Point.h"
 #include "Vec.h"
 #include <cmath>
+#include <math.h>
 #include <random>
 #include "RandomGenerator.h"
 
@@ -37,7 +38,9 @@ template <class T> T scale(double m, T &a) {
   return T(a.x * m, a.y * m, a.z * m);
 }
 
-Vec unitVec(Vec a);
+template <class T> T unitVec(T a){
+    return scale((1 / length(a)), a);
+}
 
 // Returns the magnitude of the vector
 inline double length(Vec &a) {
@@ -58,7 +61,7 @@ template <class T, class U> T crossProduct(T &a, U &b) {
 }
 
 // Perfect reflection
-template <class T> T reflection(T &normal, T &a) {
+template <class T, class U> T reflection(T &normal, U &a) {
   return sub(a, scale(2, scale(dotProduct(a, normal), normal)));
 }
 
@@ -75,6 +78,8 @@ Vec randomRayInSphere(const Vec &n);
 Vec randomRayInUnitVector();
 
 Vec randomCosinePDFRay();
+
+Vec randomSphereRay(float radius, float distanceSquared);
 
 template <class T> bool isDegenerate(T v) {
   const double nearZero = 0.00000001;

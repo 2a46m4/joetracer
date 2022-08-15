@@ -39,6 +39,7 @@ add_executable(joetracer ${SOURCES} ${IMGUI})
 
 # target_link_libraries(joetracer PRIVATE cuda)
 
-set(CMAKE_CXX_FLAGS "-Ofast -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
+# set(CMAKE_CXX_FLAGS "-O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
+set(CMAKE_CXX_FLAGS "-O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -D_GLIBCXX_PARALLEL")
 
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEX2" CACHE STRING "Set C++ Compiler Flags" FORCE)

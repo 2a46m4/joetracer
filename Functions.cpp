@@ -3,9 +3,6 @@
 #include <cmath>
 #include <random>
 
-Vec unitVec(Vec a) {
-  return scale((1 / length(a)), a);
-}
 const double sqrlen(const Vec &a) { return a.x * a.x + a.y * a.y + a.z * a.z; }
 
 double dotProduct(const Vec &a, const Vec &b) {
@@ -45,6 +42,18 @@ Vec randomCosinePDFRay() {
   return Vec(x, y, z);
 }
 
+Vec randomSphereRay(float radius, float distanceSquared) {
+  
+  float r1 = joetracer::randomOne();
+  float r2 = joetracer::randomOne();
+  float z = 1 + r2 * (sqrt(1 - radius * radius / distanceSquared) - 1);
+
+  float phi = 2*PI*r1;
+  float x = cos(phi) * sqrt(1 - z*z);
+  float y = sin(phi) * sqrt(1 - z*z);
+  return Vec(x, y, z);
+}
+
 // Returns a random ray in the upper hemisphere
 Vec randomRayInSphere(const Vec &n) {
   Vec w;
@@ -59,11 +68,7 @@ Vec randomRayInSphere(const Vec &n) {
 
 // Returns a random ray in the unit sphere
 Vec randomRayInUnitVector() {
-  Vec w;
-  do {
-    w = Vec(joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1));
-  } while (length(w) >= 1.0);
-  return w;
+  return unitVec(Vec(joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1))); 
 }
 
 // Returns true if there is refraction (and not reflection), and finds the

@@ -11,7 +11,6 @@ XYRectangle::XYRectangle(double x0, double x1, double y0, double y1, double k,
   this->y1 = y1;
   this->k = k;
   this->mat = mat;
-  this->face = face;
 }
 
 bool XYRectangle::hit(const Ray &r, hitRecord &rec, double tMin,
@@ -31,10 +30,8 @@ bool XYRectangle::hit(const Ray &r, hitRecord &rec, double tMin,
   rec.p = hit;
   rec.t = t;
 
-  if (dotProduct(r.direction, Vec(0, 0, 1)) > 0.0)
-    rec.normal = Vec(0, 0, -1);
-  else
-    rec.normal = Vec(0, 0, 1);
+  Vec outwardNormal = Vec(0, 0, 1);
+  rec.setFaceNormal(r, outwardNormal);
   return true;
 }
 
@@ -70,10 +67,9 @@ bool XZRectangle::hit(const Ray &r, hitRecord &rec, double tMin,
   rec.matPtr = mat;
   rec.p = r.pointAtTime(t);
   rec.t = t;
-  if (dotProduct(r.direction, Vec(0, 1, 0)) > 0.0)
-    rec.normal = Vec(0, -1, 0);
-  else
-    rec.normal = Vec(0, 1, 0);
+
+  Vec outwardNormal = Vec(0, 1, 0);
+  rec.setFaceNormal(r, outwardNormal);
   return true;
 }
 
@@ -109,10 +105,9 @@ bool YZRectangle::hit(const Ray &r, hitRecord &rec, double tMin,
   rec.matPtr = mat;
   rec.p = hit;
   rec.t = t;
-  if (dotProduct(r.direction, Vec(1, 0, 0)) > 0.0)
-    rec.normal = Vec(-1, 0, 0);
-  else
-    rec.normal = Vec(1, 0, 0);
+  Vec outwardNormal = Vec(1, 0, 0);
+  rec.setFaceNormal(r, outwardNormal);
+
   return true;
 }
 

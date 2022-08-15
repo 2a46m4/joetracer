@@ -15,10 +15,9 @@ public:
   Isotropic(Texture *t) : albedo(t) {}
   Texture *albedo;
 
-  virtual bool scatter(const Ray &ray, const hitRecord &rec, Point &attenuation,
-                       Ray &scattered, double& pdf) const override {
-    scattered = Ray(rec.p, randomRayInSphere(rec.normal));
-    attenuation = albedo->value(rec.u, rec.v, rec.p);
+  virtual bool scatter(const Ray &ray, const hitRecord &rec, scatterRecord& srec) const override {
+    srec.specularRay = Ray(rec.p, randomRayInSphere(rec.normal));
+    srec.attenuation = albedo->value(rec.u, rec.v, rec.p);
     return true;
   }
 };

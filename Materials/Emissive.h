@@ -12,14 +12,13 @@ class Emissive : public Materials {
 public:
   Emissive(const Point &a) : emit(new SolidColour(a)) {}
   Emissive(const Texture *a) : emit(a){};
-  bool scatter(const Ray &ray, const hitRecord &rec, Point &attenuation,
-               Ray &scattered, double& pdf) const {
+  bool scatter(const Ray &ray, const hitRecord &rec, scatterRecord& srec) const {
     return false; // never scatters, duh
   }
 
   // unidirectional light 
   Point emitted(double u, double v, const Point &p, const hitRecord rec, const Ray ray) const override {
-    if(dotProduct(rec.normal, ray.direction) >= 0) return Point(0, 0, 0);
+    if(rec.frontFacing) return Point(0, 0, 0);
     else
       return emit->value(u, v, p);
   }

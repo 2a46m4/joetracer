@@ -4,6 +4,7 @@
 #include "Light.h"
 #include "Move.h"
 #include "Point.h"
+#include "RandomGenerator.h"
 #include "Rotation.h"
 #include "Scene.h"
 #include "Sphere.h"
@@ -43,8 +44,8 @@
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif
 
-static int screenWidth = 200;
-static int screenHeight = 200;
+static int screenWidth = 600;
+static int screenHeight = 600;
 
 void addSampleScene(Scene &s) {
   Metal *mwhite = new Metal(Point(0.9, 0.9, 0.9), 0.5);
@@ -125,21 +126,23 @@ void addDebugScene(Scene &s) {
 }
 
 void addCornellBox(Scene &s) {
-  Lambertian *green = new Lambertian(Point(.12, .45, .15));
-  Lambertian *red = new Lambertian(Point(.65, .05, .05));
-  Lambertian *white = new Lambertian(Point(.73, .73, .73));
+  Lambertian_ONB *green = new Lambertian_ONB(Point(.12, .45, .15));
+  Lambertian_ONB *red = new Lambertian_ONB(Point(.65, .05, .05));
+  Lambertian_ONB *white = new Lambertian_ONB(Point(.73, .73, .73));
   Emissive *light = new Emissive(Point(7500, 7500, 7500));
-  Emissive *lightbig = new Emissive(Point(2500, 2500, 2500));
-  // Dielectrics *glass = new Dielectrics(1.3);
+  Emissive *lightbig = new Emissive(Point(1500, 1500, 1500));
+  Dielectrics *glass = new Dielectrics(1.5);
+  Metal *aluminum = new Metal(Point(0.8, 0.85, 0.88), 0.0);
+  Lambertian_ONB *perlin = new Lambertian_ONB(new PerlinTexture(5));
 
   // Left wall
   Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green, 1);
   // Right wall
   Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red, 0);
   // Lights
-  Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554, light, 1);
+  Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554.5, light, 1);
   // Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1);
-  s.setLight(rect3);
+  s.setFocusable(rect3);
   // Bottom wall (floor)
   Hittable *rect4 = new XZRectangle(0, 555, -555, 0, 0, white, 0);
   // Top wall
@@ -160,13 +163,16 @@ void addCornellBox(Scene &s) {
   // Hittable *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295),
   // white);
   //
-  Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), white);
+  Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), aluminum);
   Rotation *rbox = new Rotation(box1, Point(-15, 0, 0));
   Translate *tbox = new Translate(rbox, Vec(265, 0, -295));
-  Hittable *box2 = new Box(Point(0, 0, -165), Point(165, 165, 0), white);
-  box2 = new Rotation(box2, Point(18, 0, 0));
-  box2 = new Translate(box2, Vec(130, 0, -65));
+  // Hittable *box2 = new Box(Point(0, 0, -165), Point(165, 165, 0), white);
+  // box2 = new Rotation(box2, Point(18, 0, 0));
+  // box2 = new Translate(box2, Vec(130, 0, -65));
 
+  Sphere *sphere = new Sphere(90, Point(190, 90, -190), glass);
+  s.setFocusable(sphere);
+  
   s.addObject(rect1);
   s.addObject(rect2);
   s.addObject(rect3);
@@ -176,7 +182,8 @@ void addCornellBox(Scene &s) {
   // s.addObject(testRect);
   s.addObject(tbox);
   // s.addObject(box1);
-  s.addObject(box2);
+  // s.addObject(box2);
+  s.addObject(sphere);
   // s.addObject(fog);
 }
 
@@ -241,9 +248,9 @@ int main(int argc, char **argv) {
   // Setup window
   SDL_WindowFlags window_flags =
       (SDL_WindowFlags)(SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI);
-  SDL_Window *window =
-      SDL_CreateWindow("JoeTracer", SDL_WINDOWPOS_CENTERED,
-                       SDL_WINDOWPOS_CENTERED, 600, 600, window_flags);
+  SDL_Window *window = SDL_CreateWindow("JoeTracer", SDL_WINDOWPOS_CENTERED,
+                                        SDL_WINDOWPOS_CENTERED, screenWidth,
+                                        screenHeight, window_flags);
 
   // Setup SDL_Renderer instance
   SDL_Renderer *renderer = SDL_CreateRenderer(
@@ -257,7 +264,7 @@ int main(int argc, char **argv) {
     addCornellBox(s);
 
     s.samples = 1;
-    s.bounces = 4;
+    s.bounces = 12;
 
     static float fov = 90.0f;
 
@@ -267,11 +274,12 @@ int main(int argc, char **argv) {
         PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
     int sampleCount = 0;
     s.createBVHBox();
-    while (true) {
-      sampleCount++;
-      s.render();
+    while (sampleCount < 2000) {
+      sampleCount++; 
+	  std::cout << sampleCount << std::endl;
+	  s.render();
       for (int i = 0; i < screenHeight * screenWidth * 3; i++) {
-        pixels[i] =
+        pixels[i] = // joetracer::randomInt(0, 255);
             ((s.raw[i] / sampleCount > 255) ? 255 : s.raw[i] / sampleCount);
       }
       surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
@@ -281,10 +289,9 @@ int main(int argc, char **argv) {
       SDL_RenderClear(renderer);
       SDL_RenderCopy(renderer, finalTexture, NULL, NULL);
       SDL_RenderPresent(renderer);
-      SDL_FreeSurface(surface);
-      SDL_DestroyTexture(finalTexture); 
-    }
-
+      // SDL_FreeSurface(surface); 
+      SDL_DestroyTexture(finalTexture);
+    } //
     SDL_SaveBMP(surface, "output.bmp");
 
     return 0;

@@ -14,9 +14,7 @@ bool Translate::hit(const Ray &r, hitRecord &rec, double tMin,
     return false;
   else {
     rec.p = add(rec.p, offset);
-    rec.normal = (dotProduct(rec.normal, moved.direction) > 0)
-                     ? scale(-1, rec.normal)
-                     : rec.normal;
+    rec.setFaceNormal(moved, rec.normal);
     return true;
   }
 }

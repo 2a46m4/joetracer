@@ -37,7 +37,6 @@ public:
 
   const Point operator*(const Point &a) const;
 
-
   bool operator==(const Point &a) const;
 
   friend std::ostream &operator<<(std::ostream &out, const Point &point);

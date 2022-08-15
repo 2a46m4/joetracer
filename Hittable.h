@@ -4,10 +4,9 @@
 #include <vector>
 
 #include "./Functions.h"
-#include "./Point.h"
-#include "./Ray.h"
-#include "./Vec.h"
 #include "./aabb.h"
+#include "./pdf.h"
+#include "RandomGenerator.h"
 
 class Materials;
 
@@ -15,14 +14,25 @@ class Materials;
 // Normal is always outside, so a dot product needs to be taken to ensure
 // correct orientation.
 struct hitRecord {
-  float t;
+  Materials *matPtr;
+  float u;
+  float v;
   Point p;
   Vec normal;
-  Materials *matPtr;
-  
-  double u;
-  double v;
-  // bool front_face;		
+  float t;
+  bool frontFacing;
+
+  inline void setFaceNormal(const Ray &r, const Vec &outwardNormal) {
+    frontFacing = dotProduct(r.direction, outwardNormal) < 0;
+    normal = frontFacing ? outwardNormal : -outwardNormal;
+  }
+};
+
+struct scatterRecord {
+  pdf *pdfptr;
+  Point attenuation;
+  Ray specularRay;
+  bool isSpecular;
 };
 
 class Hittable {
@@ -37,14 +47,12 @@ public:
   virtual bool boundingBox(double t0, double t1, aabb &outputBox) const = 0;
 
   // The PDF value of the hittable object
-  virtual double pdfValue(const Point& origin, const Vec& v) const {
+  virtual double pdfValue(const Point &origin, const Vec &v) const {
     return 0.0;
   }
 
-  // random 
-  virtual Vec random(const Point& origin) const {
-    return Vec(1, 0, 0);
-  }
+  // random
+  virtual Vec random(const Point &origin) const { return Vec(1, 0, 0); }
 };
 
 #endif // _HITTABLE_H
@@ -54,8 +62,8 @@ public:
 
 class Materials {
 public:
-  virtual bool scatter(const Ray &ray, const hitRecord &rec, Point &attenuation,
-                       Ray &scattered, double &pdf) const = 0;
+  virtual bool scatter(const Ray &ray, const hitRecord &rec,
+                       scatterRecord &) const = 0;
 
   virtual Point emitted(double u, double v, const Point &p, const hitRecord,
                         const Ray) const {
@@ -120,6 +128,19 @@ public:
         outputBox = surroundingBox(outputBox, tempBox);
     }
     return true;
+  }
+
+  double pdfValue(const Point &origin, const Vec &v) const override {
+    float weight = 1.0 / objects.size();
+    float sum = 0.0;
+    for (const auto &object : objects) {
+      sum += weight * object->pdfValue(origin, v);
+    }
+    return sum;
+  }
+
+  Vec random(const Point &origin) const override {
+    return objects[joetracer::randomInt(0, objects.size() - 1)]->random(origin);
   }
 
   std::vector<Hittable *> objects;

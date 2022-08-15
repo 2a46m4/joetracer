@@ -24,20 +24,20 @@ private:
 
   HittableList hittables;
 
-  unsigned char *pixels;
+  HittableList *focusableList;
 
-  Hittable *lights;
-  
+  BVHNode* box;
+
 public:
   PinholeCamera camera;
+
+  unsigned char *pixels;
 
   double *raw;
 
   int samples = 12;
   int bounces = 4;
   Point background;
-
-  BVHNode *box;
 
   Scene();
 
@@ -64,7 +64,7 @@ public:
 
   // Sphere stuff
 
-  Point Colour(Ray r, int limit) const;
+  Point Colour(Ray& r, int limit) const;
 
   std::vector<Hittable *> getObjects() const;
 
@@ -74,7 +74,7 @@ public:
 
   HittableList *getHittables();
 
-  void setLight(Hittable *);
+  void setFocusable(Hittable *);
 };
 
 #endif

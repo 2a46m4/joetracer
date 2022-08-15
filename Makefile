@@ -201,30 +201,6 @@ Functions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Functions.cpp.s
 .PHONY : Functions.cpp.s
 
-Hittable.o: Hittable.cpp.o
-.PHONY : Hittable.o
-
-# target to build an object file
-Hittable.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Hittable.cpp.o
-.PHONY : Hittable.cpp.o
-
-Hittable.i: Hittable.cpp.i
-.PHONY : Hittable.i
-
-# target to preprocess a source file
-Hittable.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Hittable.cpp.i
-.PHONY : Hittable.cpp.i
-
-Hittable.s: Hittable.cpp.s
-.PHONY : Hittable.s
-
-# target to generate assembly for a file
-Hittable.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/Hittable.cpp.s
-.PHONY : Hittable.cpp.s
-
 Light.o: Light.cpp.o
 .PHONY : Light.o
 
@@ -795,9 +771,6 @@ help:
 	@echo "... Functions.o"
 	@echo "... Functions.i"
 	@echo "... Functions.s"
-	@echo "... Hittable.o"
-	@echo "... Hittable.i"
-	@echo "... Hittable.s"
 	@echo "... Light.o"
 	@echo "... Light.i"
 	@echo "... Light.s"

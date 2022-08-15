@@ -32,6 +32,8 @@
 *.app
 joetracer
 
+*.bmp
+
 CMakeFiles
 
 extraneous
