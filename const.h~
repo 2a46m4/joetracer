@@ -1,7 +1,0 @@
-// Constants
-
-namespace CONST {
-
-#define PI
-
-}
