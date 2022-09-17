@@ -36,6 +36,8 @@ joetracer
 
 *.cpp~
 
+*.h~
+
 CMakeFiles
 
 extraneous

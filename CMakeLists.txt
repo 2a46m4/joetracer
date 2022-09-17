@@ -1,45 +1,81 @@
 cmake_minimum_required(VERSION 3.10)
 
 # set the project name
-project(Joetracer)
-
-file(GLOB SOURCES "[a-z0-9A-Z]*.cpp" "[a-z0-9A-Z]*.h")
-# file(GLOB CUDA_SOURCES "[a-z0-9A-Z]*.cu" "[a-z0-9A-Z]*.hu")
-# add_library(cuda STATIC
-#		 Compute.cu)
-# set_target_properties(cuda
-#                      PROPERTIES CUDA_SEPARABLE_COMPILATION ON)
-# set(CMAKE_CXX_COMPILER "/usr/bin/clang++")
-
-# c++11 standard
+project(Joetracer
+	VERSION 0.1
+	DESCRIPTION "A project path-tracer"
+	LANGUAGES CXX)
+	
 set(CMAKE_CXX_STANDARD 11)
+
+include_directories(include)
+
 set(IMGUI
-    gui/imgui/imconfig.h
-    gui/imgui/imgui.cpp
-    gui/imgui/imgui.h
-    gui/imgui/imgui_demo.cpp
-    gui/imgui/imgui_draw.cpp
-    gui/imgui/imgui_internal.h
-    gui/imgui/imgui_widgets.cpp
-    gui/imgui/imgui_tables.cpp
-    gui/imgui/imstb_rectpack.h
-    gui/imgui/imstb_textedit.h
-    gui/imgui/imstb_truetype.h
-    gui/imgui/backends/imgui_impl_sdl.cpp
-    gui/imgui/backends/imgui_impl_sdl.h
-    gui/imgui/backends/imgui_impl_sdlrenderer.cpp
-    gui/imgui/backends/imgui_impl_sdlrenderer.h
+    include/imgui/imconfig.h
+    include/imgui/imgui.cpp
+    include/imgui/imgui.h
+    include/imgui/imgui_demo.cpp
+    include/imgui/imgui_draw.cpp
+    include/imgui/imgui_internal.h
+    include/imgui/imgui_widgets.cpp
+    include/imgui/imgui_tables.cpp
+    include/imgui/imstb_rectpack.h
+    include/imgui/imstb_textedit.h
+    include/imgui/imstb_truetype.h
+    include/imgui/backends/imgui_impl_sdl.cpp
+    include/imgui/backends/imgui_impl_sdl.h
+    include/imgui/backends/imgui_impl_sdlrenderer.cpp
+    include/imgui/backends/imgui_impl_sdlrenderer.h
 )
 
 # add the executable
-add_executable(joetracer ${SOURCES} ${IMGUI})	
+# is there really no better way to do this?
+add_executable(joetracer
+	       src/aabb.cpp
+	       src/aaBox.cpp
+	       src/aaRect.cpp
+	       src/BVHNode.cpp
+	       src/ConstantMedium.cpp
+	       src/Functions.cpp
+	       src/Light.cpp
+	       src/Move.cpp
+	       src/onb.cpp
+	       src/PinholeCamera.cpp
+	       src/Point.cpp
+	       src/RandomGenerator.cpp
+	       src/Ray.cpp
+	       src/Rotation.cpp
+	       src/Scene.cpp
+	       src/sdl.cpp
+	       src/Sphere.cpp
+	       src/Translate.cpp
+	       src/Vec.cpp
+	       src/aabb.h
+	       src/aaBox.h
+	       src/aaRect.h
+	       src/BVHNode.h
+	       src/Compute.h
+	       src/ConstantMedium.h
+	       src/Const.h
+	       src/Functions.h
+	       src/Hittable.h
+	       src/Light.h
+	       src/Move.h
+	       src/onb.h
+	       src/pdf.h
+	       src/PinholeCamera.h
+	       src/Point.h
+	       src/RandomGenerator.h
+	       src/Ray.h
+	       src/Rotation.h
+	       src/Scene.h
+	       src/Sphere.h
+	       src/Translate.h
+	       src/Triangle.h
+	       src/Vec.h
+	       ${IMGUI})	
 
-# set_property(TARGET joetracer
-#             PROPERTY CUDA_SEPARABLE_COMPILATION ON)
 
-# target_link_libraries(joetracer PRIVATE cuda)
-
-# set(CMAKE_CXX_FLAGS "-O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
-set(CMAKE_CXX_FLAGS "-O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -D_GLIBCXX_PARALLEL")
-
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEX2" CACHE STRING "Set C++ Compiler Flags" FORCE)
+set(CMAKE_CXX_FLAGS "-O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
+# set(CMAKE_CXX_FLAGS "-O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -D_GLIBCXX_PARALLEL")
+# set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEX2" CACHE STRING "Set C++ Compiler Flags" FORCE)

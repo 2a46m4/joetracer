@@ -28,9 +28,9 @@
 #include "Textures/SolidColour.h"
 
 // GUI
-#include "gui/imgui/backends/imgui_impl_sdl.h"
-#include "gui/imgui/backends/imgui_impl_sdlrenderer.h"
-#include "gui/imgui/imgui.h"
+#include "imgui/backends/imgui_impl_sdl.h"
+#include "imgui/backends/imgui_impl_sdlrenderer.h"
+#include "imgui/imgui.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -44,8 +44,8 @@
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif
 
-static int screenWidth = 600;
-static int screenHeight = 600;
+static int screenWidth = 2000;
+static int screenHeight = 2000;
 
 void addSampleScene(Scene &s) {
   Metal *mwhite = new Metal(Point(0.9, 0.9, 0.9), 0.5);
@@ -129,7 +129,7 @@ void addCornellBox(Scene &s) {
   Lambertian_ONB *green = new Lambertian_ONB(Point(.12, .45, .15));
   Lambertian_ONB *red = new Lambertian_ONB(Point(.65, .05, .05));
   Lambertian_ONB *white = new Lambertian_ONB(Point(.73, .73, .73));
-  Emissive *light = new Emissive(Point(7500, 7500, 7500));
+  Emissive *light = new Emissive(Point(10000, 10000, 10000));
   Emissive *lightbig = new Emissive(Point(1500, 1500, 1500));
   Dielectrics *glass = new Dielectrics(1.5);
   Metal *aluminum = new Metal(Point(0.8, 0.85, 0.88), 0.0);
@@ -188,6 +188,7 @@ void addCornellBox(Scene &s) {
 }
 
 int main(int argc, char **argv) {
+  
   // Setup SDL
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) !=
       0) {
@@ -264,7 +265,7 @@ int main(int argc, char **argv) {
     addCornellBox(s);
 
     s.samples = 1;
-    s.bounces = 12;
+    s.bounces = 1000;
 
     static float fov = 90.0f;
 
