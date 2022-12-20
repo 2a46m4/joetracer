@@ -15,11 +15,11 @@ public:
   virtual bool boundingBox(double t0, double t1,
                            aabb &outputBox) const override;
 
-  virtual double pdfValue(const Point &origin, const Vec &vec) const override {
+  virtual double pdfValue(const Point &origin, const Vec3 &vec) const override {
     return obj->pdfValue(origin, vec);
   }
 
-  virtual Vec random(const Point &origin) const override {
+  virtual Vec3 random(const Point &origin) const override {
     return obj->random(origin);
   }
 

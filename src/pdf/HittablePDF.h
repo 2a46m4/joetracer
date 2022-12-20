@@ -8,11 +8,11 @@ class HittablePDF : public pdf {
 public:
   HittablePDF(Hittable *p, const Point &origin) : ptr(p), o(origin) {}
 
-  virtual double value(const Vec &direction) const override {
+  virtual double value(const Vec3 &direction) const override {
     return ptr->pdfValue(o, direction);
   }
 
-  virtual Vec generate() const override { return ptr->random(o); }
+  virtual Vec3 generate() const override { return ptr->random(o); }
 
   Point o;
   Hittable *ptr;

@@ -3,7 +3,7 @@
 
 #include "Const.h"
 #include "Point.h"
-#include "Vec.h"
+#include "Vec3.h"
 #include <cmath>
 #include <math.h>
 #include <random>
@@ -43,17 +43,17 @@ template <class T> T unitVec(T a){
 }
 
 // Returns the magnitude of the vector
-inline double length(Vec &a) {
+inline double length(Vec3 &a) {
   return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
 }
 
-const double sqrlen(const Vec &a);
+const double sqrlen(const Vec3 &a);
 
-const inline double length(const Vec &a){
+const inline double length(const Vec3 &a){
   return sqrt(a.x * a.x + a.y * a.y + a.z * a.z);
 }
 
-double dotProduct(const Vec &a, const Vec &b);
+double dotProduct(const Vec3 &a, const Vec3 &b);
 
 template <class T, class U> T crossProduct(T &a, U &b) {
   return T((a.y * b.z) - (a.z * b.y), (a.z * b.x) - (a.x * b.z),
@@ -65,21 +65,21 @@ template <class T, class U> T reflection(T &normal, U &a) {
   return sub(a, scale(2, scale(dotProduct(a, normal), normal)));
 }
 
-Point vecToPoint(Vec &a);
+Point vecToPoint(Vec3 &a);
 
-Vec power(const Vec &a, int power);
+Vec3 power(const Vec3 &a, int power);
 
-Point point(const Vec &a);
+Point point(const Vec3 &a);
 
 float schlick(const float cosine, const float refractIdx);
 
-Vec randomRayInSphere(const Vec &n);
+Vec3 randomRayInSphere(const Vec3 &n);
 
-Vec randomRayInUnitVector();
+Vec3 randomRayInUnitVector();
 
-Vec randomCosinePDFRay();
+Vec3 randomCosinePDFRay();
 
-Vec randomSphereRay(float radius, float distanceSquared);
+Vec3 randomSphereRay(float radius, float distanceSquared);
 
 template <class T> bool isDegenerate(T v) {
   const double nearZero = 0.00000001;
@@ -87,7 +87,7 @@ template <class T> bool isDegenerate(T v) {
           std::fabs(v.z) <= nearZero);
 }
 
-Vec refract(const Vec &v, const Vec &n, float etaRatio);
+Vec3 refract(const Vec3 &v, const Vec3 &n, float etaRatio);
 
 double clamp(double val, double low, double high);
 

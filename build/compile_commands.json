@@ -1,0 +1,137 @@
+[
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/aabb.cpp.o -c /home/dabanya02/Projects/joetracer/src/aabb.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/aabb.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/aaBox.cpp.o -c /home/dabanya02/Projects/joetracer/src/aaBox.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/aaBox.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/aaRect.cpp.o -c /home/dabanya02/Projects/joetracer/src/aaRect.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/aaRect.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/BVHNode.cpp.o -c /home/dabanya02/Projects/joetracer/src/BVHNode.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/BVHNode.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/ConstantMedium.cpp.o -c /home/dabanya02/Projects/joetracer/src/ConstantMedium.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/ConstantMedium.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Functions.cpp.o -c /home/dabanya02/Projects/joetracer/src/Functions.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Functions.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Light.cpp.o -c /home/dabanya02/Projects/joetracer/src/Light.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Light.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Move.cpp.o -c /home/dabanya02/Projects/joetracer/src/Move.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Move.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/onb.cpp.o -c /home/dabanya02/Projects/joetracer/src/onb.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/onb.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/PinholeCamera.cpp.o -c /home/dabanya02/Projects/joetracer/src/PinholeCamera.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/PinholeCamera.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Point.cpp.o -c /home/dabanya02/Projects/joetracer/src/Point.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Point.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/RandomGenerator.cpp.o -c /home/dabanya02/Projects/joetracer/src/RandomGenerator.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/RandomGenerator.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Ray.cpp.o -c /home/dabanya02/Projects/joetracer/src/Ray.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Ray.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Rotation.cpp.o -c /home/dabanya02/Projects/joetracer/src/Rotation.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Rotation.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Scene.cpp.o -c /home/dabanya02/Projects/joetracer/src/Scene.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Scene.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/sdl.cpp.o -c /home/dabanya02/Projects/joetracer/src/sdl.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/sdl.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Sphere.cpp.o -c /home/dabanya02/Projects/joetracer/src/Sphere.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Sphere.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Translate.cpp.o -c /home/dabanya02/Projects/joetracer/src/Translate.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Translate.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Vec3.cpp.o -c /home/dabanya02/Projects/joetracer/src/Vec3.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Vec3.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/src/Matrix.cpp.o -c /home/dabanya02/Projects/joetracer/src/Matrix.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/src/Matrix.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/include/imgui/imgui.cpp.o -c /home/dabanya02/Projects/joetracer/include/imgui/imgui.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/include/imgui/imgui.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/include/imgui/imgui_demo.cpp.o -c /home/dabanya02/Projects/joetracer/include/imgui/imgui_demo.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/include/imgui/imgui_demo.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/include/imgui/imgui_draw.cpp.o -c /home/dabanya02/Projects/joetracer/include/imgui/imgui_draw.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/include/imgui/imgui_draw.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/include/imgui/imgui_widgets.cpp.o -c /home/dabanya02/Projects/joetracer/include/imgui/imgui_widgets.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/include/imgui/imgui_widgets.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/include/imgui/imgui_tables.cpp.o -c /home/dabanya02/Projects/joetracer/include/imgui/imgui_tables.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/include/imgui/imgui_tables.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/include/imgui/backends/imgui_impl_sdl.cpp.o -c /home/dabanya02/Projects/joetracer/include/imgui/backends/imgui_impl_sdl.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/include/imgui/backends/imgui_impl_sdl.cpp"
+},
+{
+  "directory": "/home/dabanya02/Projects/joetracer/build",
+  "command": "/usr/bin/c++ -I/home/dabanya02/Projects/joetracer/include -O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat -g -std=gnu++11 -o CMakeFiles/joetracer.dir/include/imgui/backends/imgui_impl_sdlrenderer.cpp.o -c /home/dabanya02/Projects/joetracer/include/imgui/backends/imgui_impl_sdlrenderer.cpp",
+  "file": "/home/dabanya02/Projects/joetracer/include/imgui/backends/imgui_impl_sdlrenderer.cpp"
+}
+]

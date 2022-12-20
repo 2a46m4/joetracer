@@ -18,11 +18,11 @@ struct hitRecord {
   float u;
   float v;
   Point p;
-  Vec normal;
+  Vec3 normal;
   float t;
   bool frontFacing;
 
-  inline void setFaceNormal(const Ray &r, const Vec &outwardNormal) {
+  inline void setFaceNormal(const Ray &r, const Vec3 &outwardNormal) {
     frontFacing = dotProduct(r.direction, outwardNormal) < 0;
     normal = frontFacing ? outwardNormal : -outwardNormal;
   }
@@ -47,12 +47,12 @@ public:
   virtual bool boundingBox(double t0, double t1, aabb &outputBox) const = 0;
 
   // The PDF value of the hittable object
-  virtual double pdfValue(const Point &origin, const Vec &v) const {
+  virtual double pdfValue(const Point &origin, const Vec3 &v) const {
     return 0.0;
   }
 
   // random
-  virtual Vec random(const Point &origin) const { return Vec(1, 0, 0); }
+  virtual Vec3 random(const Point &origin) const { return Vec3(1, 0, 0); }
 };
 
 #endif // _HITTABLE_H
@@ -130,7 +130,7 @@ public:
     return true;
   }
 
-  double pdfValue(const Point &origin, const Vec &v) const override {
+  double pdfValue(const Point &origin, const Vec3 &v) const override {
     float weight = 1.0 / objects.size();
     float sum = 0.0;
     for (const auto &object : objects) {
@@ -139,7 +139,7 @@ public:
     return sum;
   }
 
-  Vec random(const Point &origin) const override {
+  Vec3 random(const Point &origin) const override {
     return objects[joetracer::randomInt(0, objects.size() - 1)]->random(origin);
   }
 

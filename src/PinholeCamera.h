@@ -15,11 +15,11 @@ protected:
   // the out axis
   Point view;
 
-  Vec vUp, u, v, w;
+  Vec3 vUp, u, v, w;
 
   float theta, h;
 
-  Vec horizontal, vertical, lowerLeftCorner;
+  Vec3 horizontal, vertical, lowerLeftCorner;
 
   float viewportHeight, viewportWidth;
 

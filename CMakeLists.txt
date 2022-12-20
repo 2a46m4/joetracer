@@ -49,7 +49,7 @@ add_executable(joetracer
 	       src/sdl.cpp
 	       src/Sphere.cpp
 	       src/Translate.cpp
-	       src/Vec.cpp
+	       src/Vec3.cpp
 	       src/aabb.h
 	       src/aaBox.h
 	       src/aaRect.h
@@ -72,7 +72,9 @@ add_executable(joetracer
 	       src/Sphere.h
 	       src/Translate.h
 	       src/Triangle.h
-	       src/Vec.h
+	       src/Vec3.h
+		   src/Matrix.h
+		   src/Matrix.cpp
 	       ${IMGUI})	
 
 

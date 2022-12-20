@@ -12,6 +12,7 @@
         max = b;
     }
 
+    // AABB Hit function
     bool aabb::hit(const Ray &r, double tMin, double tMax) const
     {
         // Checks if there is an interval within the three dimensions that overlap each other

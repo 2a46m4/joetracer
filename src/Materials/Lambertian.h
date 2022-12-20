@@ -6,7 +6,7 @@
 #include "../Ray.h"
 #include "../Textures/SolidColour.h"
 #include "../Textures/Texture.h"
-#include "../Vec.h"
+#include "../Vec3.h"
 #include "../pdf/CosinePDF.h"
 
 #include <limits>
@@ -16,7 +16,7 @@ public:
   Lambertian(const Texture *a) : albedo(a){};
   virtual bool scatter(const Ray &ray, const hitRecord &rec, scatterRecord& srec) const override {
     // direction, follows a cosine distribution
-    Vec scatterDirection = add(rec.normal, randomRayInUnitVector());
+    Vec3 scatterDirection = add(rec.normal, randomRayInUnitVector());
     if (isDegenerate(scatterDirection))
       scatterDirection = rec.normal;
     srec.specularRay = Ray(rec.p, unitVec(scatterDirection));

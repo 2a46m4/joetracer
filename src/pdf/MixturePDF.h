@@ -12,11 +12,11 @@ class MixturePDF : public pdf {
     
   }
 
-  virtual double value(const Vec& direction) const override {
+  virtual double value(const Vec3& direction) const override {
     return (mixNum * pdf0->value(direction)) + ((1 - mixNum) * pdf1->value(direction));
   }
 
-  virtual Vec generate() const override {
+  virtual Vec3 generate() const override {
     if(joetracer::randomOne() < mixNum)
       return pdf1->generate();
     else

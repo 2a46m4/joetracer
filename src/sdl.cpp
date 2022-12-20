@@ -9,7 +9,7 @@
 #include "Scene.h"
 #include "Sphere.h"
 #include "Translate.h"
-#include "Vec.h"
+#include "Vec3.h"
 #include "aaBox.h"
 #include "aaRect.h"
 
@@ -28,9 +28,9 @@
 #include "Textures/SolidColour.h"
 
 // GUI
-#include "imgui/backends/imgui_impl_sdl.h"
-#include "imgui/backends/imgui_impl_sdlrenderer.h"
-#include "imgui/imgui.h"
+#include "../include/imgui/backends/imgui_impl_sdl.h"
+#include "../include/imgui/backends/imgui_impl_sdlrenderer.h"
+#include "../include/imgui/imgui.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
@@ -44,8 +44,8 @@
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif
 
-static int screenWidth = 2000;
-static int screenHeight = 2000;
+static int screenWidth = 1000;
+static int screenHeight = 800;
 
 void addSampleScene(Scene &s) {
   Metal *mwhite = new Metal(Point(0.9, 0.9, 0.9), 0.5);
@@ -84,7 +84,7 @@ void addSampleScene(Scene &s) {
 
   Hittable *cube = new Box(Point(-5, 0, -20), Point(-3, 2, -22), perlin);
   // cube = new Rotation(cube, Point(15, 0, 0));
-  // cube = new Translate(cube, Vec(-5, 5, -25));
+  // cube = new Translate(cube, Vec3(-5, 5, -25));
 
   s.addObject(cube);
   s.addObject(earthSphere);
@@ -115,7 +115,7 @@ void addDebugScene(Scene &s) {
   Hittable *cube = new Box(Point(-1, -0.5, -6), Point(-0.5, 0, -5.5), red);
 
   cube = new Rotation(cube, Point(45, 0, 0));
-  // cube = new Translate(cube, Vec(-1, 1, 1));
+  // cube = new Translate(cube, Vec3(-1, 1, 1));
   cube = new Move(cube, Point(-1, 1, -6));
 
   Hittable *light = new XZRectangle(-50, 50, -50, 50, 50, emission, 0);
@@ -143,6 +143,7 @@ void addCornellBox(Scene &s) {
   Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554.5, light, 1);
   // Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1);
   s.setFocusable(rect3);
+  // s.setFocusable(rect1);
   // Bottom wall (floor)
   Hittable *rect4 = new XZRectangle(0, 555, -555, 0, 0, white, 0);
   // Top wall
@@ -156,7 +157,7 @@ void addCornellBox(Scene &s) {
 
   // Hittable *testRect = new XYRectangle(0, 165, 0, 330, 0, white, 0);
   // testRect = new Rotation(testRect, Point(-15, 0, 0));
-  // testRect = new Translate(testRect, Vec(265, 0, -295));
+  // testRect = new Translate(testRect, Vec3(265, 0, -295));
 
   // no rotation
   // Hittable *box1 = new Box(Point(130, 0, -230), Point(295, 165, -65), white);
@@ -165,10 +166,10 @@ void addCornellBox(Scene &s) {
   //
   Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), white);
   Rotation *rbox = new Rotation(box1, Point(-15, 0, 0));
-  Translate *tbox = new Translate(rbox, Vec(265, 0, -295));
+  Translate *tbox = new Translate(rbox, Vec3(265, 0, -295));
   Hittable *box2 = new Box(Point(0, 0, -165), Point(165, 165, 0), white);
   box2 = new Rotation(box2, Point(18, 0, 0));
-  box2 = new Translate(box2, Vec(130, 0, -65));
+  box2 = new Translate(box2, Vec3(130, 0, -65));
 
   // Sphere *sphere = new Sphere(90, Point(190, 90, -190), glass);
   // s.setFocusable(sphere);
@@ -211,6 +212,7 @@ int main(int argc, char **argv) {
   // background color
   // ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 1.00f);
   ImVec4 clear_color = ImVec4(0, 0, 0, 1.0f);
+  
   static float x = 0;
   static float y = 0;
   static float z = 0;
@@ -265,7 +267,7 @@ int main(int argc, char **argv) {
     addCornellBox(s);
 
     s.samples = 1;
-    s.bounces = 1000;
+    s.bounces = 4;
 
     static float fov = 90.0f;
 
@@ -277,11 +279,11 @@ int main(int argc, char **argv) {
     s.createBVHBox();
     while (sampleCount < 2000) {
       sampleCount++; 
-	  std::cout << sampleCount << std::endl;
+	  // std::cout << sampleCount << std::endl;
 	  s.render();
       for (int i = 0; i < screenHeight * screenWidth * 3; i++) {
-        pixels[i] = // joetracer::randomInt(0, 255);
-            ((s.raw[i] / sampleCount > 255) ? 255 : s.raw[i] / sampleCount);
+		  // pixels[i]  joe=tracer::randomInt(0, 255);
+		  pixels[i] = (s.raw[i] / sampleCount > 255) ? 255 : (s.raw[i] / sampleCount);
       }
       surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
                                          screenHeight, 3 * 8, screenWidth * 3,

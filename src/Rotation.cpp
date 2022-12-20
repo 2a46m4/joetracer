@@ -1,7 +1,7 @@
 #include "Rotation.h"
 #include "Functions.h"
 #include "Point.h"
-#include "Vec.h"
+#include "Vec3.h"
 #include <climits>
 #include <cmath>
 #include <limits>
@@ -46,7 +46,7 @@ Rotation::Rotation(Hittable *p, Point angle) {
 
         // aabb bounding boxes are still axis aligned, so we need to find the
         // smallest box that fits with the new corners
-        Vec cur(newX, y, newZ);
+        Vec3 cur(newX, y, newZ);
         min.x = std::fmin(min.x, cur.x);
         max.x = std::fmax(max.x, cur.x);
         min.y = std::fmin(min.y, cur.y);
@@ -64,7 +64,7 @@ bool Rotation::hit(const Ray &r, hitRecord &rec, double tMin,
                    double tMax) const {
 
   Point origin = r.origin;
-  Vec direction = r.direction;
+  Vec3 direction = r.direction;
 
   // Rotate origin of the ray
   origin.x = (cosXTheta * r.origin.x) - (sinXTheta * r.origin.z);
@@ -80,7 +80,7 @@ bool Rotation::hit(const Ray &r, hitRecord &rec, double tMin,
     return false;
 
   Point p = rec.p;
-  Vec normal = rec.normal;
+  Vec3 normal = rec.normal;
 
   // Rotate hit point
   p.x = cosXTheta * rec.p.x + sinXTheta * rec.p.z;

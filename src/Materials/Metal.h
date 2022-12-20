@@ -4,7 +4,7 @@
 #include "../Functions.h"
 #include "../Hittable.h"
 #include "../Ray.h"
-#include "../Vec.h"
+#include "../Vec3.h"
 #include <iostream>
 
 class Metal : public Materials {
@@ -18,7 +18,7 @@ public:
   
   virtual bool scatter(const Ray &ray, const hitRecord &rec,
                        scatterRecord &srec) const {
-    const Vec reflected = reflection(rec.normal, ray.direction);
+    const Vec3 reflected = reflection(rec.normal, ray.direction);
     srec.specularRay =
         Ray(rec.p, add(reflected, scale(fuzz, randomRayInSphere(rec.normal))));
     srec.attenuation = albedo;

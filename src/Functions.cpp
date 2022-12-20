@@ -3,23 +3,23 @@
 #include <cmath>
 #include <random>
 
-const double sqrlen(const Vec &a) { return a.x * a.x + a.y * a.y + a.z * a.z; }
+const double sqrlen(const Vec3 &a) { return a.x * a.x + a.y * a.y + a.z * a.z; }
 
-double dotProduct(const Vec &a, const Vec &b) {
+double dotProduct(const Vec3 &a, const Vec3 &b) {
   return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
 }
 
-Point vecToPoint(Vec &a) { return Point(a.x, a.y, a.z); }
+Point vecToPoint(Vec3 &a) { return Point(a.x, a.y, a.z); }
 
-Vec power(const Vec &a, int power) {
-  Vec b;
+Vec3 power(const Vec3 &a, int power) {
+  Vec3 b;
   b.x = powf(a.x, power);
   b.y = powf(a.y, power);
   b.z = powf(a.z, power);
   return b;
 }
 
-Point point(const Vec &a) { return Point(a.x, a.y, a.z); }
+Point point(const Vec3 &a) { return Point(a.x, a.y, a.z); }
 
 // Schlick's approximation for the Fresnel factor between two media
 float schlick(const float cosine, const float refractIdx) {
@@ -30,7 +30,7 @@ float schlick(const float cosine, const float refractIdx) {
 
 // I'm not totally sure how this works, but it returns a ray in the direction of
 // Z with a PDF of cosine(theta). See Peter Shirley's book
-Vec randomCosinePDFRay() {
+Vec3 randomCosinePDFRay() {
   double r1 = joetracer::randomOne();
   double r2 = joetracer::randomOne();
   double z = sqrt(1 - r2);
@@ -39,10 +39,10 @@ Vec randomCosinePDFRay() {
   double x = cos(phi) * sqrt(r2);
   double y = sin(phi) * sqrt(r2);
   // Range: -1 < x, y, z < 1
-  return Vec(x, y, z);
+  return Vec3(x, y, z);
 }
 
-Vec randomSphereRay(float radius, float distanceSquared) {
+Vec3 randomSphereRay(float radius, float distanceSquared) {
   
   float r1 = joetracer::randomOne();
   float r2 = joetracer::randomOne();
@@ -51,14 +51,14 @@ Vec randomSphereRay(float radius, float distanceSquared) {
   float phi = 2*PI*r1;
   float x = cos(phi) * sqrt(1 - z*z);
   float y = sin(phi) * sqrt(1 - z*z);
-  return Vec(x, y, z);
+  return Vec3(x, y, z);
 }
 
 // Returns a random ray in the upper hemisphere
-Vec randomRayInSphere(const Vec &n) {
-  Vec w;
+Vec3 randomRayInSphere(const Vec3 &n) {
+  Vec3 w;
   do {
-    w = Vec(joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1));
+    w = Vec3(joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1));
   } while (length(w) >= 1.0);
   if (dotProduct(w, n) > 0.0) // in the same hemisphere as the normal
     return w;
@@ -67,16 +67,16 @@ Vec randomRayInSphere(const Vec &n) {
 }
 
 // Returns a random ray in the unit sphere
-Vec randomRayInUnitVector() {
-  return unitVec(Vec(joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1))); 
+Vec3 randomRayInUnitVector() {
+  return unitVec(Vec3(joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1))); 
 }
 
 // Returns true if there is refraction (and not reflection), and finds the
 // direction of the ray.
-Vec refract(const Vec &v, const Vec &n, float etaRatio) {
+Vec3 refract(const Vec3 &v, const Vec3 &n, float etaRatio) {
   double cosTheta = fmin(dotProduct(-v, n), 1.0);
-  Vec rPerpen = scale(etaRatio, (add(v, scale(cosTheta, n))));
-  Vec rParall =
+  Vec3 rPerpen = scale(etaRatio, (add(v, scale(cosTheta, n))));
+  Vec3 rParall =
       -(scale(sqrt(fabs(1.0 - (length(rPerpen) * length(rPerpen)))), n));
   return add(rParall, rPerpen);
 }

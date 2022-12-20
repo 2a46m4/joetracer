@@ -4,7 +4,7 @@
 #include "../Functions.h"
 #include "../Hittable.h"
 #include "../Ray.h"
-#include "../Vec.h"
+#include "../Vec3.h"
 
 class Dielectrics : public Materials {
 public:
@@ -22,10 +22,10 @@ public:
 
     // If there is total internal reflection || fresnel effect on glancing
     // edges
-    Vec direction;
+    Vec3 direction;
     if ((refractionRatio * sine > 1.0) ||
         joetracer::randomOne() < schlick(cosine, refractionRatio)) {
-      Vec inDir = unitVec(ray.direction);
+      Vec3 inDir = unitVec(ray.direction);
       direction = reflection(rec.normal, inDir);
     }
     else

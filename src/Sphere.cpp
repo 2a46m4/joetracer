@@ -29,7 +29,7 @@ bool Sphere::boundingBox(double t0, double t1, aabb &outputBox) const {
 
 bool Sphere::hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const {
   bool intercept = false;
-  Vec v = sub(r.origin.direction(), location.direction());
+  Vec3 v = sub(r.origin.direction(), location.direction());
   float a = dotProduct(r.direction, r.direction);
   float b = dotProduct(v, r.direction);
   float c = dotProduct(v, v) - (rad * rad);
@@ -42,7 +42,7 @@ bool Sphere::hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const {
       rec.t = time;
       tMax = rec.t;
 	  rec.p = r.pointAtTime(rec.t);
-      Vec outwardNormal = unitVec(scale(rad, (rec.p - location)).direction());
+      Vec3 outwardNormal = unitVec(scale(rad, (rec.p - location)).direction());
       rec.setFaceNormal(r, outwardNormal);
       getUV(rec.normal, rec.u, rec.v);
       rec.matPtr = material;
@@ -53,7 +53,7 @@ bool Sphere::hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const {
       rec.t = time;
       tMax = rec.t;
 	  rec.p = r.pointAtTime(rec.t);
-      Vec outwardNormal = unitVec(scale(rad, (rec.p - location)).direction());
+      Vec3 outwardNormal = unitVec(scale(rad, (rec.p - location)).direction());
       rec.setFaceNormal(r, outwardNormal);
       getUV(rec.normal, rec.u, rec.v);
       rec.matPtr = material;
@@ -82,7 +82,7 @@ bool Sphere::hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const {
   // return false;
 }
 
-void Sphere::getUV(const Vec &p, float &u, float &v) {
+void Sphere::getUV(const Vec3 &p, float &u, float &v) {
 
   // taken from raytracing book
   //     <1 0 0> yields <0.50 0.50>       <-1  0  0> yields <0.00 0.50>
@@ -97,7 +97,7 @@ void Sphere::getUV(const Vec &p, float &u, float &v) {
   // std::cout << u  << " " << v << std::endl;
 }
 
-double Sphere::pdfValue(const Point &o, const Vec &v) const {
+double Sphere::pdfValue(const Point &o, const Vec3 &v) const {
   hitRecord rec;
   if (!this->hit(Ray(o, v), rec, 0.001, DBL_INF))
     return 0;
@@ -110,8 +110,8 @@ double Sphere::pdfValue(const Point &o, const Vec &v) const {
   return 1.0 / solidAngle;
 }
 
-Vec Sphere::random(const Point &o) const {
-  Vec direction = sub(location, o).direction();
+Vec3 Sphere::random(const Point &o) const {
+  Vec3 direction = sub(location, o).direction();
   float distanceSquared = length(direction) * length(direction);
   onb uvw;
   uvw.buildFromW(direction);

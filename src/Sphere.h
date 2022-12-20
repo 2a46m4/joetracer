@@ -21,14 +21,14 @@ public:
   bool hit(const Ray &r, hitRecord &rec, double tMin,
            double tMax) const override;
   
-  double pdfValue(const Point& o, const Vec& v) const override;
+  double pdfValue(const Point& o, const Vec3& v) const override;
 
-  Vec random(const Point& o) const override;
+  Vec3 random(const Point& o) const override;
   
 private:
   // gets the uv coordinates on a sphere given normal vector p on the unit
   // sphere. u and v are normalized to [0,1]. Given x and z = 0, u will be 0.5.
-  static void getUV(const Vec &p, float &u, float &v);
+  static void getUV(const Vec3 &p, float &u, float &v);
 };
 
 #endif

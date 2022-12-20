@@ -2,7 +2,7 @@
 #define MOVE_H
 
 #include "Hittable.h"
-#include "Vec.h"
+#include "Vec3.h"
 
 // An instance of a hittable object that is moved to an absolute position
 class Move : public Hittable {

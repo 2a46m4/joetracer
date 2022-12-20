@@ -6,7 +6,7 @@
 #include "./Point.h"
 #include "./Ray.h"
 #include "./Sphere.h"
-#include "./Vec.h"
+#include "./Vec3.h"
 #include "PinholeCamera.h"
 #include "RandomGenerator.h"
 #include "pdf/HittablePDF.h"

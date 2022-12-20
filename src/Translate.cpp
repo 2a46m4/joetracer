@@ -2,7 +2,7 @@
 #include "Functions.h"
 #include "Ray.h"
 
-Translate::Translate(Hittable *hittablePtr, const Vec &offset) {
+Translate::Translate(Hittable *hittablePtr, const Vec3 &offset) {
   this->hittablePtr = hittablePtr;
   this->offset = offset;
 }

@@ -1,5 +1,5 @@
 #include "Point.h"
-#include "Vec.h"
+#include "Vec3.h"
 #include <cmath>
 
 Point::Point() {
@@ -29,9 +29,9 @@ Point Point::zero() { return Point(0, 0, 0); }
 
 Point Point::char_max() { return Point(255, 255, 255); }
 
-Vec Point::direction() { return Vec(x, y, z); }
+Vec3 Point::direction() { return Vec3(x, y, z); }
 
-const Vec Point::direction() const { return Vec(x, y, z); }
+const Vec3 Point::direction() const { return Vec3(x, y, z); }
 
 Point Point::operator+(Point a) { return Point(x + a.x, y + a.y, z + a.z); }
 

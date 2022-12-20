@@ -4,7 +4,7 @@
 #include "../Functions.h"
 #include "../RandomGenerator.h"
 #include "../Point.h"
-#include "../Vec.h"
+#include "../Vec3.h"
 #include "SolidColour.h"
 #include "Texture.h"
 #include <cmath>
@@ -14,10 +14,10 @@ class PerlinTexture : public Texture {
 public:
   PerlinTexture(int sc) {
     this->sc = sc;
-    randomVec = new Vec[points];
+    randomVec = new Vec3[points];
     for (int i = 0; i < points; i++) {
       *(randomVec + i) =
-	unitVec(Vec(joetracer::randomNum(-1.0, 1.0), joetracer::randomNum(-1.0f, 1.0f),
+	unitVec(Vec3(joetracer::randomNum(-1.0, 1.0), joetracer::randomNum(-1.0f, 1.0f),
 		    joetracer::randomNum(-1.0f, 1.0f)));
     }
 
@@ -36,7 +36,7 @@ public:
     int j = (int)floor(p.y);
     int k = (int)floor(p.z);
 
-    Vec c[2][2][2];
+    Vec3 c[2][2][2];
     for (int di = 0; di < 2; di++) {
       for (int dj = 0; dj < 2; dj++) {
         for (int dk = 0; dk < 2; dk++) {
@@ -66,7 +66,7 @@ private:
   int sc;
   static const int points = 256;
   // The lattice of random values to be used (is tiled)
-  Vec *randomVec;
+  Vec3 *randomVec;
 
   // randomize x, y, z, hashing?
   int *permX;
@@ -75,7 +75,7 @@ private:
 
   // Given coordinates u, v, w, and gradient vector grid c, returns the
   // interpolated result
-  static double perlinInterpolation(Vec c[2][2][2], double u, double v,
+  static double perlinInterpolation(Vec3 c[2][2][2], double u, double v,
                                     double w) {
     double accumulation = 0;
     u = u * u * (3 - 2 * u);
@@ -86,7 +86,7 @@ private:
         for (int k = 0; k < 2; k++) {
           // this is the vector away from the lattice point.. gets bigger as it
           // gets farther away from the point
-          Vec weightV(u - i, v - j, w - k);
+          Vec3 weightV(u - i, v - j, w - k);
           accumulation +=
               (i * u + (1 - i) * (1 - u)) * (j * v + (1 - j) * (1 - v)) *
               (k * w + (1 - k) * (1 - w)) * dotProduct(c[i][j][k], weightV);

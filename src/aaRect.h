@@ -63,7 +63,7 @@ public:
     // need to divide it with a higher number - given by the equation above.
     // This is analagous to the inverse square law in physics.
   
-  virtual double pdfValue(const Point &origin, const Vec &vec) const override {
+  virtual double pdfValue(const Point &origin, const Vec3 &vec) const override {
     hitRecord rec;
     if (!this->hit(Ray(origin, vec), rec, 0.001, DBL_INF)) {
       return 0;
@@ -75,7 +75,7 @@ public:
     return distanceSquared / (cosine * area);
   }
 
-  virtual Vec random(const Point& origin) const override {
+  virtual Vec3 random(const Point& origin) const override {
     Point randomPoint = Point(joetracer::randomNum(x0, x1), k, joetracer::randomNum(z0, z1));
     return sub(randomPoint, origin).direction();
   }

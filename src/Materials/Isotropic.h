@@ -6,7 +6,7 @@
 #include "../Ray.h"
 #include "../Textures/SolidColour.h"
 #include "../Textures/Texture.h"
-#include "../Vec.h"
+#include "../Vec3.h"
 
 // Scatters a randomrayinsphere
 class Isotropic : public Materials {

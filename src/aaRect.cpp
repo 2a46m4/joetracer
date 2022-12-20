@@ -30,7 +30,7 @@ bool XYRectangle::hit(const Ray &r, hitRecord &rec, double tMin,
   rec.p = hit;
   rec.t = t;
 
-  Vec outwardNormal = Vec(0, 0, 1);
+  Vec3 outwardNormal = Vec3(0, 0, 1);
   rec.setFaceNormal(r, outwardNormal);
   return true;
 }
@@ -68,7 +68,7 @@ bool XZRectangle::hit(const Ray &r, hitRecord &rec, double tMin,
   rec.p = r.pointAtTime(t);
   rec.t = t;
 
-  Vec outwardNormal = Vec(0, 1, 0);
+  Vec3 outwardNormal = Vec3(0, 1, 0);
   rec.setFaceNormal(r, outwardNormal);
   return true;
 }
@@ -105,7 +105,7 @@ bool YZRectangle::hit(const Ray &r, hitRecord &rec, double tMin,
   rec.matPtr = mat;
   rec.p = hit;
   rec.t = t;
-  Vec outwardNormal = Vec(1, 0, 0);
+  Vec3 outwardNormal = Vec3(1, 0, 0);
   rec.setFaceNormal(r, outwardNormal);
 
   return true;

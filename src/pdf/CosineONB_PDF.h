@@ -7,17 +7,17 @@
 // used for lambertian reflectance
 class CosineONB_PDF : public pdf {
 public:
-  CosineONB_PDF(const Vec &w) { uvw.buildFromW(w); }
+  CosineONB_PDF(const Vec3 &w) { uvw.buildFromW(w); }
 
   // Returns zero if the ray is absorbed, otherwise returns the cosine
   // scattering pdf
-  virtual double value(const Vec &direction) const override {
+  virtual double value(const Vec3 &direction) const override {
     float cosine = dotProduct(unitVec(direction), uvw.w());
     return (cosine < 0.0)? 0 : cosine / PI;
   }
 
   // Generates a random cosine ray based on the normal angle.
-  virtual Vec generate() const override {
+  virtual Vec3 generate() const override {
     return uvw.local(randomCosinePDFRay());
   }
 

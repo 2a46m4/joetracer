@@ -1,7 +1,7 @@
 #ifndef _POINT_H
 #define _POINT_H
 
-#include "Vec.h"
+#include "Vec3.h"
 #include <iostream>
 
 class Point {
@@ -21,9 +21,9 @@ public:
 
   static Point char_max();
 
-  Vec direction();
+  Vec3 direction();
 
-  const Vec direction() const;
+  const Vec3 direction() const;
 
   Point operator+(Point a);
 
