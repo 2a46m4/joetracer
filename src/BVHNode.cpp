@@ -15,12 +15,13 @@
 // Octrees/k-d trees would be applicable I think?
 BVHNode::BVHNode(const std::vector<Hittable *> &objects, size_t start,
                  size_t end, double t0, double t1) {
-  std::vector<Hittable *> objs =
-      objects; // can now modify objects - it will modify objects (despite
-               // const), as these are references
+  
+  std::vector<Hittable *> objs = objects; // allow objects to be modifiable
+  
   // Direction to cut
-  int axis = joetracer::randomInt(0, 3);
-  // Lambda function to compare boxes
+  int axis = randomgen::randomInt(0, 3);
+
+  // function to compare boxes
   auto boxCompare = [axis](Hittable *a, Hittable *b) {
     aabb boxA;
     aabb boxB;
@@ -68,16 +69,11 @@ BVHNode::BVHNode(const std::vector<Hittable *> &objects, size_t start,
   box = surroundingBox(leftBox, rightBox);
 }
 
-// Stores the node's bounding box in outputBox and returns true
 bool BVHNode::boundingBox(double t0, double t1, aabb &outputBox) const {
   outputBox = box;
   return true;
 }
 
-// Returns true if a hittable's bounding box intersects with the ray, and if
-// that hittable's hit function will return true (e.g. it hits an object). It
-// checks its children's boxes (recursively if it is also a BVHNode). Stores
-// information in rec.
 bool BVHNode::hit(const Ray &r, hitRecord &rec, double tMin,
                   double tMax) const {
   if (!box.hit(r, tMin, tMax))

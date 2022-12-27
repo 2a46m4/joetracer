@@ -26,6 +26,7 @@ private:
 
   HittableList *focusableList;
 
+  // A box that includes all items in the scene.
   BVHNode* box;
 
 public:

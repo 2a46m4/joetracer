@@ -52,6 +52,7 @@ Scene::Scene(int w, int h, PinholeCamera cam, Point bg, double *rawPixelPtr) {
 
 void Scene::createBVHBox() { this->box = new BVHNode(hittables, 0, FLT_INF); }
 
+// main rendering loop
 void Scene::render() const {
 #pragma omp parallel
   {
@@ -62,24 +63,14 @@ void Scene::render() const {
         Point col;
 
         for (int i = 0; i < samples; i++) {
-          camera.getPrimaryRay(float(x) / 3 + joetracer::randomOne(),
-                               float(y) + joetracer::randomOne(), r);
+          camera.getPrimaryRay(float(x) / 3 + randomgen::randomOne(),
+                               float(y) + randomgen::randomOne(), r);
           col = add(col, Colour(r, bounces));
         }
 
         raw[y * (width * 3) + x] += col.x;
         raw[y * (width * 3) + x + 1] += col.y;
         raw[y * (width * 3) + x + 2] += col.z;
-
-        // R channel
-        // pixels[y * (width * 3) + x] =
-        // (col.x / samples >= 255) ? 255 : col.x / samples;
-        // G channel
-        // pixels[y * (width * 3) + x + 1] =
-        // (col.y / samples >= 255) ? 255 : col.y / samples;
-        // B channel
-        // pixels[y * (width * 3) + x + 2] =
-        // (col.z / samples >= 255) ? 255 : col.z / samples;
       }
     }
   }
@@ -94,33 +85,51 @@ void Scene::removeObject(unsigned int i) {
     hittables.objects.erase(hittables.objects.begin() + i);
 }
 
+// Given a ray and a bounce limit, returns the colour of the ray after its
+// interaction with the scene.
 Point Scene::Colour(Ray &r, int limit) const {
   hitRecord rec;
-  // Checks all objects
+
+  // Checks for intersections
   if (limit > 0 && box->hit(r, rec, 0, DBL_INF)) {
+
+    // Scattered ray
     Ray scattered;
-    Point emitted = rec.matPtr->emitted(
-        rec.u, rec.v, rec.p, rec, r); // emitted value of the rendering equation
+
+    // Emission
+    Point emitted = rec.matPtr->emitted(rec.u, rec.v, rec.p, rec, r);
+
+    // PDF of the ray
     double pdfValue;
-    Point albedo; // fractional reflectance value
+
+    // Fractional reflectance value
+    Point albedo;
+
+    // The scatter record
     scatterRecord srec;
-    // Check for specular rays
+
+    // If it can't scatter, then it must be emission.
     if (!rec.matPtr->scatter(r, rec, srec))
       return emitted; // returns the emitted value if the object doesn't scatter
 
     // Specular ray. In this case, return the colour and the scattered ray,
-    // since it does not get randomized much
+    // since the PDF is infinite in the direction of the specular ray, and zero
+    // everywhere else.
     if (srec.isSpecular) {
       delete srec.pdfptr;
       return srec.attenuation * Colour(srec.specularRay, limit - 1);
     }
 
+    // Generates a PDF that is 50/50 of the focusable list and the object being hit
     HittablePDF focusablePDF(focusableList, rec.p);
     MixturePDF mixPDF(&focusablePDF, srec.pdfptr);
     scattered = Ray(rec.p, mixPDF.generate());
+
     pdfValue = mixPDF.value(scattered.direction);
 
-    // emission + fractional reflectance value * scattering PDF * colour of next
+    delete srec.pdfptr;
+
+    // emission + albedo * scattering PDF * colour of next
     // rays / sampling pdf
 
     // For matte objects the scattering pdf is cosine (things are most likely to
@@ -133,21 +142,21 @@ Point Scene::Colour(Ray &r, int limit) const {
         scale(1 / pdfValue, scale(rec.matPtr->scatteringPDF(r, rec, scattered),
                                   srec.attenuation) *
                                 Colour(scattered, limit - 1));
-    // uh memory leak lol
-    delete srec.pdfptr;
 
-    // if (colour.x != colour.x) {
-    //   colour.x = 0;
-    // }
-    // if (colour.y != colour.y) {
-    //   colour.y = 0;
-    // }
-    // if (colour.z != colour.z) {
-    //   colour.z = 0;
-    // }
+    // Checks for INF/NAN values, discards them
+    if (colour.x != colour.x) {
+      colour.x = 0;
+    }
+    if (colour.y != colour.y) {
+      colour.y = 0;
+    }
+    if (colour.z != colour.z) {
+      colour.z = 0;
+    }
 
     return colour;
   } else // the ray hit nothing
+    // TODO background image
     return background;
 }
 

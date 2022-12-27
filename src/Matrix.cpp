@@ -59,7 +59,9 @@ Matrix4 Matrix4::multiply(Matrix4 a, Matrix4 b) {
 Matrix4 Matrix4::orthoProject(float left, float right, float bottom, float top,
                               float near, float far) {}
 
-Matrix4 Matrix4::copyZToW(float factor) {}
+Matrix4 Matrix4::copyZToW(float factor) {
+  
+}
 
 Matrix4 Matrix4::perspective(float fovRad, float aspectRatio, float near,
                              float far) {}

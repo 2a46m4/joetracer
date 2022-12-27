@@ -28,6 +28,7 @@ struct hitRecord {
   }
 };
 
+// Stores the PDF of the ray, the attenuation, the specular ray, and if the ray is specular
 struct scatterRecord {
   pdf *pdfptr;
   Point attenuation;
@@ -35,6 +36,7 @@ struct scatterRecord {
   bool isSpecular;
 };
 
+// represents an object that a ray can intersect with.
 class Hittable {
 public:
   // Returns true if the ray has hit an object within tMin and tMax, and stores
@@ -42,7 +44,7 @@ public:
   virtual bool hit(const Ray &r, hitRecord &rec, double tMin,
                    double tMax) const = 0;
 
-  // Returns true if a primitive can be bound with a box, and stores the
+  // Returns true if a Hittable can be bounded by a box, and stores the
   // bounding box of the hittable object in outputBox
   virtual bool boundingBox(double t0, double t1, aabb &outputBox) const = 0;
 
@@ -81,6 +83,7 @@ public:
 #ifndef _HITTABLE_LIST_H
 #define _HITTABLE_LIST_H
 
+// a list of hittable objects
 class HittableList : public Hittable {
 public:
   HittableList() {}
@@ -140,7 +143,7 @@ public:
   }
 
   Vec3 random(const Point &origin) const override {
-    return objects[joetracer::randomInt(0, objects.size() - 1)]->random(origin);
+    return objects[randomgen::randomInt(0, objects.size() - 1)]->random(origin);
   }
 
   std::vector<Hittable *> objects;

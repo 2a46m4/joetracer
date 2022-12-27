@@ -17,8 +17,8 @@ public:
     randomVec = new Vec3[points];
     for (int i = 0; i < points; i++) {
       *(randomVec + i) =
-	unitVec(Vec3(joetracer::randomNum(-1.0, 1.0), joetracer::randomNum(-1.0f, 1.0f),
-		    joetracer::randomNum(-1.0f, 1.0f)));
+	unitVec(Vec3(randomgen::randomNum(-1.0, 1.0), randomgen::randomNum(-1.0f, 1.0f),
+		    randomgen::randomNum(-1.0f, 1.0f)));
     }
 
     permX = perlinGeneratePermutation();
@@ -132,7 +132,7 @@ private:
   // Randomized the elements into a different permutation of the array
   static void permute(int *p) {
     for (int i = points - 1; i > 0; i--) {
-      int target = joetracer::randomInt(0, i);
+      int target = randomgen::randomInt(0, i);
       int tmp = p[i];
       p[i] = p[target];
       p[target] = tmp;

@@ -3,6 +3,8 @@
 
 #include "Functions.h"
 #include "Vec3.h"
+
+// An orthonormal basis built from a given W. That is, U, V, and W's dot products with each other are all zero.
 class onb {
 public:
   onb() {}
@@ -16,6 +18,7 @@ public:
     return add3(scale(a, u()), scale(b, v()), scale(c, w()));
   }
 
+  // 
   Vec3 local(const Vec3 &a) const {
     return add3(scale(a.x, u()), scale(a.y, v()), scale(a.z, w()));
   }

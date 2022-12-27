@@ -16,20 +16,21 @@ public:
   friend std::ostream &operator<<(std::ostream &out, const Vec3 &point);
 };
 
-class Vec4{
+class Vec4 {
 public:
-	float x, y, z, w;
+  float x, y, z, w;
+  
+  Vec4();
+  
+  Vec4(const float dx, const float dy, const float dz, const float dw);
 
-	Vec4();
+  Vec4 operator-() const;
 
-	Vec4(const float dx, const float dy, const float dz, const float dw);
+  Vec4 operator*(float f) const;
 
-	Vec4 operator-() const;
+  Vec4 operator*(Vec4 v) const;
 
-	Vec4 operator*(float f) const;
-
-	Vec4 operator*(Vec4 v) const;
-  friend std::ostream &operator<<(std::ostream &out, const Vec4 &point);	
+  friend std::ostream &operator<<(std::ostream &out, const Vec4 &point);
 };
 
 #endif

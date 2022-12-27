@@ -76,7 +76,7 @@ public:
   }
 
   virtual Vec3 random(const Point& origin) const override {
-    Point randomPoint = Point(joetracer::randomNum(x0, x1), k, joetracer::randomNum(z0, z1));
+    Point randomPoint = Point(randomgen::randomNum(x0, x1), k, randomgen::randomNum(z0, z1));
     return sub(randomPoint, origin).direction();
   }
 

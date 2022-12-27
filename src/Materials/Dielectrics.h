@@ -24,7 +24,7 @@ public:
     // edges
     Vec3 direction;
     if ((refractionRatio * sine > 1.0) ||
-        joetracer::randomOne() < schlick(cosine, refractionRatio)) {
+        randomgen::randomOne() < schlick(cosine, refractionRatio)) {
       Vec3 inDir = unitVec(ray.direction);
       direction = reflection(rec.normal, inDir);
     }

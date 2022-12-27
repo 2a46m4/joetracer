@@ -2,6 +2,7 @@
 #define _PDF_H
 
 #include "Vec3.h"
+// the probability density function 
 class pdf {
  public:
   virtual ~pdf() {}

@@ -32,6 +32,7 @@
 #include "../include/imgui/backends/imgui_impl_sdlrenderer.h"
 #include "../include/imgui/imgui.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
 #include <SDL2/SDL_image.h>
 
 // System libraries
@@ -44,6 +45,7 @@
 #error This backend requires SDL 2.0.17+ because of SDL_RenderGeometry() function
 #endif
 
+// TODO hardcoded values, change
 static int screenWidth = 1000;
 static int screenHeight = 800;
 
@@ -136,7 +138,7 @@ void addCornellBox(Scene &s) {
   Lambertian_ONB *perlin = new Lambertian_ONB(new PerlinTexture(5));
 
   // Left wall
-  Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green, 1);
+  Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, perlin, 1);
   // Right wall
   Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red, 0);
   // Lights
@@ -173,7 +175,7 @@ void addCornellBox(Scene &s) {
 
   // Sphere *sphere = new Sphere(90, Point(190, 90, -190), glass);
   // s.setFocusable(sphere);
-  
+
   s.addObject(rect1);
   s.addObject(rect2);
   s.addObject(rect3);
@@ -188,8 +190,10 @@ void addCornellBox(Scene &s) {
   // s.addObject(fog);
 }
 
+// sdl boilerplate
+int setupSDL() {}
+
 int main(int argc, char **argv) {
-  
   // Setup SDL
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) !=
       0) {
@@ -222,16 +226,7 @@ int main(int argc, char **argv) {
   static float lz = 1;
 
   Point location(278, 278, 800);
-  Point lookingAt(278, 278, 0); //
-
-  // Point location(1, 1, 1);
-  // Point lookingAt(0, 0, -5);
-
-  // Scene s = Scene(screenWidth, screenHeight,
-  // PinholeCamera(screenWidth, screenHeight, 90.0f,
-  // Point(x, y, z), Point(lx, ly, lz)),
-  // Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
-  // clear_color.z * 255.0f));
+  Point lookingAt(278, 278, 0);
 
   double *raw = new double[screenHeight * screenWidth * 3];
 
@@ -263,6 +258,7 @@ int main(int argc, char **argv) {
     return -1;
   }
 
+  // our main rendering loop
   if (debug) {
     addCornellBox(s);
 
@@ -277,26 +273,34 @@ int main(int argc, char **argv) {
         PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
     int sampleCount = 0;
     s.createBVHBox();
+
+    SDL_Event event;
     while (sampleCount < 2000) {
-      sampleCount++; 
-	  // std::cout << sampleCount << std::endl;
-	  s.render();
-      for (int i = 0; i < screenHeight * screenWidth * 3; i++) {
-		  // pixels[i]  joe=tracer::randomInt(0, 255);
-		  pixels[i] = (s.raw[i] / sampleCount > 255) ? 255 : (s.raw[i] / sampleCount);
+
+      // quit the program
+      while(SDL_PollEvent(&event)!=0) {
+	if(event.type == SDL_QUIT)
+	  sampleCount=2000;
       }
+
+      sampleCount++;
+      s.render();
+      for (int i = 0; i < screenHeight * screenWidth * 3; i++) {
+        pixels[i] = // truncates overbright values
+            (s.raw[i] / sampleCount > 255) ? 255 : (s.raw[i] / sampleCount);
+      }
+
       surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
                                          screenHeight, 3 * 8, screenWidth * 3,
                                          0x0000ff, 0x00ff00, 0xff0000, 0);
+
       finalTexture = SDL_CreateTextureFromSurface(renderer, surface);
       SDL_RenderClear(renderer);
       SDL_RenderCopy(renderer, finalTexture, NULL, NULL);
       SDL_RenderPresent(renderer);
-      // SDL_FreeSurface(surface); 
       SDL_DestroyTexture(finalTexture);
-    } //
+    }
     SDL_SaveBMP(surface, "output.bmp");
-
     return 0;
   }
 

@@ -54,7 +54,7 @@ bool ConstantMedium::hit(const Ray &r, hitRecord &rec, double tMin,
   // Lower density means higher probability that the medium will pass straight
   // through
   const float hitDistance =
-      negativeInvertedDensity * log(joetracer::randomOne());
+      negativeInvertedDensity * log(randomgen::randomOne());
 
   if (hitDistance > distanceInsideBoundary)
     return false;

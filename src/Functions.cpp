@@ -28,11 +28,10 @@ float schlick(const float cosine, const float refractIdx) {
   return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
 
-// I'm not totally sure how this works, but it returns a ray in the direction of
-// Z with a PDF of cosine(theta). See Peter Shirley's book
+// Returns a randomly generated ray that has a PDF of Cos(x).
 Vec3 randomCosinePDFRay() {
-  double r1 = joetracer::randomOne();
-  double r2 = joetracer::randomOne();
+  double r1 = randomgen::randomOne();
+  double r2 = randomgen::randomOne();
   double z = sqrt(1 - r2);
 
   double phi = 2 * PI * r1;
@@ -44,8 +43,8 @@ Vec3 randomCosinePDFRay() {
 
 Vec3 randomSphereRay(float radius, float distanceSquared) {
   
-  float r1 = joetracer::randomOne();
-  float r2 = joetracer::randomOne();
+  float r1 = randomgen::randomOne();
+  float r2 = randomgen::randomOne();
   float z = 1 + r2 * (sqrt(1 - radius * radius / distanceSquared) - 1);
 
   float phi = 2*PI*r1;
@@ -58,7 +57,7 @@ Vec3 randomSphereRay(float radius, float distanceSquared) {
 Vec3 randomRayInSphere(const Vec3 &n) {
   Vec3 w;
   do {
-    w = Vec3(joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1));
+    w = Vec3(randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1));
   } while (length(w) >= 1.0);
   if (dotProduct(w, n) > 0.0) // in the same hemisphere as the normal
     return w;
@@ -68,7 +67,7 @@ Vec3 randomRayInSphere(const Vec3 &n) {
 
 // Returns a random ray in the unit sphere
 Vec3 randomRayInUnitVector() {
-  return unitVec(Vec3(joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1), joetracer::randomNum(-1, 1))); 
+  return unitVec(Vec3(randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1))); 
 }
 
 // Returns true if there is refraction (and not reflection), and finds the
