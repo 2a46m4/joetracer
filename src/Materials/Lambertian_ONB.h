@@ -16,7 +16,9 @@
 class Lambertian_ONB : public Materials {
 public:
   Lambertian_ONB(const Point &a) : albedo(new SolidColour(a)) {}
+  
   Lambertian_ONB(const Texture *a) : albedo(a){};
+  
   virtual bool scatter(const Ray &ray, const hitRecord &rec,
                        scatterRecord &srec) const override {
     // direction, follows a cosine distribution

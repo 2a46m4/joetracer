@@ -17,9 +17,9 @@ class MixturePDF : public pdf {
 
   virtual Vec3 generate() const override {
     if(randomgen::randomOne() < mixNum)
-      return pdf1->generate();
-    else
       return pdf0->generate();
+    else
+      return pdf1->generate();
   }
   
   pdf* pdf0;

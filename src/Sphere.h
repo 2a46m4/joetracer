@@ -5,6 +5,7 @@
 #include "./Point.h"
 #include "./aabb.h"
 
+// A geometric sphere.
 class Sphere : public Hittable {
 public:
   Point location;

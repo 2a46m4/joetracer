@@ -4,7 +4,7 @@
 #include "Hittable.h"
 #include "Vec3.h"
 
-// An instance of a hittable object that is translated in some direction
+// Translated instance of a hittable object.
 class Translate : public Hittable {
 public:
   Translate(Hittable *hittablePtr, const Vec3 &offset);

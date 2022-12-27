@@ -4,7 +4,7 @@
 #include "../pdf.h"
 
 #include "../Functions.h"
-// The scattering pdf that has the distribution of a cosine wave. Most commonly used for lambertian reflectance
+// A cosine PDF. 
 class CosinePDF : public pdf {
  public:
   CosinePDF(const Vec3& n) {
