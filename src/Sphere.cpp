@@ -60,26 +60,6 @@ bool Sphere::hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const {
     }
   }
   return intercept;
-  // Vec v = sub(r.origin, location).direction();
-  // double a = length(r.direction) * length(r.direction);
-  // double b = dotProduct(v, r.direction);
-  // double c = length(v) * length(v) - (rad * rad);
-  // double discriminant = (b * b) - (a * c);
-  // double time = 0;
-  // if (discriminant < 0)
-  //   return false; // No solutions
-  // time = fmin((sqrt(discriminant) - b) / a, ((-sqrt(discriminant)) - b) / a);
-  // if (tMax > time && time > 0.001) {
-  //   rec.t = time;
-  //   tMax = rec.t;
-  //   rec.p = add(r.origin, point(scale(rec.t, r.direction)));
-  //   Vec outwardNormal = unitVec(scale(rad, (rec.p - location)).direction());
-  //   rec.setFaceNormal(r, outwardNormal);
-  //   getUV(rec.normal, rec.u, rec.v);
-  //   rec.matPtr = material;
-  //   return true;
-  // }
-  // return false;
 }
 
 void Sphere::getUV(const Vec3 &p, float &u, float &v) {
@@ -98,7 +78,10 @@ void Sphere::getUV(const Vec3 &p, float &u, float &v) {
 }
 
 double Sphere::pdfValue(const Point &o, const Vec3 &v) const {
+  
   hitRecord rec;
+
+  // Ray didn't hit 
   if (!this->hit(Ray(o, v), rec, 0.001, DBL_INF))
     return 0;
 
