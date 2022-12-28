@@ -3,6 +3,7 @@
 #include "Hittable.h"
 #include "Light.h"
 #include "Move.h"
+#include "PinholeCamera.h"
 #include "Point.h"
 #include "RandomGenerator.h"
 #include "Rotation.h"
@@ -37,7 +38,10 @@
 
 // System libraries
 #include <SDL2/SDL_render.h>
+#include <algorithm>
 #include <cmath>
+#include <eigen3/Eigen/src/Core/Matrix.h>
+#include <eigen3/Eigen/src/Core/util/Constants.h>
 #include <iostream>
 #include <limits>
 
@@ -48,6 +52,12 @@
 // TODO hardcoded values, change
 static int screenWidth = 1000;
 static int screenHeight = 800;
+
+void updateCamera(int x, int y, int z, int i, int j, int k, int fov, Scene &s) {
+  s.newCamera(PinholeCamera(screenWidth, screenHeight, Eigen::Vector3f(x, y, z),
+                            Eigen::Vector3f(i, j, k), fov));
+  s.resetRaw();
+}
 
 void addSampleScene(Scene &s) {
   Metal *mwhite = new Metal(Point(0.9, 0.9, 0.9), 0.5);
@@ -101,8 +111,8 @@ void addSampleScene(Scene &s) {
   s.addObject(ground);
   s.addObject(perlinSphere);
   s.addObject(emitterSphere);
-  s.camera.changeLocation(Point(0, 0, 0));
-  s.camera.changeView(Point(0, 0, -1));
+  // s.camera.changeLocation(Point(0, 0, 0));
+  // s.camera.changeView(Point(0, 0, -1));
 }
 
 void addDebugScene(Scene &s) {
@@ -136,14 +146,15 @@ void addCornellBox(Scene &s) {
   Dielectrics *glass = new Dielectrics(1.5);
   Metal *aluminum = new Metal(Point(0.8, 0.85, 0.88), 0.0);
   Lambertian_ONB *perlin = new Lambertian_ONB(new PerlinTexture(5));
+  Lambertian *fogMat = new Lambertian(Point(0.73, 0.73, 0.73));
 
   // Left wall
-  Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, perlin, 1);
+  Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green, 1);
   // Right wall
   Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red, 0);
   // Lights
-  Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554.5, light, 1);
-  // Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1);
+  // Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554.5, light, 1);
+  Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1);
   s.setFocusable(rect3);
   // s.setFocusable(rect1);
   // Bottom wall (floor)
@@ -153,9 +164,10 @@ void addCornellBox(Scene &s) {
   // Front wall
   Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white, 0);
 
-  // Hittable *fogBoundary = new Box(Point(0, 0, -555), Point(555, 555, 0),
-  // white); Point fogCol = Point(1, 1, 1); Hittable *fog = new
-  // ConstantMedium(fogBoundary, 0.001, fogCol);
+  Hittable *fogBoundary =
+      new Box(Point(0, 0, -555), Point(555, 555, 0), fogMat);
+  Point fogCol = Point(1, 1, 1);
+  Hittable *fog = new ConstantMedium(fogBoundary, 0.001, fogCol);
 
   // Hittable *testRect = new XYRectangle(0, 165, 0, 330, 0, white, 0);
   // testRect = new Rotation(testRect, Point(-15, 0, 0));
@@ -173,7 +185,7 @@ void addCornellBox(Scene &s) {
   box2 = new Rotation(box2, Point(18, 0, 0));
   box2 = new Translate(box2, Vec3(130, 0, -65));
 
-  // Sphere *sphere = new Sphere(90, Point(190, 90, -190), glass);
+  Sphere *sphere = new Sphere(90, Point(190, 90, -190), glass);
   // s.setFocusable(sphere);
 
   s.addObject(rect1);
@@ -185,15 +197,13 @@ void addCornellBox(Scene &s) {
   // s.addObject(testRect);
   s.addObject(tbox);
   // s.addObject(box1);
-  s.addObject(box2);
-  // s.addObject(sphere);
+  // s.addObject(box2);
+  s.addObject(sphere);
   // s.addObject(fog);
 }
 
 // sdl boilerplate
-int setupSDL() {}
-
-int main(int argc, char **argv) {
+int setupSDL() {
   // Setup SDL
   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) !=
       0) {
@@ -207,6 +217,9 @@ int main(int argc, char **argv) {
     printf("SDL_image could not initialize! SDL_image Error: %s\n",
            IMG_GetError());
   }
+}
+
+int main(int argc, char **argv) {
 
   bool debug;
   debug = true;
@@ -216,7 +229,7 @@ int main(int argc, char **argv) {
   // background color
   // ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 1.00f);
   ImVec4 clear_color = ImVec4(0, 0, 0, 1.0f);
-  
+
   static float x = 0;
   static float y = 0;
   static float z = 0;
@@ -264,30 +277,94 @@ int main(int argc, char **argv) {
 
     s.samples = 1;
     s.bounces = 4;
-
+    int x = 0;
+    int y = 0;
+    int z = 800;
+    float i = 0;
+    float j = 0;
+    float k = 0;
     static float fov = 90.0f;
 
     s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
                          clear_color.z * 255.0f);
-    s.newCamera(
-        PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
+    s.newCamera(PinholeCamera(screenWidth, screenHeight,
+                              Eigen::Vector3f(x, y, z),
+                              Eigen::Vector3f(i, j, k), fov));
+
     int sampleCount = 0;
     s.createBVHBox();
 
     SDL_Event event;
     while (sampleCount < 2000) {
-
-      // quit the program
-      while(SDL_PollEvent(&event)!=0) {
-	if(event.type == SDL_QUIT)
-	  sampleCount=2000;
-      }
-
       sampleCount++;
       s.render();
+      // quit the program
+      while (SDL_PollEvent(&event) != 0) {
+        if (event.type == SDL_QUIT)
+          sampleCount = 2000;
+        else if (event.type == SDL_KEYDOWN) {
+          switch (event.key.keysym.sym) {
+          case SDLK_UP:
+            i++;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_DOWN:
+            i--;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+
+          case SDLK_LEFT:
+            j--;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_RIGHT:
+            j++;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+	  case SDLK_w:
+            z--;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+	  case SDLK_s:
+            z++;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+	  case SDLK_a:
+            x++;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+	  case SDLK_d:
+            x--;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+	  case SDLK_i:
+            y++;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+	  case SDLK_k:
+            y--;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          default:
+            break;
+          }
+        }
+      }
       for (int i = 0; i < screenHeight * screenWidth * 3; i++) {
         pixels[i] = // truncates overbright values
-            (s.raw[i] / sampleCount > 255) ? 255 : (s.raw[i] / sampleCount);
+                    (s.raw[i] / sampleCount > 255) ? 255 : (s.raw[i] /
+                    sampleCount);
+            // s.raw[i];
       }
 
       surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
