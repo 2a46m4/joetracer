@@ -7,6 +7,7 @@
 #include <eigen3/Eigen/src/Geometry/AngleAxis.h>
 #include <eigen3/Eigen/src/Geometry/Translation.h>
 
+// https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-generating-camera-rays/generating-camera-rays
 class PinholeCamera {
 protected:
   // Distance of the virtual plane to the centre of projection
@@ -26,9 +27,7 @@ protected:
   Vec3 horizontal, vertical, lowerLeftCorner;
 
   float viewportHeight, viewportWidth;
-
-  bool useMatrix;
-
+  
   Eigen::Matrix3f rotationTranslationMatrix;
   Eigen::Vector3f translationMatrix;
 public:

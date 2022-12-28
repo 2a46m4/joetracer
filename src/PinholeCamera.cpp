@@ -16,7 +16,6 @@ PinholeCamera::PinholeCamera() {}
 
 PinholeCamera::PinholeCamera(int width, int height, Eigen::Vector3f location,
                              Eigen::Vector3f rotation, float verticalFOV) {
-  useMatrix = true;
   Eigen::AngleAxisf xRotation(rotation[0], Eigen::Vector3f::UnitX());
   Eigen::AngleAxisf yRotation(rotation[1], Eigen::Vector3f::UnitY());
   Eigen::AngleAxisf zRotation(rotation[2], Eigen::Vector3f::UnitZ());
@@ -39,16 +38,14 @@ PinholeCamera::PinholeCamera(int width, int height, Eigen::Vector3f location,
 
   this->rotationTranslationMatrix = rotationMatrix;
   this->translationMatrix = location;
-
-  std::cout << rotationTranslationMatrix << '\n';
-  
   this->width = width;
   this->height = height;
+  this->viewportHeight = tan((verticalFOV * PI / 360.0f)/2);
+  viewportWidth = viewportHeight * width / height; // magnitude of the width
 }
 
 // http://fastgraph.com/makegames/3drotation/
 
-// TODO: implement rotation matrices
 PinholeCamera::PinholeCamera(int width, int height, float verticalFOV,
                              Point location, Point view) {
   useMatrix = false;
@@ -86,21 +83,10 @@ void PinholeCamera::getPrimaryRay(float x, float y, Ray &r) const {
   // the scaling that depends on the fov of the camera; greater values means
   // that the rays are projected farther away from the centre of the screen
   // const float side = -2 * tan(verticalFOV * PI / 360.0f);
-
-  // if (useMatrix) {
-  //   r.origin = Point(translationMatrix(0), translationMatrix(1), translationMatrix(2));
-  //   Eigen::Vector3f a = {(x / width) - 0.5, (y/height) - 0.5, -1};
-  //   a = rotationTranslationMatrix * a;
-  //   r.direction = Vec3(a(0), a(1), a(2));
-  //   // std::cout << r.direction << '\n';
-  // } else {
-    r.origin = location;
-    r.direction =
-        sub(add(lowerLeftCorner, add(scale(x / width, horizontal),
-                                     scale((height - y) / height, vertical))),
-            location.direction());
-    // std::cout << r.direction << '\n';
-  }
+    r.origin = Point(translationMatrix(0), translationMatrix(1), translationMatrix(2));
+    Eigen::Vector3f a = {((2*((x + 0.5) / width) -1) * viewportWidth), (-2*((y + 0.5) /height)+ 1) * viewportHeight, -1};
+    a = rotationTranslationMatrix * a;
+    r.direction = Vec3(a(0), a(1), a(2));
 }
 
 void PinholeCamera::changeLocation(Point p) { location = p; }
