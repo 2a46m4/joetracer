@@ -48,7 +48,7 @@ public:
 
   void createBVHBox();
 
-  void render() const;
+  void render();
 
   // Inserts a pointer to a hittable object into the list
   void addObject(Hittable *o);
@@ -76,6 +76,11 @@ public:
   HittableList *getHittables();
 
   void setFocusable(Hittable *);
+
+  void resetRaw() {
+    delete this->raw;
+    raw = new double[height * width * 3];
+  }
 };
 
 #endif
