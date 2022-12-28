@@ -1,16 +1,57 @@
 #include "PinholeCamera.h"
 #include "./Functions.h"
 #include "./Ray.h"
+#include "Translate.h"
+#include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/src/Core/Matrix.h>
+#include <eigen3/Eigen/src/Geometry/AngleAxis.h>
+#include <eigen3/Eigen/src/Geometry/Quaternion.h>
+#include <eigen3/Eigen/src/Geometry/Transform.h>
+#include <eigen3/Eigen/src/Geometry/Translation.h>
 
+#include <fstream>
 #include <iostream>
 
 PinholeCamera::PinholeCamera() {}
+
+PinholeCamera::PinholeCamera(int width, int height, Eigen::Vector3f location,
+                             Eigen::Vector3f rotation, float verticalFOV) {
+  useMatrix = true;
+  Eigen::AngleAxisf xRotation(rotation[0], Eigen::Vector3f::UnitX());
+  Eigen::AngleAxisf yRotation(rotation[1], Eigen::Vector3f::UnitY());
+  Eigen::AngleAxisf zRotation(rotation[2], Eigen::Vector3f::UnitZ());
+  Eigen::Quaternion<float> q = xRotation * yRotation * zRotation;
+  
+  Eigen::MatrixXf rotationMatrix = q.matrix();
+  // rotationMatrix.conservativeResize(4, 4);
+  // rotationMatrix.col(3).setZero();
+  // rotationMatrix.row(3).setZero();
+  // rotationMatrix(3, 3) = 1;
+
+  
+
+  // Eigen::Matrix4f translationMatrix {
+  //   {1, 0, 0, location(0)},
+  //   {0, 1, 0, location(1)},
+  //   {0, 0, 1, location(2)},
+  //   {0, 0, 0, 1}
+  // };
+
+  this->rotationTranslationMatrix = rotationMatrix;
+  this->translationMatrix = location;
+
+  std::cout << rotationTranslationMatrix << '\n';
+  
+  this->width = width;
+  this->height = height;
+}
 
 // http://fastgraph.com/makegames/3drotation/
 
 // TODO: implement rotation matrices
 PinholeCamera::PinholeCamera(int width, int height, float verticalFOV,
                              Point location, Point view) {
+  useMatrix = false;
   this->verticalFOV = verticalFOV;
   this->location = location;
   this->view = view;
@@ -46,15 +87,20 @@ void PinholeCamera::getPrimaryRay(float x, float y, Ray &r) const {
   // that the rays are projected farther away from the centre of the screen
   // const float side = -2 * tan(verticalFOV * PI / 360.0f);
 
-  // float rot_mtx[4][4][4][4];
-  // float trans_mtx[4][4][4][4];
-  // std::cout << x << " " << width << std::endl;
-
-  r.origin = location;
-  r.direction =
-      sub(add(lowerLeftCorner, add(scale(x / width, horizontal),
-                                   scale((height - y) / height, vertical))),
-          location.direction());
+  // if (useMatrix) {
+  //   r.origin = Point(translationMatrix(0), translationMatrix(1), translationMatrix(2));
+  //   Eigen::Vector3f a = {(x / width) - 0.5, (y/height) - 0.5, -1};
+  //   a = rotationTranslationMatrix * a;
+  //   r.direction = Vec3(a(0), a(1), a(2));
+  //   // std::cout << r.direction << '\n';
+  // } else {
+    r.origin = location;
+    r.direction =
+        sub(add(lowerLeftCorner, add(scale(x / width, horizontal),
+                                     scale((height - y) / height, vertical))),
+            location.direction());
+    // std::cout << r.direction << '\n';
+  }
 }
 
 void PinholeCamera::changeLocation(Point p) { location = p; }

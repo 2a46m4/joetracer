@@ -2,6 +2,10 @@
 #define _PINHOLE_CAMERA_H
 #include "./Ray.h"
 #include <cmath>
+#include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/src/Core/Matrix.h>
+#include <eigen3/Eigen/src/Geometry/AngleAxis.h>
+#include <eigen3/Eigen/src/Geometry/Translation.h>
 
 class PinholeCamera {
 protected:
@@ -23,12 +27,20 @@ protected:
 
   float viewportHeight, viewportWidth;
 
+  bool useMatrix;
+
+  Eigen::Matrix3f rotationTranslationMatrix;
+  Eigen::Vector3f translationMatrix;
 public:
   PinholeCamera();
 
+  PinholeCamera(int width, int height, Eigen::Vector3f location, Eigen::Vector3f rotation, float verticalFOV);
+  
   PinholeCamera(int width, int height, float verticalFOV, Point location,
                 Point view);
 
+
+  
   /*
   x, y are the virtual coordinates on the virtual plane camera (our "sensor")
   width and height are the real size on the virtual plane
