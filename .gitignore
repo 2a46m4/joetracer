@@ -38,6 +38,8 @@ joetracer
 
 *.h~
 
+.cache/
+
 CMakeFiles
 
 extraneous
