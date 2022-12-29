@@ -12,7 +12,7 @@ public:
 
   virtual bool scatter(const Ray &ray, const hitRecord &rec,
                        scatterRecord &srec) const {
-    srec.isSpecular = true;
+    srec.isSpecular = true;   
     srec.pdfptr = nullptr;
     srec.attenuation = Point(1.0, 1.0, 1.0);
     float refractionRatio = rec.frontFacing ? (1.0 / refractIdx) : refractIdx;

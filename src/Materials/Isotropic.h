@@ -16,10 +16,14 @@ public:
   Texture *albedo;
 
   virtual bool scatter(const Ray &ray, const hitRecord &rec, scatterRecord& srec) const override {
+    srec.isSpecular = true;
+    srec.pdfptr = nullptr;
     srec.specularRay = Ray(rec.p, randomRayInSphere(rec.normal));
     srec.attenuation = albedo->value(rec.u, rec.v, rec.p);
     return true;
   }
+
+  
 };
 
 #endif

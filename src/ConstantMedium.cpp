@@ -71,3 +71,11 @@ bool ConstantMedium::hit(const Ray &r, hitRecord &rec, double tMin,
 bool ConstantMedium::boundingBox(double t0, double t1, aabb &outputBox) const {
   return boundary->boundingBox(t0, t1, outputBox);
 }
+
+double ConstantMedium::pdfValue(const Point &o, const Vec3 &v) const {
+  return boundary->pdfValue(o, v);
+}
+
+Vec3 ConstantMedium::random(const Point &o) const {
+  return boundary->random(o);
+}

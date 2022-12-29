@@ -19,6 +19,10 @@ public:
   bool boundingBox(double t0, double t1,
                            aabb &outputBox) const override;
 
+  double pdfValue(const Point& o, const Vec3 &v) const override;
+
+  Vec3 random(const Point &o) const override;
+
   // The fog
   Materials *phaseFunction;
   // The boundary between the medium and outside
