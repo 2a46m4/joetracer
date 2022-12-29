@@ -7,6 +7,8 @@
 // fast prng
 namespace randomgen {
 
+#include <stdint.h>
+  
 thread_local static unsigned int seed = 12493048;
 
 unsigned int xorShiftGenerator() {
@@ -27,7 +29,7 @@ float randomNum(float min, float max) {
 
 // prng for ints between min and max, inclusive
 int randomInt(int min, int max) {
-  return (xorShiftGenerator() % (max + 1)) + min;
+  return (xorShiftGenerator() % ((max-min)+1)) + min;
 }
 
 } // namespace joetracer
