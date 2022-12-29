@@ -28,6 +28,8 @@ set(IMGUI
     include/imgui/backends/imgui_impl_sdlrenderer.h
 )
 
+find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+
 # add the executable
 # is there really no better way to do this?
 add_executable(joetracer
@@ -73,11 +75,12 @@ add_executable(joetracer
 	       src/Translate.h
 	       src/Triangle.h
 	       src/Vec3.h
-		   src/Matrix.h
-		   src/Matrix.cpp
 	       ${IMGUI})	
 
 
-set(CMAKE_CXX_FLAGS "-O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
+target_link_libraries(joetracer Eigen3::Eigen)
+
+set(CMAKE_CXX_FLAGS "-Ofast -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
+# set(CMAKE_CXX_FLAGS "-O0 -g -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
 # set(CMAKE_CXX_FLAGS "-O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -D_GLIBCXX_PARALLEL")
 # set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEX2" CACHE STRING "Set C++ Compiler Flags" FORCE)

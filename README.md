@@ -40,5 +40,6 @@ Resources used:
 Requirements for building:
 - OpenMP
 - SDL (Simple DirectMedia Layer)
+- Eigen
 
 This is only tested on Arch Linux, and it is not guaranteed to run on other Unix platforms. I haven't ported the program to Windows yet.
