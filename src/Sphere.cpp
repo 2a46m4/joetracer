@@ -35,31 +35,51 @@ bool Sphere::hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const {
   float c = dotProduct(v, v) - (rad * rad);
   float discriminant = (b * b) - (a * c);
   float time = 0;
-  if (discriminant > 0.0) {
-    time = ((-sqrt(discriminant)) - b) / a;
-    if (tMax > time && time > 0.001) {
-      intercept = true;
-      rec.t = time;
-      tMax = rec.t;
-	  rec.p = r.pointAtTime(rec.t);
-      Vec3 outwardNormal = unitVec(scale(rad, (rec.p - location)).direction());
-      rec.setFaceNormal(r, outwardNormal);
-      getUV(rec.normal, rec.u, rec.v);
-      rec.matPtr = material;
-    }
-    time = (sqrt(discriminant) - b) / a;
-    if (tMax > time && time > 0.001) {
-      intercept = true;
-      rec.t = time;
-      tMax = rec.t;
-	  rec.p = r.pointAtTime(rec.t);
-      Vec3 outwardNormal = unitVec(scale(rad, (rec.p - location)).direction());
-      rec.setFaceNormal(r, outwardNormal);
-      getUV(rec.normal, rec.u, rec.v);
-      rec.matPtr = material;
-    }
+  if (discriminant < 0.0)
+    return false;
+  auto sqrtd = sqrt(discriminant);
+  auto root = (-b - sqrtd) / a;
+  if (root < tMin || tMax < root) {
+    root = (-b + sqrtd) / a;
+    if (root < tMin || tMax < root)
+      return false;
   }
-  return intercept;
+
+  rec.t = root;
+  // tMax = rec.t;
+  rec.p = r.pointAtTime(rec.t);
+  Vec3 outwardNormal =
+      unitVec(scale(1.0 / rad, (rec.p - location)).direction());
+  rec.setFaceNormal(r, outwardNormal);
+  getUV(rec.normal, rec.u, rec.v);
+  rec.matPtr = material;
+  return true;
+  // time = ((-sqrt(discriminant)) - b) / a;
+
+  // if (tMax > time && time > 0.001) {
+  //   intercept = true;
+  //   rec.t = time;
+  //   tMax = rec.t;
+  //   rec.p = r.pointAtTime(rec.t);
+  //   Vec3 outwardNormal =
+  //       unitVec(scale(1.0 / rad, (rec.p - location)).direction());
+  //   rec.setFaceNormal(r, outwardNormal);
+  //   getUV(rec.normal, rec.u, rec.v);
+  //   rec.matPtr = material;
+  // }
+  // time = (sqrt(discriminant) - b) / a;
+  // if (tMax > time && time > 0.001) {
+  //   intercept = true;
+  //   rec.t = time;
+  //   tMax = rec.t;
+  //   rec.p = r.pointAtTime(rec.t);
+  //   Vec3 outwardNormal =
+  //       unitVec(scale(1.0 / rad, (rec.p - location)).direction());
+  //   rec.setFaceNormal(r, outwardNormal);
+  //   getUV(rec.normal, rec.u, rec.v);
+  //   rec.matPtr = material;
+  // }
+  // return intercept;
 }
 
 void Sphere::getUV(const Vec3 &p, float &u, float &v) {
@@ -78,18 +98,20 @@ void Sphere::getUV(const Vec3 &p, float &u, float &v) {
 }
 
 double Sphere::pdfValue(const Point &o, const Vec3 &v) const {
-  
+
   hitRecord rec;
 
-  // Ray didn't hit 
+  // Ray didn't hit this object. PDF is zero
   if (!this->hit(Ray(o, v), rec, 0.001, DBL_INF))
     return 0;
 
   float lengthSquared = length(sub(location, o).direction());
   lengthSquared *= lengthSquared;
-  float cosThetaMax = sqrt(1 - rad * rad / (lengthSquared));
+  float cosThetaMax = sqrt(1 - (rad * rad / lengthSquared));
   float solidAngle = 2 * PI * (1 - cosThetaMax);
 
+  // returns the inverse of the solid angle; the larger the solid angle, the
+  // higher the probability. Thus we need to downsample.
   return 1.0 / solidAngle;
 }
 
