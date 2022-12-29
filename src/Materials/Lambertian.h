@@ -32,7 +32,8 @@ public:
     double cosine = dotProduct(rec.normal, unitVec(rOut.direction));
     // absorb case where the cosine is negative
     // otherwise return scattering pdf of lambertian reflectance
-    return cosine / PI;
+    // return cosine / PI;	   
+    return (cosine > 0.0)? cosine / PI : 0;
   }
 
   const Texture *albedo;
