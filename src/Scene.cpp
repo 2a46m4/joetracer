@@ -53,10 +53,11 @@ Scene::Scene(int w, int h, PinholeCamera cam, Point bg, double *rawPixelPtr) {
 void Scene::createBVHBox() { this->box = new BVHNode(hittables, 0, FLT_INF); }
 
 // main rendering loop
-void Scene::render() const {
+void Scene::render(){
 #pragma omp parallel
   {
 #pragma omp for nowait
+    
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width * 3; x += 3) {
         Ray r;
@@ -120,7 +121,8 @@ Point Scene::Colour(Ray &r, int limit) const {
       return srec.attenuation * Colour(srec.specularRay, limit - 1);
     }
 
-    // Generates a PDF that is 50/50 of the focusable list and the object being hit
+    // Generates a PDF that is 50/50 of the focusable list and the object being
+    // hit
     HittablePDF focusablePDF(focusableList, rec.p);
     MixturePDF mixPDF(&focusablePDF, srec.pdfptr);
     scattered = Ray(rec.p, mixPDF.generate());
@@ -131,17 +133,14 @@ Point Scene::Colour(Ray &r, int limit) const {
 
     // emission + albedo * scattering PDF * colour of next
     // rays / sampling pdf
-
-    // For matte objects the scattering pdf is cosine (things are most likely to
-    // scatter around the middle) the other pdf is the probability that we
-    // sample that direction (acts as scaling) In this case sampling pdf is the
-    // same as scattering pdf
-
     Point colour =
         emitted +
-        scale(1 / pdfValue, scale(rec.matPtr->scatteringPDF(r, rec, scattered),
-                                  srec.attenuation) *
-                                Colour(scattered, limit - 1));
+        scale(1 / pdfValue, // sampling PDF
+              scale(rec.matPtr->scatteringPDF(
+                        r, rec,
+                        scattered), // PDF of the scattered ray on the material
+                    srec.attenuation) *          // the colour, basically
+                  Colour(scattered, limit - 1)); // future rays
 
     // Checks for INF/NAN values, discards them
     if (colour.x != colour.x) {
@@ -156,7 +155,6 @@ Point Scene::Colour(Ray &r, int limit) const {
 
     return colour;
   } else // the ray hit nothing
-    // TODO background image
     return background;
 }
 
