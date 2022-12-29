@@ -164,6 +164,8 @@ void addCornellBox(Scene &s) {
   // Front wall
   Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white, 0);
 
+  Hittable *rect7 = new XYRectangle(0, 555, 0, 555, 0, white, 0);
+  
   Hittable *fogBoundary =
       new Box(Point(0, 0, -555), Point(555, 555, 0), fogMat);
   Point fogCol = Point(1, 1, 1);
@@ -178,7 +180,8 @@ void addCornellBox(Scene &s) {
   // Hittable *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295),
   // white);
   //
-  Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), white);
+  
+  Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), glass);
   Rotation *rbox = new Rotation(box1, Point(-15, 0, 0));
   Translate *tbox = new Translate(rbox, Vec3(265, 0, -295));
   Hittable *box2 = new Box(Point(0, 0, -165), Point(165, 165, 0), white);
@@ -186,7 +189,7 @@ void addCornellBox(Scene &s) {
   box2 = new Translate(box2, Vec3(130, 0, -65));
 
   Sphere *sphere = new Sphere(90, Point(190, 90, -190), glass);
-  // s.setFocusable(sphere);
+  s.setFocusable(sphere);
 
   s.addObject(rect1);
   s.addObject(rect2);
@@ -194,6 +197,7 @@ void addCornellBox(Scene &s) {
   s.addObject(rect4);
   s.addObject(rect5);
   s.addObject(rect6);
+  s.addObject(rect7);
   // s.addObject(testRect);
   s.addObject(tbox);
   // s.addObject(box1);
@@ -277,13 +281,13 @@ int main(int argc, char **argv) {
 
     s.samples = 1;
     s.bounces = 4;
-    int x = 0;
-    int y = 0;
-    int z = 800;
-    float i = 0;
-    float j = 0;
+    int x = 278;
+    int y = 278;
+    int z = 0;
+    float i = -50;
+    float j = 15;
     float k = 0;
-    static float fov = 90.0f;
+    static float fov = 120.0f;
 
     s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
                          clear_color.z * 255.0f);
@@ -302,63 +306,63 @@ int main(int argc, char **argv) {
       while (SDL_PollEvent(&event) != 0) {
         if (event.type == SDL_QUIT)
           sampleCount = 2000;
-        else if (event.type == SDL_KEYDOWN) {
-          switch (event.key.keysym.sym) {
-          case SDLK_UP:
-            i++;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_DOWN:
-            i--;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
+        // else if (event.type == SDL_KEYDOWN) {
+        //   switch (event.key.keysym.sym) {
+        //   case SDLK_UP:
+        //     i++;
+        //     updateCamera(x, y, z, i, j, k, fov, s);
+        //     sampleCount = 0;
+        //     break;
+        //   case SDLK_DOWN:
+        //     i--;
+        //     updateCamera(x, y, z, i, j, k, fov, s);
+        //     sampleCount = 0;
+        //     break;
 
-          case SDLK_LEFT:
-            j--;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_RIGHT:
-            j++;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-	  case SDLK_w:
-            z--;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-	  case SDLK_s:
-            z++;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-	  case SDLK_a:
-            x++;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-	  case SDLK_d:
-            x--;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-	  case SDLK_i:
-            y++;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-	  case SDLK_k:
-            y--;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          default:
-            break;
-          }
-        }
+        //   case SDLK_LEFT:
+        //     j--;
+        //     updateCamera(x, y, z, i, j, k, fov, s);
+        //     sampleCount = 0;
+        //     break;
+        //   case SDLK_RIGHT:
+        //     j++;
+        //     updateCamera(x, y, z, i, j, k, fov, s);
+        //     sampleCount = 0;
+        //     break;
+	//   case SDLK_w:
+        //     z--;
+        //     updateCamera(x, y, z, i, j, k, fov, s);
+        //     sampleCount = 0;
+        //     break;
+	//   case SDLK_s:
+        //     z++;
+        //     updateCamera(x, y, z, i, j, k, fov, s);
+        //     sampleCount = 0;
+        //     break;
+	//   case SDLK_a:
+        //     x++;
+        //     updateCamera(x, y, z, i, j, k, fov, s);
+        //     sampleCount = 0;
+        //     break;
+	//   case SDLK_d:
+        //     x--;
+        //     updateCamera(x, y, z, i, j, k, fov, s);
+        //     sampleCount = 0;
+        //     break;
+	//   case SDLK_i:
+        //     y++;
+        //     updateCamera(x, y, z, i, j, k, fov, s);
+        //     sampleCount = 0;
+        //     break;
+	//   case SDLK_k:
+        //     y--;
+        //     updateCamera(x, y, z, i, j, k, fov, s);
+        //     sampleCount = 0;
+        //     break;
+        //   default:
+        //     break;
+        //   }
+        // }
       }
       for (int i = 0; i < screenHeight * screenWidth * 3; i++) {
         pixels[i] = // truncates overbright values

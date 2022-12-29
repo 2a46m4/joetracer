@@ -16,18 +16,16 @@ PinholeCamera::PinholeCamera() {}
 
 PinholeCamera::PinholeCamera(int width, int height, Eigen::Vector3f location,
                              Eigen::Vector3f rotation, float verticalFOV) {
-  Eigen::AngleAxisf xRotation(rotation[0], Eigen::Vector3f::UnitX());
-  Eigen::AngleAxisf yRotation(rotation[1], Eigen::Vector3f::UnitY());
-  Eigen::AngleAxisf zRotation(rotation[2], Eigen::Vector3f::UnitZ());
+  Eigen::AngleAxisf xRotation(rotation[0] * PI / 360.0f, Eigen::Vector3f::UnitX());
+  Eigen::AngleAxisf yRotation(rotation[1] * PI / 360.0f, Eigen::Vector3f::UnitY());
+  Eigen::AngleAxisf zRotation(rotation[2] * PI / 360.0f, Eigen::Vector3f::UnitZ());
   Eigen::Quaternion<float> q = xRotation * yRotation * zRotation;
-  
+
   Eigen::MatrixXf rotationMatrix = q.matrix();
   // rotationMatrix.conservativeResize(4, 4);
   // rotationMatrix.col(3).setZero();
   // rotationMatrix.row(3).setZero();
   // rotationMatrix(3, 3) = 1;
-
-  
 
   // Eigen::Matrix4f translationMatrix {
   //   {1, 0, 0, location(0)},
@@ -40,7 +38,7 @@ PinholeCamera::PinholeCamera(int width, int height, Eigen::Vector3f location,
   this->translationMatrix = location;
   this->width = width;
   this->height = height;
-  this->viewportHeight = tan((verticalFOV * PI / 360.0f)/2);
+  this->viewportHeight = tan((verticalFOV * PI / 360.0f) / 2);
   viewportWidth = viewportHeight * width / height; // magnitude of the width
 }
 
@@ -48,7 +46,6 @@ PinholeCamera::PinholeCamera(int width, int height, Eigen::Vector3f location,
 
 PinholeCamera::PinholeCamera(int width, int height, float verticalFOV,
                              Point location, Point view) {
-  useMatrix = false;
   this->verticalFOV = verticalFOV;
   this->location = location;
   this->view = view;
@@ -83,12 +80,22 @@ void PinholeCamera::getPrimaryRay(float x, float y, Ray &r) const {
   // the scaling that depends on the fov of the camera; greater values means
   // that the rays are projected farther away from the centre of the screen
   // const float side = -2 * tan(verticalFOV * PI / 360.0f);
-    r.origin = Point(translationMatrix(0), translationMatrix(1), translationMatrix(2));
-    Eigen::Vector3f a = {((2*((x + 0.5) / width) -1) * viewportWidth), (-2*((y + 0.5) /height)+ 1) * viewportHeight, -1};
-    a = rotationTranslationMatrix * a;
-    r.direction = Vec3(a(0), a(1), a(2));
+  r.origin =
+      Point(translationMatrix(0), translationMatrix(1), translationMatrix(2));
+  Eigen::Vector3f a = {((2 * ((x + 0.5) / width) - 1) * viewportWidth),
+                       (-2 * ((y + 0.5) / height) + 1) * viewportHeight, -1};
+  a = rotationTranslationMatrix * a;
+  r.direction = Vec3(a(0), a(1), a(2));
 }
 
-void PinholeCamera::changeLocation(Point p) { location = p; }
+void PinholeCamera::changeLocation(Eigen::Vector3f p) { translationMatrix = p; }
 
-void PinholeCamera::changeView(Point P) { view = P; }
+void PinholeCamera::changeRotation(Eigen::Vector3f r) {
+  Eigen::AngleAxisf xRotation(r[0], Eigen::Vector3f::UnitX());
+  Eigen::AngleAxisf yRotation(r[1], Eigen::Vector3f::UnitY());
+  Eigen::AngleAxisf zRotation(r[2], Eigen::Vector3f::UnitZ());
+  Eigen::Quaternion<float> q = xRotation * yRotation * zRotation;
+
+  Eigen::MatrixXf rotationMatrix = q.matrix();
+  this->rotationTranslationMatrix = rotationMatrix;
+}
