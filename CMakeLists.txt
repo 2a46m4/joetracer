@@ -34,47 +34,18 @@ find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 # is there really no better way to do this?
 add_executable(joetracer
 	       src/aabb.cpp
-	       src/aaBox.cpp
 	       src/aaRect.cpp
 	       src/BVHNode.cpp
-	       src/ConstantMedium.cpp
 	       src/Functions.cpp
-	       src/Light.cpp
-	       src/Move.cpp
 	       src/onb.cpp
 	       src/PinholeCamera.cpp
 	       src/Point.cpp
 	       src/RandomGenerator.cpp
 	       src/Ray.cpp
-	       src/Rotation.cpp
 	       src/Scene.cpp
 	       src/sdl.cpp
 	       src/Sphere.cpp
-	       src/Translate.cpp
 	       src/Vec3.cpp
-	       src/aabb.h
-	       src/aaBox.h
-	       src/aaRect.h
-	       src/BVHNode.h
-	       src/Compute.h
-	       src/ConstantMedium.h
-	       src/Const.h
-	       src/Functions.h
-	       src/Hittable.h
-	       src/Light.h
-	       src/Move.h
-	       src/onb.h
-	       src/pdf.h
-	       src/PinholeCamera.h
-	       src/Point.h
-	       src/RandomGenerator.h
-	       src/Ray.h
-	       src/Rotation.h
-	       src/Scene.h
-	       src/Sphere.h
-	       src/Translate.h
-	       src/Triangle.h
-	       src/Vec3.h
 	       ${IMGUI})	
 
 
