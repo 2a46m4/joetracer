@@ -1,7 +1,11 @@
 #ifndef _VEC3_H
 #define _VEC3_H
 
+#include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/src/Core/Matrix.h>
 #include <iostream>
+#include "Vector.h"
+
 
 class Vec3 {
 public:
@@ -32,5 +36,10 @@ public:
 
   friend std::ostream &operator<<(std::ostream &out, const Vec4 &point);
 };
+
+
+Vec3 Vector3ToVec3(Vector3 v);
+
+Vector3 Vec3ToVector3(Vec3 v);
 
 #endif

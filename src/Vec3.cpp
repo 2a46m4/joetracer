@@ -63,3 +63,11 @@ std::ostream &operator<<(std::ostream &out, const Vec4 &point) {
       << point.w << ')'; // actual output done here
   return out;
 }
+
+Vector3 Vec3ToVector3(Vec3 v) {
+  return Vector3(v.x, v.y, v.z);
+}
+
+Vec3 Vector3ToVec3(Vector3 v) {
+  return Vec3(v(0), v(1), v(2));
+}
