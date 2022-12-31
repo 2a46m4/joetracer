@@ -33,24 +33,22 @@ protected:
 public:
   PinholeCamera();
 
-  PinholeCamera(int width, int height, Eigen::Vector3f location, Eigen::Vector3f rotation, float verticalFOV);
+  PinholeCamera(int width, int height, Point3 location, Vector3 rotation, float verticalFOV);
   
   PinholeCamera(int width, int height, float verticalFOV, Point location,
                 Point view);
 
-
-  
   /*
   x, y are the virtual coordinates on the virtual plane camera (our "sensor")
   width and height are the real size on the virtual plane
   P is the actual point of the ray
   w is the direction of the ray
    */
-  void getPrimaryRay(float x, float y, Ray &r) const;
+  void getPrimaryRay(float x, float y, Ray3 &r) const;
 
-  void changeLocation(Eigen::Vector3f p);
+  void changeLocation(Point3 p);
 
-  void changeRotation(Eigen::Vector3f r);
+  void changeRotation(Vector3 r);
 };
 
 #endif
