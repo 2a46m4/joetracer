@@ -54,8 +54,8 @@ static int screenWidth = 1000;
 static int screenHeight = 800;
 
 void updateCamera(int x, int y, int z, int i, int j, int k, int fov, Scene &s) {
-  s.newCamera(PinholeCamera(screenWidth, screenHeight, Eigen::Vector3f(x, y, z),
-                            Eigen::Vector3f(i, j, k), fov));
+  s.newCamera(PinholeCamera(screenWidth, screenHeight, Vector3(x, y, z),
+                            Vector3(i, j, k), fov));
   s.resetRaw();
 }
 
@@ -165,7 +165,7 @@ void addCornellBox(Scene &s) {
   Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white, 0);
 
   Hittable *rect7 = new XYRectangle(0, 555, 0, 555, 0, white, 0);
-  
+
   Hittable *fogBoundary =
       new Box(Point(0, 0, -555), Point(555, 555, 0), fogMat);
   Point fogCol = Point(1, 1, 1);
@@ -180,7 +180,7 @@ void addCornellBox(Scene &s) {
   // Hittable *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295),
   // white);
   //
-  
+
   Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), glass);
   Rotation *rbox = new Rotation(box1, Point(-15, 0, 0));
   Translate *tbox = new Translate(rbox, Vec3(265, 0, -295));
@@ -225,6 +225,7 @@ int setupSDL() {
 
 int main(int argc, char **argv) {
 
+  // setupSDL();
   bool debug;
   debug = true;
 
@@ -234,25 +235,7 @@ int main(int argc, char **argv) {
   // ImVec4 clear_color = ImVec4(1.0f, 1.0f, 1.0f, 1.00f);
   ImVec4 clear_color = ImVec4(0, 0, 0, 1.0f);
 
-  static float x = 0;
-  static float y = 0;
-  static float z = 0;
-
-  static float lx = 0;
-  static float ly = 0;
-  static float lz = 1;
-
-  Point location(278, 278, 800);
-  Point lookingAt(278, 278, 0);
-
   double *raw = new double[screenHeight * screenWidth * 3];
-
-  Scene s = Scene(screenWidth, screenHeight,
-                  PinholeCamera(screenWidth, screenHeight, 90.0f,
-                                Point(x, y, z), Point(lx, ly, lz)),
-                  Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
-                        clear_color.z * 255.0f),
-                  raw);
 
   // RGB Array of pixels
   unsigned char *pixels = new unsigned char[screenHeight * screenWidth * 3];
@@ -275,12 +258,10 @@ int main(int argc, char **argv) {
     return -1;
   }
 
+  Scene s;
+
   // our main rendering loop
   if (debug) {
-    addCornellBox(s);
-
-    s.samples = 1;
-    s.bounces = 4;
     int x = 278;
     int y = 278;
     int z = 0;
@@ -289,11 +270,17 @@ int main(int argc, char **argv) {
     float k = 0;
     static float fov = 120.0f;
 
-    s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
-                         clear_color.z * 255.0f);
-    s.newCamera(PinholeCamera(screenWidth, screenHeight,
-                              Eigen::Vector3f(x, y, z),
-                              Eigen::Vector3f(i, j, k), fov));
+    s = Scene(screenWidth, screenHeight,
+              PinholeCamera(screenWidth, screenHeight, Eigen::Vector3f(x, y, z),
+                            Eigen::Vector3f(i, j, k), fov),
+              Point3(clear_color.x * 255.0f, clear_color.y * 255.0f,
+                     clear_color.z * 255.0f),
+              raw);
+
+    addCornellBox(s);
+
+    s.samples = 1;
+    s.bounces = 4;
 
     int sampleCount = 0;
     s.createBVHBox();
@@ -306,69 +293,68 @@ int main(int argc, char **argv) {
       while (SDL_PollEvent(&event) != 0) {
         if (event.type == SDL_QUIT)
           sampleCount = 2000;
-        // else if (event.type == SDL_KEYDOWN) {
-        //   switch (event.key.keysym.sym) {
-        //   case SDLK_UP:
-        //     i++;
-        //     updateCamera(x, y, z, i, j, k, fov, s);
-        //     sampleCount = 0;
-        //     break;
-        //   case SDLK_DOWN:
-        //     i--;
-        //     updateCamera(x, y, z, i, j, k, fov, s);
-        //     sampleCount = 0;
-        //     break;
-
-        //   case SDLK_LEFT:
-        //     j--;
-        //     updateCamera(x, y, z, i, j, k, fov, s);
-        //     sampleCount = 0;
-        //     break;
-        //   case SDLK_RIGHT:
-        //     j++;
-        //     updateCamera(x, y, z, i, j, k, fov, s);
-        //     sampleCount = 0;
-        //     break;
-	//   case SDLK_w:
-        //     z--;
-        //     updateCamera(x, y, z, i, j, k, fov, s);
-        //     sampleCount = 0;
-        //     break;
-	//   case SDLK_s:
-        //     z++;
-        //     updateCamera(x, y, z, i, j, k, fov, s);
-        //     sampleCount = 0;
-        //     break;
-	//   case SDLK_a:
-        //     x++;
-        //     updateCamera(x, y, z, i, j, k, fov, s);
-        //     sampleCount = 0;
-        //     break;
-	//   case SDLK_d:
-        //     x--;
-        //     updateCamera(x, y, z, i, j, k, fov, s);
-        //     sampleCount = 0;
-        //     break;
-	//   case SDLK_i:
-        //     y++;
-        //     updateCamera(x, y, z, i, j, k, fov, s);
-        //     sampleCount = 0;
-        //     break;
-	//   case SDLK_k:
-        //     y--;
-        //     updateCamera(x, y, z, i, j, k, fov, s);
-        //     sampleCount = 0;
-        //     break;
-        //   default:
-        //     break;
-        //   }
-        // }
+        else if (event.type == SDL_KEYDOWN) {
+          switch (event.key.keysym.sym) {
+          case SDLK_UP:
+            i++;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_DOWN:
+            i--;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_LEFT:
+            j--;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_RIGHT:
+            j++;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_w:
+            z--;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_s:
+            z++;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_a:
+            x++;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_d:
+            x--;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_i:
+            y++;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          case SDLK_k:
+            y--;
+            updateCamera(x, y, z, i, j, k, fov, s);
+            sampleCount = 0;
+            break;
+          default:
+            break;
+          }
+        }
       }
+
       for (int i = 0; i < screenHeight * screenWidth * 3; i++) {
         pixels[i] = // truncates overbright values
-                    (s.raw[i] / sampleCount > 255) ? 255 : (s.raw[i] /
-                    sampleCount);
-            // s.raw[i];
+            (s.raw[i] / sampleCount > 255) ? 255 : (s.raw[i] / sampleCount);
+        // s.raw[i];
       }
 
       surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
@@ -431,10 +417,10 @@ int main(int argc, char **argv) {
       if (ImGui::Button("Render",
                         ImVec2(ImGui::GetWindowWidth() - 15, 20.0f))) {
 
-        s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
-                             clear_color.z * 255.0f);
-        s.newCamera(
-            PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
+        // s.background = Point(clear_color.x * 255.0f, clear_color.y * 255.0f,
+                             // clear_color.z * 255.0f);
+        // s.newCamera(
+            // PinholeCamera(screenWidth, screenHeight, fov, location, lookingAt));
         // pixels = s.render();
         surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,
                                            screenHeight, 3 * 8, screenWidth * 3,
@@ -451,10 +437,10 @@ int main(int argc, char **argv) {
           const float CAM_MAX = 1000.0f;
           const float FOV_MIN = 0.0f;
           const float FOV_MAX = 180.0f;
-          ImGui::DragScalarN("Location", ImGuiDataType_Float, &location, 3,
-                             0.05f, &CAM_MIN, &CAM_MAX, "%f");
-          ImGui::DragScalarN("Looking at", ImGuiDataType_Float, &lookingAt, 3,
-                             0.05f, &CAM_MIN, &CAM_MAX, "%f");
+          // ImGui::DragScalarN("Location", ImGuiDataType_Float, &location, 3,
+                             // 0.05f, &CAM_MIN, &CAM_MAX, "%f");
+          // ImGui::DragScalarN("Looking at", ImGuiDataType_Float, &lookingAt, 3,
+                             // 0.05f, &CAM_MIN, &CAM_MAX, "%f");
           ImGui::DragScalar("FOV", ImGuiDataType_Float, &fov, 0.005f, &FOV_MIN,
                             &FOV_MAX, "%f");
           ImGui::EndTabItem();
