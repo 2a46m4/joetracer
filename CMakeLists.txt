@@ -11,21 +11,7 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(include)
 
 set(IMGUI
-    include/imgui/imconfig.h
-    include/imgui/imgui.cpp
     include/imgui/imgui.h
-    include/imgui/imgui_demo.cpp
-    include/imgui/imgui_draw.cpp
-    include/imgui/imgui_internal.h
-    include/imgui/imgui_widgets.cpp
-    include/imgui/imgui_tables.cpp
-    include/imgui/imstb_rectpack.h
-    include/imgui/imstb_textedit.h
-    include/imgui/imstb_truetype.h
-    include/imgui/backends/imgui_impl_sdl.cpp
-    include/imgui/backends/imgui_impl_sdl.h
-    include/imgui/backends/imgui_impl_sdlrenderer.cpp
-    include/imgui/backends/imgui_impl_sdlrenderer.h
 )
 
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
