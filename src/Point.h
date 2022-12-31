@@ -2,7 +2,12 @@
 #define _POINT_H
 
 #include "Vec3.h"
+#include <eigen3/Eigen/Dense>
+#include <eigen3/Eigen/src/Core/Matrix.h>
 #include <iostream>
+
+typedef Eigen::Vector3f Point3;
+typedef Eigen::Vector4f Point4;
 
 class Point {
 public:
