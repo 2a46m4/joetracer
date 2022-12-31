@@ -12,6 +12,8 @@ public:
 
   Point(float x, float y, float z);
 
+  Point(Point3 p);
+
   // Returns distance between two points
   double dist(Point p);
 
@@ -41,5 +43,9 @@ public:
 
   friend std::ostream &operator<<(std::ostream &out, const Point &point);
 };
+
+
+Point Point3ToPoint(Point3 p);
+Point3 PointToPoint3(Point p);
 
 #endif

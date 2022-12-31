@@ -14,6 +14,12 @@ Point::Point(float x, float y, float z) {
   this->z = z;
 }
 
+Point::Point(Point3 p) {
+  this->x = p(0);
+  this->y = p(1);
+  this->z = p(2);
+}
+
 // Uses sqrt distance
 double Point::dist(Point p) {
   double a = (x - p.x) * (x - p.x);
@@ -64,4 +70,11 @@ std::ostream &operator<<(std::ostream &out, const Point &point) {
       << ')'; // actual output done here
 
   return out;
+}
+
+Point Point3ToPoint(Point3 p) {
+  return Point(p(0), p(1), p(2));
+}
+Point3 PointToPoint3(Point p) {
+  return Point3(p.x, p.y, p.z);
 }

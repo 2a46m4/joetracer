@@ -2,6 +2,7 @@
 #include "Functions.h"
 #include "Point.h"
 #include "Vec3.h"
+#include "Vector.h"
 #include <cmath>
 #include <iostream>
 
@@ -24,12 +25,10 @@ Point Ray::pointAtTime(float t) const {
   return add(point(scale(t, direction)), origin);
 }
 
-std::ostream &operator<<(std::ostream &out, const Ray &point) {
-  std::cout << "Ray("
-            << "Point(" << point.origin.x << ", " << point.origin.y << ", "
-            << point.origin.z << "), Vec3(" << point.direction.x << ", "
-            << point.direction.y << ", " << point.direction.z
-            << ")"; // actual output done here
+Ray3 Ray::toRay3() {
+  return Ray3(PointToPoint3(this->origin), Vec3ToVector3(this->direction));
+}
 
-  return out;
+Ray Ray::getRay(Ray3 r) {
+  return Ray(Point3ToPoint(r.origin), Vector3ToVec3(r.direction));
 }

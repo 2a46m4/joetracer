@@ -19,7 +19,15 @@ public:
 
   Point pointAtTime(float t) const;
 
-  friend std::ostream &operator<<(std::ostream &out, const Vec3 &point);
+  friend std::ostream &operator<<(std::ostream &out, const Ray &point) {
+    out << "Ray Origin: " << point.origin << '\n';
+    out << "Ray Direction: " << point.direction << '\n';
+    return out;
+  }
+
+  Ray3 toRay3();
+
+  static Ray getRay(Ray3 r);
 };
 
 #endif
