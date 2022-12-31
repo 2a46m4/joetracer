@@ -3,6 +3,7 @@
 
 #include "Hittable.h"
 #include "Vec3.h"
+#include <eigen3/Eigen/Dense>
 
 // Translated instance of a hittable object.
 class Translate : public Hittable {

@@ -8,7 +8,6 @@
 #include "./Point.h"
 #include "./Ray.h"
 #include "./Sphere.h"
-#include "./Vec3.h"
 #include "PinholeCamera.h"
 
 #include <math.h>
@@ -38,17 +37,17 @@ public:
 
   int samples = 12;
   int bounces = 4;
-  Point background;
+  Point3 background;
 
   Scene();
 
-  Scene(int w, int h, PinholeCamera camera, Point background);
+  Scene(int w, int h, PinholeCamera camera, Point3 background);
 
-  Scene(int w, int h, PinholeCamera cam, Point bg, double *rawPixelPtr);
+  Scene(int w, int h, PinholeCamera cam, Point3 bg, double *rawPixelPtr);
 
   void createBVHBox();
 
-  void render();
+  void render() const;
 
   // Inserts a pointer to a hittable object into the list
   void addObject(Hittable *o);
@@ -65,7 +64,7 @@ public:
 
   // Sphere stuff
 
-  Point Colour(Ray& r, int limit) const;
+  Point3 Colour(Ray3& r, int limit) const;
 
   std::vector<Hittable *> getObjects() const;
 

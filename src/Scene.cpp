@@ -6,7 +6,6 @@
 #include "./Point.h"
 #include "./Ray.h"
 #include "./Sphere.h"
-#include "./Vec3.h"
 #include "PinholeCamera.h"
 #include "RandomGenerator.h"
 #include "pdf/HittablePDF.h"
@@ -16,6 +15,7 @@
 #include "pdf/CosinePDF.h"
 #include "pdf/MixturePDF.h"
 #include <cmath>
+#include <eigen3/Eigen/src/Core/Matrix.h>
 #include <iostream>
 #include <iterator>
 #include <random>
@@ -31,7 +31,7 @@ Scene::Scene() {
   focusableList = new HittableList();
 }
 
-Scene::Scene(int w, int h, PinholeCamera camera, Point background) {
+Scene::Scene(int w, int h, PinholeCamera camera, Point3 background) {
   width = w;
   height = h;
   this->camera = camera;
@@ -40,7 +40,7 @@ Scene::Scene(int w, int h, PinholeCamera camera, Point background) {
   focusableList = new HittableList();
 }
 
-Scene::Scene(int w, int h, PinholeCamera cam, Point bg, double *rawPixelPtr) {
+Scene::Scene(int w, int h, PinholeCamera cam, Point3 bg, double *rawPixelPtr) {
   width = w;
   height = h;
   camera = cam;
@@ -53,25 +53,30 @@ Scene::Scene(int w, int h, PinholeCamera cam, Point bg, double *rawPixelPtr) {
 void Scene::createBVHBox() { this->box = new BVHNode(hittables, 0, FLT_INF); }
 
 // main rendering loop
-void Scene::render(){
+void Scene::render() const {
 #pragma omp parallel
   {
 #pragma omp for nowait
-    
+
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width * 3; x += 3) {
         Ray r;
         Point col;
 
+        Ray3 rr = r.toRay3();
+
         for (int i = 0; i < samples; i++) {
           camera.getPrimaryRay(float(x) / 3 + randomgen::randomOne(),
-                               float(y) + randomgen::randomOne(), r);
-          col = add(col, Colour(r, bounces));
+                               float(y) + randomgen::randomOne(), rr);
+
+          col = col + Colour(rr, bounces);
         }
 
-        raw[y * (width * 3) + x] += col.x;
-        raw[y * (width * 3) + x + 1] += col.y;
-        raw[y * (width * 3) + x + 2] += col.z;
+        Point3 col3 = PointToPoint3(col);
+
+        raw[y * (width * 3) + x] += col3(0);
+        raw[y * (width * 3) + x + 1] += col3(1);
+        raw[y * (width * 3) + x + 2] += col3(2);
       }
     }
   }
@@ -88,17 +93,18 @@ void Scene::removeObject(unsigned int i) {
 
 // Given a ray and a bounce limit, returns the colour of the ray after its
 // interaction with the scene.
-Point Scene::Colour(Ray &r, int limit) const {
+Point3 Scene::Colour(Ray3 &r, int limit) const {
+  Ray rr = Ray::getRay(r);
   hitRecord rec;
 
   // Checks for intersections
-  if (limit > 0 && box->hit(r, rec, 0, DBL_INF)) {
+  if (limit > 0 && box->hit(rr, rec, 0, DBL_INF)) {
 
     // Scattered ray
     Ray scattered;
 
     // Emission
-    Point emitted = rec.matPtr->emitted(rec.u, rec.v, rec.p, rec, r);
+    Point emitted = rec.matPtr->emitted(rec.u, rec.v, rec.p, rec, rr);
 
     // PDF of the ray
     double pdfValue;
@@ -110,15 +116,20 @@ Point Scene::Colour(Ray &r, int limit) const {
     scatterRecord srec;
 
     // If it can't scatter, then it must be emission.
-    if (!rec.matPtr->scatter(r, rec, srec))
-      return emitted; // returns the emitted value if the object doesn't scatter
+    if (!rec.matPtr->scatter(rr, rec, srec))
+      return PointToPoint3(
+          emitted); // returns the emitted value if the object doesn't scatter
 
     // Specular ray. In this case, return the colour and the scattered ray,
     // since the PDF is infinite in the direction of the specular ray, and zero
     // everywhere else.
     if (srec.isSpecular) {
       delete srec.pdfptr;
-      return srec.attenuation * Colour(srec.specularRay, limit - 1);
+      Ray3 specray3 = srec.specularRay.toRay3();
+      Point3 attentuation3 = PointToPoint3(srec.attenuation);
+      Point3 col = Colour(specray3, limit - 1);
+
+      return col.cwiseProduct(attentuation3);
     }
 
     // Generates a PDF that is 50/50 of the focusable list and the object being
@@ -133,14 +144,16 @@ Point Scene::Colour(Ray &r, int limit) const {
 
     // emission + albedo * scattering PDF * colour of next
     // rays / sampling pdf
+
+    Ray3 scattered3 = scattered.toRay3();
     Point colour =
         emitted +
         scale(1 / pdfValue, // sampling PDF
               scale(rec.matPtr->scatteringPDF(
-                        r, rec,
+                        rr, rec,
                         scattered), // PDF of the scattered ray on the material
-                    srec.attenuation) *          // the colour, basically
-                  Colour(scattered, limit - 1)); // future rays
+                    srec.attenuation) *           // the colour, basically
+                  Colour(scattered3, limit - 1)); // future rays
 
     // Checks for INF/NAN values, discards them
     if (colour.x != colour.x) {
@@ -153,7 +166,7 @@ Point Scene::Colour(Ray &r, int limit) const {
       colour.z = 0;
     }
 
-    return colour;
+    return PointToPoint3(colour);
   } else // the ray hit nothing
     return background;
 }

@@ -2,7 +2,6 @@
 #include "Functions.h"
 #include "Point.h"
 #include "Vec3.h"
-#include "Vector.h"
 #include <cmath>
 #include <iostream>
 
