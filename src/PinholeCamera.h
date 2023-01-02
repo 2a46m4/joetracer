@@ -15,16 +15,16 @@ protected:
 
   float verticalFOV;
 
-  Point location;
+  // Point location;
 
   // the out axis
-  Point view;
+  // Point view;
 
-  Vec3 vUp, u, v, w;
+  // Vec3 vUp, u, v, w;
 
   float theta, h;
 
-  Vec3 horizontal, vertical, lowerLeftCorner;
+  // Vec3 horizontal, vertical, lowerLeftCorner;
 
   float viewportHeight, viewportWidth;
   
@@ -35,8 +35,8 @@ public:
 
   PinholeCamera(int width, int height, Point3 location, Vector3 rotation, float verticalFOV);
   
-  PinholeCamera(int width, int height, float verticalFOV, Point location,
-                Point view);
+  // PinholeCamera(int width, int height, float verticalFOV, Point location,
+                // Point view);
 
   /*
   x, y are the virtual coordinates on the virtual plane camera (our "sensor")

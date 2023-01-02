@@ -75,7 +75,8 @@ bool XZRectangle::hit(const Ray3 &r, hitRecord &rec, double tMin,
 
 bool XZRectangle::boundingBox(double t0, double t1, aabb &outputBox) const {
   // So that the z is not infinitely thin
-  outputBox = aabb(Point(x0, k - 0.0001, z0), Point(x1, k + 0.0001, z1));
+  outputBox = aabb(Point3(x0, k - 0.0001, z0),
+		   Point3(x1, k + 0.0001, z1));
   return true;
 }
 

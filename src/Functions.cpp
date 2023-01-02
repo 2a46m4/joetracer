@@ -29,7 +29,7 @@ float schlick(const float cosine, const float refractIdx) {
 }
 
 // Returns a randomly generated ray that has a PDF of Cos(x).
-Vec3 randomCosinePDFRay() {
+Vector3 randomCosinePDFRay() {
   double r1 = randomgen::randomOne();
   double r2 = randomgen::randomOne();
   double z = sqrt(1 - r2);
@@ -38,7 +38,7 @@ Vec3 randomCosinePDFRay() {
   double x = cos(phi) * sqrt(r2);
   double y = sin(phi) * sqrt(r2);
   // Range: -1 < x, y, z < 1
-  return Vec3(x, y, z);
+  return Vector3(x, y, z);
 }
 
 Vec3 randomSphereRay(float radius, float distanceSquared) {
@@ -54,22 +54,29 @@ Vec3 randomSphereRay(float radius, float distanceSquared) {
 }
 
 // Returns a random ray in the upper hemisphere
-Vec3 randomRayInSphere(const Vec3 &n) {
-  Vec3 w;
+Vector3 randomRayInSphere(const Vector3 &n) {
+  Vector3 w;
   do {
-    w = Vec3(randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1),
+    w = Vector3(randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1),
              randomgen::randomNum(-1, 1));
-  } while (length(w) >= 1.0);
-  if (dotProduct(w, n) > 0.0) // in the same hemisphere as the normal
+  } while (w.norm() >= 1.0);
+  if (w.dot(n) > 0.0) // in the same hemisphere as the normal
     return w;
   else
     return -w;
 }
 
+bool isDegenerate(Vector3 v) {
+  const double nearZero = 0.00000001;
+  return (std::fabs(v.x()) <= nearZero && std::fabs(v.y()) <= nearZero &&
+          std::fabs(v.z()) <= nearZero);
+}
+
+
 // Returns a random ray in the unit sphere
-Vec3 randomRayInUnitVector() {
-  return unitVec(Vec3(randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1),
-                      randomgen::randomNum(-1, 1)));
+Vector3 randomRayInUnitVector() {
+  return Vector3(randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1),
+                      randomgen::randomNum(-1, 1)).normalized();
 }
 
 Vector3 reflection(const Vector3& normal, const Vector3& incomingVector) {

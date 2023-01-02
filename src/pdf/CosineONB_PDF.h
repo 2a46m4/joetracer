@@ -17,7 +17,7 @@ public:
 
   // Returns a ray generated from a cosine PDF using the ONB coordinates.
   virtual Vector3 generate() const override {
-    return uvw.local(Vec3ToVector3(randomCosinePDFRay()));
+    return uvw.local(randomCosinePDFRay());
   }
 
   onb uvw;

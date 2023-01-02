@@ -23,8 +23,8 @@ Sphere::Sphere(float rad, Point3 loc, Materials *material) {
 }
 
 bool Sphere::boundingBox(double t0, double t1, aabb &outputBox) const {
-  outputBox = aabb(sub(Point3ToPoint(location), Point(rad, rad, rad)),
-                   add(Point3ToPoint(location), Point(rad, rad, rad)));
+  outputBox = aabb(location - Point3(rad, rad, rad),
+                   location + Point3(rad, rad, rad));
   return true;
 }
 

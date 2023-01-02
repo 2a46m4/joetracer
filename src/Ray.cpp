@@ -24,10 +24,6 @@ Ray::Ray(const Point &origin, const Vec3 &direction) {
   this->direction = direction;
 }
 
-Point Ray::pointAtTime(float t) const {
-  return add(point(scale(t, direction)), origin);
-}
-
 Ray3 Ray::toRay3() {
   return Ray3(PointToPoint3(this->origin), Vec3ToVector3(this->direction));
 }

@@ -19,11 +19,10 @@ class CosinePDF : public pdf {
 
   // Generates a random cosine ray based on the normal angle.
   virtual Vector3 generate() const override {
-    Vec3 vNormal = Vector3ToVec3(normal);
-    Vec3 scatterDirection = add(vNormal, randomRayInSphere(vNormal));
+    Vector3 scatterDirection = normal + randomRayInSphere(normal);
     if (isDegenerate(scatterDirection))
-      scatterDirection = vNormal;
-    return Vec3ToVector3(unitVec(scatterDirection));
+      scatterDirection = normal;
+    return scatterDirection.normalized();
     }
   
   Vector3 normal;

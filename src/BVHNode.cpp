@@ -29,13 +29,13 @@ BVHNode::BVHNode(const std::vector<Hittable *> &objects, size_t start,
       printf("Bounding box not possible for an object\n");
     if (axis == 0) // X
     {
-      return boxA.min.x < boxB.min.x;
+      return boxA.min.x() < boxB.min.x();
     } else if (axis == 1) // Y
     {
-      return boxA.min.y < boxB.min.y;
+      return boxA.min.y() < boxB.min.y();
     } else // Z
     {
-      return boxA.min.z < boxB.min.z;
+      return boxA.min.z() < boxB.min.z();
     }
   };
 
@@ -76,7 +76,7 @@ bool BVHNode::boundingBox(double t0, double t1, aabb &outputBox) const {
 
 bool BVHNode::hit(const Ray3 &r, hitRecord &rec, double tMin,
                   double tMax) const {
-  if (!box.hit(Ray::getRay(r), tMin, tMax))
+  if (!box.hit(r, tMin, tMax))
     return false;
 
   bool hitLeft = left->hit(r, rec, tMin, tMax);
