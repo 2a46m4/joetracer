@@ -11,7 +11,7 @@ class ConstantMedium : public Hittable {
 public:
   ConstantMedium(Hittable *hittablePtr, double d, Texture *texturePtr);
 
-  ConstantMedium(Hittable *hittablePtr, double d, Point &col);
+  ConstantMedium(Hittable *hittablePtr, double d, Point3 &col);
 
   bool hit(const Ray &r, hitRecord &rec, double tMin,
            double tMax) const override;

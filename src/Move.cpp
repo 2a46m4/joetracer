@@ -8,13 +8,8 @@ Move::Move(Hittable *hittablePtr, const Point &move) {
   this->hittablePtr = hittablePtr;
   aabb box;
   hittablePtr->boundingBox(0, 1, box);
-  // std::cout << move << std::endl;
-  // std::cout << box.min << std::endl;
-  // std::cout << box.max << std::endl;
-  const Point com = findCentre(box.min, box.max);
-  // std::cout << com << std::endl;
+  const Point3 com = findCentre(box.min, box.max);
   offset = sub(move, com);
-  // std::cout << offset << std::endl;
 }
 
 bool Move::hit(const Ray &r, hitRecord &rec, double tMin, double tMax) const {

@@ -10,25 +10,27 @@
 
 class Materials;
 
-// Stores time, the point, the normal, material of the object that was hit.
-// Normal is always outside, so a dot product needs to be taken to ensure
-// correct orientation.
+// Stores information about the location where the ray hit an object.
 struct hitRecord {
-  Materials *matPtr;
-  float u;
-  float v;
-  Point3 p;
-  Vector3 normal;
-  float t;
-  bool frontFacing;
+  Materials *matPtr; // The material of the hit surface.
+  float u;  // The u coordinate of the location with respect to the object.
+  float v;  // The v coordinate of the location with respect to the object.
+  Point3 p; // The location of the hit in 3D space.
+  Vector3 normal; // The normal vector of the hit location. Note that this
+                  // normal is always "opposite" to the vector; that is, the dot
+                  // product with the normal always genereates a negative value.
+  float t; // The time for the ray to travel from the origin to the location.
+  bool frontFacing; // If the ray hit the front face of the object. Since the stored normal is always "opposite" to the vector, this flag shows whether the vector hit the front face of the object or the back face.
 
+  // Takes a ray and the outward normal and stores the normal and whether if it is front facing.
   inline void setFaceNormal(const Ray3 &r, const Vector3 &outwardNormal) {
     frontFacing = r.direction.dot(outwardNormal) < 0;
     normal = frontFacing ? outwardNormal : -outwardNormal;
   }
 };
 
-// Stores the PDF of the ray, the attenuation, the specular ray, and if the ray is specular
+// Stores the PDF of the ray, the attenuation, the specular ray, and if the ray
+// is specular
 struct scatterRecord {
   pdf *pdfptr;
   Point3 attenuation;
@@ -54,7 +56,9 @@ public:
   }
 
   // random
-  virtual Vector3 random(const Point3 &origin) const { return Vector3(1, 0, 0); }
+  virtual Vector3 random(const Point3 &origin) const {
+    return Vector3(1, 0, 0);
+  }
 };
 
 #endif // _HITTABLE_H
@@ -68,7 +72,7 @@ public:
                        scatterRecord &) const = 0;
 
   virtual Point3 emitted(double u, double v, const Point3 &p, const hitRecord,
-                        const Ray3) const {
+                         const Ray3) const {
     return Point3(0, 0, 0);
   };
 

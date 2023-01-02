@@ -6,22 +6,22 @@
     class Light
     {
     public:
-        Light(Point loc, float pow, Point col);
+        Light(Point3 loc, float pow, Point3 col);
 
-        Point biradiance(Point X);
+        Point3 biradiance(Point3 X);
 
-        const Point biradiance(const Point X) const;
+        const Point3 biradiance(const Point3 X) const;
 
-        Point &getPosition();
+        Point3 &getPosition();
         
-        const Point &getPosition() const;
+        const Point3 &getPosition() const;
 
     private:
-        Point position;
+        Point3 position;
 
         float power;
 
-        Point colour;
+        Point3 colour;
     };
 
 

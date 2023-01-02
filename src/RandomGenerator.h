@@ -6,6 +6,6 @@ namespace randomgen {
 float randomOne();
 float randomNum(float min, float max);
 int randomInt(int min, int max);
-} // namespace joetracer
+} // namespace randomgen
 
 #endif

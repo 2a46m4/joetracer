@@ -13,7 +13,7 @@ ConstantMedium::ConstantMedium(Hittable *hittablePtr, double d,
   phaseFunction = new Isotropic(texturePtr);
 }
 
-ConstantMedium::ConstantMedium(Hittable *hittablePtr, double d, Point &col) {
+ConstantMedium::ConstantMedium(Hittable *hittablePtr, double d, Point3 &col) {
   boundary = hittablePtr;
   negativeInvertedDensity = -1 / d;
   phaseFunction = new Isotropic(col);

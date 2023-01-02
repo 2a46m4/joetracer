@@ -8,6 +8,7 @@
 #include "./Point.h"
 #include "./Ray.h"
 #include "./Sphere.h"
+#include "Colour.h"
 #include "PinholeCamera.h"
 
 #include <math.h>

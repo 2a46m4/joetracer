@@ -11,6 +11,7 @@
 #include "Vec3.h"
 #include "pdf/HittablePDF.h"
 
+#include "Colour.h"
 #include "Compute.h"
 #include "pdf/CosineONB_PDF.h"
 #include "pdf/CosinePDF.h"
@@ -62,18 +63,22 @@ void Scene::render() const {
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width * 3; x += 3) {
         Ray3 r;
-        Point col;
+        ColourRGB col;
 
         for (int i = 0; i < samples; i++) {
           camera.getPrimaryRay(float(x) / 3 + randomgen::randomOne(),
                                float(y) + randomgen::randomOne(), r);
 
-          col = col + Point3ToPoint(Colour(r, bounces));
+	  Point3 generatedColour = Colour(r, bounces);
+	  
+          col.red += generatedColour(0);
+	  col.green += generatedColour(1);
+	  col.blue += generatedColour(2);
         }
 
-        raw[y * (width * 3) + x] += col.x;
-        raw[y * (width * 3) + x + 1] += col.y;
-        raw[y * (width * 3) + x + 2] += col.z;
+        raw[y * (width * 3) + x] += col.red;
+        raw[y * (width * 3) + x + 1] += col.green;
+        raw[y * (width * 3) + x + 2] += col.blue;
       }
     }
   }
@@ -120,15 +125,14 @@ Point3 Scene::Colour(Ray3 &r, int limit) const {
     // everywhere else.
     if (srec.isSpecular) {
       delete srec.pdfptr;
-      Point3 attentuation3 = PointToPoint3(srec.attenuation);
       Point3 col = Colour(srec.specularRay, limit - 1);
 
-      return col.cwiseProduct(attentuation3);
+      return col.cwiseProduct(srec.attenuation);
     }
 
     // Generates a PDF that is 50/50 of the focusable list and the object being
     // hit
-    HittablePDF focusablePDF(focusableList, PointToPoint3(rec.p));
+    HittablePDF focusablePDF(focusableList, rec.p);
     MixturePDF mixPDF(&focusablePDF, srec.pdfptr);
     scattered = Ray3(rec.p, mixPDF.generate());
 
@@ -158,7 +162,7 @@ Point3 Scene::Colour(Ray3 &r, int limit) const {
       colour.z() = 0;
     }
 
-    return PointToPoint3(colour);
+    return colour;
   } else // the ray hit nothing
     return background;
 }

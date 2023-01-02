@@ -3,24 +3,6 @@
 #include <cmath>
 #include <random>
 
-const double sqrlen(const Vec3 &a) { return a.x * a.x + a.y * a.y + a.z * a.z; }
-
-double dotProduct(const Vec3 &a, const Vec3 &b) {
-  return (a.x * b.x) + (a.y * b.y) + (a.z * b.z);
-}
-
-Point vecToPoint(Vec3 &a) { return Point(a.x, a.y, a.z); }
-
-Vec3 power(const Vec3 &a, int power) {
-  Vec3 b;
-  b.x = powf(a.x, power);
-  b.y = powf(a.y, power);
-  b.z = powf(a.z, power);
-  return b;
-}
-
-Point point(const Vec3 &a) { return Point(a.x, a.y, a.z); }
-
 // Schlick's approximation for the Fresnel factor between two media
 float schlick(const float cosine, const float refractIdx) {
   float r0 = (1 - refractIdx) / (1 + refractIdx);

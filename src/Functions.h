@@ -10,7 +10,6 @@
 #include <sys/types.h>
 #include "RandomGenerator.h"
 
-
 Vector3 reflection(const Vector3& normal, const Vector3& incomingVector);
 
 float schlick(const float cosine, const float refractIdx);

@@ -23,9 +23,9 @@ add_executable(joetracer
 	       src/aaRect.cpp
 	       src/BVHNode.cpp
 	       src/Functions.cpp
+	       src/Colour.h
 	       src/onb.cpp
 	       src/PinholeCamera.cpp
-	       src/Point.cpp
 	       src/RandomGenerator.cpp
 	       src/Ray.cpp
 	       src/Scene.cpp

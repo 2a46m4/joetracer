@@ -129,174 +129,6 @@ joetracer/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/build
 .PHONY : joetracer/fast
 
-include/imgui/backends/imgui_impl_sdl.o: include/imgui/backends/imgui_impl_sdl.cpp.o
-.PHONY : include/imgui/backends/imgui_impl_sdl.o
-
-# target to build an object file
-include/imgui/backends/imgui_impl_sdl.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/backends/imgui_impl_sdl.cpp.o
-.PHONY : include/imgui/backends/imgui_impl_sdl.cpp.o
-
-include/imgui/backends/imgui_impl_sdl.i: include/imgui/backends/imgui_impl_sdl.cpp.i
-.PHONY : include/imgui/backends/imgui_impl_sdl.i
-
-# target to preprocess a source file
-include/imgui/backends/imgui_impl_sdl.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/backends/imgui_impl_sdl.cpp.i
-.PHONY : include/imgui/backends/imgui_impl_sdl.cpp.i
-
-include/imgui/backends/imgui_impl_sdl.s: include/imgui/backends/imgui_impl_sdl.cpp.s
-.PHONY : include/imgui/backends/imgui_impl_sdl.s
-
-# target to generate assembly for a file
-include/imgui/backends/imgui_impl_sdl.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/backends/imgui_impl_sdl.cpp.s
-.PHONY : include/imgui/backends/imgui_impl_sdl.cpp.s
-
-include/imgui/backends/imgui_impl_sdlrenderer.o: include/imgui/backends/imgui_impl_sdlrenderer.cpp.o
-.PHONY : include/imgui/backends/imgui_impl_sdlrenderer.o
-
-# target to build an object file
-include/imgui/backends/imgui_impl_sdlrenderer.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/backends/imgui_impl_sdlrenderer.cpp.o
-.PHONY : include/imgui/backends/imgui_impl_sdlrenderer.cpp.o
-
-include/imgui/backends/imgui_impl_sdlrenderer.i: include/imgui/backends/imgui_impl_sdlrenderer.cpp.i
-.PHONY : include/imgui/backends/imgui_impl_sdlrenderer.i
-
-# target to preprocess a source file
-include/imgui/backends/imgui_impl_sdlrenderer.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/backends/imgui_impl_sdlrenderer.cpp.i
-.PHONY : include/imgui/backends/imgui_impl_sdlrenderer.cpp.i
-
-include/imgui/backends/imgui_impl_sdlrenderer.s: include/imgui/backends/imgui_impl_sdlrenderer.cpp.s
-.PHONY : include/imgui/backends/imgui_impl_sdlrenderer.s
-
-# target to generate assembly for a file
-include/imgui/backends/imgui_impl_sdlrenderer.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/backends/imgui_impl_sdlrenderer.cpp.s
-.PHONY : include/imgui/backends/imgui_impl_sdlrenderer.cpp.s
-
-include/imgui/imgui.o: include/imgui/imgui.cpp.o
-.PHONY : include/imgui/imgui.o
-
-# target to build an object file
-include/imgui/imgui.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui.cpp.o
-.PHONY : include/imgui/imgui.cpp.o
-
-include/imgui/imgui.i: include/imgui/imgui.cpp.i
-.PHONY : include/imgui/imgui.i
-
-# target to preprocess a source file
-include/imgui/imgui.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui.cpp.i
-.PHONY : include/imgui/imgui.cpp.i
-
-include/imgui/imgui.s: include/imgui/imgui.cpp.s
-.PHONY : include/imgui/imgui.s
-
-# target to generate assembly for a file
-include/imgui/imgui.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui.cpp.s
-.PHONY : include/imgui/imgui.cpp.s
-
-include/imgui/imgui_demo.o: include/imgui/imgui_demo.cpp.o
-.PHONY : include/imgui/imgui_demo.o
-
-# target to build an object file
-include/imgui/imgui_demo.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_demo.cpp.o
-.PHONY : include/imgui/imgui_demo.cpp.o
-
-include/imgui/imgui_demo.i: include/imgui/imgui_demo.cpp.i
-.PHONY : include/imgui/imgui_demo.i
-
-# target to preprocess a source file
-include/imgui/imgui_demo.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_demo.cpp.i
-.PHONY : include/imgui/imgui_demo.cpp.i
-
-include/imgui/imgui_demo.s: include/imgui/imgui_demo.cpp.s
-.PHONY : include/imgui/imgui_demo.s
-
-# target to generate assembly for a file
-include/imgui/imgui_demo.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_demo.cpp.s
-.PHONY : include/imgui/imgui_demo.cpp.s
-
-include/imgui/imgui_draw.o: include/imgui/imgui_draw.cpp.o
-.PHONY : include/imgui/imgui_draw.o
-
-# target to build an object file
-include/imgui/imgui_draw.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_draw.cpp.o
-.PHONY : include/imgui/imgui_draw.cpp.o
-
-include/imgui/imgui_draw.i: include/imgui/imgui_draw.cpp.i
-.PHONY : include/imgui/imgui_draw.i
-
-# target to preprocess a source file
-include/imgui/imgui_draw.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_draw.cpp.i
-.PHONY : include/imgui/imgui_draw.cpp.i
-
-include/imgui/imgui_draw.s: include/imgui/imgui_draw.cpp.s
-.PHONY : include/imgui/imgui_draw.s
-
-# target to generate assembly for a file
-include/imgui/imgui_draw.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_draw.cpp.s
-.PHONY : include/imgui/imgui_draw.cpp.s
-
-include/imgui/imgui_tables.o: include/imgui/imgui_tables.cpp.o
-.PHONY : include/imgui/imgui_tables.o
-
-# target to build an object file
-include/imgui/imgui_tables.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_tables.cpp.o
-.PHONY : include/imgui/imgui_tables.cpp.o
-
-include/imgui/imgui_tables.i: include/imgui/imgui_tables.cpp.i
-.PHONY : include/imgui/imgui_tables.i
-
-# target to preprocess a source file
-include/imgui/imgui_tables.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_tables.cpp.i
-.PHONY : include/imgui/imgui_tables.cpp.i
-
-include/imgui/imgui_tables.s: include/imgui/imgui_tables.cpp.s
-.PHONY : include/imgui/imgui_tables.s
-
-# target to generate assembly for a file
-include/imgui/imgui_tables.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_tables.cpp.s
-.PHONY : include/imgui/imgui_tables.cpp.s
-
-include/imgui/imgui_widgets.o: include/imgui/imgui_widgets.cpp.o
-.PHONY : include/imgui/imgui_widgets.o
-
-# target to build an object file
-include/imgui/imgui_widgets.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_widgets.cpp.o
-.PHONY : include/imgui/imgui_widgets.cpp.o
-
-include/imgui/imgui_widgets.i: include/imgui/imgui_widgets.cpp.i
-.PHONY : include/imgui/imgui_widgets.i
-
-# target to preprocess a source file
-include/imgui/imgui_widgets.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_widgets.cpp.i
-.PHONY : include/imgui/imgui_widgets.cpp.i
-
-include/imgui/imgui_widgets.s: include/imgui/imgui_widgets.cpp.s
-.PHONY : include/imgui/imgui_widgets.s
-
-# target to generate assembly for a file
-include/imgui/imgui_widgets.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/include/imgui/imgui_widgets.cpp.s
-.PHONY : include/imgui/imgui_widgets.cpp.s
-
 src/BVHNode.o: src/BVHNode.cpp.o
 .PHONY : src/BVHNode.o
 
@@ -320,30 +152,6 @@ src/BVHNode.s: src/BVHNode.cpp.s
 src/BVHNode.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/BVHNode.cpp.s
 .PHONY : src/BVHNode.cpp.s
-
-src/ConstantMedium.o: src/ConstantMedium.cpp.o
-.PHONY : src/ConstantMedium.o
-
-# target to build an object file
-src/ConstantMedium.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/ConstantMedium.cpp.o
-.PHONY : src/ConstantMedium.cpp.o
-
-src/ConstantMedium.i: src/ConstantMedium.cpp.i
-.PHONY : src/ConstantMedium.i
-
-# target to preprocess a source file
-src/ConstantMedium.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/ConstantMedium.cpp.i
-.PHONY : src/ConstantMedium.cpp.i
-
-src/ConstantMedium.s: src/ConstantMedium.cpp.s
-.PHONY : src/ConstantMedium.s
-
-# target to generate assembly for a file
-src/ConstantMedium.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/ConstantMedium.cpp.s
-.PHONY : src/ConstantMedium.cpp.s
 
 src/Functions.o: src/Functions.cpp.o
 .PHONY : src/Functions.o
@@ -369,78 +177,6 @@ src/Functions.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Functions.cpp.s
 .PHONY : src/Functions.cpp.s
 
-src/Light.o: src/Light.cpp.o
-.PHONY : src/Light.o
-
-# target to build an object file
-src/Light.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Light.cpp.o
-.PHONY : src/Light.cpp.o
-
-src/Light.i: src/Light.cpp.i
-.PHONY : src/Light.i
-
-# target to preprocess a source file
-src/Light.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Light.cpp.i
-.PHONY : src/Light.cpp.i
-
-src/Light.s: src/Light.cpp.s
-.PHONY : src/Light.s
-
-# target to generate assembly for a file
-src/Light.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Light.cpp.s
-.PHONY : src/Light.cpp.s
-
-src/Matrix.o: src/Matrix.cpp.o
-.PHONY : src/Matrix.o
-
-# target to build an object file
-src/Matrix.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Matrix.cpp.o
-.PHONY : src/Matrix.cpp.o
-
-src/Matrix.i: src/Matrix.cpp.i
-.PHONY : src/Matrix.i
-
-# target to preprocess a source file
-src/Matrix.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Matrix.cpp.i
-.PHONY : src/Matrix.cpp.i
-
-src/Matrix.s: src/Matrix.cpp.s
-.PHONY : src/Matrix.s
-
-# target to generate assembly for a file
-src/Matrix.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Matrix.cpp.s
-.PHONY : src/Matrix.cpp.s
-
-src/Move.o: src/Move.cpp.o
-.PHONY : src/Move.o
-
-# target to build an object file
-src/Move.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Move.cpp.o
-.PHONY : src/Move.cpp.o
-
-src/Move.i: src/Move.cpp.i
-.PHONY : src/Move.i
-
-# target to preprocess a source file
-src/Move.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Move.cpp.i
-.PHONY : src/Move.cpp.i
-
-src/Move.s: src/Move.cpp.s
-.PHONY : src/Move.s
-
-# target to generate assembly for a file
-src/Move.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Move.cpp.s
-.PHONY : src/Move.cpp.s
-
 src/PinholeCamera.o: src/PinholeCamera.cpp.o
 .PHONY : src/PinholeCamera.o
 
@@ -464,30 +200,6 @@ src/PinholeCamera.s: src/PinholeCamera.cpp.s
 src/PinholeCamera.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/PinholeCamera.cpp.s
 .PHONY : src/PinholeCamera.cpp.s
-
-src/Point.o: src/Point.cpp.o
-.PHONY : src/Point.o
-
-# target to build an object file
-src/Point.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Point.cpp.o
-.PHONY : src/Point.cpp.o
-
-src/Point.i: src/Point.cpp.i
-.PHONY : src/Point.i
-
-# target to preprocess a source file
-src/Point.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Point.cpp.i
-.PHONY : src/Point.cpp.i
-
-src/Point.s: src/Point.cpp.s
-.PHONY : src/Point.s
-
-# target to generate assembly for a file
-src/Point.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Point.cpp.s
-.PHONY : src/Point.cpp.s
 
 src/RandomGenerator.o: src/RandomGenerator.cpp.o
 .PHONY : src/RandomGenerator.o
@@ -537,30 +249,6 @@ src/Ray.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Ray.cpp.s
 .PHONY : src/Ray.cpp.s
 
-src/Rotation.o: src/Rotation.cpp.o
-.PHONY : src/Rotation.o
-
-# target to build an object file
-src/Rotation.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Rotation.cpp.o
-.PHONY : src/Rotation.cpp.o
-
-src/Rotation.i: src/Rotation.cpp.i
-.PHONY : src/Rotation.i
-
-# target to preprocess a source file
-src/Rotation.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Rotation.cpp.i
-.PHONY : src/Rotation.cpp.i
-
-src/Rotation.s: src/Rotation.cpp.s
-.PHONY : src/Rotation.s
-
-# target to generate assembly for a file
-src/Rotation.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Rotation.cpp.s
-.PHONY : src/Rotation.cpp.s
-
 src/Scene.o: src/Scene.cpp.o
 .PHONY : src/Scene.o
 
@@ -609,30 +297,6 @@ src/Sphere.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Sphere.cpp.s
 .PHONY : src/Sphere.cpp.s
 
-src/Translate.o: src/Translate.cpp.o
-.PHONY : src/Translate.o
-
-# target to build an object file
-src/Translate.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Translate.cpp.o
-.PHONY : src/Translate.cpp.o
-
-src/Translate.i: src/Translate.cpp.i
-.PHONY : src/Translate.i
-
-# target to preprocess a source file
-src/Translate.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Translate.cpp.i
-.PHONY : src/Translate.cpp.i
-
-src/Translate.s: src/Translate.cpp.s
-.PHONY : src/Translate.s
-
-# target to generate assembly for a file
-src/Translate.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Translate.cpp.s
-.PHONY : src/Translate.cpp.s
-
 src/Vec3.o: src/Vec3.cpp.o
 .PHONY : src/Vec3.o
 
@@ -656,30 +320,6 @@ src/Vec3.s: src/Vec3.cpp.s
 src/Vec3.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Vec3.cpp.s
 .PHONY : src/Vec3.cpp.s
-
-src/aaBox.o: src/aaBox.cpp.o
-.PHONY : src/aaBox.o
-
-# target to build an object file
-src/aaBox.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/aaBox.cpp.o
-.PHONY : src/aaBox.cpp.o
-
-src/aaBox.i: src/aaBox.cpp.i
-.PHONY : src/aaBox.i
-
-# target to preprocess a source file
-src/aaBox.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/aaBox.cpp.i
-.PHONY : src/aaBox.cpp.i
-
-src/aaBox.s: src/aaBox.cpp.s
-.PHONY : src/aaBox.s
-
-# target to generate assembly for a file
-src/aaBox.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/aaBox.cpp.s
-.PHONY : src/aaBox.cpp.s
 
 src/aaRect.o: src/aaRect.cpp.o
 .PHONY : src/aaRect.o
@@ -786,75 +426,30 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... joetracer"
-	@echo "... include/imgui/backends/imgui_impl_sdl.o"
-	@echo "... include/imgui/backends/imgui_impl_sdl.i"
-	@echo "... include/imgui/backends/imgui_impl_sdl.s"
-	@echo "... include/imgui/backends/imgui_impl_sdlrenderer.o"
-	@echo "... include/imgui/backends/imgui_impl_sdlrenderer.i"
-	@echo "... include/imgui/backends/imgui_impl_sdlrenderer.s"
-	@echo "... include/imgui/imgui.o"
-	@echo "... include/imgui/imgui.i"
-	@echo "... include/imgui/imgui.s"
-	@echo "... include/imgui/imgui_demo.o"
-	@echo "... include/imgui/imgui_demo.i"
-	@echo "... include/imgui/imgui_demo.s"
-	@echo "... include/imgui/imgui_draw.o"
-	@echo "... include/imgui/imgui_draw.i"
-	@echo "... include/imgui/imgui_draw.s"
-	@echo "... include/imgui/imgui_tables.o"
-	@echo "... include/imgui/imgui_tables.i"
-	@echo "... include/imgui/imgui_tables.s"
-	@echo "... include/imgui/imgui_widgets.o"
-	@echo "... include/imgui/imgui_widgets.i"
-	@echo "... include/imgui/imgui_widgets.s"
 	@echo "... src/BVHNode.o"
 	@echo "... src/BVHNode.i"
 	@echo "... src/BVHNode.s"
-	@echo "... src/ConstantMedium.o"
-	@echo "... src/ConstantMedium.i"
-	@echo "... src/ConstantMedium.s"
 	@echo "... src/Functions.o"
 	@echo "... src/Functions.i"
 	@echo "... src/Functions.s"
-	@echo "... src/Light.o"
-	@echo "... src/Light.i"
-	@echo "... src/Light.s"
-	@echo "... src/Matrix.o"
-	@echo "... src/Matrix.i"
-	@echo "... src/Matrix.s"
-	@echo "... src/Move.o"
-	@echo "... src/Move.i"
-	@echo "... src/Move.s"
 	@echo "... src/PinholeCamera.o"
 	@echo "... src/PinholeCamera.i"
 	@echo "... src/PinholeCamera.s"
-	@echo "... src/Point.o"
-	@echo "... src/Point.i"
-	@echo "... src/Point.s"
 	@echo "... src/RandomGenerator.o"
 	@echo "... src/RandomGenerator.i"
 	@echo "... src/RandomGenerator.s"
 	@echo "... src/Ray.o"
 	@echo "... src/Ray.i"
 	@echo "... src/Ray.s"
-	@echo "... src/Rotation.o"
-	@echo "... src/Rotation.i"
-	@echo "... src/Rotation.s"
 	@echo "... src/Scene.o"
 	@echo "... src/Scene.i"
 	@echo "... src/Scene.s"
 	@echo "... src/Sphere.o"
 	@echo "... src/Sphere.i"
 	@echo "... src/Sphere.s"
-	@echo "... src/Translate.o"
-	@echo "... src/Translate.i"
-	@echo "... src/Translate.s"
 	@echo "... src/Vec3.o"
 	@echo "... src/Vec3.i"
 	@echo "... src/Vec3.s"
-	@echo "... src/aaBox.o"
-	@echo "... src/aaBox.i"
-	@echo "... src/aaBox.s"
 	@echo "... src/aaRect.o"
 	@echo "... src/aaRect.i"
 	@echo "... src/aaRect.s"
