@@ -31,8 +31,8 @@ struct hitRecord {
 // Stores the PDF of the ray, the attenuation, the specular ray, and if the ray is specular
 struct scatterRecord {
   pdf *pdfptr;
-  Point attenuation;
-  Ray specularRay;
+  Point3 attenuation;
+  Ray3 specularRay;
   bool isSpecular;
 };
 
@@ -64,7 +64,7 @@ public:
 
 class Materials {
 public:
-  virtual bool scatter(const Ray &ray, const hitRecord &rec,
+  virtual bool scatter(const Ray3 &ray, const hitRecord &rec,
                        scatterRecord &) const = 0;
 
   virtual Point3 emitted(double u, double v, const Point3 &p, const hitRecord,
@@ -72,8 +72,8 @@ public:
     return Point3(0, 0, 0);
   };
 
-  virtual double scatteringPDF(const Ray &rIn, const hitRecord &rec,
-                               const Ray &rOut) const {
+  virtual double scatteringPDF(const Ray3 &rIn, const hitRecord &rec,
+                               const Ray3 &rOut) const {
     return 0;
   }
 };

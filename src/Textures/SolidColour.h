@@ -9,19 +9,19 @@
 	public:
 		SolidColour() {}
 
-		SolidColour(Point c) : Colour(c) {}
+		SolidColour(Point3 c) : Colour(c) {}
 
 		SolidColour(double r, double g, double b)
 		{
-			Colour = Point(r, g, b);
+			Colour = Point3(r, g, b);
 		}
 
-		Point value(double u, double v, const Point p) const override {
+		Point3 value(double u, double v, const Point3 p) const override {
 			return Colour;
 		}
 
 	private:
-		Point Colour;
+		Point3 Colour;
 	};
 
 #endif

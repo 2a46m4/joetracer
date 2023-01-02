@@ -10,9 +10,9 @@
 
 class Emissive : public Materials {
 public:
-  Emissive(const Point &a) : emit(new SolidColour(a)) {}
+  Emissive(const Point3 &a) : emit(new SolidColour(a)) {}
   Emissive(const Texture *a) : emit(a){};
-  bool scatter(const Ray &ray, const hitRecord &rec, scatterRecord& srec) const {
+  bool scatter(const Ray3 &ray, const hitRecord &rec, scatterRecord& srec) const {
     return false; // never scatters, duh
   }
 
@@ -20,7 +20,7 @@ public:
   Point3 emitted(double u, double v, const Point3 &p, const hitRecord rec, const Ray3 ray) const override {
     if(rec.frontFacing) return Point3(0, 0, 0);
     else
-      return PointToPoint3(emit->value(u, v, p));
+      return emit->value(u, v, p);
   }
 
   const Texture *emit;

@@ -7,6 +7,7 @@
 #include <cmath>
 #include <math.h>
 #include <random>
+#include <sys/types.h>
 #include "RandomGenerator.h"
 
 template <class T, class U> const T sub(const T &a, const U &b) {
@@ -60,10 +61,12 @@ template <class T, class U> T crossProduct(T &a, U &b) {
            (a.x * b.y) - (a.y * b.x));
 }
 
+Vector3 reflection(const Vector3& normal, const Vector3& incomingVector);
+
 // Perfect reflection
-template <class T, class U> T reflection(T &normal, U &a) {
-  return sub(a, scale(2, scale(dotProduct(a, normal), normal)));
-}
+// template <class T, class U> T reflection(T &normal, U &a) {
+  // return sub(a, scale(2, scale(dotProduct(a, normal), normal)));
+// }
 
 Point vecToPoint(Vec3 &a);
 
@@ -86,6 +89,8 @@ template <class T> bool isDegenerate(T v) {
   return (std::fabs(v.x) <= nearZero && std::fabs(v.y) <= nearZero &&
           std::fabs(v.z) <= nearZero);
 }
+
+Vector3 refract(const Vector3 &v, const Vector3 &n, float etaRatio);
 
 Vec3 refract(const Vec3 &v, const Vec3 &n, float etaRatio);
 

@@ -33,10 +33,10 @@
 /* #include <SDL2/SDL_image.h> */
 
 void addTestScene(Scene &s) {
-  Lambertian_ONB *green = new Lambertian_ONB(Point(.12, .45, .15));
-  Lambertian_ONB *white = new Lambertian_ONB(Point(.73, .73, .73));
-  Emissive *light = new Emissive(Point(12000, 12000, 12000));
-  Lambertian_ONB *red = new Lambertian_ONB(Point(.65, .05, .05));
+  Lambertian_ONB *green = new Lambertian_ONB(Point3(.12, .45, .15));
+  Lambertian_ONB *white = new Lambertian_ONB(Point3(.73, .73, .73));
+  Emissive *light = new Emissive(Point3(12000, 12000, 12000));
+  Lambertian_ONB *red = new Lambertian_ONB(Point3(.65, .05, .05));
   Dielectrics *glass = new Dielectrics(1.5);
   
   Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554.5, light, 1);

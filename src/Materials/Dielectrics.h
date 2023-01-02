@@ -10,29 +10,28 @@ class Dielectrics : public Materials {
 public:
   Dielectrics(float refractIdx) : refractIdx(refractIdx) {}
 
-  virtual bool scatter(const Ray &ray, const hitRecord &rec,
+  virtual bool scatter(const Ray3 &ray, const hitRecord &rec,
                        scatterRecord &srec) const {
     srec.isSpecular = true;   
     srec.pdfptr = nullptr;
-    srec.attenuation = Point(1.0, 1.0, 1.0);
+    srec.attenuation = Point3(1.0, 1.0, 1.0);
     float refractionRatio = rec.frontFacing ? (1.0 / refractIdx) : refractIdx;
     float cosine =
-        std::fmin(dotProduct(-unitVec(ray.direction), Vector3ToVec3(rec.normal)), 1.0);
+      std::fmin(-ray.direction.normalized().dot(rec.normal), 1.0);
     float sine = sqrt(1.0 - cosine * cosine);
 
     // If there is total internal reflection || fresnel effect on glancing
     // edges
-    Vec3 direction;
+    Vector3 direction;
     if ((refractionRatio * sine > 1.0) ||
         randomgen::randomOne() < schlick(cosine, refractionRatio)) {
-      Vec3 inDir = unitVec(ray.direction);
-      Vec3 normalV = Vector3ToVec3(rec.normal);
-      direction = reflection(normalV, inDir);
+      Vector3 inDir = ray.direction.normalized();
+      direction = reflection(rec.normal, inDir);
     }
     else
-      direction = refract(ray.direction, Vector3ToVec3(rec.normal), refractionRatio);
+      direction = refract(ray.direction, rec.normal, refractionRatio);
 
-    srec.specularRay = Ray(rec.p, direction);
+    srec.specularRay = Ray3(rec.p, direction);
     return true;
   }
   float refractIdx;

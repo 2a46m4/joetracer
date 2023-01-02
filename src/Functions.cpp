@@ -42,14 +42,14 @@ Vec3 randomCosinePDFRay() {
 }
 
 Vec3 randomSphereRay(float radius, float distanceSquared) {
-  
+
   float r1 = randomgen::randomOne();
   float r2 = randomgen::randomOne();
   float z = 1 + r2 * (sqrt(1 - radius * radius / distanceSquared) - 1);
 
-  float phi = 2*PI*r1;
-  float x = cos(phi) * sqrt(1 - z*z);
-  float y = sin(phi) * sqrt(1 - z*z);
+  float phi = 2 * PI * r1;
+  float x = cos(phi) * sqrt(1 - z * z);
+  float y = sin(phi) * sqrt(1 - z * z);
   return Vec3(x, y, z);
 }
 
@@ -57,7 +57,8 @@ Vec3 randomSphereRay(float radius, float distanceSquared) {
 Vec3 randomRayInSphere(const Vec3 &n) {
   Vec3 w;
   do {
-    w = Vec3(randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1));
+    w = Vec3(randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1),
+             randomgen::randomNum(-1, 1));
   } while (length(w) >= 1.0);
   if (dotProduct(w, n) > 0.0) // in the same hemisphere as the normal
     return w;
@@ -67,17 +68,21 @@ Vec3 randomRayInSphere(const Vec3 &n) {
 
 // Returns a random ray in the unit sphere
 Vec3 randomRayInUnitVector() {
-  return unitVec(Vec3(randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1))); 
+  return unitVec(Vec3(randomgen::randomNum(-1, 1), randomgen::randomNum(-1, 1),
+                      randomgen::randomNum(-1, 1)));
 }
 
-// Returns true if there is refraction (and not reflection), and finds the
-// direction of the ray.
-Vec3 refract(const Vec3 &v, const Vec3 &n, float etaRatio) {
-  double cosTheta = fmin(dotProduct(-v, n), 1.0);
-  Vec3 rPerpen = scale(etaRatio, (add(v, scale(cosTheta, n))));
-  Vec3 rParall =
-      -(scale(sqrt(fabs(1.0 - (length(rPerpen) * length(rPerpen)))), n));
-  return add(rParall, rPerpen);
+Vector3 reflection(const Vector3& normal, const Vector3& incomingVector) {
+  float bLength = incomingVector.dot(normal);
+  return incomingVector - 2 * bLength * normal;
+}
+
+Vector3 refract(const Vector3 &incomingVector, const Vector3 &normal,
+                float etaRatio) {
+  double cosTheta = fmin((-incomingVector).dot(normal), 1.0);
+  Vector3 rPerpen = etaRatio * (incomingVector + cosTheta * normal);
+  Vector3 rParall = -sqrt(fabs(1.0 - rPerpen.dot(rPerpen))) * normal;
+  return rParall + rPerpen;
 }
 
 double clamp(double val, double low, double high) {

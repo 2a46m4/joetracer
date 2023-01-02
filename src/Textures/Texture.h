@@ -5,7 +5,7 @@
 
 class Texture {
 public:
-  virtual Point value(double u, double v, const Point p) const = 0;
+  virtual Point3 value(double u, double v, const Point3 p) const = 0;
 };
 
 #endif

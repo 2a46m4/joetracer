@@ -15,11 +15,11 @@
 // A lambertian reflection model based on an orthonormal basis
 class Lambertian_ONB : public Materials {
 public:
-  Lambertian_ONB(const Point &a) : albedo(new SolidColour(a)) {}
+  Lambertian_ONB(const Point3 &a) : albedo(new SolidColour(a)) {}
   
   Lambertian_ONB(const Texture *a) : albedo(a){};
   
-  virtual bool scatter(const Ray &ray, const hitRecord &rec,
+  virtual bool scatter(const Ray3 &ray, const hitRecord &rec,
                        scatterRecord &srec) const override {
     // direction, follows a cosine distribution
     srec.isSpecular = false;
@@ -28,9 +28,9 @@ public:
     return true;
   }
 
-  double scatteringPDF(const Ray &rIn, const hitRecord &rec,
-                       const Ray &rOut) const override {
-    double cosine = rec.normal.dot(Vec3ToVector3(unitVec(rOut.direction)));
+  double scatteringPDF(const Ray3 &rIn, const hitRecord &rec,
+                       const Ray3 &rOut) const override {
+    double cosine = rec.normal.dot(rOut.direction.normalized());
     // absorb case where the cosine is negative
     // otherwise return scattering pdf of lambertian reflectance
     return cosine < 0 ? 0 : cosine / PI;

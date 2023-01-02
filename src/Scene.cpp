@@ -97,34 +97,31 @@ Point3 Scene::Colour(Ray3 &r, int limit) const {
   if (limit > 0 && box->hit(r, rec, 0, DBL_INF)) {
 
     // Scattered ray
-    Ray scattered;
+    Ray3 scattered;
 
     // Emission
     Point3 emitted = rec.matPtr->emitted(rec.u, rec.v, rec.p, rec, r);
 
-    Ray rr = Ray::getRay(r);
-    
     // PDF of the ray
     double pdfValue;
 
     // Fractional reflectance value
-    Point albedo;
+    Point3 albedo;
 
     // The scatter record
     scatterRecord srec;
 
     // returns the emitted value if the object doesn't scatter
-    if (!rec.matPtr->scatter(rr, rec, srec))
-      return PointToPoint3(emitted); 
+    if (!rec.matPtr->scatter(r, rec, srec))
+      return emitted;
 
     // Specular ray. In this case, return the colour and the scattered ray,
     // since the PDF is infinite in the direction of the specular ray, and zero
     // everywhere else.
     if (srec.isSpecular) {
       delete srec.pdfptr;
-      Ray3 specray3 = srec.specularRay.toRay3();
       Point3 attentuation3 = PointToPoint3(srec.attenuation);
-      Point3 col = Colour(specray3, limit - 1);
+      Point3 col = Colour(srec.specularRay, limit - 1);
 
       return col.cwiseProduct(attentuation3);
     }
@@ -133,34 +130,32 @@ Point3 Scene::Colour(Ray3 &r, int limit) const {
     // hit
     HittablePDF focusablePDF(focusableList, PointToPoint3(rec.p));
     MixturePDF mixPDF(&focusablePDF, srec.pdfptr);
-    scattered = Ray(rec.p, Vector3ToVec3(mixPDF.generate()));
+    scattered = Ray3(rec.p, mixPDF.generate());
 
-    pdfValue = mixPDF.value(Vec3ToVector3(scattered.direction));
+    pdfValue = mixPDF.value(scattered.direction);
 
     delete srec.pdfptr;
 
     // emission + albedo * scattering PDF * colour of next
     // rays / sampling pdf
 
-    Ray3 scattered3 = scattered.toRay3();
-    Point colour =
-        Point3ToPoint(emitted) +
-        scale(1 / pdfValue, // sampling PDF
-              scale(rec.matPtr->scatteringPDF(
-                        rr, rec,
-                        scattered), // PDF of the scattered ray on the material
-                    srec.attenuation) *           // the colour, basically
-                  Colour(scattered3, limit - 1)); // future rays
+    Point3 colour =
+        emitted +
+        (rec.matPtr->scatteringPDF(
+             r, rec, scattered) * // PDF of the scattered ray on the material
+         srec.attenuation.cwiseProduct(      // generated colour
+             Colour(scattered, limit - 1)) / // bounced rays
+         pdfValue);                          // sampling pdf
 
     // Checks for INF/NAN values, discards them
-    if (colour.x != colour.x) {
-      colour.x = 0;
+    if (colour.x() != colour.x()) {
+      colour.x() = 0;
     }
-    if (colour.y != colour.y) {
-      colour.y = 0;
+    if (colour.y() != colour.y()) {
+      colour.y() = 0;
     }
-    if (colour.z != colour.z) {
-      colour.z = 0;
+    if (colour.z() != colour.z()) {
+      colour.z() = 0;
     }
 
     return PointToPoint3(colour);
