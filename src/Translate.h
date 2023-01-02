@@ -10,7 +10,7 @@ class Translate : public Hittable {
 public:
   Translate(Hittable *hittablePtr, const Vec3 &offset);
 
-  virtual bool hit(const Ray &r, hitRecord &rec, double tMin,
+  virtual bool hit(const Ray3 &r, hitRecord &rec, double tMin,
                    double tMax) const override;
 
   virtual bool boundingBox(double t0, double t1,

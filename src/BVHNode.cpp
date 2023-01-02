@@ -74,9 +74,9 @@ bool BVHNode::boundingBox(double t0, double t1, aabb &outputBox) const {
   return true;
 }
 
-bool BVHNode::hit(const Ray &r, hitRecord &rec, double tMin,
+bool BVHNode::hit(const Ray3 &r, hitRecord &rec, double tMin,
                   double tMax) const {
-  if (!box.hit(r, tMin, tMax))
+  if (!box.hit(Ray::getRay(r), tMin, tMax))
     return false;
 
   bool hitLeft = left->hit(r, rec, tMin, tMax);

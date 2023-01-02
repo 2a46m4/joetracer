@@ -28,7 +28,7 @@ public:
   // Determines if a ray has hit some Hittable in the BVHNode. If it did, then
   // return true and store the information about the hit in hitRecord. Otherwise
   // return false.
-  virtual bool hit(const Ray &r, hitRecord &rec, double tMin,
+  virtual bool hit(const Ray3 &r, hitRecord &rec, double tMin,
                    double tMax) const override;
 
   // Stores the BVHNode's bounding box in outputBox.

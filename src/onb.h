@@ -9,25 +9,25 @@ class onb {
 public:
   onb() {}
 
-  inline Vec3 u() const { return axis0; }
-  inline Vec3 v() const { return axis1; }
-  inline Vec3 w() const { return axis2; }
+  inline Vector3 u() const { return axis0; }
+  inline Vector3 v() const { return axis1; }
+  inline Vector3 w() const { return axis2; }
 
   // Scaling 
-  Vec3 local(double a, double b, double c) const {
-    return add3(scale(a, u()), scale(b, v()), scale(c, w()));
+  Vector3 local(double a, double b, double c) const {
+    return a * u() + b * v() + c * w();
   }
 
   // 
-  Vec3 local(const Vec3 &a) const {
-    return add3(scale(a.x, u()), scale(a.y, v()), scale(a.z, w()));
+  Vector3 local(const Vector3 &a) const {
+    return local(a(0), a(1), a(2));
   }
 
-  void buildFromW(Vec3);
+  void buildFromW(Vector3);
   
-  Vec3 axis0;
-  Vec3 axis1;
-  Vec3 axis2;
+  Vector3 axis0;
+  Vector3 axis1;
+  Vector3 axis2;
 };
 
 #endif

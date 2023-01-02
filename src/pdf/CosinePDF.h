@@ -7,25 +7,26 @@
 // A cosine PDF. 
 class CosinePDF : public pdf {
  public:
-  CosinePDF(const Vec3& n) {
+  CosinePDF(const Vector3& n) {
     normal = n;
   }
 
-  // Returns zero if the ray is absorbed, otherwise returns the cosine scattering pdf 
-  virtual double value(const Vec3& direction) const override {
-    double cosine = dotProduct(unitVec(direction), normal);
+  // Returns zero if the ray is absorbed, otherwise returns the cosine pdf 
+  virtual double value(const Vector3& direction) const override {
+    double cosine = direction.normalized().dot(normal);
     return cosine / PI;
   }
 
   // Generates a random cosine ray based on the normal angle.
-  virtual Vec3 generate() const override {
-    Vec3 scatterDirection = add(normal, randomRayInSphere(normal));
+  virtual Vector3 generate() const override {
+    Vec3 vNormal = Vector3ToVec3(normal);
+    Vec3 scatterDirection = add(vNormal, randomRayInSphere(vNormal));
     if (isDegenerate(scatterDirection))
-      scatterDirection = normal;
-    return unitVec(scatterDirection);
+      scatterDirection = vNormal;
+    return Vec3ToVector3(unitVec(scatterDirection));
     }
   
-  Vec3 normal;
+  Vector3 normal;
 };
 
 #endif

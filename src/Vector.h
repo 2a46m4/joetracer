@@ -7,5 +7,4 @@
 typedef Eigen::Vector3f Vector3;
 typedef Eigen::Vector4f Vector4;
 
-
 #endif

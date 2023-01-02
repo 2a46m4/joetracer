@@ -30,7 +30,7 @@ public:
 
   double scatteringPDF(const Ray &rIn, const hitRecord &rec,
                        const Ray &rOut) const override {
-    double cosine = dotProduct(rec.normal, unitVec(rOut.direction));
+    double cosine = rec.normal.dot(Vec3ToVector3(unitVec(rOut.direction)));
     // absorb case where the cosine is negative
     // otherwise return scattering pdf of lambertian reflectance
     return cosine < 0 ? 0 : cosine / PI;

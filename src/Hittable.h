@@ -17,13 +17,13 @@ struct hitRecord {
   Materials *matPtr;
   float u;
   float v;
-  Point p;
-  Vec3 normal;
+  Point3 p;
+  Vector3 normal;
   float t;
   bool frontFacing;
 
-  inline void setFaceNormal(const Ray &r, const Vec3 &outwardNormal) {
-    frontFacing = dotProduct(r.direction, outwardNormal) < 0;
+  inline void setFaceNormal(const Ray3 &r, const Vector3 &outwardNormal) {
+    frontFacing = r.direction.dot(outwardNormal) < 0;
     normal = frontFacing ? outwardNormal : -outwardNormal;
   }
 };
@@ -41,20 +41,20 @@ class Hittable {
 public:
   // Returns true if the ray has hit an object within tMin and tMax, and stores
   // the information in rec.
-  virtual bool hit(const Ray &r, hitRecord &rec, double tMin,
+  virtual bool hit(const Ray3 &r, hitRecord &rec, double tMin,
                    double tMax) const = 0;
 
   // Returns true if a Hittable can be bounded by a box, and stores the
   // bounding box of the hittable object in outputBox
   virtual bool boundingBox(double t0, double t1, aabb &outputBox) const = 0;
 
-  // The PDF value of the hittable object
-  virtual double pdfValue(const Point &origin, const Vec3 &v) const {
+  // Returns the probability of a ray that starts at origin hitting this object.
+  virtual double pdfValue(const Point3 &origin, const Vector3 &v) const {
     return 0.0;
   }
 
   // random
-  virtual Vec3 random(const Point &origin) const { return Vec3(1, 0, 0); }
+  virtual Vector3 random(const Point3 &origin) const { return Vector3(1, 0, 0); }
 };
 
 #endif // _HITTABLE_H
@@ -67,9 +67,9 @@ public:
   virtual bool scatter(const Ray &ray, const hitRecord &rec,
                        scatterRecord &) const = 0;
 
-  virtual Point emitted(double u, double v, const Point &p, const hitRecord,
-                        const Ray) const {
-    return Point(0, 0, 0);
+  virtual Point3 emitted(double u, double v, const Point3 &p, const hitRecord,
+                        const Ray3) const {
+    return Point3(0, 0, 0);
   };
 
   virtual double scatteringPDF(const Ray &rIn, const hitRecord &rec,
@@ -94,7 +94,7 @@ public:
 
   // Returns true if a ray has hit a list of hittable objects, and stores the
   // hit information in rec.
-  virtual bool hit(const Ray &r, hitRecord &rec, double tMin,
+  virtual bool hit(const Ray3 &r, hitRecord &rec, double tMin,
                    double tMax) const override {
     hitRecord tempRec;
     bool objHit = false;
@@ -133,7 +133,7 @@ public:
     return true;
   }
 
-  double pdfValue(const Point &origin, const Vec3 &v) const override {
+  double pdfValue(const Point3 &origin, const Vector3 &v) const override {
     float weight = 1.0 / objects.size();
     float sum = 0.0;
     for (const auto &object : objects) {
@@ -142,7 +142,7 @@ public:
     return sum;
   }
 
-  Vec3 random(const Point &origin) const override {
+  Vector3 random(const Point3 &origin) const override {
     return objects[randomgen::randomInt(0, objects.size() - 1)]->random(origin);
   }
 

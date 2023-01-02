@@ -5,6 +5,10 @@
 #include <cmath>
 #include <iostream>
 
+Point3 Ray3::positionAtTime(float t) const {
+  return origin + (direction * t);
+}
+
 Ray::Ray() {
   origin = Point();
   direction = Vec3();

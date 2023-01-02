@@ -1,49 +1,11 @@
 // Scene Functions and Primitives
-#include "ConstantMedium.h"
-#include "Hittable.h"
-#include "Light.h"
-#include "Move.h"
-#include "PinholeCamera.h"
-#include "Point.h"
-#include "RandomGenerator.h"
-#include "Rotation.h"
 #include "Scene.h"
-#include "Sphere.h"
-#include "Translate.h"
-#include "Vec3.h"
-#include "aaBox.h"
-#include "aaRect.h"
-
-// Materials
-#include "Materials/Dielectrics.h"
-#include "Materials/Emissive.h"
-#include "Materials/Isotropic.h"
-#include "Materials/Lambertian.h"
-#include "Materials/Lambertian_ONB.h"
-#include "Materials/Metal.h"
-
-// Textures
-#include "Textures/CheckerTexture.h"
-#include "Textures/ImageTexture.h"
-#include "Textures/PerlinTexture.h"
-#include "Textures/SolidColour.h"
 
 // GUI
 #include "../include/imgui/backends/imgui_impl_sdl.h"
 #include "../include/imgui/backends/imgui_impl_sdlrenderer.h"
 #include "../include/imgui/imgui.h"
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_events.h>
-#include <SDL2/SDL_image.h>
-
-// System libraries
-#include <SDL2/SDL_render.h>
-#include <algorithm>
-#include <cmath>
-#include <eigen3/Eigen/src/Core/Matrix.h>
-#include <eigen3/Eigen/src/Core/util/Constants.h>
-#include <iostream>
-#include <limits>
 
 // Sample Scenes
 #include "SampleScenes.h"
@@ -53,8 +15,8 @@
 #endif
 
 // TODO hardcoded values, change
-static int screenWidth = 1000;
-static int screenHeight = 800;
+static int screenWidth = 500;
+static int screenHeight = 400;
 
 void updateCamera(int x, int y, int z, int i, int j, int k, int fov, Scene &s) {
   s.newCamera(PinholeCamera(screenWidth, screenHeight, Vector3(x, y, z),
@@ -62,22 +24,22 @@ void updateCamera(int x, int y, int z, int i, int j, int k, int fov, Scene &s) {
   s.resetRaw();
 }
 
-// sdl boilerplate
-int setupSDL() {
-  // Setup SDL
-  if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) !=
-      0) {
-    printf("Error: %s\n", SDL_GetError());
-    return -1;
-  }
+// // sdl boilerplate
+// int setupSDL() {
+//   // Setup SDL
+//   if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) !=
+//       0) {
+//     printf("Error: %s\n", SDL_GetError());
+//     return -1;
+//   }
 
-  // Initialize PNG loading
-  int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
-  if (!(IMG_Init(imgFlags) & imgFlags)) {
-    printf("SDL_image could not initialize! SDL_image Error: %s\n",
-           IMG_GetError());
-  }
-}
+//   // Initialize PNG loading
+//   int imgFlags = IMG_INIT_PNG | IMG_INIT_JPG;
+//   if (!(IMG_Init(imgFlags) & imgFlags)) {
+//     printf("SDL_image could not initialize! SDL_image Error: %s\n",
+//            IMG_GetError());
+//   }
+// }
 
 int main(int argc, char **argv) {
 
@@ -120,14 +82,14 @@ int main(int argc, char **argv) {
   if (debug) {
     int x = 278;
     int y = 278;
-    int z = 0;
-    float i = -50;
-    float j = 15;
+    int z = 10;
+    float i = -90;
+    float j = 20;
     float k = 0;
     static float fov = 120.0f;
 
     s = Scene(screenWidth, screenHeight,
-              PinholeCamera(screenWidth, screenHeight, Eigen::Vector3f(x, y, z),
+              PinholeCamera(screenWidth, screenHeight, Vector3(x, y, z),
                             Eigen::Vector3f(i, j, k), fov),
               Point3(clear_color.x * 255.0f, clear_color.y * 255.0f,
                      clear_color.z * 255.0f),
@@ -150,67 +112,68 @@ int main(int argc, char **argv) {
         if (event.type == SDL_QUIT)
           sampleCount = 2000;
         else if (event.type == SDL_KEYDOWN) {
-          switch (event.key.keysym.sym) {
-          case SDLK_UP:
-            i++;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_DOWN:
-            i--;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_LEFT:
-            j--;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_RIGHT:
-            j++;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_w:
-            z--;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_s:
-            z++;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_a:
-            x++;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_d:
-            x--;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_i:
-            y++;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          case SDLK_k:
-            y--;
-            updateCamera(x, y, z, i, j, k, fov, s);
-            sampleCount = 0;
-            break;
-          default:
-            break;
-          }
+	  sampleCount = 2000;
+          // switch (event.key.keysym.sym) {
+          // case SDLK_UP:
+          //   i++;
+          //   updateCamera(x, y, z, i, j, k, fov, s);
+          //   sampleCount = 0;
+          //   break;
+          // case SDLK_DOWN:
+          //   i--;
+          //   updateCamera(x, y, z, i, j, k, fov, s);
+          //   sampleCount = 0;
+          //   break;
+          // case SDLK_LEFT:
+          //   j--;
+          //   updateCamera(x, y, z, i, j, k, fov, s);
+          //   sampleCount = 0;
+          //   break;
+          // case SDLK_RIGHT:
+          //   j++;
+          //   updateCamera(x, y, z, i, j, k, fov, s);
+          //   sampleCount = 0;
+          //   break;
+          // case SDLK_w:
+          //   z--;
+          //   updateCamera(x, y, z, i, j, k, fov, s);
+          //   sampleCount = 0;
+          //   break;
+          // case SDLK_s:
+          //   z++;
+          //   updateCamera(x, y, z, i, j, k, fov, s);
+          //   sampleCount = 0;
+          //   break;
+          // case SDLK_a:
+          //   x++;
+          //   updateCamera(x, y, z, i, j, k, fov, s);
+          //   sampleCount = 0;
+          //   break;
+          // case SDLK_d:
+          //   x--;
+          //   updateCamera(x, y, z, i, j, k, fov, s);
+          //   sampleCount = 0;
+          //   break;
+          // case SDLK_i:
+          //   y++;
+          //   updateCamera(x, y, z, i, j, k, fov, s);
+          //   sampleCount = 0;
+          //   break;
+          // case SDLK_k:
+          //   y--;
+          //   updateCamera(x, y, z, i, j, k, fov, s);
+          //   sampleCount = 0;
+          //   break;
+          // default:
+          //   break;
+          // }
         }
       }
 
       for (int i = 0; i < screenHeight * screenWidth * 3; i++) {
         pixels[i] = // truncates overbright values
             (s.raw[i] / sampleCount > 255) ? 255 : (s.raw[i] / sampleCount);
-        // s.raw[i];
+	  // s.raw[i];
       }
 
       surface = SDL_CreateRGBSurfaceFrom((void *)pixels, screenWidth,

@@ -16,6 +16,8 @@ public:
   }
   
   Ray3(Point3 o, Vector3 d) : origin(o), direction(d) {};
+
+  Point3 positionAtTime(float t) const;
   
   friend std::ostream& operator<<(std::ostream& os, const Ray3& r) {
     os << "Origin: " << r.origin << '\n';

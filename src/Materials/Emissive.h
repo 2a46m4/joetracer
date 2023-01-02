@@ -17,10 +17,10 @@ public:
   }
 
   // unidirectional light 
-  Point emitted(double u, double v, const Point &p, const hitRecord rec, const Ray ray) const override {
-    if(rec.frontFacing) return Point(0, 0, 0);
+  Point3 emitted(double u, double v, const Point3 &p, const hitRecord rec, const Ray3 ray) const override {
+    if(rec.frontFacing) return Point3(0, 0, 0);
     else
-      return emit->value(u, v, p);
+      return PointToPoint3(emit->value(u, v, p));
   }
 
   const Texture *emit;

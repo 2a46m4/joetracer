@@ -17,7 +17,7 @@ public:
     srec.attenuation = Point(1.0, 1.0, 1.0);
     float refractionRatio = rec.frontFacing ? (1.0 / refractIdx) : refractIdx;
     float cosine =
-        std::fmin(dotProduct(-unitVec(ray.direction), rec.normal), 1.0);
+        std::fmin(dotProduct(-unitVec(ray.direction), Vector3ToVec3(rec.normal)), 1.0);
     float sine = sqrt(1.0 - cosine * cosine);
 
     // If there is total internal reflection || fresnel effect on glancing
@@ -26,10 +26,11 @@ public:
     if ((refractionRatio * sine > 1.0) ||
         randomgen::randomOne() < schlick(cosine, refractionRatio)) {
       Vec3 inDir = unitVec(ray.direction);
-      direction = reflection(rec.normal, inDir);
+      Vec3 normalV = Vector3ToVec3(rec.normal);
+      direction = reflection(normalV, inDir);
     }
     else
-      direction = refract(ray.direction, rec.normal, refractionRatio);
+      direction = refract(ray.direction, Vector3ToVec3(rec.normal), refractionRatio);
 
     srec.specularRay = Ray(rec.p, direction);
     return true;

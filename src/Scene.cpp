@@ -8,6 +8,7 @@
 #include "./Sphere.h"
 #include "PinholeCamera.h"
 #include "RandomGenerator.h"
+#include "Vec3.h"
 #include "pdf/HittablePDF.h"
 
 #include "Compute.h"
@@ -60,23 +61,19 @@ void Scene::render() const {
 
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width * 3; x += 3) {
-        Ray r;
+        Ray3 r;
         Point col;
-
-        Ray3 rr = r.toRay3();
 
         for (int i = 0; i < samples; i++) {
           camera.getPrimaryRay(float(x) / 3 + randomgen::randomOne(),
-                               float(y) + randomgen::randomOne(), rr);
+                               float(y) + randomgen::randomOne(), r);
 
-          col = col + Colour(rr, bounces);
+          col = col + Point3ToPoint(Colour(r, bounces));
         }
 
-        Point3 col3 = PointToPoint3(col);
-
-        raw[y * (width * 3) + x] += col3(0);
-        raw[y * (width * 3) + x + 1] += col3(1);
-        raw[y * (width * 3) + x + 2] += col3(2);
+        raw[y * (width * 3) + x] += col.x;
+        raw[y * (width * 3) + x + 1] += col.y;
+        raw[y * (width * 3) + x + 2] += col.z;
       }
     }
   }
@@ -94,18 +91,19 @@ void Scene::removeObject(unsigned int i) {
 // Given a ray and a bounce limit, returns the colour of the ray after its
 // interaction with the scene.
 Point3 Scene::Colour(Ray3 &r, int limit) const {
-  Ray rr = Ray::getRay(r);
   hitRecord rec;
 
   // Checks for intersections
-  if (limit > 0 && box->hit(rr, rec, 0, DBL_INF)) {
+  if (limit > 0 && box->hit(r, rec, 0, DBL_INF)) {
 
     // Scattered ray
     Ray scattered;
 
     // Emission
-    Point emitted = rec.matPtr->emitted(rec.u, rec.v, rec.p, rec, rr);
+    Point3 emitted = rec.matPtr->emitted(rec.u, rec.v, rec.p, rec, r);
 
+    Ray rr = Ray::getRay(r);
+    
     // PDF of the ray
     double pdfValue;
 
@@ -115,10 +113,9 @@ Point3 Scene::Colour(Ray3 &r, int limit) const {
     // The scatter record
     scatterRecord srec;
 
-    // If it can't scatter, then it must be emission.
+    // returns the emitted value if the object doesn't scatter
     if (!rec.matPtr->scatter(rr, rec, srec))
-      return PointToPoint3(
-          emitted); // returns the emitted value if the object doesn't scatter
+      return PointToPoint3(emitted); 
 
     // Specular ray. In this case, return the colour and the scattered ray,
     // since the PDF is infinite in the direction of the specular ray, and zero
@@ -134,11 +131,11 @@ Point3 Scene::Colour(Ray3 &r, int limit) const {
 
     // Generates a PDF that is 50/50 of the focusable list and the object being
     // hit
-    HittablePDF focusablePDF(focusableList, rec.p);
+    HittablePDF focusablePDF(focusableList, PointToPoint3(rec.p));
     MixturePDF mixPDF(&focusablePDF, srec.pdfptr);
-    scattered = Ray(rec.p, mixPDF.generate());
+    scattered = Ray(rec.p, Vector3ToVec3(mixPDF.generate()));
 
-    pdfValue = mixPDF.value(scattered.direction);
+    pdfValue = mixPDF.value(Vec3ToVector3(scattered.direction));
 
     delete srec.pdfptr;
 
@@ -147,7 +144,7 @@ Point3 Scene::Colour(Ray3 &r, int limit) const {
 
     Ray3 scattered3 = scattered.toRay3();
     Point colour =
-        emitted +
+        Point3ToPoint(emitted) +
         scale(1 / pdfValue, // sampling PDF
               scale(rec.matPtr->scatteringPDF(
                         rr, rec,

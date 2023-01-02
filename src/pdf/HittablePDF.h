@@ -4,17 +4,18 @@
 #include "../Hittable.h"
 #include "../pdf.h"
 
+// Generates the importance of shit
 class HittablePDF : public pdf {
 public:
-  HittablePDF(Hittable *p, const Point &origin) : ptr(p), o(origin) {}
+  HittablePDF(Hittable *p, const Point3 &origin) : ptr(p), o(origin) {}
 
-  virtual double value(const Vec3 &direction) const override {
+  virtual double value(const Vector3 &direction) const override {
     return ptr->pdfValue(o, direction);
   }
 
-  virtual Vec3 generate() const override { return ptr->random(o); }
+  virtual Vector3 generate() const override { return ptr->random(o); }
 
-  Point o;
+  Point3 o;
   Hittable *ptr;
 };
 

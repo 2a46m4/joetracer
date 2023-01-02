@@ -2,16 +2,16 @@
 #define _PDF_H
 
 #include "Vec3.h"
-// the probability density function 
+// Stores data about a probability density function.
 class pdf {
  public:
   virtual ~pdf() {}
   
   // Generates the PDF value of the vector.
-  virtual double value(const Vec3& direction) const = 0;
+  virtual double value(const Vector3& direction) const = 0;
   
   // Returns a randomly generated vector based on the PDF.
-  virtual Vec3 generate() const = 0;
+  virtual Vector3 generate() const = 0;
 };
 
 #endif

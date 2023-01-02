@@ -6,7 +6,6 @@
 #include <iostream>
 #include "Vector.h"
 
-
 class Vec3 {
 public:
   float x, y, z;
