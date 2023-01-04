@@ -153,6 +153,30 @@ src/BVHNode.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/BVHNode.cpp.s
 .PHONY : src/BVHNode.cpp.s
 
+src/ConstantMedium.o: src/ConstantMedium.cpp.o
+.PHONY : src/ConstantMedium.o
+
+# target to build an object file
+src/ConstantMedium.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/ConstantMedium.cpp.o
+.PHONY : src/ConstantMedium.cpp.o
+
+src/ConstantMedium.i: src/ConstantMedium.cpp.i
+.PHONY : src/ConstantMedium.i
+
+# target to preprocess a source file
+src/ConstantMedium.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/ConstantMedium.cpp.i
+.PHONY : src/ConstantMedium.cpp.i
+
+src/ConstantMedium.s: src/ConstantMedium.cpp.s
+.PHONY : src/ConstantMedium.s
+
+# target to generate assembly for a file
+src/ConstantMedium.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/ConstantMedium.cpp.s
+.PHONY : src/ConstantMedium.cpp.s
+
 src/Functions.o: src/Functions.cpp.o
 .PHONY : src/Functions.o
 
@@ -249,6 +273,30 @@ src/Ray.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Ray.cpp.s
 .PHONY : src/Ray.cpp.s
 
+src/Rotation.o: src/Rotation.cpp.o
+.PHONY : src/Rotation.o
+
+# target to build an object file
+src/Rotation.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Rotation.cpp.o
+.PHONY : src/Rotation.cpp.o
+
+src/Rotation.i: src/Rotation.cpp.i
+.PHONY : src/Rotation.i
+
+# target to preprocess a source file
+src/Rotation.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Rotation.cpp.i
+.PHONY : src/Rotation.cpp.i
+
+src/Rotation.s: src/Rotation.cpp.s
+.PHONY : src/Rotation.s
+
+# target to generate assembly for a file
+src/Rotation.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Rotation.cpp.s
+.PHONY : src/Rotation.cpp.s
+
 src/Scene.o: src/Scene.cpp.o
 .PHONY : src/Scene.o
 
@@ -297,29 +345,53 @@ src/Sphere.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Sphere.cpp.s
 .PHONY : src/Sphere.cpp.s
 
-src/Vec3.o: src/Vec3.cpp.o
-.PHONY : src/Vec3.o
+src/Translate.o: src/Translate.cpp.o
+.PHONY : src/Translate.o
 
 # target to build an object file
-src/Vec3.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Vec3.cpp.o
-.PHONY : src/Vec3.cpp.o
+src/Translate.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Translate.cpp.o
+.PHONY : src/Translate.cpp.o
 
-src/Vec3.i: src/Vec3.cpp.i
-.PHONY : src/Vec3.i
+src/Translate.i: src/Translate.cpp.i
+.PHONY : src/Translate.i
 
 # target to preprocess a source file
-src/Vec3.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Vec3.cpp.i
-.PHONY : src/Vec3.cpp.i
+src/Translate.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Translate.cpp.i
+.PHONY : src/Translate.cpp.i
 
-src/Vec3.s: src/Vec3.cpp.s
-.PHONY : src/Vec3.s
+src/Translate.s: src/Translate.cpp.s
+.PHONY : src/Translate.s
 
 # target to generate assembly for a file
-src/Vec3.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Vec3.cpp.s
-.PHONY : src/Vec3.cpp.s
+src/Translate.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/Translate.cpp.s
+.PHONY : src/Translate.cpp.s
+
+src/aaBox.o: src/aaBox.cpp.o
+.PHONY : src/aaBox.o
+
+# target to build an object file
+src/aaBox.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/aaBox.cpp.o
+.PHONY : src/aaBox.cpp.o
+
+src/aaBox.i: src/aaBox.cpp.i
+.PHONY : src/aaBox.i
+
+# target to preprocess a source file
+src/aaBox.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/aaBox.cpp.i
+.PHONY : src/aaBox.cpp.i
+
+src/aaBox.s: src/aaBox.cpp.s
+.PHONY : src/aaBox.s
+
+# target to generate assembly for a file
+src/aaBox.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/joetracer.dir/build.make CMakeFiles/joetracer.dir/src/aaBox.cpp.s
+.PHONY : src/aaBox.cpp.s
 
 src/aaRect.o: src/aaRect.cpp.o
 .PHONY : src/aaRect.o
@@ -429,6 +501,9 @@ help:
 	@echo "... src/BVHNode.o"
 	@echo "... src/BVHNode.i"
 	@echo "... src/BVHNode.s"
+	@echo "... src/ConstantMedium.o"
+	@echo "... src/ConstantMedium.i"
+	@echo "... src/ConstantMedium.s"
 	@echo "... src/Functions.o"
 	@echo "... src/Functions.i"
 	@echo "... src/Functions.s"
@@ -441,15 +516,21 @@ help:
 	@echo "... src/Ray.o"
 	@echo "... src/Ray.i"
 	@echo "... src/Ray.s"
+	@echo "... src/Rotation.o"
+	@echo "... src/Rotation.i"
+	@echo "... src/Rotation.s"
 	@echo "... src/Scene.o"
 	@echo "... src/Scene.i"
 	@echo "... src/Scene.s"
 	@echo "... src/Sphere.o"
 	@echo "... src/Sphere.i"
 	@echo "... src/Sphere.s"
-	@echo "... src/Vec3.o"
-	@echo "... src/Vec3.i"
-	@echo "... src/Vec3.s"
+	@echo "... src/Translate.o"
+	@echo "... src/Translate.i"
+	@echo "... src/Translate.s"
+	@echo "... src/aaBox.o"
+	@echo "... src/aaBox.i"
+	@echo "... src/aaBox.s"
 	@echo "... src/aaRect.o"
 	@echo "... src/aaRect.i"
 	@echo "... src/aaRect.s"

@@ -1,51 +1,105 @@
 // Materials
 #include "Materials/Dielectrics.h"
 #include "Materials/Emissive.h"
-/* #include "Materials/Isotropic.h" */
-/* #include "Materials/Lambertian.h" */
+#include "Materials/Isotropic.h"
+#include "Materials/Lambertian.h"
 #include "Materials/Lambertian_ONB.h"
-/* #include "Materials/Metal.h" */
+#include "Materials/Metal.h"
 
 // Textures
-/* #include "Textures/CheckerTexture.h" */
-/* #include "Textures/ImageTexture.h" */
-/* #include "Textures/PerlinTexture.h" */
-/* #include "Textures/SolidColour.h" */
+#include "Textures/CheckerTexture.h"
+#include "Textures/ImageTexture.h"
+#include "Textures/PerlinTexture.h"
+#include "Textures/SolidColour.h"
 
 // Scene Functions and Primitives
-/* #include "ConstantMedium.h" */
-/* #include "Hittable.h" */
-/* #include "Light.h" */
-/* #include "Move.h" */
-/* #include "PinholeCamera.h" */
-/* #include "Point.h" */
-/* #include "RandomGenerator.h" */
-/* #include "Rotation.h" */
+#include "ConstantMedium.h"
+#include "Hittable.h"
+#include "Light.h"
+#include "Move.h"
+#include "PinholeCamera.h"
+#include "Point.h"
+#include "RandomGenerator.h"
+#include "Rotation.h"
 #include "Scene.h"
 #include "Sphere.h"
-/* #include "Translate.h" */
-/* #include "Vec3.h" */
-/* #include "aaBox.h" */
+#include "Translate.h"
+#include "aaBox.h"
 #include "aaRect.h"
 
-/* #include <SDL2/SDL.h> */
-/* #include <SDL2/SDL_events.h> */
-/* #include <SDL2/SDL_image.h> */
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_image.h>
 
-void addTestScene(Scene &s) {
+
+void addCornellBox(Scene &s) {
   Lambertian_ONB *green = new Lambertian_ONB(Point3(.12, .45, .15));
-  Lambertian_ONB *white = new Lambertian_ONB(Point3(.73, .73, .73));
-  Emissive *light = new Emissive(Point3(12000, 12000, 12000));
   Lambertian_ONB *red = new Lambertian_ONB(Point3(.65, .05, .05));
+  Lambertian_ONB *white = new Lambertian_ONB(Point3(.73, .73, .73));
+  Emissive *light = new Emissive(Point3(10000, 10000, 10000));
+  Emissive *lightbig = new Emissive(Point3(1500, 1500, 1500));
   Dielectrics *glass = new Dielectrics(1.5);
-  
-  Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554.5, light, 1);
+  Metal *aluminum = new Metal(Point3(0.8, 0.85, 0.88), 0.0);
+  Lambertian_ONB *perlin = new Lambertian_ONB(new PerlinTexture(5));
+  Lambertian *fogMat = new Lambertian(Point3(0.73, 0.73, 0.73));
+
+  // Left wall
+  Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green, 1);
+  // Right wall
+  Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red, 0);
+  // Lights
+  /* Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554.5, light, 1); */
+  Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1);
   s.setFocusable(rect3);
-  Sphere *sphere = new Sphere(90, Point3(190, 90, -190), glass);
-  s.addObject(rect3);
-  s.addObject(sphere);
+  // s.setFocusable(rect1);
+  // Bottom wall (floor)
+  /* Emissive *lightsmall = new Emissive(Point3(15000, 15000, 15000)); */
   Hittable *rect4 = new XZRectangle(0, 555, -555, 0, 0, white, 0);
+  // Top wall
+  Hittable *rect5 = new XZRectangle(0, 555, -555, 0, 555, white, 1);
+  // Front wall
+  Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white, 0);
+
+  /* Hittable *rect7 = new XYRectangle(0, 555, 0, 555, 0, white, 0); */
+
+  Hittable *fogBoundary =
+      new Box(Point3(-1000, -1000, -1000), Point3(1000, 1000, 0), fogMat);
+  Point3 fogCol = Point3(1, 1, 1);
+  Hittable *fog = new ConstantMedium(fogBoundary, 0.001, fogCol);
+
+  Hittable *testRect = new XYRectangle(0, 165, 0, 330, 0, white, 0);
+  testRect = new Rotation(testRect, Point3(-15, 0, 0));
+  testRect = new Translate(testRect, Vector3(265, 0, -295));
+
+  /* no rotation */
+  // Hittable *box1 = new Box(Point(130, 0, -230), Point(295, 165, -65), white);
+  // Hittable *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295),
+  // white);
+  //
+
+  Box *box1 = new Box(Point3(0, 0, -165), Point3(165, 330, 0), white);
+  Rotation *rbox = new Rotation(box1, Point3(-15, 0, 0));
+  Translate *tbox = new Translate(rbox, Vector3(265, 0, -295));
+  Hittable *box2 = new Box(Point3(0, 0, -165), Point3(165, 165, 0), white);
+  box2 = new Rotation(box2, Point3(18, 0, 0));
+  box2 = new Translate(box2, Vector3(130, 0, -65));
+
+  Sphere *sphere = new Sphere(90, Point3(190, 400, -350), glass);
+  // Hittable *sphere2 = new Sphere(90, Point(190, 1000, -190), light);
+
+  s.addObject(rect1);
+  s.addObject(rect2);
+  s.addObject(rect3);
   s.addObject(rect4);
+  s.addObject(rect5);
+  s.addObject(rect6);
+  /* s.addObject(rect7); */
+  // s.addObject(testRect);
+  s.addObject(tbox);
+  /* s.addObject(box1); */
+  /* s.addObject(box2); */
+  s.addObject(sphere);
+  s.addObject(fog);
 }
 
 /* void addSampleScene(Scene &s) { */
@@ -125,74 +179,3 @@ void addTestScene(Scene &s) {
 /*   s.addObject(sphere); */
 /*   s.addObject(cube); */
 /* } */
-
-/* void addCornellBox(Scene &s) { */
-/*   Lambertian_ONB *green = new Lambertian_ONB(Point(.12, .45, .15)); */
-/*   Lambertian_ONB *red = new Lambertian_ONB(Point(.65, .05, .05)); */
-/*   Lambertian_ONB *white = new Lambertian_ONB(Point(.73, .73, .73)); */
-/*   Emissive *light = new Emissive(Point(10000, 10000, 10000)); */
-/*   Emissive *lightbig = new Emissive(Point(1500, 1500, 1500)); */
-/*   Dielectrics *glass = new Dielectrics(1.5); */
-/*   Metal *aluminum = new Metal(Point(0.8, 0.85, 0.88), 0.0); */
-/*   Lambertian_ONB *perlin = new Lambertian_ONB(new PerlinTexture(5)); */
-/*   Lambertian *fogMat = new Lambertian(Point(0.73, 0.73, 0.73)); */
-
-/*   // Left wall */
-/*   Hittable *rect1 = new YZRectangle(0, 555, -555, 0, 555, green, 1); */
-/*   // Right wall */
-/*   Hittable *rect2 = new YZRectangle(0, 555, -555, 0, 0, red, 0); */
-/*   // Lights */
-/*   Hittable *rect3 = new XZRectangle(213, 343, -332, -227, 554.5, light, 1); */
-/*   /\* Hittable *rect3 = new XZRectangle(113, 443, -432, -127, 554, lightbig, 1); *\/ */
-/*   s.setFocusable(rect3); */
-/*   // s.setFocusable(rect1); */
-/*   // Bottom wall (floor) */
-/*   Hittable *rect4 = new XZRectangle(0, 555, -555, 0, 0, white, 0); */
-/*   // Top wall */
-/*   Hittable *rect5 = new XZRectangle(0, 555, -555, 0, 555, white, 1); */
-/*   // Front wall */
-/*   Hittable *rect6 = new XYRectangle(0, 555, 0, 555, -555, white, 0); */
-
-/*   Hittable *rect7 = new XYRectangle(0, 555, 0, 555, 0, white, 0); */
-
-/*   Hittable *fogBoundary = */
-/*       new Box(Point(0, 0, -555), Point(555, 555, 0), fogMat); */
-/*   Point fogCol = Point(1, 1, 1); */
-/*   Hittable *fog = new ConstantMedium(fogBoundary, 0.001, fogCol); */
-
-/*   Hittable *testRect = new XYRectangle(0, 165, 0, 330, 0, white, 0); */
-/*   testRect = new Rotation(testRect, Point(-15, 0, 0)); */
-/*   testRect = new Translate(testRect, Vec3(265, 0, -295)); */
-
-/*   /\* no rotation *\/ */
-/*   // Hittable *box1 = new Box(Point(130, 0, -230), Point(295, 165, -65), white); */
-/*   // Hittable *box2 = new Box(Point(265, 0, -460), Point(430, 330, -295), */
-/*   // white); */
-/*   // */
-
-/*   Box *box1 = new Box(Point(0, 0, -165), Point(165, 330, 0), glass); */
-/*   Rotation *rbox = new Rotation(box1, Point(-15, 0, 0)); */
-/*   Translate *tbox = new Translate(rbox, Vec3(265, 0, -295)); */
-/*   Hittable *box2 = new Box(Point(0, 0, -165), Point(165, 165, 0), white); */
-/*   box2 = new Rotation(box2, Point(18, 0, 0)); */
-/*   box2 = new Translate(box2, Vec3(130, 0, -65)); */
-
-/*   Sphere *sphere = new Sphere(90, Point(190, 90, -190), red); */
-/*   // Hittable *sphere2 = new Sphere(90, Point(190, 1000, -190), light); */
-
-/*   s.addObject(rect1); */
-/*   s.addObject(rect2); */
-/*   s.addObject(rect3); */
-/*   s.addObject(rect4); */
-/*   s.addObject(rect5); */
-/*   s.addObject(rect6); */
-/*   s.addObject(rect7); */
-/*   // s.addObject(testRect); */
-/*   s.addObject(tbox); */
-/*   s.addObject(box1); */
-/*   s.addObject(box2); */
-/*   s.addObject(sphere); */
-/*   // s.addObject(fog); */
-/* } */
-
-

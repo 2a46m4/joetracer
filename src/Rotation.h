@@ -2,24 +2,24 @@
 #define _ROTATION_H
 
 #include "Hittable.h"
-#include "Point.h"
 #include "aabb.h"
+#include "Ray.h"
 
 class Rotation : public Hittable {
 public:
-  Rotation(Hittable *p, Point angle);
+  Rotation(Hittable *p, Point3 angle);
 
-  virtual bool hit(const Ray &r, hitRecord &rec, double tMin,
+  virtual bool hit(const Ray3 &r, hitRecord &rec, double tMin,
                    double tMax) const override;
 
   virtual bool boundingBox(double t0, double t1,
                            aabb &outputBox) const override;
 
-  virtual double pdfValue(const Point &origin, const Vec3 &vec) const override {
+  virtual double pdfValue(const Point3 &origin, const Vector3 &vec) const override {
     return obj->pdfValue(origin, vec);
   }
 
-  virtual Vec3 random(const Point &origin) const override {
+  virtual Vector3 random(const Point3 &origin) const override {
     return obj->random(origin);
   }
 

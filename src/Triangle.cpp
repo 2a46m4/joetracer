@@ -13,4 +13,4 @@ bool Triangle::hit(const Ray &r, hitRecord &rec, double tMin,
 
 double Triangle::pdfValue(const Point &o, const Vec3 &v) const override;
 
-Vec3 Triangle::random(const Point &o) const override;
+Vector3 Triangle::random(const Point &o) const override;

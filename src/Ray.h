@@ -2,7 +2,7 @@
 #define _RAY_H
 
 #include "Point.h"
-#include "Vec3.h"
+#include "Vector.h"
 #include <iostream>
 
 class Ray3 {

@@ -7,7 +7,6 @@
 #include "../Ray.h"
 #include "../Textures/SolidColour.h"
 #include "../Textures/Texture.h"
-#include "../Vec3.h"
 #include "../onb.h"
 
 #include "../pdf/CosineONB_PDF.h"

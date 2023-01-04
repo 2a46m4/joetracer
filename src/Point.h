@@ -1,7 +1,6 @@
 #ifndef _POINT_H
 #define _POINT_H
 
-#include "Vec3.h"
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/src/Core/Matrix.h>
 #include <iostream>

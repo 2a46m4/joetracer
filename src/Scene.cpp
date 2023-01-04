@@ -8,7 +8,7 @@
 #include "./Sphere.h"
 #include "PinholeCamera.h"
 #include "RandomGenerator.h"
-#include "Vec3.h"
+#include "Vector.h"
 #include "pdf/HittablePDF.h"
 
 #include "Colour.h"
@@ -20,9 +20,6 @@
 #include <eigen3/Eigen/src/Core/Matrix.h>
 #include <iostream>
 #include <iterator>
-#include <random>
-#include <thread>
-#include <vector>
 
 #include <SDL2/SDL.h>
 

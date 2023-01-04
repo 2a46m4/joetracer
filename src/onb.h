@@ -2,7 +2,7 @@
 #define _ONB_H
 
 #include "Functions.h"
-#include "Vec3.h"
+#include "Vector.h"
 
 // An orthonormal basis built from a given W. That is, U, V, and W's dot products with each other are all zero.
 class onb {

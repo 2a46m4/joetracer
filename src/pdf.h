@@ -1,7 +1,7 @@
 #ifndef _PDF_H
 #define _PDF_H
 
-#include "Vec3.h"
+#include "Vector.h"
 // Stores data about a probability density function.
 class pdf {
  public:

@@ -2,12 +2,10 @@
 #define _SCENE_H
 
 #include "./BVHNode.h"
-#include "./Functions.h"
 #include "./Hittable.h"
 #include "./Light.h"
 #include "./Point.h"
 #include "./Ray.h"
-#include "./Sphere.h"
 #include "Colour.h"
 #include "PinholeCamera.h"
 

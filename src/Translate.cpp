@@ -4,18 +4,18 @@
 #include <eigen3/Eigen/Dense>
 #include <eigen3/Eigen/src/Core/Matrix.h>
 
-Translate::Translate(Hittable *hittablePtr, const Vec3 &offset) {
+Translate::Translate(Hittable *hittablePtr, const Vector3 &offset) {
   this->hittablePtr = hittablePtr;
   this->offset = offset;
 }
 
-bool Translate::hit(const Ray &r, hitRecord &rec, double tMin,
+bool Translate::hit(const Ray3 &r, hitRecord &rec, double tMin,
                     double tMax) const {
-  Ray moved(sub(r.origin, offset), r.direction);
+  Ray3 moved(r.origin - offset, r.direction);
   if (!hittablePtr->hit(moved, rec, tMin, tMax))
     return false;
   else {
-    rec.p = add(rec.p, offset);
+    rec.p = rec.p + offset;
     rec.setFaceNormal(moved, rec.normal);
     return true;
   }
@@ -25,6 +25,6 @@ bool Translate::boundingBox(double t0, double t1, aabb &outputBox) const {
   if (!hittablePtr->boundingBox(t0, t1, outputBox))
     return false;
 
-  outputBox = aabb(add(outputBox.min, offset), add(outputBox.max, offset));
+  outputBox = aabb(outputBox.min + offset, outputBox.max + offset);
   return true;
 }

@@ -15,9 +15,9 @@ public:
   ImageTexture(unsigned char *p, int _width, int _height)
       : pixels(p), width(_width), height(_height), pitch(3 * _width) {}
 
-  Point value(double u, double v, const Point p) const override {
+  Point3 value(double u, double v, const Point3 p) const override {
     if (pixels == nullptr)
-      return Point(0, 1, 1);
+      return Point3(0, 1, 1);
     u = clamp(u, 0.0, 1.0);
     v = 1.0 - clamp(v, 0.0, 1.0);
 
@@ -30,7 +30,7 @@ public:
       j = height - 1;
 
     unsigned char *pixel = pixels + (j * pitch) + (i * 3);
-    return Point((float)pixel[0] / 255, (float)pixel[1] / 255,
+    return Point3((float)pixel[0] / 255, (float)pixel[1] / 255,
                  (float)pixel[2] / 255);
   }
 

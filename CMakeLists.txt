@@ -23,7 +23,6 @@ add_executable(joetracer
 	       src/aaRect.cpp
 	       src/BVHNode.cpp
 	       src/Functions.cpp
-	       src/Colour.h
 	       src/onb.cpp
 	       src/PinholeCamera.cpp
 	       src/RandomGenerator.cpp
@@ -31,13 +30,16 @@ add_executable(joetracer
 	       src/Scene.cpp
 	       src/sdl.cpp
 	       src/Sphere.cpp
-	       src/Vec3.cpp
+	       src/aaBox.cpp
+	       src/ConstantMedium.cpp
+	       src/Rotation.cpp
+	       src/Translate.cpp
 	       ${IMGUI})	
 
 
 target_link_libraries(joetracer Eigen3::Eigen)
 
-set(CMAKE_CXX_FLAGS "-Ofast -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
+# set(CMAKE_CXX_FLAGS "-Ofast -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
 # set(CMAKE_CXX_FLAGS "-O0 -g -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -Wformat")
-# set(CMAKE_CXX_FLAGS "-O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -D_GLIBCXX_PARALLEL")
+set(CMAKE_CXX_FLAGS "-O3 -march=native -flto -Wall -lSDL2 -lSDL2_image -fopenmp -D_GLIBCXX_PARALLEL")
 # set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DEX2" CACHE STRING "Set C++ Compiler Flags" FORCE)

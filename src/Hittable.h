@@ -13,13 +13,13 @@ class Materials;
 // Stores information about the location where the ray hit an object.
 struct hitRecord {
   Materials *matPtr; // The material of the hit surface.
-  float u;  // The u coordinate of the location with respect to the object.
-  float v;  // The v coordinate of the location with respect to the object.
   Point3 p; // The location of the hit in 3D space.
   Vector3 normal; // The normal vector of the hit location. Note that this
                   // normal is always "opposite" to the vector; that is, the dot
                   // product with the normal always genereates a negative value.
   float t; // The time for the ray to travel from the origin to the location.
+  float u;  // The u coordinate of the location with respect to the object.
+  float v;  // The v coordinate of the location with respect to the object.
   bool frontFacing; // If the ray hit the front face of the object. Since the stored normal is always "opposite" to the vector, this flag shows whether the vector hit the front face of the object or the back face.
 
   // Takes a ray and the outward normal and stores the normal and whether if it is front facing.

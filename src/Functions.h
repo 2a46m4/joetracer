@@ -3,7 +3,7 @@
 
 #include "Const.h"
 #include "Point.h"
-#include "Vec3.h"
+#include "Vector.h"
 #include <cmath>
 #include <math.h>
 #include <random>
@@ -20,7 +20,7 @@ Vector3 randomRayInUnitVector();
 
 Vector3 randomCosinePDFRay();
 
-Vec3 randomSphereRay(float radius, float distanceSquared);
+Vector3 randomSphereRay(float radius, float distanceSquared);
 
 bool isDegenerate(Vector3 v);
 

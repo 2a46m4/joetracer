@@ -2,13 +2,13 @@
 #define _TRANSLATE_H
 
 #include "Hittable.h"
-#include "Vec3.h"
+#include "Vector.h"
 #include <eigen3/Eigen/Dense>
 
 // Translated instance of a hittable object.
 class Translate : public Hittable {
 public:
-  Translate(Hittable *hittablePtr, const Vec3 &offset);
+  Translate(Hittable *hittablePtr, const Vector3 &offset);
 
   virtual bool hit(const Ray3 &r, hitRecord &rec, double tMin,
                    double tMax) const override;
@@ -25,7 +25,7 @@ public:
   // }
 
   Hittable *hittablePtr;
-  Vec3 offset;
+  Vector3 offset;
 };
 
 #endif

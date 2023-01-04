@@ -19,7 +19,7 @@ ConstantMedium::ConstantMedium(Hittable *hittablePtr, double d, Point3 &col) {
   phaseFunction = new Isotropic(col);
 }
 
-bool ConstantMedium::hit(const Ray &r, hitRecord &rec, double tMin,
+bool ConstantMedium::hit(const Ray3 &r, hitRecord &rec, double tMin,
                          double tMax) const {
 
   // The hit going in and out of the boundary
@@ -47,7 +47,7 @@ bool ConstantMedium::hit(const Ray &r, hitRecord &rec, double tMin,
     rec1.t = 0;
 
   // Length of the ray
-  const float rayLength = length(r.direction);
+  const float rayLength = r.direction.norm();
   // Distance that it travels inside the boundary
   const float distanceInsideBoundary = (rec2.t - rec1.t) * rayLength;
   // - 1/d * log(rand(0, 1))
@@ -60,9 +60,9 @@ bool ConstantMedium::hit(const Ray &r, hitRecord &rec, double tMin,
     return false;
 
   rec.t = rec1.t + hitDistance / rayLength;
-  rec.p = r.pointAtTime(rec.t);
+  rec.p = r.positionAtTime(rec.t);
 
-  rec.normal = Vec3(1, 0, 0); // arbitrary
+  rec.normal = Vector3(1, 0, 0); // arbitrary
   rec.matPtr = phaseFunction;
 
   return true;
@@ -72,10 +72,10 @@ bool ConstantMedium::boundingBox(double t0, double t1, aabb &outputBox) const {
   return boundary->boundingBox(t0, t1, outputBox);
 }
 
-double ConstantMedium::pdfValue(const Point &o, const Vec3 &v) const {
+double ConstantMedium::pdfValue(const Point3 &o, const Vector3 &v) const {
   return boundary->pdfValue(o, v);
 }
 
-Vec3 ConstantMedium::random(const Point &o) const {
+Vector3 ConstantMedium::random(const Point3 &o) const {
   return boundary->random(o);
 }

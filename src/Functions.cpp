@@ -10,7 +10,7 @@ float schlick(const float cosine, const float refractIdx) {
   return r0 + (1 - r0) * pow((1 - cosine), 5);
 }
 
-// Returns a randomly generated ray that has a PDF of Cos(x).
+// Returns a ray that has a PDF of Cos(x).
 Vector3 randomCosinePDFRay() {
   double r1 = randomgen::randomOne();
   double r2 = randomgen::randomOne();
@@ -23,7 +23,7 @@ Vector3 randomCosinePDFRay() {
   return Vector3(x, y, z);
 }
 
-Vec3 randomSphereRay(float radius, float distanceSquared) {
+Vector3 randomSphereRay(float radius, float distanceSquared) {
 
   float r1 = randomgen::randomOne();
   float r2 = randomgen::randomOne();
@@ -32,7 +32,7 @@ Vec3 randomSphereRay(float radius, float distanceSquared) {
   float phi = 2 * PI * r1;
   float x = cos(phi) * sqrt(1 - z * z);
   float y = sin(phi) * sqrt(1 - z * z);
-  return Vec3(x, y, z);
+  return Vector3(x, y, z);
 }
 
 // Returns a random ray in the upper hemisphere

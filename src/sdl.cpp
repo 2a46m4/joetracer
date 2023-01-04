@@ -15,8 +15,8 @@
 #endif
 
 // TODO hardcoded values, change
-static int screenWidth = 500;
-static int screenHeight = 400;
+static int screenWidth = 1000;
+static int screenHeight = 800;
 
 void updateCamera(int x, int y, int z, int i, int j, int k, int fov, Scene &s) {
   s.newCamera(PinholeCamera(screenWidth, screenHeight, Vector3(x, y, z),
@@ -82,11 +82,11 @@ int main(int argc, char **argv) {
   if (debug) {
     int x = 278;
     int y = 278;
-    int z = 10;
-    float i = -90;
-    float j = 20;
+    int z = 800;
+    float i = 0;
+    float j = 0;
     float k = 0;
-    static float fov = 120.0f;
+    static float fov = 90.0f;
 
     s = Scene(screenWidth, screenHeight,
               PinholeCamera(screenWidth, screenHeight, Vector3(x, y, z),
@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
                      clear_color.z * 255.0f),
               raw);
 
-    addTestScene(s);
+    addCornellBox(s);
 
     s.samples = 1;
     s.bounces = 4;

@@ -1,6 +1,5 @@
 #include "onb.h"
 #include "Functions.h"
-#include "Vec3.h"
 #include "Vector.h"
 #include <cmath>
 

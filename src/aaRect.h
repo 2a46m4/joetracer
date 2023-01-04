@@ -7,31 +7,30 @@
 #include "Hittable.h"
 #include "Point.h"
 #include "Ray.h"
-#include "Vec3.h"
 
-// // Axis aligned rectangle
-// class XYRectangle : public Hittable {
-// public:
-//   // The two corners that define the rectangle. also the z distance and the
-//   // material
-//   XYRectangle(double x0, double x1, double y0, double y1, double k,
-//               Materials *mat, int face);
+// Axis aligned rectangle, aligned in the XY plane.
+class XYRectangle : public Hittable {
+public:
+  // The two corners that define the rectangle. also the z distance and the
+  // material
+  XYRectangle(double x0, double x1, double y0, double y1, double k,
+              Materials *mat, int face);
 
-//   // Takes ray to be examined, the interval tmin and tmax and returns if the ray
-//   // has intersected the bounding box or not
-//   virtual bool hit(const Ray3 &r, hitRecord &rec, double tMin,
-//                    double tMax) const override;
+  // Takes ray to be examined, the interval tmin and tmax and returns if the ray
+  // has intersected the bounding box or not
+  virtual bool hit(const Ray3 &r, hitRecord &rec, double tMin,
+                   double tMax) const override;
 
-//   virtual bool boundingBox(double t0, double t1,
-//                            aabb &outputBox) const override;
+  virtual bool boundingBox(double t0, double t1,
+                           aabb &outputBox) const override;
 
-// private:
-//   Materials *mat;
-//   double x0, x1, y0, y1, k;
-//   int face;
-// };
+private:
+  Materials *mat;
+  double x0, x1, y0, y1, k;
+  int face;
+};
 
-// Axis aligned rectangle
+// Axis aligned rectangle, aligned in the XZ plane.
 class XZRectangle : public Hittable {
 public:
   // The two corners that define the rectangle. also the z distance and the
@@ -70,26 +69,26 @@ private:
   int face;
 };
 
-// // Axis aligned rectangle
-// class YZRectangle : public Hittable {
-// public:
-//   // The two corners that define the rectangle. also the z distance and the
-//   // material
-//   YZRectangle(double y0, double y1, double z0, double z1, double k,
-//               Materials *mat, int face);
+// Axis aligned rectangle, aligned in the YZ plane.
+class YZRectangle : public Hittable {
+public:
+  // The two corners that define the rectangle. also the z distance and the
+  // material
+  YZRectangle(double y0, double y1, double z0, double z1, double k,
+              Materials *mat, int face);
 
-//   // Takes ray to be examined, the interval tmin and tmax and returns if the ray
-//   // has intersected the bounding box or not
-//   virtual bool hit(const Ray3 &r, hitRecord &rec, double tMin,
-//                    double tMax) const override;
+  // Takes ray to be examined, the interval tmin and tmax and returns if the ray
+  // has intersected the bounding box or not
+  virtual bool hit(const Ray3 &r, hitRecord &rec, double tMin,
+                   double tMax) const override;
 
-//   virtual bool boundingBox(double t0, double t1,
-//                            aabb &outputBox) const override;
+  virtual bool boundingBox(double t0, double t1,
+                           aabb &outputBox) const override;
 
-// private:
-//   Materials *mat;
-//   double y0, y1, z0, z1, k;
-//   int face;
-// };
+private:
+  Materials *mat;
+  double y0, y1, z0, z1, k;
+  int face;
+};
 
 #endif

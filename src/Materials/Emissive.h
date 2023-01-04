@@ -6,7 +6,6 @@
 #include "../Ray.h"
 #include "../Textures/SolidColour.h"
 #include "../Textures/Texture.h"
-#include "../Vec3.h"
 
 class Emissive : public Materials {
 public:

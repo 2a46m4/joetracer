@@ -17,7 +17,7 @@ public:
 
   double pdfValue(const Point &o, const Vec3 &v) const override;
 
-  Vec3 random(const Point &o) const override;
+  Vector3 random(const Point &o) const override;
 
 private:
 	Point vertices[3];

@@ -13,15 +13,15 @@ public:
 
   ConstantMedium(Hittable *hittablePtr, double d, Point3 &col);
 
-  bool hit(const Ray &r, hitRecord &rec, double tMin,
+  bool hit(const Ray3 &r, hitRecord &rec, double tMin,
            double tMax) const override;
 
   bool boundingBox(double t0, double t1,
                            aabb &outputBox) const override;
 
-  double pdfValue(const Point& o, const Vec3 &v) const override;
+  double pdfValue(const Point3& o, const Vector3 &v) const override;
 
-  Vec3 random(const Point &o) const override;
+  Vector3 random(const Point3 &o) const override;
 
   // The fog
   Materials *phaseFunction;

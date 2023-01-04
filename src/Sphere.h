@@ -8,7 +8,7 @@
 // A geometric sphere.
 class Sphere : public Hittable {
 public:
-  Point3 location;
+  Point3 sphereLocation;
   int rad;
 
   Materials *material;
